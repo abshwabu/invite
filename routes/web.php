@@ -10,6 +10,7 @@ use App\Http\Controllers\GuestController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublicInvitationController;
 use App\Http\Controllers\TemplateController;
 use App\Models\Category;
 use App\Models\Template;
@@ -82,6 +83,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+// Public Guest Invitation & Event Pages (Rate limited: 60 requests per minute)
+Route::middleware(['throttle:60,1'])->group(function () {
+    Route::get('/i/{token}', [PublicInvitationController::class, 'show'])->name('public.invitation.show');
+    Route::post('/i/{token}/rsvp', [PublicInvitationController::class, 'rsvp'])->name('public.invitation.rsvp');
+    Route::post('/i/{token}/opt-out', [PublicInvitationController::class, 'optOut'])->name('public.invitation.opt-out');
+    Route::get('/i/{token}/calendar.ics', [PublicInvitationController::class, 'calendarIcs'])->name('public.invitation.ics');
+    Route::get('/i/{token}/qr-download', [PublicInvitationController::class, 'qrDownload'])->name('public.invitation.qr-download');
+    Route::get('/i/{token}/og-image.png', [PublicInvitationController::class, 'ogImage'])->name('public.invitation.og-image');
+    Route::get('/e/{slug}', [PublicInvitationController::class, 'eventInfo'])->name('public.event.info');
 });
 
 // Explicit 404 for standard /admin paths to keep superadmin path secret

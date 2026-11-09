@@ -7,11 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class Event extends Model
 {
     /** @use HasFactory<\Database\Factories\EventFactory> */
     use HasFactory;
+
+    protected static function booted(): void
+    {
+        static::creating(function (Event $event) {
+            if (empty($event->public_slug)) {
+                $base = Str::slug($event->title ?: 'event');
+                $event->public_slug = substr($base, 0, 40) . '-' . Str::lower(Str::random(8));
+            }
+        });
+    }
 
     protected $fillable = [
         'user_id',
@@ -33,6 +44,7 @@ class Event extends Model
         'thankyou_design_json',
         'thankyou_template_id',
         'status',
+        'public_slug',
     ];
 
     protected function casts(): array

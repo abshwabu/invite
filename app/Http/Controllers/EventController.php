@@ -223,6 +223,7 @@ class EventController extends Controller
             'status',
             'created_at',
             'updated_at',
+            'public_slug',
         ]);
 
         $cloned->title = 'Copy of ' . $event->title;
