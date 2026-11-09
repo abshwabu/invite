@@ -89,6 +89,10 @@ class SendDeliveryJob implements ShouldQueue
             $shortUrl = url('/s/' . $shortLink->code);
         } elseif ($linkMode === 'none') {
             $shortUrl = '';
+        } elseif ($linkMode === 'thank_you' || ($campaign && $campaign->type === 'thank_you')) {
+            $targetUrl = url('/t/' . $guest->token);
+            $shortLink = $shortLinkService->create($targetUrl, null, 8, $campaign->id, false);
+            $shortUrl = url('/s/' . $shortLink->code);
         } else {
             // default: guest_invitation
             $targetUrl = route('public.invitation.show', ['token' => $guest->token]);

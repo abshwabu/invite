@@ -272,7 +272,17 @@ class CampaignController extends Controller
         $this->authorizeEvent($request, $event);
 
         $user = $request->user();
-        $isCustom = $request->input('type') === 'custom';
+
+        // 0. Safeguard: suspended event or user cannot send campaigns
+        if ($event->status === 'suspended' || $user->is_suspended) {
+            return back()->withErrors([
+                'event' => 'Cannot create or dispatch messages for suspended events or accounts.',
+            ]);
+        }
+
+        $type = $request->input('type', 'invitation');
+        $isCustom = $type === 'custom';
+        $isThankYou = $type === 'thank_you';
 
         // 1. Feature gating
         if ($isCustom && ! $this->entitlementService->can($user, 'custom_messages')) {
@@ -281,7 +291,13 @@ class CampaignController extends Controller
             ]);
         }
 
-        $linkMode = $request->input('link_mode', 'guest_invitation');
+        if ($isThankYou && ! $this->entitlementService->can($user, 'thank_you')) {
+            return back()->withErrors([
+                'thank_you' => 'Your subscription tier does not allow sending thank-you cards. Please upgrade your plan.',
+            ]);
+        }
+
+        $linkMode = $request->input('link_mode', $isThankYou ? 'thank_you' : 'guest_invitation');
         if ($linkMode === 'custom_url' && ! $this->entitlementService->can($user, 'custom_links')) {
             return back()->withErrors([
                 'custom_links' => 'Custom external URLs require the custom_links tier feature. Please upgrade your plan.',
@@ -290,24 +306,36 @@ class CampaignController extends Controller
 
         // 2. Validation
         $validated = $request->validate([
-            'type' => ['nullable', 'string', 'in:invitation,custom'],
+            'type' => ['nullable', 'string', 'in:invitation,custom,thank_you'],
             'channel' => ['required', 'string', 'in:sms,email,both'],
             'body' => ['required', 'string'],
             'subject' => ['nullable', 'string', 'required_if:channel,email,both'],
-            'link_mode' => ['nullable', 'string', 'in:guest_invitation,event_page,custom_url,none'],
+            'link_mode' => ['nullable', 'string', 'in:guest_invitation,event_page,custom_url,thank_you,none'],
             'custom_url' => ['nullable', 'string', 'required_if:link_mode,custom_url'],
             'audience_type' => ['nullable', 'string', 'in:all,rsvp_pending,rsvp_yes,rsvp_no,rsvp_maybe,checked_in,not_checked_in,not_viewed,failed_deliveries,manual'],
             'guest_ids' => ['nullable', 'array'],
             'guest_ids.*' => ['integer'],
             'scheduled_at' => ['nullable', 'date'],
+            'schedule_hours_after_end' => ['nullable', 'integer', 'min:1'],
+            'thankyou_note' => ['nullable', 'string', 'max:2000'],
+            'thankyou_photo_url' => ['nullable', 'string', 'max:500'],
         ]);
 
+        // Save optional thank-you note and photo link on the event
+        if ($request->has('thankyou_note') || $request->has('thankyou_photo_url')) {
+            $event->update([
+                'thankyou_note' => $request->input('thankyou_note', $event->thankyou_note),
+                'thankyou_photo_url' => $request->input('thankyou_photo_url', $event->thankyou_photo_url),
+            ]);
+        }
+
+        $type = $validated['type'] ?? 'invitation';
         $channel = $validated['channel'];
-        $audienceType = $validated['audience_type'] ?? 'all';
+        $audienceType = $validated['audience_type'] ?? ($isThankYou ? $this->audienceService->defaultThankYouAudience($event) : 'all');
         $guestIds = $validated['guest_ids'] ?? [];
         $body = $validated['body'];
         $subject = $validated['subject'] ?? null;
-        $linkMode = $validated['link_mode'] ?? 'guest_invitation';
+        $linkMode = $validated['link_mode'] ?? ($isThankYou ? 'thank_you' : 'guest_invitation');
         $customUrl = $validated['custom_url'] ?? null;
 
         // 3. Custom URL Safety check
@@ -347,8 +375,9 @@ class CampaignController extends Controller
         }
 
         $tier = $this->entitlementService->getHighestTier($user);
-        $smsWeight = $tier ? max(1, (int) $tier->sms_weight) : 1;
-        $emailWeight = $tier ? max(1, (int) $tier->email_weight) : 1;
+        $consumesQuota = ($type !== 'thank_you') || ($tier && $tier->thank_you_consumes_quota);
+        $smsWeight = ($tier && $consumesQuota) ? max(1, (int) $tier->sms_weight) : ($consumesQuota ? 1 : 0);
+        $emailWeight = ($tier && $consumesQuota) ? max(1, (int) $tier->email_weight) : ($consumesQuota ? 1 : 0);
 
         $plannedDeliveries = [];
         $totalQuotaNeeded = 0;
@@ -372,14 +401,25 @@ class CampaignController extends Controller
             }
         }
 
-        // 7. Check Daily Send Cap for new accounts
-        $capError = $this->safeguardService->checkDailySendCap($user, $totalQuotaNeeded);
-        if ($capError) {
-            return back()->withErrors(['quota' => $capError]);
+        // 7. Check Daily Send Cap for new accounts (only if consumes quota)
+        if ($totalQuotaNeeded > 0) {
+            $capError = $this->safeguardService->checkDailySendCap($user, $totalQuotaNeeded);
+            if ($capError) {
+                return back()->withErrors(['quota' => $capError]);
+            }
         }
 
         // 8. Handle Scheduling
         $scheduledAt = ! empty($validated['scheduled_at']) ? Carbon::parse($validated['scheduled_at']) : null;
+        if (! $scheduledAt && ! empty($validated['schedule_hours_after_end'])) {
+            $hours = (int) $validated['schedule_hours_after_end'];
+            $base = $event->ends_at ?: $event->starts_at->addHours(4);
+            $calculated = $base->copy()->addHours($hours);
+            if ($calculated->isFuture()) {
+                $scheduledAt = $calculated;
+            }
+        }
+
         $isScheduled = $scheduledAt && $scheduledAt->isFuture();
 
         if ($isScheduled) {

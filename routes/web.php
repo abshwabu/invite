@@ -12,10 +12,12 @@ use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicInvitationController;
+use App\Http\Controllers\PublicThankYouController;
 use App\Http\Controllers\ScanController;
 use App\Http\Controllers\ScannerController;
 use App\Http\Controllers\ShortLinkController;
 use App\Http\Controllers\TemplateController;
+use App\Http\Controllers\ThankYouController;
 use App\Models\Category;
 use App\Models\Template;
 use Illuminate\Support\Facades\Route;
@@ -105,6 +107,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/events/{event}/guests/{guest}/manual-checkin', [ScannerController::class, 'manualCheckin'])->name('events.guests.manual-checkin');
     Route::post('/events/{event}/guests/{guest}/undo-checkin', [ScannerController::class, 'undoCheckin'])->name('events.guests.undo-checkin');
 
+    // Thank-You Card Setup & Compose
+    Route::get('/events/{event}/thank-you', [ThankYouController::class, 'show'])->name('events.thank-you');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -127,6 +132,7 @@ Route::post('/api/scan/sync', [ScanController::class, 'sync'])->name('api.scan.s
 // Public Guest Invitation & Event Pages (Rate limited: 60 requests per minute)
 Route::middleware(['throttle:60,1'])->group(function () {
     Route::get('/i/{token}', [PublicInvitationController::class, 'show'])->name('public.invitation.show');
+    Route::get('/t/{token}', [PublicThankYouController::class, 'show'])->name('public.thank-you.show');
     Route::post('/i/{token}/rsvp', [PublicInvitationController::class, 'rsvp'])->name('public.invitation.rsvp');
     Route::post('/i/{token}/opt-out', [PublicInvitationController::class, 'optOut'])->name('public.invitation.opt-out');
     Route::get('/i/{token}/calendar.ics', [PublicInvitationController::class, 'calendarIcs'])->name('public.invitation.ics');

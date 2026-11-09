@@ -38,7 +38,7 @@ class DispatchScheduledCampaigns extends Command
             $event = $campaign->event;
             $user = $campaign->user;
 
-            if (! $event || ! $user) {
+            if (! $event || ! $user || $event->status === 'suspended' || $user->is_suspended) {
                 $campaign->update(['status' => 'failed']);
                 continue;
             }
@@ -57,8 +57,9 @@ class DispatchScheduledCampaigns extends Command
             }
 
             $tier = $entitlementService->getHighestTier($user);
-            $smsWeight = $tier ? max(1, (int) $tier->sms_weight) : 1;
-            $emailWeight = $tier ? max(1, (int) $tier->email_weight) : 1;
+            $consumesQuota = $campaign->type !== 'thank_you' || ($tier && $tier->thank_you_consumes_quota);
+            $smsWeight = ($tier && $consumesQuota) ? max(1, (int) $tier->sms_weight) : ($consumesQuota ? 1 : 0);
+            $emailWeight = ($tier && $consumesQuota) ? max(1, (int) $tier->email_weight) : ($consumesQuota ? 1 : 0);
 
             $plannedDeliveries = [];
             $totalQuotaNeeded = 0;

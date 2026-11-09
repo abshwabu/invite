@@ -118,4 +118,37 @@ class AudienceService
             ],
         ];
     }
+
+    /**
+     * Determine the automatic default audience for a thank-you campaign.
+     * 1. Invite-only with QR check-in => checked_in
+     * 2. Else if RSVP enabled => rsvp_yes
+     * 3. Else => all
+     */
+    public function defaultThankYouAudience(Event $event): string
+    {
+        if ($event->is_invite_only) {
+            return 'checked_in';
+        }
+
+        if ($event->rsvp_enabled) {
+            return 'rsvp_yes';
+        }
+
+        return 'all';
+    }
+
+    /**
+     * Get a human-readable explanation of why this thank-you audience was selected.
+     */
+    public function getThankYouAudienceExplanation(Event $event, string $audienceType): string
+    {
+        return match ($audienceType) {
+            'checked_in' => 'Automatically targeting guests who checked in at the door.',
+            'rsvp_yes' => 'Automatically targeting guests who RSVP\'d "Yes" (attending).',
+            'all' => 'Targeting all guests on the guest list.',
+            'manual' => 'Targeting manually selected guests.',
+            default => 'Targeting selected audience.',
+        };
+    }
 }

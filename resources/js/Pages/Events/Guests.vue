@@ -243,6 +243,13 @@ const copyToken = (tok) => {
                 <!-- Right Action Buttons -->
                 <div class="flex flex-wrap items-center gap-2">
                     <Link
+                        :href="route('events.thank-you', { event: event.id })"
+                        class="px-3.5 py-1.5 rounded-xl bg-pink-600 hover:bg-pink-700 text-white text-xs font-semibold shadow-sm transition flex items-center space-x-1"
+                    >
+                        <span>💌 Thank-You Cards</span>
+                    </Link>
+
+                    <Link
                         :href="route('events.scanners.index', { event: event.id })"
                         class="px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold shadow-sm transition flex items-center space-x-1"
                     >

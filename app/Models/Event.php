@@ -43,6 +43,8 @@ class Event extends Model
         'template_id',
         'thankyou_design_json',
         'thankyou_template_id',
+        'thankyou_note',
+        'thankyou_photo_url',
         'status',
         'public_slug',
     ];
