@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EditorController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\EventDesignController;
 use App\Http\Controllers\EventDraftController;
+use App\Http\Controllers\EventMemberController;
+use App\Http\Controllers\GuestController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProfileController;
@@ -39,6 +42,29 @@ Route::middleware('auth')->group(function () {
     // Plan & Quota management
     Route::get('/plan', [PlanController::class, 'index'])->name('plan.index');
     Route::post('/plan/upgrade-request', [PlanController::class, 'upgradeRequest'])->name('plan.upgrade-request');
+
+    // Event CRUD and Wizard
+    Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
+    Route::post('/events', [EventController::class, 'store'])->name('events.store');
+    Route::get('/events/{event}/edit', [EventController::class, 'edit'])->name('events.edit');
+    Route::patch('/events/{event}', [EventController::class, 'update'])->name('events.update');
+    Route::post('/events/{event}/duplicate', [EventController::class, 'duplicate'])->name('events.duplicate');
+    Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
+
+    // Guest Management
+    Route::get('/events/{event}/guests', [GuestController::class, 'index'])->name('events.guests.index');
+    Route::post('/events/{event}/guests', [GuestController::class, 'store'])->name('events.guests.store');
+    Route::post('/events/{event}/guests/bulk-paste', [GuestController::class, 'bulkPaste'])->name('events.guests.bulk-paste');
+    Route::post('/events/{event}/guests/import', [GuestController::class, 'import'])->name('events.guests.import');
+    Route::patch('/events/{event}/guests/{guest}', [GuestController::class, 'update'])->name('events.guests.update');
+    Route::delete('/events/{event}/guests/{guest}', [GuestController::class, 'destroy'])->name('events.guests.destroy');
+    Route::post('/events/{event}/guests/bulk-delete', [GuestController::class, 'bulkDelete'])->name('events.guests.bulk-delete');
+    Route::post('/events/{event}/guests/bulk-channel', [GuestController::class, 'bulkChannel'])->name('events.guests.bulk-channel');
+    Route::get('/events/{event}/guests/export', [GuestController::class, 'export'])->name('events.guests.export');
+
+    // Co-host members
+    Route::post('/events/{event}/members', [EventMemberController::class, 'store'])->name('events.members.store');
+    Route::delete('/events/{event}/members/{user}', [EventMemberController::class, 'destroy'])->name('events.members.destroy');
 
     // Event Card Editor routes
     Route::get('/events/{event}/design', [EventDesignController::class, 'showInvitation'])->name('events.design');

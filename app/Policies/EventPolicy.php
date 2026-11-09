@@ -49,6 +49,30 @@ class EventPolicy
     }
 
     /**
+     * Determine whether the user can manage guests for the event.
+     */
+    public function manageGuests(User $user, Event $event): bool
+    {
+        return $this->update($user, $event);
+    }
+
+    /**
+     * Determine whether the user can manage co-host members.
+     */
+    public function manageMembers(User $user, Event $event): bool
+    {
+        return $event->user_id === $user->id;
+    }
+
+    /**
+     * Determine whether the user can duplicate the event.
+     */
+    public function duplicate(User $user, Event $event): bool
+    {
+        return $event->user_id === $user->id;
+    }
+
+    /**
      * Determine whether the user can delete the event.
      */
     public function delete(User $user, Event $event): bool
