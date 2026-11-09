@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EditorController;
+use App\Http\Controllers\EventDesignController;
 use App\Http\Controllers\EventDraftController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\PlanController;
@@ -38,6 +39,13 @@ Route::middleware('auth')->group(function () {
     // Plan & Quota management
     Route::get('/plan', [PlanController::class, 'index'])->name('plan.index');
     Route::post('/plan/upgrade-request', [PlanController::class, 'upgradeRequest'])->name('plan.upgrade-request');
+
+    // Event Card Editor routes
+    Route::get('/events/{event}/design', [EventDesignController::class, 'showInvitation'])->name('events.design');
+    Route::patch('/events/{event}/design', [EventDesignController::class, 'updateInvitation'])->name('events.design.update');
+    Route::get('/events/{event}/thank-you-design', [EventDesignController::class, 'showThankYou'])->name('events.thank-you-design');
+    Route::patch('/events/{event}/thank-you-design', [EventDesignController::class, 'updateThankYou'])->name('events.thank-you-design.update');
+    Route::post('/editor/upload-image', [EventDesignController::class, 'uploadImage'])->name('editor.upload-image');
 
     // Template custom upload (gated by upload_templates)
     Route::post('/templates/upload', [TemplateController::class, 'upload'])->name('templates.upload');

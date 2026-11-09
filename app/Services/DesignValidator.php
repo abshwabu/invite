@@ -178,6 +178,25 @@ class DesignValidator
     }
 
     /**
+     * Return a minimal valid empty design template.
+     *
+     * @return array<string, mixed>
+     */
+    public static function blankDesign(): array
+    {
+        return [
+            'version' => 1,
+            'width' => 1080,
+            'height' => 1528,
+            'background' => [
+                'type' => 'color',
+                'value' => '#18181B',
+            ],
+            'layers' => [],
+        ];
+    }
+
+    /**
      * Check if a design is valid without throwing an exception.
      */
     public static function isValid(array|string $design): bool
