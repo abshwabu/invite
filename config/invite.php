@@ -30,7 +30,7 @@ return [
     |
     */
     'sms' => [
-        'default_provider' => env('SMS_DEFAULT_PROVIDER', 'afromessage'),
+        'default_provider' => env('SMS_DEFAULT_PROVIDER', 'log'),
         'sender_id' => env('SMS_SENDER_ID', 'INVITE'),
         'default_country_code' => '+251',
     ],

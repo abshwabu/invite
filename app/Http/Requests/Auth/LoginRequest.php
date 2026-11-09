@@ -50,6 +50,22 @@ class LoginRequest extends FormRequest
             ]);
         }
 
+        $user = Auth::user();
+
+        if ($user->is_suspended) {
+            Auth::logout();
+            $this->session()->invalidate();
+            $this->session()->regenerateToken();
+
+            throw ValidationException::withMessages([
+                'email' => __('Your account has been suspended. Please contact support.'),
+            ]);
+        }
+
+        $user->update([
+            'last_login_at' => now(),
+        ]);
+
         RateLimiter::clear($this->throttleKey());
     }
 

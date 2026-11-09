@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Contracts\SmsGateway;
+use App\Services\Sms\LogSmsGateway;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Schema\SQLiteBuilder;
 use Illuminate\Database\SQLiteConnection;
@@ -15,6 +17,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->bind(SmsGateway::class, function () {
+            return new LogSmsGateway();
+        });
+
         Connection::resolverFor('sqlite', function ($connection, $database, $prefix, $config) {
             return new class($connection, $database, $prefix, $config) extends SQLiteConnection {
                 public function getSchemaBuilder()

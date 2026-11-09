@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             CategorySeeder::class,
+            TemplateSeeder::class,
         ]);
 
         if (User::where('email', 'test@example.com')->doesntExist()) {

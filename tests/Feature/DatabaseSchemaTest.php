@@ -139,7 +139,7 @@ test('sqlite configuration pragmas are set', function () {
 test('invite configuration is properly loaded', function () {
     expect(config('invite.superadmin_path'))->not()->toBeEmpty();
     expect(config('invite.short_link_domain'))->not()->toBeEmpty();
-    expect(config('invite.sms.default_provider'))->toBe('afromessage');
+    expect(config('invite.sms.default_provider'))->toBe('log');
     expect(config('invite.sms.default_country_code'))->toBe('+251');
     expect(config('invite.guest_mode.default_max_party_size'))->toBe(1);
     expect(config('invite.guest_mode.token_length'))->toBe(32);

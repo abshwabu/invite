@@ -8,6 +8,13 @@ import TextInput from '@/Components/TextInput.vue';
 import { useForm } from '@inertiajs/vue3';
 import { nextTick, ref } from 'vue';
 
+const props = defineProps({
+    hasPassword: {
+        type: Boolean,
+        default: true,
+    },
+});
+
 const confirmingUserDeletion = ref(false);
 const passwordInput = ref(null);
 
@@ -18,14 +25,20 @@ const form = useForm({
 const confirmUserDeletion = () => {
     confirmingUserDeletion.value = true;
 
-    nextTick(() => passwordInput.value.focus());
+    if (props.hasPassword) {
+        nextTick(() => passwordInput.value?.focus());
+    }
 };
 
 const deleteUser = () => {
     form.delete(route('profile.destroy'), {
         preserveScroll: true,
         onSuccess: () => closeModal(),
-        onError: () => passwordInput.value.focus(),
+        onError: () => {
+            if (props.hasPassword) {
+                passwordInput.value?.focus();
+            }
+        },
         onFinish: () => form.reset(),
     });
 };
@@ -41,37 +54,35 @@ const closeModal = () => {
 <template>
     <section class="space-y-6">
         <header>
-            <h2 class="text-lg font-medium text-gray-900">
-                Delete Account
+            <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                {{ $t('Delete Account') }}
             </h2>
 
-            <p class="mt-1 text-sm text-gray-600">
-                Once your account is deleted, all of its resources and data will
-                be permanently deleted. Before deleting your account, please
-                download any data or information that you wish to retain.
+            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                Once your account is deleted, all of its events, cards, guest lists, and data will
+                be permanently removed.
             </p>
         </header>
 
-        <DangerButton @click="confirmUserDeletion">Delete Account</DangerButton>
+        <DangerButton @click="confirmUserDeletion">{{ $t('Delete Account') }}</DangerButton>
 
         <Modal :show="confirmingUserDeletion" @close="closeModal">
             <div class="p-6">
                 <h2
-                    class="text-lg font-medium text-gray-900"
+                    class="text-lg font-medium text-gray-900 dark:text-gray-100"
                 >
                     Are you sure you want to delete your account?
                 </h2>
 
-                <p class="mt-1 text-sm text-gray-600">
-                    Once your account is deleted, all of its resources and data
-                    will be permanently deleted. Please enter your password to
-                    confirm you would like to permanently delete your account.
+                <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                    Once your account is deleted, all created invitations, guest RSVPs, subscriptions, and records will be deleted forever.
+                    <span v-if="hasPassword">Please enter your password to confirm.</span>
                 </p>
 
-                <div class="mt-6">
+                <div v-if="hasPassword" class="mt-6">
                     <InputLabel
                         for="password"
-                        value="Password"
+                        :value="$t('Password')"
                         class="sr-only"
                     />
 
@@ -99,7 +110,7 @@ const closeModal = () => {
                         :disabled="form.processing"
                         @click="deleteUser"
                     >
-                        Delete Account
+                        {{ $t('Delete Account') }}
                     </DangerButton>
                 </div>
             </div>

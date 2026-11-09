@@ -5,8 +5,9 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createApp, h } from 'vue';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
+import { i18n } from './i18n';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const appName = import.meta.env.VITE_APP_NAME || 'Invite';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
@@ -16,12 +17,19 @@ createInertiaApp({
             import.meta.glob('./Pages/**/*.vue'),
         ),
     setup({ el, App, props, plugin }) {
-        return createApp({ render: () => h(App, props) })
-            .use(plugin)
+        if (props.initialPage.props.locale) {
+            i18n.global.locale.value = props.initialPage.props.locale;
+        }
+
+        const vueApp = createApp({ render: () => h(App, props) });
+
+        vueApp.use(plugin)
             .use(ZiggyVue)
-            .mount(el);
+            .use(i18n);
+
+        return vueApp.mount(el);
     },
     progress: {
-        color: '#4B5563',
+        color: '#D4AF37',
     },
 });
