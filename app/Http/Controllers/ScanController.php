@@ -57,6 +57,14 @@ class ScanController extends Controller
             ]);
         }
 
+        if ($scanner->event && in_array($scanner->event->status, ['closed', 'suspended', 'cancelled'], true)) {
+            return Inertia::render('Scanners/Closed', [
+                'scannerName' => $scanner->name,
+                'eventTitle' => $scanner->event?->title ?: 'Event',
+                'eventStatus' => $scanner->event->status,
+            ]);
+        }
+
         if ($scanner->isLocked()) {
             return Inertia::render('Scanners/Locked', [
                 'scannerName' => $scanner->name,
@@ -107,6 +115,10 @@ class ScanController extends Controller
 
         if ($scanner->isRevoked()) {
             abort(403, 'Scanner has been revoked.');
+        }
+
+        if ($scanner->event && in_array($scanner->event->status, ['closed', 'suspended', 'cancelled'], true)) {
+            return back()->withErrors(['pin' => 'This event is closed. Check-in is not permitted.']);
         }
 
         if ($scanner->isLocked()) {

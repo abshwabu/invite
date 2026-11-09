@@ -125,6 +125,7 @@ class SendDeliveryJob implements ShouldQueue
                     'error' => 'Guest does not have a phone number.',
                 ]);
                 $this->refundDeliveryQuota($quotaService, $delivery, $campaign, $event);
+                $this->notifyHostDeliveryFailure($delivery, $campaign, $event);
                 return;
             }
 
@@ -148,6 +149,7 @@ class SendDeliveryJob implements ShouldQueue
                     'error' => 'Guest does not have an email address.',
                 ]);
                 $this->refundDeliveryQuota($quotaService, $delivery, $campaign, $event);
+                $this->notifyHostDeliveryFailure($delivery, $campaign, $event);
                 return;
             }
 
@@ -185,7 +187,33 @@ class SendDeliveryJob implements ShouldQueue
 
         $quotaService = app(QuotaService::class);
         $this->refundDeliveryQuota($quotaService, $delivery, $delivery->campaign, $delivery->campaign?->event);
+        $this->notifyHostDeliveryFailure($delivery, $delivery->campaign, $delivery->campaign?->event);
         $this->checkCampaignStatus($delivery->campaign);
+    }
+
+    protected function notifyHostDeliveryFailure(Delivery $delivery, ?Campaign $campaign, $event): void
+    {
+        $user = $event?->user ?? $campaign?->user;
+        if (! $user) {
+            return;
+        }
+
+        $user->notify(new \App\Notifications\HostAlertNotification(
+            type: 'delivery_failure',
+            title: __('Delivery Failure'),
+            message: __("Delivery to :name via :channel failed: :error", [
+                'name' => $delivery->guest?->name ?? 'Guest',
+                'channel' => strtoupper($delivery->channel),
+                'error' => $delivery->error ?? 'Delivery failed.',
+            ]),
+            meta: [
+                'delivery_id' => $delivery->id,
+                'campaign_id' => $campaign?->id,
+                'event_id' => $event?->id,
+                'guest_id' => $delivery->guest_id,
+            ],
+            actionUrl: $event ? route('events.deliveries', ['event' => $event->id]) : null
+        ));
     }
 
     protected function refundDeliveryQuota(QuotaService $quotaService, Delivery $delivery, ?Campaign $campaign, $event): void

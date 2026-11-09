@@ -69,4 +69,9 @@ class Guest extends Model
     {
         return $this->hasMany(UsageLedger::class);
     }
+
+    public function checkedInByScanner(): BelongsTo
+    {
+        return $this->belongsTo(Scanner::class, 'checked_in_by');
+    }
 }

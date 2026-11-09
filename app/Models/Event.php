@@ -114,6 +114,11 @@ class Event extends Model
         return $this->hasMany(CheckinLog::class);
     }
 
+    public function reminders(): HasMany
+    {
+        return $this->hasMany(Reminder::class);
+    }
+
     public function usageLedgers(): HasMany
     {
         return $this->hasMany(UsageLedger::class);

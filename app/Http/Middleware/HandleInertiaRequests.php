@@ -55,6 +55,7 @@ class HandleInertiaRequests extends Middleware
                         'slug' => $tier->slug,
                     ] : null,
                 ] : null,
+                'unreadNotificationsCount' => fn () => $request->user()?->unreadNotifications()->count() ?? 0,
             ],
             'locale' => $locale,
             'supportedLocales' => config('invite.supported_locales', ['en', 'am']),

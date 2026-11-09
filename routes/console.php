@@ -11,3 +11,6 @@ Artisan::command('inspire', function () {
 
 Schedule::job(new ExpireSubscriptionsJob)->hourly();
 Schedule::command('campaigns:dispatch-scheduled')->everyMinute();
+Schedule::command('reminders:dispatch')->everyMinute();
+Schedule::command('events:close-ended')->hourly();
+Schedule::command('subscriptions:check-expiring')->daily();

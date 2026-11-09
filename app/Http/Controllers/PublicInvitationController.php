@@ -139,6 +139,12 @@ class PublicInvitationController extends Controller
             ]);
         }
 
+        if ($event->status === 'closed') {
+            throw ValidationException::withMessages([
+                'rsvp_status' => __('RSVP is closed as this event has ended.'),
+            ]);
+        }
+
         if ($event->starts_at->isPast()) {
             throw ValidationException::withMessages([
                 'rsvp_status' => __('RSVP is closed because this event has already started.'),

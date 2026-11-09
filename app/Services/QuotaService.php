@@ -148,7 +148,45 @@ class QuotaService
                 throw new Exception("Unable to fulfill complete reservation for {$cards} cards.");
             }
 
-            return ReservationResult::success($cards, $reserved, $ledgerIds);
+            $resResult = ReservationResult::success($cards, $reserved, $ledgerIds);
+
+            // Check for low quota / quota exhausted notifications
+            $remaining = $this->available($user);
+            $totalQuota = (int) $user->subscriptions()->where('status', 'active')->sum('cards_total');
+
+            if ($remaining === 0) {
+                $hasRecent = $user->unreadNotifications()
+                    ->where('data->type', 'quota_exhausted')
+                    ->where('created_at', '>=', now()->subHours(24))
+                    ->exists();
+
+                if (! $hasRecent) {
+                    $user->notify(new \App\Notifications\HostAlertNotification(
+                        'quota_exhausted',
+                        'Quota Exhausted',
+                        'You have used all card quota on your active plans. Upgrade now to keep sending.',
+                        ['remaining' => 0],
+                        route('plan.index')
+                    ));
+                }
+            } elseif ($totalQuota > 0 && ($remaining / $totalQuota) <= 0.10) {
+                $hasRecent = $user->unreadNotifications()
+                    ->where('data->type', 'low_quota')
+                    ->where('created_at', '>=', now()->subHours(24))
+                    ->exists();
+
+                if (! $hasRecent) {
+                    $user->notify(new \App\Notifications\HostAlertNotification(
+                        'low_quota',
+                        'Low Card Quota Alert',
+                        "Your account is running low on cards ({$remaining} of {$totalQuota} cards remaining).",
+                        ['remaining' => $remaining, 'total' => $totalQuota],
+                        route('plan.index')
+                    ));
+                }
+            }
+
+            return $resResult;
         });
     }
 
@@ -231,6 +269,22 @@ class QuotaService
             'both' => $count * ($smsWeight + $emailWeight),
             default => $count,
         };
+    }
+
+    /**
+     * Check if user has sufficient available quota.
+     */
+    public function hasQuota(User $user, int $cards): bool
+    {
+        return $this->available($user) >= $cards;
+    }
+
+    /**
+     * Alias for calculateRequiredCards.
+     */
+    public function calculateCampaignCost(User|Tier $userOrTier, string $channel, int $count = 1, string $kind = 'invitation'): int
+    {
+        return $this->calculateRequiredCards($userOrTier, $channel, $kind, $count);
     }
 
     /**

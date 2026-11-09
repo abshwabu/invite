@@ -4,20 +4,25 @@ use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EditorController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\EventDashboardController;
 use App\Http\Controllers\EventDesignController;
 use App\Http\Controllers\EventDraftController;
 use App\Http\Controllers\EventMemberController;
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\LocaleController;
+use App\Http\Controllers\NotificationCenterController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicInvitationController;
 use App\Http\Controllers\PublicThankYouController;
+use App\Http\Controllers\ReminderController;
 use App\Http\Controllers\ScanController;
 use App\Http\Controllers\ScannerController;
 use App\Http\Controllers\ShortLinkController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\ThankYouController;
+use App\Http\Controllers\UsageController;
 use App\Models\Category;
 use App\Models\Template;
 use Illuminate\Support\Facades\Route;
@@ -109,6 +114,32 @@ Route::middleware('auth')->group(function () {
 
     // Thank-You Card Setup & Compose
     Route::get('/events/{event}/thank-you', [ThankYouController::class, 'show'])->name('events.thank-you');
+
+    // Event Overview Dashboard & Live Arrival Polling
+    Route::get('/events/{event}', [EventDashboardController::class, 'show'])->name('events.show');
+    Route::get('/events/{event}/overview', [EventDashboardController::class, 'show'])->name('events.overview');
+    Route::get('/events/{event}/live-checkins', [EventDashboardController::class, 'liveCheckins'])->name('events.live-checkins');
+    Route::post('/events/{event}/close', [EventDashboardController::class, 'closeEvent'])->name('events.close');
+    Route::post('/events/{event}/reopen', [EventDashboardController::class, 'reopenEvent'])->name('events.reopen');
+
+    // Reminders
+    Route::get('/events/{event}/reminders', [ReminderController::class, 'index'])->name('events.reminders.index');
+    Route::post('/events/{event}/reminders', [ReminderController::class, 'store'])->name('events.reminders.store');
+    Route::delete('/events/{event}/reminders/{reminder}', [ReminderController::class, 'destroy'])->name('events.reminders.destroy');
+
+    // Exports & Print Views
+    Route::get('/events/{event}/export/csv', [ExportController::class, 'guestsCsv'])->name('events.export.csv');
+    Route::get('/events/{event}/export/attendance-sheet', [ExportController::class, 'attendanceSheet'])->name('events.export.attendance');
+    Route::get('/events/{event}/export/door-list', [ExportController::class, 'doorList'])->name('events.export.door-list');
+
+    // Host Notification Center
+    Route::get('/notifications', [NotificationCenterController::class, 'index'])->name('notifications.index');
+    Route::post('/notifications/mark-all-read', [NotificationCenterController::class, 'markAllRead'])->name('notifications.mark-all-read');
+    Route::post('/notifications/{id}/read', [NotificationCenterController::class, 'markAsRead'])->name('notifications.read');
+    Route::delete('/notifications/{id}', [NotificationCenterController::class, 'destroy'])->name('notifications.destroy');
+
+    // "My Usage" Analytics
+    Route::get('/usage', [UsageController::class, 'index'])->name('usage.index');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

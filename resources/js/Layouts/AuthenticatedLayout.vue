@@ -77,10 +77,33 @@ onMounted(async () => {
                                 >
                                     {{ $t('My Plan') }}
                                 </NavLink>
+                                <NavLink
+                                    :href="route('usage.index')"
+                                    :active="route().current('usage.*')"
+                                >
+                                    {{ $t('Usage') }}
+                                </NavLink>
                             </div>
                         </div>
 
                         <div class="hidden sm:ms-6 sm:flex sm:items-center sm:gap-3">
+                            <!-- Notification Bell -->
+                            <Link
+                                :href="route('notifications.index')"
+                                class="relative p-2 rounded-full text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition"
+                                :title="$t('Notifications')"
+                            >
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                                </svg>
+                                <span
+                                    v-if="$page.props.auth?.unreadNotificationsCount > 0"
+                                    class="absolute top-1 right-1 flex items-center justify-center min-w-[18px] h-[18px] px-1 text-[10px] font-bold text-white bg-rose-600 rounded-full ring-2 ring-white dark:ring-gray-800"
+                                >
+                                    {{ $page.props.auth.unreadNotificationsCount > 99 ? '99+' : $page.props.auth.unreadNotificationsCount }}
+                                </span>
+                            </Link>
+
                             <!-- Quota Quick Pill -->
                             <Link
                                 v-if="$page.props.auth?.quota"
@@ -131,6 +154,16 @@ onMounted(async () => {
                                             :href="route('plan.index')"
                                         >
                                             {{ $t('My Plan') }}
+                                        </DropdownLink>
+                                        <DropdownLink
+                                            :href="route('usage.index')"
+                                        >
+                                            {{ $t('My Usage') }}
+                                        </DropdownLink>
+                                        <DropdownLink
+                                            :href="route('notifications.index')"
+                                        >
+                                            {{ $t('Notifications') }}
                                         </DropdownLink>
                                         <DropdownLink
                                             :href="route('profile.edit')"
@@ -226,6 +259,24 @@ onMounted(async () => {
                             :active="route().current('plan.*')"
                         >
                             {{ $t('My Plan') }}
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('usage.index')"
+                            :active="route().current('usage.*')"
+                        >
+                            {{ $t('Usage') }}
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('notifications.index')"
+                            :active="route().current('notifications.*')"
+                        >
+                            {{ $t('Notifications') }}
+                            <span
+                                v-if="$page.props.auth?.unreadNotificationsCount > 0"
+                                class="ms-2 px-1.5 py-0.5 text-xs rounded-full bg-rose-600 text-white font-bold"
+                            >
+                                {{ $page.props.auth.unreadNotificationsCount }}
+                            </span>
                         </ResponsiveNavLink>
                     </div>
 

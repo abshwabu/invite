@@ -470,6 +470,14 @@ class CampaignController extends Controller
                 'estimated_cards' => $totalQuotaNeeded,
             ]);
 
+            $user->notify(new \App\Notifications\HostAlertNotification(
+                type: 'campaign_pending_review',
+                title: __('Campaign Pending Review'),
+                message: __("Your message with custom external link ':url' is pending review before delivery.", ['url' => $customUrl]),
+                meta: ['campaign_id' => $campaign->id, 'event_id' => $event->id],
+                actionUrl: route('events.campaigns.index', $event->id)
+            ));
+
             return redirect()->route('events.campaigns.index', $event->id)->with(
                 'info',
                 'Your message with a custom external link has been submitted for administrative review before delivery.'
