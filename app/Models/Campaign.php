@@ -67,4 +67,9 @@ class Campaign extends Model
     {
         return $this->hasMany(UsageLedger::class);
     }
+
+    public function shortLinks(): HasMany
+    {
+        return $this->hasMany(ShortLink::class);
+    }
 }

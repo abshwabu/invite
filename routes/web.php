@@ -83,10 +83,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/events/import-draft', [EventDraftController::class, 'import'])->name('events.import-draft');
 
     // Campaign & Delivery pipeline
+    Route::get('/events/{event}/campaigns', [CampaignController::class, 'index'])->name('events.campaigns.index');
     Route::get('/events/{event}/campaigns/create', [CampaignController::class, 'create'])->name('events.campaigns.create');
+    Route::get('/events/{event}/messages/create', [CampaignController::class, 'create'])->name('events.messages.create');
     Route::get('/events/{event}/send', [CampaignController::class, 'create'])->name('events.send');
+    Route::get('/events/{event}/campaigns/audience-stats', [CampaignController::class, 'audienceStats'])->name('events.campaigns.audience-stats');
     Route::post('/events/{event}/campaigns/test-send', [CampaignController::class, 'testSend'])->name('events.campaigns.test-send');
     Route::post('/events/{event}/campaigns', [CampaignController::class, 'store'])->name('events.campaigns.store');
+    Route::post('/events/{event}/campaigns/{campaign}/cancel', [CampaignController::class, 'cancel'])->name('events.campaigns.cancel');
     Route::get('/events/{event}/deliveries', [CampaignController::class, 'deliveries'])->name('events.deliveries');
     Route::post('/events/{event}/deliveries/{delivery}/resend', [CampaignController::class, 'resendDelivery'])->name('events.deliveries.resend');
     Route::post('/events/{event}/campaigns/{campaign}/resend-failed', [CampaignController::class, 'resendFailed'])->name('events.campaigns.resend-failed');

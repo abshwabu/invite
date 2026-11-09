@@ -11,14 +11,21 @@ class ShortLinkService
     /**
      * Create a new short link for the target URL.
      */
-    public function create(string $targetUrl, ?CarbonInterface $expiresAt = null, int $length = 8): ShortLink
-    {
+    public function create(
+        string $targetUrl,
+        ?CarbonInterface $expiresAt = null,
+        int $length = 8,
+        ?int $campaignId = null,
+        bool $isFlagged = false
+    ): ShortLink {
         $code = $this->generateUniqueCode($length);
 
         return ShortLink::create([
+            'campaign_id' => $campaignId,
             'code' => $code,
             'target_url' => $targetUrl,
             'clicks' => 0,
+            'is_flagged' => $isFlagged,
             'expires_at' => $expiresAt,
         ]);
     }

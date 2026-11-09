@@ -74,10 +74,27 @@ class SendDeliveryJob implements ShouldQueue
         // Track attempts
         $delivery->increment('attempts');
 
-        // Generate personalized short link
-        $targetUrl = route('public.invitation.show', ['token' => $guest->token]);
-        $shortLink = $shortLinkService->create($targetUrl);
-        $shortUrl = url('/s/' . $shortLink->code);
+        // Resolve link based on campaign link_mode
+        $linkMode = $campaign->link_mode ?? 'guest_invitation';
+        $shortUrl = '';
+
+        if ($linkMode === 'event_page') {
+            $targetUrl = url('/e/' . $event->public_slug);
+            $shortLink = $shortLinkService->create($targetUrl, null, 8, $campaign->id, false);
+            $shortUrl = url('/s/' . $shortLink->code);
+        } elseif ($linkMode === 'custom_url' && ! empty($campaign->custom_url)) {
+            $targetUrl = $campaign->custom_url;
+            $safety = app(\App\Services\UrlSafetyService::class)->validate($targetUrl);
+            $shortLink = $shortLinkService->create($targetUrl, null, 8, $campaign->id, $safety['flagged'] ?? false);
+            $shortUrl = url('/s/' . $shortLink->code);
+        } elseif ($linkMode === 'none') {
+            $shortUrl = '';
+        } else {
+            // default: guest_invitation
+            $targetUrl = route('public.invitation.show', ['token' => $guest->token]);
+            $shortLink = $shortLinkService->create($targetUrl, null, 8, $campaign->id, false);
+            $shortUrl = url('/s/' . $shortLink->code);
+        }
 
         // Render message
         $templateData = [
@@ -91,6 +108,11 @@ class SendDeliveryJob implements ShouldQueue
         ];
 
         $renderedMessage = $templateService->render($campaign->body, $templateData);
+
+        // If link exists and was not in template body, append it
+        if (! empty($shortUrl) && ! str_contains($campaign->body, '{link}') && ! str_contains($campaign->body, '{{link}}')) {
+            $renderedMessage = rtrim($renderedMessage) . "\n\n" . $shortUrl;
+        }
 
         if ($delivery->channel === 'sms') {
             if (empty($guest->phone)) {

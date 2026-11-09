@@ -63,6 +63,27 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Content & URL Safety Limits
+    |--------------------------------------------------------------------------
+    */
+    'safety' => [
+        'new_account_days' => env('NEW_ACCOUNT_DAYS', 3),
+        'new_account_daily_cap' => env('NEW_ACCOUNT_DAILY_CAP', 50),
+        'new_account_review_days' => env('NEW_ACCOUNT_REVIEW_DAYS', 3),
+        'blocked_domains' => [
+            'malware.com',
+            'phishing.net',
+            'scam-portal.xyz',
+            'free-crypto-giveaway.com',
+        ],
+        'flagged_domains' => [
+            'suspicious-external.com',
+            'unverified-portal.org',
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Supported Locales & Default Currency
     |--------------------------------------------------------------------------
     */
