@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -9,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Tier extends Model
 {
     /** @use HasFactory<\Database\Factories\TierFactory> */
-    use HasFactory;
+    use HasFactory, Auditable;
 
     protected $fillable = [
         'slug',
@@ -52,6 +53,21 @@ class Tier extends Model
             'is_public' => 'boolean',
             'is_default' => 'boolean',
         ];
+    }
+
+    protected static function booted(): void
+    {
+        static::saving(function (Tier $tier) {
+            if ($tier->is_default) {
+                static::where('id', '!=', $tier->id ?? 0)->update(['is_default' => false]);
+            }
+        });
+
+        static::deleting(function (Tier $tier) {
+            if ($tier->subscriptions()->exists()) {
+                throw new \Exception('Cannot delete tier because active or past subscriptions are associated with it.');
+            }
+        });
     }
 
     public function subscriptions(): HasMany

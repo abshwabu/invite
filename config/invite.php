@@ -3,13 +3,15 @@
 return [
     /*
     |--------------------------------------------------------------------------
-    | Super Admin Path
+    | Super Admin Configuration
     |--------------------------------------------------------------------------
     |
-    | The secret path used for accessing the Super Admin Filament panel.
+    | The secret path used for accessing the Super Admin Filament panel
+    | and optional comma-separated list of allowed IP addresses.
     |
     */
-    'superadmin_path' => env('SUPERADMIN_PATH', 'cp-super-admin'),
+    'superadmin_path' => env('SUPERADMIN_PATH', 'sa-x7k2p9q4m1'),
+    'superadmin_allowed_ips' => env('SUPERADMIN_ALLOWED_IPS', ''),
 
     /*
     |--------------------------------------------------------------------------

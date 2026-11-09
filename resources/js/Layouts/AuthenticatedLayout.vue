@@ -71,15 +71,36 @@ onMounted(async () => {
                                 >
                                     {{ $t('Editor') }}
                                 </NavLink>
+                                <NavLink
+                                    :href="route('plan.index')"
+                                    :active="route().current('plan.*')"
+                                >
+                                    {{ $t('My Plan') }}
+                                </NavLink>
                             </div>
                         </div>
 
-                        <div class="hidden sm:ms-6 sm:flex sm:items-center sm:gap-4">
+                        <div class="hidden sm:ms-6 sm:flex sm:items-center sm:gap-3">
+                            <!-- Quota Quick Pill -->
+                            <Link
+                                v-if="$page.props.auth?.quota"
+                                :href="route('plan.index')"
+                                class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition"
+                                :class="$page.props.auth.quota.is_exhausted
+                                    ? 'bg-rose-100 text-rose-800 hover:bg-rose-200 dark:bg-rose-950/60 dark:text-rose-300'
+                                    : ($page.props.auth.quota.is_low
+                                        ? 'bg-amber-100 text-amber-800 hover:bg-amber-200 dark:bg-amber-950/60 dark:text-amber-300'
+                                        : 'bg-emerald-50 text-emerald-800 hover:bg-emerald-100 dark:bg-emerald-950/50 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800')"
+                            >
+                                <span>✉️</span>
+                                <span>{{ $page.props.auth.quota.available }} {{ $t('cards') }}</span>
+                            </Link>
+
                             <!-- Language Switcher -->
                             <LanguageSwitcher />
 
                             <!-- Settings Dropdown -->
-                            <div class="relative ms-2">
+                            <div class="relative ms-1">
                                 <Dropdown align="right" width="48">
                                     <template #trigger>
                                         <span class="inline-flex rounded-md">
@@ -106,6 +127,11 @@ onMounted(async () => {
                                     </template>
 
                                     <template #content>
+                                        <DropdownLink
+                                            :href="route('plan.index')"
+                                        >
+                                            {{ $t('My Plan') }}
+                                        </DropdownLink>
                                         <DropdownLink
                                             :href="route('profile.edit')"
                                         >
@@ -195,6 +221,12 @@ onMounted(async () => {
                         >
                             {{ $t('Editor') }}
                         </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('plan.index')"
+                            :active="route().current('plan.*')"
+                        >
+                            {{ $t('My Plan') }}
+                        </ResponsiveNavLink>
                     </div>
 
                     <!-- Responsive Settings Options -->
@@ -210,9 +242,18 @@ onMounted(async () => {
                             <div class="text-sm font-medium text-gray-500">
                                 {{ $page.props.auth.user.email || $page.props.auth.user.phone }}
                             </div>
+                            <div v-if="$page.props.auth?.quota" class="mt-2">
+                                <span class="text-xs px-2.5 py-1 rounded-full font-semibold"
+                                    :class="$page.props.auth.quota.is_exhausted ? 'bg-rose-100 text-rose-800' : ($page.props.auth.quota.is_low ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-800')">
+                                    {{ $page.props.auth.quota.available }} {{ $t('cards available') }}
+                                </span>
+                            </div>
                         </div>
 
                         <div class="mt-3 space-y-1">
+                            <ResponsiveNavLink :href="route('plan.index')">
+                                {{ $t('My Plan') }}
+                            </ResponsiveNavLink>
                             <ResponsiveNavLink :href="route('profile.edit')">
                                 {{ $t('Profile') }}
                             </ResponsiveNavLink>
@@ -227,6 +268,20 @@ onMounted(async () => {
                     </div>
                 </div>
             </nav>
+
+            <!-- Flash & System Notifications -->
+            <div v-if="$page.props.flash?.success || $page.props.flash?.warning || $page.props.flash?.error" class="mx-auto max-w-7xl px-4 pt-4 sm:px-6 lg:px-8">
+                <div v-if="$page.props.flash.success" class="rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-3 text-xs sm:text-sm text-emerald-800 dark:border-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-200">
+                    {{ $page.props.flash.success }}
+                </div>
+                <div v-if="$page.props.flash.warning" class="rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-xs sm:text-sm text-amber-800 dark:border-amber-800 dark:bg-amber-950/60 dark:text-amber-200 flex items-center justify-between">
+                    <span>{{ $page.props.flash.warning }}</span>
+                    <Link :href="route('plan.index')" class="ml-3 font-bold underline hover:text-amber-900">{{ $t('Upgrade') }}</Link>
+                </div>
+                <div v-if="$page.props.flash.error" class="rounded-xl border border-rose-300 bg-rose-50 px-4 py-3 text-xs sm:text-sm text-rose-800 dark:border-rose-800 dark:bg-rose-950/60 dark:text-rose-200">
+                    {{ $page.props.flash.error }}
+                </div>
+            </div>
 
             <!-- Page Heading -->
             <header

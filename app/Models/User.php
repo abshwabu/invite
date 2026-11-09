@@ -58,6 +58,26 @@ class User extends Authenticatable
         ];
     }
 
+    protected static function booted(): void
+    {
+        static::created(function (User $user) {
+            if ($user->subscriptions()->doesntExist()) {
+                $tier = Tier::where('is_default', true)->first();
+                if ($tier) {
+                    $user->subscriptions()->create([
+                        'tier_id' => $tier->id,
+                        'cards_total' => $tier->card_quota,
+                        'cards_used' => 0,
+                        'starts_at' => now(),
+                        'expires_at' => $tier->validity_days ? now()->addDays($tier->validity_days) : null,
+                        'status' => 'active',
+                        'source' => 'free',
+                    ]);
+                }
+            }
+        });
+    }
+
     public function subscriptions(): HasMany
     {
         return $this->hasMany(Subscription::class);
