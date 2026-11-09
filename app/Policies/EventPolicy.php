@@ -65,6 +65,14 @@ class EventPolicy
     }
 
     /**
+     * Determine whether the user can manage scanners for the event.
+     */
+    public function manageScanners(User $user, Event $event): bool
+    {
+        return $event->user_id === $user->id;
+    }
+
+    /**
      * Determine whether the user can duplicate the event.
      */
     public function duplicate(User $user, Event $event): bool

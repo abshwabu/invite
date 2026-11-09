@@ -12,6 +12,8 @@ use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicInvitationController;
+use App\Http\Controllers\ScanController;
+use App\Http\Controllers\ScannerController;
 use App\Http\Controllers\ShortLinkController;
 use App\Http\Controllers\TemplateController;
 use App\Models\Category;
@@ -96,6 +98,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/events/{event}/campaigns/{campaign}/resend-failed', [CampaignController::class, 'resendFailed'])->name('events.campaigns.resend-failed');
     Route::post('/events/{event}/campaigns/{campaign}/resend-pending', [CampaignController::class, 'resendPending'])->name('events.campaigns.resend-pending');
 
+    // Event Scanners & Check-in Management
+    Route::get('/events/{event}/scanners', [ScannerController::class, 'index'])->name('events.scanners.index');
+    Route::post('/events/{event}/scanners', [ScannerController::class, 'store'])->name('events.scanners.store');
+    Route::post('/events/{event}/scanners/{scanner}/revoke', [ScannerController::class, 'revoke'])->name('events.scanners.revoke');
+    Route::post('/events/{event}/guests/{guest}/manual-checkin', [ScannerController::class, 'manualCheckin'])->name('events.guests.manual-checkin');
+    Route::post('/events/{event}/guests/{guest}/undo-checkin', [ScannerController::class, 'undoCheckin'])->name('events.guests.undo-checkin');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -103,6 +112,17 @@ Route::middleware('auth')->group(function () {
 
 // Public Short Links (e.g. for SMS and invitations)
 Route::get('/s/{code}', [ShortLinkController::class, 'redirect'])->name('shortlink.redirect');
+
+// Scanner PWA Interface
+Route::get('/scan/{token}', [ScanController::class, 'show'])->name('scanner.show');
+Route::post('/scan/{token}/auth', [ScanController::class, 'authenticate'])->name('scanner.auth');
+Route::post('/scan/{token}/logout', [ScanController::class, 'logout'])->name('scanner.logout');
+
+// Check-in API routes (Session + Token enabled)
+Route::post('/api/scan', [ScanController::class, 'scan'])->name('api.scan');
+Route::get('/api/scan/guests', [ScanController::class, 'searchGuests'])->name('api.scan.guests');
+Route::get('/api/scan/offline-manifest', [ScanController::class, 'offlineManifest'])->name('api.scan.offline-manifest');
+Route::post('/api/scan/sync', [ScanController::class, 'sync'])->name('api.scan.sync');
 
 // Public Guest Invitation & Event Pages (Rate limited: 60 requests per minute)
 Route::middleware(['throttle:60,1'])->group(function () {

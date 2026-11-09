@@ -16,6 +16,9 @@ class CheckinLog extends Model
         'guest_id',
         'scanner_id',
         'result',
+        'raw_payload',
+        'ip_address',
+        'device_info',
         'scanned_at',
     ];
 
