@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 50">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Center Blossom -->
+    <circle cx="250" cy="25" r="5" fill="{{c1}}" stroke="{{c2}}" stroke-width="1.5" />
+    <circle cx="250" cy="17" r="4" fill="{{c2}}" stroke="{{c1}}" stroke-width="1" />
+    <circle cx="250" cy="33" r="4" fill="{{c2}}" stroke="{{c1}}" stroke-width="1" />
+    <circle cx="242" cy="25" r="4" fill="{{c2}}" stroke="{{c1}}" stroke-width="1" />
+    <circle cx="258" cy="25" r="4" fill="{{c2}}" stroke="{{c1}}" stroke-width="1" />
+    <!-- Left Leaves and stem -->
+    <line x1="30" y1="25" x2="230" y2="25" stroke="{{c1}}" stroke-width="1.5" />
+    <path d="M190,25 Q180,15 170,25 Q180,35 190,25 Z" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" />
+    <path d="M140,25 Q130,15 120,25 Q130,35 140,25 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1" />
+    <circle cx="30" cy="25" r="3" fill="{{c1}}" />
+    <!-- Right Leaves and stem -->
+    <line x1="270" y1="25" x2="470" y2="25" stroke="{{c1}}" stroke-width="1.5" />
+    <path d="M310,25 Q320,15 330,25 Q320,35 310,25 Z" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" />
+    <path d="M360,25 Q370,15 380,25 Q370,35 360,25 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1" />
+    <circle cx="470" cy="25" r="3" fill="{{c1}}" />
+  </g>
+</svg>

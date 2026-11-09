@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <g fill="none" stroke-linecap="square">
+    <!-- Outer rule -->
+    <path d="M10,110 L10,10 L110,10" stroke="{{c1}}" stroke-width="3" />
+    <!-- Secondary stepped rule -->
+    <path d="M22,110 L22,22 L110,22" stroke="{{c2}}" stroke-width="1.5" />
+    <path d="M34,110 L34,34 L110,34" stroke="{{c3}}" stroke-width="1" />
+    <!-- Center ray triangles -->
+    <polygon points="10,10 40,10 10,40" fill="{{c2}}" stroke="{{c1}}" stroke-width="1" />
+    <polygon points="15,15 30,15 15,30" fill="{{c1}}" />
+  </g>
+</svg>

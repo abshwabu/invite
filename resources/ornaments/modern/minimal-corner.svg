@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <g fill="none">
+    <path d="M10,90 L10,10 L90,10" stroke="{{c1}}" stroke-width="2" />
+    <path d="M18,90 L18,18 L90,18" stroke="{{c2}}" stroke-width="1" />
+    <circle cx="14" cy="14" r="2" fill="{{c3}}" />
+  </g>
+</svg>

@@ -18,6 +18,12 @@ class Template extends Model
         'name',
         'preview_path',
         'design_json',
+        'palette',
+        'tags',
+        'recipe',
+        'ornament_sets',
+        'spec',
+        'suite_key',
         'width',
         'height',
         'is_system',
@@ -30,6 +36,10 @@ class Template extends Model
     {
         return [
             'design_json' => 'array',
+            'palette' => 'array',
+            'tags' => 'array',
+            'ornament_sets' => 'array',
+            'spec' => 'array',
             'width' => 'integer',
             'height' => 'integer',
             'is_system' => 'boolean',

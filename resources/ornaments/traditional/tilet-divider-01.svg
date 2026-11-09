@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 60">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Top & Bottom Running Rules -->
+    <line x1="20" y1="15" x2="580" y2="15" stroke="{{c1}}" stroke-width="2" />
+    <line x1="20" y1="45" x2="580" y2="45" stroke="{{c1}}" stroke-width="2" />
+    <!-- Center Diamonds Repeated -->
+    <g fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5">
+      <polygon points="100,30 115,18 130,30 115,42" />
+      <polygon points="160,30 175,18 190,30 175,42" fill="{{c3}}" />
+      <polygon points="220,30 235,18 250,30 235,42" />
+      <polygon points="280,30 300,16 320,30 300,44" fill="{{c1}}" stroke="{{c2}}" stroke-width="2" />
+      <polygon points="350,30 365,18 380,30 365,42" />
+      <polygon points="410,30 425,18 440,30 425,42" fill="{{c3}}" />
+      <polygon points="470,30 485,18 500,30 485,42" />
+    </g>
+    <!-- Center Accent Dot -->
+    <circle cx="300" cy="30" r="4" fill="{{c3}}" />
+  </g>
+</svg>

@@ -1,0 +1,123 @@
+[
+  {
+    "id": "meskel-cross-01",
+    "set": "traditional",
+    "name_en": "Meskel Processional Cross",
+    "name_am": "የመስቀል ቅርጽ",
+    "tags": ["ethiopian", "cross", "religious", "traditional", "wedding"],
+    "anchor": "center",
+    "viewBox": "0 0 200 200",
+    "defaultAspect": 1.0,
+    "tintSlots": ["c1", "c2", "c3"]
+  },
+  {
+    "id": "lalibela-cross-02",
+    "set": "traditional",
+    "name_en": "Lalibela Ornate Cross",
+    "name_am": "የላሊበላ መስቀል",
+    "tags": ["ethiopian", "lalibela", "cross", "heritage"],
+    "anchor": "center",
+    "viewBox": "0 0 200 240",
+    "defaultAspect": 0.833,
+    "tintSlots": ["c1", "c2", "c3"]
+  },
+  {
+    "id": "tilet-corner-01",
+    "set": "traditional",
+    "name_en": "Tilet Geometric Corner",
+    "name_am": "የጥበብ ማዕዘን",
+    "tags": ["tilet", "tibeb", "corner", "traditional"],
+    "anchor": "corner",
+    "viewBox": "0 0 150 150",
+    "defaultAspect": 1.0,
+    "tintSlots": ["c1", "c2", "c3"]
+  },
+  {
+    "id": "tilet-divider-01",
+    "set": "traditional",
+    "name_en": "Tilet Embroidered Divider",
+    "name_am": "የጥበብ መስመር መለያያ",
+    "tags": ["tilet", "tibeb", "divider", "horizontal"],
+    "anchor": "divider",
+    "viewBox": "0 0 600 60",
+    "defaultAspect": 10.0,
+    "tintSlots": ["c1", "c2", "c3"]
+  },
+  {
+    "id": "tilet-frame-01",
+    "set": "traditional",
+    "name_en": "Tilet Full Border Frame",
+    "name_am": "የጥበብ ሙሉ ፍሬም",
+    "tags": ["tilet", "tibeb", "frame", "border"],
+    "anchor": "frame",
+    "viewBox": "0 0 400 560",
+    "defaultAspect": 0.714,
+    "tintSlots": ["c1", "c2", "c3"]
+  },
+  {
+    "id": "olive-branch-corner",
+    "set": "botanical",
+    "name_en": "Olive Branch Corner",
+    "name_am": "የወይራ ቅጠል ማዕዘን",
+    "tags": ["botanical", "leaf", "olive", "corner", "wedding"],
+    "anchor": "corner",
+    "viewBox": "0 0 150 150",
+    "defaultAspect": 1.0,
+    "tintSlots": ["c1", "c2", "c3"]
+  },
+  {
+    "id": "floral-divider",
+    "set": "botanical",
+    "name_en": "Botanical Floral Divider",
+    "name_am": "የአበባ መስመር መለያያ",
+    "tags": ["botanical", "flower", "divider", "elegant"],
+    "anchor": "divider",
+    "viewBox": "0 0 500 50",
+    "defaultAspect": 10.0,
+    "tintSlots": ["c1", "c2", "c3"]
+  },
+  {
+    "id": "art-deco-corner",
+    "set": "geometric",
+    "name_en": "Art Deco Stepped Corner",
+    "name_am": "አርት ዲኮ ማዕዘን",
+    "tags": ["geometric", "art-deco", "corner", "vintage"],
+    "anchor": "corner",
+    "viewBox": "0 0 120 120",
+    "defaultAspect": 1.0,
+    "tintSlots": ["c1", "c2", "c3"]
+  },
+  {
+    "id": "geometric-divider",
+    "set": "geometric",
+    "name_en": "Diamond Geometric Divider",
+    "name_am": "ዳይመንድ ጂኦሜትሪክ መለያያ",
+    "tags": ["geometric", "diamond", "divider"],
+    "anchor": "divider",
+    "viewBox": "0 0 500 40",
+    "defaultAspect": 12.5,
+    "tintSlots": ["c1", "c2", "c3"]
+  },
+  {
+    "id": "minimal-corner",
+    "set": "modern",
+    "name_en": "Minimal Modern Corner",
+    "name_am": "ዘመናዊ ጥቃቅን ማዕዘን",
+    "tags": ["modern", "minimal", "corner"],
+    "anchor": "corner",
+    "viewBox": "0 0 100 100",
+    "defaultAspect": 1.0,
+    "tintSlots": ["c1", "c2", "c3"]
+  },
+  {
+    "id": "flourish-divider",
+    "set": "modern",
+    "name_en": "Calligraphic Flourish Divider",
+    "name_am": "የካሊግራፊ መስመር",
+    "tags": ["modern", "flourish", "divider"],
+    "anchor": "divider",
+    "viewBox": "0 0 400 40",
+    "defaultAspect": 10.0,
+    "tintSlots": ["c1", "c2", "c3"]
+  }
+]

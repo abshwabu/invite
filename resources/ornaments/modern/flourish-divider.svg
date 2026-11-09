@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 40">
+  <g fill="none" stroke="{{c1}}" stroke-width="1.5" stroke-linecap="round">
+    <path d="M20,20 Q120,20 180,20 C190,20 195,10 200,10 C205,10 210,20 220,20 Q280,20 380,20" />
+    <circle cx="200" cy="20" r="4" fill="{{c2}}" stroke="{{c1}}" stroke-width="1" />
+    <circle cx="170" cy="20" r="2.5" fill="{{c3}}" stroke="none" />
+    <circle cx="230" cy="20" r="2.5" fill="{{c3}}" stroke="none" />
+  </g>
+</svg>

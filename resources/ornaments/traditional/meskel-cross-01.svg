@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <g fill="{{c1}}" stroke="{{c2}}" stroke-width="2">
+    <!-- Center diamond -->
+    <polygon points="100,70 130,100 100,130 70,100" fill="{{c2}}" stroke="{{c1}}" stroke-width="2" />
+    <circle cx="100" cy="100" r="10" fill="{{c1}}" />
+    <!-- Vertical Cross Arms -->
+    <path d="M90,70 L90,20 L80,20 L80,10 L120,10 L120,20 L110,20 L110,70 Z" />
+    <path d="M90,130 L90,180 L80,180 L80,190 L120,190 L120,180 L110,180 L110,130 Z" />
+    <!-- Horizontal Cross Arms -->
+    <path d="M70,90 L20,90 L20,80 L10,80 L10,120 L20,120 L20,110 L70,110 Z" />
+    <path d="M130,90 L180,90 L180,80 L190,80 L190,120 L180,120 L180,110 L130,110 Z" />
+    <!-- Finial loops -->
+    <circle cx="100" cy="10" r="4" fill="{{c3}}" stroke="none" />
+    <circle cx="100" cy="190" r="4" fill="{{c3}}" stroke="none" />
+    <circle cx="10" cy="100" r="4" fill="{{c3}}" stroke="none" />
+    <circle cx="190" cy="100" r="4" fill="{{c3}}" stroke="none" />
+  </g>
+</svg>

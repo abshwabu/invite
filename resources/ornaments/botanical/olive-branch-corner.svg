@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Curved Vine -->
+    <path d="M140,20 Q60,30 20,140" stroke="{{c1}}" stroke-width="2.5" />
+    <!-- Olive Leaves -->
+    <path d="M120,22 Q110,10 100,20 Q110,30 120,22 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1" />
+    <path d="M90,28 Q75,18 70,30 Q82,38 90,28 Z" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" />
+    <path d="M65,40 Q50,32 50,45 Q60,52 65,40 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1" />
+    <path d="M45,65 Q32,55 35,70 Q45,75 45,65 Z" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" />
+    <path d="M30,95 Q18,85 22,100 Q32,105 30,95 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1" />
+    <!-- Olive Berries -->
+    <circle cx="108" cy="28" r="3.5" fill="{{c1}}" />
+    <circle cx="78" cy="38" r="3.5" fill="{{c1}}" />
+    <circle cx="52" cy="58" r="3.5" fill="{{c1}}" />
+  </g>
+</svg>

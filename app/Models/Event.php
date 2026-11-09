@@ -38,6 +38,7 @@ class Event extends Model
         'host_names',
         'is_invite_only',
         'rsvp_enabled',
+        'card_language',
         'plus_ones_allowed',
         'design_json',
         'template_id',

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240">
+  <g fill="{{c1}}" stroke="{{c2}}" stroke-width="2">
+    <rect x="94" y="170" width="12" height="60" fill="{{c2}}" stroke="{{c1}}" stroke-width="2" />
+    <polygon points="100,50 140,90 100,130 60,90" fill="{{c1}}" stroke="{{c2}}" stroke-width="2" />
+    <polygon points="100,65 125,90 100,115 75,90" fill="{{c2}}" stroke="{{c3}}" stroke-width="1.5" />
+    <!-- Lattice circles -->
+    <circle cx="100" cy="30" r="14" fill="none" stroke="{{c1}}" stroke-width="3" />
+    <circle cx="40" cy="90" r="14" fill="none" stroke="{{c1}}" stroke-width="3" />
+    <circle cx="160" cy="90" r="14" fill="none" stroke="{{c1}}" stroke-width="3" />
+    <circle cx="100" cy="150" r="14" fill="none" stroke="{{c1}}" stroke-width="3" />
+    <!-- Center stone -->
+    <circle cx="100" cy="90" r="8" fill="{{c3}}" stroke="{{c2}}" stroke-width="2" />
+  </g>
+</svg>

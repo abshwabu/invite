@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 40">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="20" y1="20" x2="210" y2="20" stroke="{{c1}}" stroke-width="1.5" />
+    <line x1="290" y1="20" x2="480" y2="20" stroke="{{c1}}" stroke-width="1.5" />
+    <!-- Center diamonds -->
+    <polygon points="250,8 262,20 250,32 238,20" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5" />
+    <circle cx="250" cy="20" r="3" fill="{{c1}}" />
+    <polygon points="226,14 232,20 226,26 220,20" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" />
+    <polygon points="274,14 280,20 274,26 268,20" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" />
+  </g>
+</svg>
