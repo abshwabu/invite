@@ -8,21 +8,24 @@ use Illuminate\Support\Facades\Log;
 class LogSmsGateway implements SmsGateway
 {
     /**
-     * @var array<int, array{to: string, message: string, sent_at: string}>
+     * @var array<int, array{to: string, message: string, sent_at: string, message_id: string}>
      */
     public static array $sentMessages = [];
 
-    public function send(string $to, string $message): bool
+    public function send(string $to, string $message, array $options = []): SmsResult
     {
-        Log::info("Sending SMS to [{$to}]: {$message}");
+        $messageId = 'log_' . bin2hex(random_bytes(8));
+
+        Log::info("Sending SMS to [{$to}]: {$message}", ['message_id' => $messageId, 'options' => $options]);
 
         self::$sentMessages[] = [
             'to' => $to,
             'message' => $message,
             'sent_at' => now()->toIso8601String(),
+            'message_id' => $messageId,
         ];
 
-        return true;
+        return SmsResult::success($messageId, ['to' => $to, 'message' => $message]);
     }
 
     public static function clearSent(): void

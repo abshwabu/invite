@@ -43,4 +43,13 @@ class ReservationResult
     {
         return ! $this->success;
     }
+
+    public function __get(string $name): mixed
+    {
+        return match ($name) {
+            'successful' => $this->success,
+            'error' => $this->message,
+            default => null,
+        };
+    }
 }

@@ -1,66 +1,74 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Invite - Event Invitation Card Platform
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+"Invite" is a Laravel 11 + Vue 3 Inertia + Filament + SQLite application for designing, personalizing, and delivering event invitation cards via SMS and Email with Ethiopian calendar support, QR check-ins, and tier quota management.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## SMS & Email Delivery Pipeline
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 1. SMS Gateway Configuration
+The application supports multi-driver SMS dispatch via `App\Contracts\SmsGateway`:
+- `log`: Default for local development and testing (records messages to logs and test spy).
+- `afromessage`: Production driver for Ethiopia's Afro Message SMS API (`https://api.afromessage.com/api/send`).
+- `geezsms`: Stub driver for GeezSMS provider.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Configure your environment in `.env`:
+```env
+SMS_GATEWAY=log # options: log, afromessage, geezsms
+SMS_SENDER_ID=INVITE
+AFROMESSAGE_TOKEN=your_token_here
+AFROMESSAGE_SENDER_ID=INVITE
+AFROMESSAGE_CALLBACK_URL=https://yourdomain.com/api/webhooks/sms/afromessage
+```
 
-## Learning Laravel
+### 2. Delivery Status Webhooks
+Inbound status webhooks are handled at:
+```http
+POST /api/webhooks/sms/{provider}
+```
+Webhook updates are idempotent. If a message permanently fails or bounces, the user's reserved quota is automatically restored via `QuotaService::refund()`.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Background Queue Workers (Supervisor Configuration)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+All campaign messages are dispatched asynchronously as individual `App\Jobs\SendDeliveryJob` jobs with exponential backoff retries (3 attempts).
 
-## Laravel Sponsors
+### Supervisor Setup
+Create `/etc/supervisor/conf.d/invite-worker.conf`:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```ini
+[program:invite-worker]
+process_name=%(program_name)s_%(process_num)02d
+command=php /var/www/invite/artisan queue:work database --sleep=3 --tries=3 --max-time=3600 --timeout=90
+autostart=true
+autorestart=true
+stopasgroup=true
+killasgroup=true
+user=www-data
+numprocs=2
+redirect_stderr=true
+stdout_logfile=/var/www/invite/storage/logs/worker.log
+stopwaitsecs=3600
+```
 
-### Premium Partners
+Apply changes:
+```bash
+sudo supervisorctl reread
+sudo supervisorctl update
+sudo supervisorctl start invite-worker:*
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+---
 
-## Contributing
+## Short Link Redirection
+Personalized invitations sent in SMS are formatted as short links (`/s/{code}`) backed by the `short_links` table with atomic click tracking.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## Testing
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Run the full Pest feature test suite:
+```bash
+php artisan test
+```

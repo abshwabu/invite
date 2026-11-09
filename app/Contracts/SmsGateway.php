@@ -2,6 +2,8 @@
 
 namespace App\Contracts;
 
+use App\Services\Sms\SmsResult;
+
 interface SmsGateway
 {
     /**
@@ -9,7 +11,8 @@ interface SmsGateway
      *
      * @param string $to Normalized phone number
      * @param string $message Text content
-     * @return bool
+     * @param array $options Additional options (sender_id, callback_url, etc.)
+     * @return SmsResult
      */
-    public function send(string $to, string $message): bool;
+    public function send(string $to, string $message, array $options = []): SmsResult;
 }

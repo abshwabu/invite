@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Contracts\SmsGateway;
+use App\Services\Sms\AfroMessageGateway;
+use App\Services\Sms\GeezSmsGateway;
 use App\Services\Sms\LogSmsGateway;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Schema\SQLiteBuilder;
@@ -17,8 +19,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(SmsGateway::class, function () {
-            return new LogSmsGateway();
+        $this->app->bind(SmsGateway::class, function ($app) {
+            $driver = config('invite.sms.default_provider', env('SMS_GATEWAY', 'log'));
+
+            return match ($driver) {
+                'afromessage' => $app->make(AfroMessageGateway::class),
+                'geezsms' => $app->make(GeezSmsGateway::class),
+                default => $app->make(LogSmsGateway::class),
+            };
         });
 
         Connection::resolverFor('sqlite', function ($connection, $database, $prefix, $config) {

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CampaignController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EditorController;
 use App\Http\Controllers\EventController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicInvitationController;
+use App\Http\Controllers\ShortLinkController;
 use App\Http\Controllers\TemplateController;
 use App\Models\Category;
 use App\Models\Template;
@@ -80,10 +82,23 @@ Route::middleware('auth')->group(function () {
     // Import guest draft into real event
     Route::post('/events/import-draft', [EventDraftController::class, 'import'])->name('events.import-draft');
 
+    // Campaign & Delivery pipeline
+    Route::get('/events/{event}/campaigns/create', [CampaignController::class, 'create'])->name('events.campaigns.create');
+    Route::get('/events/{event}/send', [CampaignController::class, 'create'])->name('events.send');
+    Route::post('/events/{event}/campaigns/test-send', [CampaignController::class, 'testSend'])->name('events.campaigns.test-send');
+    Route::post('/events/{event}/campaigns', [CampaignController::class, 'store'])->name('events.campaigns.store');
+    Route::get('/events/{event}/deliveries', [CampaignController::class, 'deliveries'])->name('events.deliveries');
+    Route::post('/events/{event}/deliveries/{delivery}/resend', [CampaignController::class, 'resendDelivery'])->name('events.deliveries.resend');
+    Route::post('/events/{event}/campaigns/{campaign}/resend-failed', [CampaignController::class, 'resendFailed'])->name('events.campaigns.resend-failed');
+    Route::post('/events/{event}/campaigns/{campaign}/resend-pending', [CampaignController::class, 'resendPending'])->name('events.campaigns.resend-pending');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+// Public Short Links (e.g. for SMS and invitations)
+Route::get('/s/{code}', [ShortLinkController::class, 'redirect'])->name('shortlink.redirect');
 
 // Public Guest Invitation & Event Pages (Rate limited: 60 requests per minute)
 Route::middleware(['throttle:60,1'])->group(function () {

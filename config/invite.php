@@ -32,9 +32,17 @@ return [
     |
     */
     'sms' => [
-        'default_provider' => env('SMS_DEFAULT_PROVIDER', 'log'),
+        'default_provider' => env('SMS_GATEWAY', env('SMS_DEFAULT_PROVIDER', 'log')),
         'sender_id' => env('SMS_SENDER_ID', 'INVITE'),
         'default_country_code' => '+251',
+        'afromessage' => [
+            'token' => env('AFROMESSAGE_TOKEN', ''),
+            'sender_id' => env('AFROMESSAGE_SENDER_ID', env('SMS_SENDER_ID', 'INVITE')),
+            'callback_url' => env('AFROMESSAGE_CALLBACK_URL', ''),
+        ],
+        'geezsms' => [
+            'token' => env('GEEZSMS_TOKEN', ''),
+        ],
     ],
 
     /*

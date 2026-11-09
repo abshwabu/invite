@@ -243,6 +243,20 @@ const copyToken = (tok) => {
                 <!-- Right Action Buttons -->
                 <div class="flex flex-wrap items-center gap-2">
                     <Link
+                        :href="route('events.campaigns.create', { event: event.id })"
+                        class="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-sm transition flex items-center space-x-1"
+                    >
+                        <span>📨 Send Invitations</span>
+                    </Link>
+
+                    <Link
+                        :href="route('events.deliveries', { event: event.id })"
+                        class="px-3 py-1.5 rounded-xl bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 text-xs font-semibold transition flex items-center space-x-1"
+                    >
+                        <span>📋 Deliveries</span>
+                    </Link>
+
+                    <Link
                         :href="route('events.design', { event: event.id })"
                         class="px-3.5 py-1.5 rounded-xl border border-amber-500/50 text-amber-600 dark:text-amber-400 hover:bg-amber-500/10 text-xs font-semibold transition"
                     >

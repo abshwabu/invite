@@ -38,6 +38,16 @@ class Campaign extends Model
         ];
     }
 
+    public function getKindAttribute(): string
+    {
+        return $this->attributes['type'] ?? 'invitation';
+    }
+
+    public function setKindAttribute(string $value): void
+    {
+        $this->attributes['type'] = $value;
+    }
+
     public function event(): BelongsTo
     {
         return $this->belongsTo(Event::class);
