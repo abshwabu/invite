@@ -39,6 +39,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/plan', [PlanController::class, 'index'])->name('plan.index');
     Route::post('/plan/upgrade-request', [PlanController::class, 'upgradeRequest'])->name('plan.upgrade-request');
 
+    // Template custom upload (gated by upload_templates)
+    Route::post('/templates/upload', [TemplateController::class, 'upload'])->name('templates.upload');
+
     // Import guest draft into real event
     Route::post('/events/import-draft', [EventDraftController::class, 'import'])->name('events.import-draft');
 
