@@ -18,7 +18,8 @@ class CreateSuperAdminCommand extends Command
     protected $signature = 'superadmin:create
                             {--name= : Name of the super admin}
                             {--email= : Unique email address}
-                            {--password= : Password for the super admin}';
+                            {--password= : Password for the super admin}
+                            {--role=owner : Role of the super admin (owner or support)}';
 
     /**
      * The console command description.
@@ -54,10 +55,13 @@ class CreateSuperAdminCommand extends Command
             return self::FAILURE;
         }
 
+        $role = in_array($this->option('role'), ['owner', 'support'], true) ? $this->option('role') : 'owner';
+
         $superAdmin = SuperAdmin::create([
             'name' => $name,
             'email' => strtolower(trim($email)),
             'password' => Hash::make($password),
+            'role' => $role,
         ]);
 
         AuditLogService::log(

@@ -61,6 +61,15 @@ class SendDeliveryJob implements ShouldQueue
             return;
         }
 
+        if ($event->status === 'suspended' || ($event->user && $event->user->is_suspended)) {
+            $delivery->update([
+                'status' => 'failed',
+                'error' => 'Event or host account is currently suspended.',
+            ]);
+            $this->refundDeliveryQuota($quotaService, $delivery, $campaign, $event);
+            return;
+        }
+
         // Automatic skip & refund for opted-out guests
         if ($guest->opted_out) {
             $delivery->update([

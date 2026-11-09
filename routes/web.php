@@ -141,6 +141,9 @@ Route::middleware('auth')->group(function () {
     // "My Usage" Analytics
     Route::get('/usage', [UsageController::class, 'index'])->name('usage.index');
 
+    // Impersonation leave route (accessible by current session)
+    Route::post('/impersonation/leave', [\App\Http\Controllers\ImpersonationController::class, 'leave'])->name('impersonation.leave');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -194,6 +197,7 @@ Route::prefix(config('invite.superadmin_path', 'sa-x7k2p9q4m1'))->group(function
 
         Route::post('/logout', [\App\Http\Controllers\SuperAdmin\AuthController::class, 'logout'])->name('superadmin.logout');
         Route::post('/auth/logout', [\App\Http\Controllers\SuperAdmin\AuthController::class, 'logout'])->name('filament.superadmin.auth.logout');
+        Route::post('/impersonate/{user}', [\App\Http\Controllers\ImpersonationController::class, 'impersonate'])->name('superadmin.impersonate');
     });
 });
 

@@ -57,6 +57,12 @@ class HandleInertiaRequests extends Middleware
                 ] : null,
                 'unreadNotificationsCount' => fn () => $request->user()?->unreadNotifications()->count() ?? 0,
             ],
+            'impersonation' => fn () => session()->has('impersonator_superadmin_id') ? [
+                'active' => true,
+                'mode' => session('impersonation_mode', 'read_only'),
+                'admin_name' => session('impersonator_name', 'Super Admin'),
+                'expires_at' => session('impersonation_expires_at'),
+            ] : null,
             'locale' => $locale,
             'supportedLocales' => config('invite.supported_locales', ['en', 'am']),
             'translations' => $translations ?? [],

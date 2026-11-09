@@ -19,6 +19,7 @@ class SuperAdmin extends Authenticatable implements FilamentUser
         'name',
         'email',
         'password',
+        'role',
         'two_factor_secret',
         'two_factor_confirmed_at',
         'two_factor_recovery_codes',
@@ -46,5 +47,20 @@ class SuperAdmin extends Authenticatable implements FilamentUser
     public function canAccessPanel(Panel $panel): bool
     {
         return $panel->getId() === 'superadmin';
+    }
+
+    public function isOwner(): bool
+    {
+        return ($this->role ?? 'owner') === 'owner';
+    }
+
+    public function isSupport(): bool
+    {
+        return ($this->role ?? 'owner') === 'support';
+    }
+
+    public function canManageMoneyOrTiers(): bool
+    {
+        return $this->isOwner();
     }
 }

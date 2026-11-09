@@ -11,6 +11,10 @@ import axios from 'axios';
 
 const showingNavigationDropdown = ref(false);
 
+const leaveImpersonation = () => {
+    router.post(route('impersonation.leave'));
+};
+
 onMounted(async () => {
     // Check if user has an unimported guest draft in localStorage
     try {
@@ -31,6 +35,26 @@ onMounted(async () => {
 
 <template>
     <div>
+        <!-- Impersonation Banner -->
+        <div
+            v-if="$page.props.impersonation?.active"
+            class="sticky top-0 z-50 bg-amber-600 text-white px-4 py-2 text-xs flex items-center justify-between font-semibold shadow-md"
+        >
+            <div class="flex items-center gap-2">
+                <span class="text-base">🕵️</span>
+                <span>
+                    You are impersonating <strong>{{ $page.props.auth.user.name }}</strong>
+                    ({{ $page.props.impersonation.mode === 'read_only' ? 'Read-Only Mode' : 'Full Session' }} by {{ $page.props.impersonation.admin_name }})
+                </span>
+            </div>
+            <button
+                @click="leaveImpersonation"
+                class="px-3 py-1 rounded-lg bg-black/25 hover:bg-black/40 text-white text-xs font-bold transition flex items-center gap-1 shadow-sm"
+            >
+                <span>Exit Impersonation ✕</span>
+            </button>
+        </div>
+
         <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
             <nav
                 class="border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-800"

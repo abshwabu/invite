@@ -44,6 +44,12 @@ class PublicInvitationController extends Controller
 
         $event = $guest->event()->with('category')->firstOrFail();
 
+        if ($event->status === 'suspended') {
+            return Inertia::render('Public/Suspended', [
+                'eventTitle' => $event->title,
+            ]);
+        }
+
         // 3. Language selection (Amharic / English)
         $lang = $request->query('lang');
         if (! in_array($lang, ['en', 'am'], true)) {
@@ -142,6 +148,12 @@ class PublicInvitationController extends Controller
         if ($event->status === 'closed') {
             throw ValidationException::withMessages([
                 'rsvp_status' => __('RSVP is closed as this event has ended.'),
+            ]);
+        }
+
+        if ($event->status === 'suspended') {
+            throw ValidationException::withMessages([
+                'rsvp_status' => __('This event is currently suspended. RSVPs cannot be submitted.'),
             ]);
         }
 
@@ -345,6 +357,12 @@ class PublicInvitationController extends Controller
 
         if (! $event) {
             abort(404, __('Event not found.'));
+        }
+
+        if ($event->status === 'suspended') {
+            return Inertia::render('Public/Suspended', [
+                'eventTitle' => $event->title,
+            ]);
         }
 
         $ethiopianDate = EthiopianCalendar::fromGregorian($event->starts_at);
