@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 220" fill="none">
+  <!-- Adorable newborn baby footprints with tender contours and accents -->
+  <g class="footprints" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Left Footprint -->
+    <g class="left-foot" transform="translate(42, 20) rotate(-8 60 80)">
+      <!-- Sole Shadow -->
+      <path d="M46 68 C34 68 26 84 28 106 C30 128 42 148 54 148 C66 148 70 134 64 112 C58 92 56 68 46 68 Z" fill="{{c3}}" opacity="0.35"/>
+      <!-- Sole Main Body -->
+      <path d="M44 65 C32 65 24 81 26 103 C28 125 40 145 52 145 C64 145 68 131 62 109 C56 89 54 65 44 65 Z" fill="{{c1}}" opacity="0.85"/>
+      <!-- Inner highlight curve -->
+      <path d="M34 84 C32 98 34 116 42 130" stroke="#FFFFFF" stroke-width="2.5" opacity="0.6"/>
+
+      <!-- Toes (Left foot: big toe on right/inner side) -->
+      <!-- Big Toe -->
+      <ellipse cx="58" cy="46" rx="9" ry="11" fill="{{c1}}" opacity="0.85"/>
+      <ellipse cx="57" cy="44" rx="4" ry="5.5" fill="{{c2}}" opacity="0.4"/>
+      <!-- Second Toe -->
+      <ellipse cx="44" cy="42" rx="6.5" ry="8" fill="{{c1}}" opacity="0.85"/>
+      <!-- Third Toe -->
+      <ellipse cx="32" cy="45" rx="5.5" ry="7" fill="{{c1}}" opacity="0.85"/>
+      <!-- Fourth Toe -->
+      <ellipse cx="22" cy="52" rx="4.5" ry="6" fill="{{c1}}" opacity="0.85"/>
+      <!-- Little Pinky Toe -->
+      <ellipse cx="14" cy="62" rx="3.5" ry="4.5" fill="{{c1}}" opacity="0.85"/>
+    </g>
+
+    <!-- Right Footprint (slightly stepped forward) -->
+    <g class="right-foot" transform="translate(122, 10) rotate(8 60 80)">
+      <!-- Sole Shadow -->
+      <path d="M46 68 C56 68 58 92 52 112 C46 134 50 148 62 148 C74 148 86 128 88 106 C90 84 82 68 70 68 Z" fill="{{c3}}" opacity="0.35"/>
+      <!-- Sole Main Body -->
+      <path d="M48 65 C58 65 60 89 54 109 C48 131 52 145 64 145 C76 145 88 125 90 103 C92 81 84 65 72 65 Z" fill="{{c2}}" opacity="0.85"/>
+      <!-- Inner highlight curve -->
+      <path d="M82 84 C84 98 82 116 74 130" stroke="#FFFFFF" stroke-width="2.5" opacity="0.6"/>
+
+      <!-- Toes (Right foot: big toe on left/inner side) -->
+      <!-- Big Toe -->
+      <ellipse cx="58" cy="46" rx="9" ry="11" fill="{{c2}}" opacity="0.85"/>
+      <ellipse cx="59" cy="44" rx="4" ry="5.5" fill="{{c1}}" opacity="0.4"/>
+      <!-- Second Toe -->
+      <ellipse cx="72" cy="42" rx="6.5" ry="8" fill="{{c2}}" opacity="0.85"/>
+      <!-- Third Toe -->
+      <ellipse cx="84" cy="45" rx="5.5" ry="7" fill="{{c2}}" opacity="0.85"/>
+      <!-- Fourth Toe -->
+      <ellipse cx="94" cy="52" rx="4.5" ry="6" fill="{{c2}}" opacity="0.85"/>
+      <!-- Little Pinky Toe -->
+      <ellipse cx="102" cy="62" rx="3.5" ry="4.5" fill="{{c2}}" opacity="0.85"/>
+    </g>
+
+    <!-- Floating Love Hearts and Stars -->
+    <g class="accents">
+      <!-- Centered Heart -->
+      <path d="M120 45 C116 38 106 40 106 48 C106 56 120 66 120 66 C120 66 134 56 134 48 C134 40 124 38 120 45 Z" fill="{{c1}}" opacity="0.75"/>
+      <path d="M120 185 C117 180 110 181 110 187 C110 193 120 200 120 200 C120 200 130 193 130 187 C130 181 123 180 120 185 Z" fill="{{c2}}" opacity="0.75"/>
+      
+      <!-- Sparkles -->
+      <path d="M30 170 Q30 176 36 176 Q30 176 30 182 Q30 176 24 176 Q30 176 30 170 Z" fill="{{c2}}"/>
+      <path d="M210 160 Q210 166 216 166 Q210 166 210 172 Q210 166 204 166 Q210 166 210 160 Z" fill="{{c1}}"/>
+      <circle cx="28" cy="70" r="2.5" fill="{{c3}}"/>
+      <circle cx="212" cy="74" r="2.5" fill="{{c3}}"/>
+      <circle cx="120" cy="140" r="2" fill="{{c3}}"/>
+    </g>
+  </g>
+</svg>

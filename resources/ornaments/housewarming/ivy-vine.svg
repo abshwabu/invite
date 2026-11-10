@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 360" fill="none">
+  <!-- Botanical climbing English ivy vine with delicate lobed leaves and curling tendrils -->
+  <g class="ivy-vine" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Main undulating sinuous vine stem -->
+    <path d="M40 10 C80 60 20 120 70 180 C120 240 40 300 80 350" stroke="{{c1}}" stroke-width="3" fill="none"/>
+    <path d="M40 10 C80 60 20 120 70 180 C120 240 40 300 80 350" stroke="{{c2}}" stroke-width="1.2" stroke-dasharray="6 6" fill="none"/>
+
+    <!-- Curling Tendril Whisps -->
+    <path d="M60 70 C85 65 95 80 88 92 C82 100 70 94 72 84 C74 76 82 78 84 82" stroke="{{c1}}" stroke-width="1.5" fill="none"/>
+    <path d="M35 150 C15 140 5 155 12 166 C18 174 28 170 26 160 C24 154 18 156 16 160" stroke="{{c1}}" stroke-width="1.5" fill="none"/>
+    <path d="M88 230 C110 220 122 235 116 246 C110 255 98 250 100 240 C102 232 110 234 112 238" stroke="{{c1}}" stroke-width="1.5" fill="none"/>
+    <path d="M50 310 C30 300 20 315 28 326 C34 334 44 330 42 320" stroke="{{c1}}" stroke-width="1.5" fill="none"/>
+
+    <!-- Ivy Leaf Clusters (Classic 3-lobed or 5-lobed English ivy shape) -->
+    <!-- Leaf 1 (Near top left: 55, 45) -->
+    <g class="leaf-1" transform="translate(55, 45)">
+      <!-- Leaf Shadow / Underlay -->
+      <path d="M0 0 C-18 -12 -34 4 -28 18 C-36 26 -30 42 -14 38 C-4 50 16 46 18 32 C30 26 28 10 14 6 Z" fill="{{c3}}" opacity="0.35"/>
+      <!-- Main Ivy Leaf Shape -->
+      <path d="M0 0 C-16 -10 -32 6 -26 18 C-34 26 -28 40 -12 36 C-2 48 16 44 16 30 C28 24 26 8 12 4 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="2"/>
+      <!-- Leaf Veins -->
+      <path d="M0 0 L-2 36" stroke="{{c1}}" stroke-width="1.5"/>
+      <path d="M-2 18 L-22 20" stroke="{{c1}}" stroke-width="1.2"/>
+      <path d="M-2 18 L16 18" stroke="{{c1}}" stroke-width="1.2"/>
+    </g>
+
+    <!-- Leaf 2 (Upper right: 110, 105) -->
+    <g class="leaf-2" transform="translate(105, 105)">
+      <path d="M0 0 C-12 -16 6 -32 20 -24 C30 -32 46 -24 42 -8 C54 2 48 22 34 20 C28 32 10 28 6 14 Z" fill="{{c1}}" opacity="0.9" stroke="{{c2}}" stroke-width="2"/>
+      <!-- Leaf Veins -->
+      <path d="M0 0 L32 12" stroke="{{c2}}" stroke-width="1.5"/>
+      <path d="M16 6 L26 -16" stroke="{{c2}}" stroke-width="1.2"/>
+      <path d="M16 6 L18 24" stroke="{{c2}}" stroke-width="1.2"/>
+    </g>
+
+    <!-- Leaf 3 (Center dip left: 45, 175) -->
+    <g class="leaf-3" transform="translate(45, 175)">
+      <path d="M0 0 C-16 -12 -34 4 -28 18 C-36 26 -30 42 -14 38 C-4 50 16 46 18 32 C30 26 28 10 14 6 Z" fill="{{c3}}" opacity="0.8" stroke="{{c1}}" stroke-width="2"/>
+      <!-- Veins -->
+      <path d="M0 0 L-2 36" stroke="{{c1}}" stroke-width="1.5"/>
+      <path d="M-2 18 L-22 20" stroke="{{c1}}" stroke-width="1.2"/>
+      <path d="M-2 18 L16 18" stroke="{{c1}}" stroke-width="1.2"/>
+    </g>
+
+    <!-- Leaf 4 (Hero Center right: 120, 220) -->
+    <g class="leaf-4" transform="translate(115, 220)">
+      <path d="M0 0 C-14 -18 8 -36 24 -26 C36 -34 52 -24 46 -8 C60 4 52 26 36 24 C30 36 12 32 6 16 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="2.5"/>
+      <!-- Inner Vein detail -->
+      <path d="M0 0 L36 14" stroke="{{c1}}" stroke-width="1.8"/>
+      <path d="M18 7 L30 -18" stroke="{{c1}}" stroke-width="1.2"/>
+      <path d="M18 7 L20 28" stroke="{{c1}}" stroke-width="1.2"/>
+    </g>
+
+    <!-- Leaf 5 (Lower left: 55, 280) -->
+    <g class="leaf-5" transform="translate(55, 280)">
+      <path d="M0 0 C-16 -12 -32 6 -26 18 C-34 26 -28 40 -12 36 C-2 48 16 44 16 30 C28 24 26 8 12 4 Z" fill="{{c1}}" opacity="0.9" stroke="{{c2}}" stroke-width="2"/>
+      <path d="M0 0 L-2 36" stroke="{{c2}}" stroke-width="1.5"/>
+      <path d="M-2 18 L-20 20" stroke="{{c2}}" stroke-width="1.2"/>
+      <path d="M-2 18 L14 18" stroke="{{c2}}" stroke-width="1.2"/>
+    </g>
+
+    <!-- Leaf 6 (Bottom trailing tip: 110, 330) -->
+    <g class="leaf-6" transform="translate(100, 330)">
+      <path d="M0 0 C-10 -12 6 -24 16 -18 C24 -24 36 -18 32 -6 C40 2 36 16 26 14 C22 24 8 20 4 10 Z" fill="{{c2}}" opacity="0.8" stroke="{{c1}}" stroke-width="1.8"/>
+      <path d="M0 0 L24 8" stroke="{{c1}}" stroke-width="1.2"/>
+    </g>
+
+    <!-- Berry Clusters nestled along the stems -->
+    <circle cx="68" cy="62" r="3.5" fill="{{c1}}"/>
+    <circle cx="74" cy="56" r="2.5" fill="{{c2}}"/>
+    <circle cx="62" cy="54" r="2.5" fill="{{c3}}"/>
+
+    <circle cx="85" cy="145" r="3.5" fill="{{c2}}"/>
+    <circle cx="92" cy="140" r="2.5" fill="{{c1}}"/>
+    <circle cx="80" cy="138" r="2.5" fill="{{c3}}"/>
+
+    <circle cx="58" cy="245" r="3.5" fill="{{c1}}"/>
+    <circle cx="64" cy="240" r="2.5" fill="{{c2}}"/>
+
+    <circle cx="72" cy="320" r="3.5" fill="{{c2}}"/>
+    <circle cx="78" cy="314" r="2.5" fill="{{c1}}"/>
+
+    <!-- Subtle Twinkle Accents -->
+    <path d="M140 50 Q140 56 146 56 Q140 56 140 62 Q140 56 134 56 Q140 56 140 50 Z" fill="{{c2}}"/>
+    <circle cx="160" cy="170" r="2.5" fill="{{c3}}"/>
+    <path d="M150 280 Q150 286 156 286 Q150 286 150 292 Q150 286 144 286 Q150 286 150 280 Z" fill="{{c2}}"/>
+  </g>
+</svg>

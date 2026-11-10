@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 280" fill="none">
+  <!-- Modern architectural geometric triangle cluster for card corners -->
+  <g class="geo-triangles-corner" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Outer faint grid guide lines -->
+    <line x1="0" y1="40" x2="280" y2="40" stroke="{{c3}}" stroke-width="1" stroke-dasharray="2 6" opacity="0.3"/>
+    <line x1="0" y1="120" x2="280" y2="120" stroke="{{c3}}" stroke-width="1" stroke-dasharray="2 6" opacity="0.3"/>
+    <line x1="40" y1="0" x2="40" y2="280" stroke="{{c3}}" stroke-width="1" stroke-dasharray="2 6" opacity="0.3"/>
+    <line x1="120" y1="0" x2="120" y2="280" stroke="{{c3}}" stroke-width="1" stroke-dasharray="2 6" opacity="0.3"/>
+
+    <!-- Layer 1: Background Large Facets -->
+    <polygon points="0,0 180,0 0,180" fill="{{c1}}" opacity="0.15"/>
+    <polygon points="0,60 140,0 220,0 0,220" fill="{{c2}}" opacity="0.2"/>
+    <polygon points="40,0 190,0 80,110" fill="{{c3}}" opacity="0.35"/>
+
+    <!-- Layer 2: Midground Structural Triangles -->
+    <polygon points="0,0 110,0 0,110" fill="{{c1}}" opacity="0.85" stroke="{{c2}}" stroke-width="2"/>
+    <polygon points="110,0 170,0 80,90" fill="{{c2}}" opacity="0.7" stroke="{{c1}}" stroke-width="1.8"/>
+    <polygon points="0,110 0,170 90,80" fill="{{c2}}" opacity="0.7" stroke="{{c1}}" stroke-width="1.8"/>
+    <polygon points="80,90 150,20 180,90" fill="{{c1}}" opacity="0.4" stroke="{{c2}}" stroke-width="1.5"/>
+    <polygon points="90,80 20,150 90,180" fill="{{c1}}" opacity="0.4" stroke="{{c2}}" stroke-width="1.5"/>
+
+    <!-- Layer 3: Foreground Crisp Isometric Triangles -->
+    <polygon points="0,0 60,0 0,60" fill="{{c2}}" stroke="{{c1}}" stroke-width="2.5"/>
+    <polygon points="60,0 90,30 30,60 0,60" fill="{{c3}}" opacity="0.75" stroke="{{c1}}" stroke-width="1.5"/>
+    <polygon points="90,30 130,10 110,70" fill="{{c1}}" stroke="{{c2}}" stroke-width="1.5"/>
+    <polygon points="30,90 10,130 70,110" fill="{{c1}}" stroke="{{c2}}" stroke-width="1.5"/>
+
+    <!-- Outward Extruded Floating Triangles -->
+    <polygon points="170,30 210,15 190,65" fill="{{c2}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.5"/>
+    <polygon points="30,170 15,210 65,190" fill="{{c2}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.5"/>
+    <polygon points="130,90 160,110 120,140" fill="{{c3}}" opacity="0.6" stroke="{{c1}}" stroke-width="1.2"/>
+    <polygon points="210,50 250,40 230,80" fill="{{c1}}" opacity="0.6" stroke="{{c2}}" stroke-width="1.2"/>
+    <polygon points="50,210 40,250 80,230" fill="{{c1}}" opacity="0.6" stroke="{{c2}}" stroke-width="1.2"/>
+
+    <!-- Precision Diagonal Edge Rule -->
+    <line x1="0" y1="200" x2="200" y2="0" stroke="{{c1}}" stroke-width="2.5"/>
+    <line x1="0" y1="210" x2="210" y2="0" stroke="{{c2}}" stroke-width="1" stroke-dasharray="3 4"/>
+
+    <!-- Node Points / Coordinate Vertices -->
+    <circle cx="60" cy="0" r="3.5" fill="{{c1}}"/>
+    <circle cx="0" cy="60" r="3.5" fill="{{c1}}"/>
+    <circle cx="110" cy="0" r="3" fill="{{c2}}"/>
+    <circle cx="0" cy="110" r="3" fill="{{c2}}"/>
+    <circle cx="90" cy="90" r="4" fill="{{c1}}" stroke="#FFFFFF" stroke-width="1.5"/>
+    <circle cx="170" cy="30" r="3" fill="{{c1}}"/>
+    <circle cx="30" cy="170" r="3" fill="{{c1}}"/>
+    <circle cx="210" cy="15" r="2.5" fill="{{c2}}"/>
+    <circle cx="15" cy="210" r="2.5" fill="{{c2}}"/>
+    <circle cx="250" cy="40" r="2" fill="{{c3}}"/>
+    <circle cx="40" cy="250" r="2" fill="{{c3}}"/>
+  </g>
+</svg>

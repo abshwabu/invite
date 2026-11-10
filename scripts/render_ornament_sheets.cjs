@@ -201,7 +201,13 @@ async function main() {
         'funeral',
         'faith-symbols',
         'religious-islamic',
-        'religious-ethiopian'
+        'religious-ethiopian',
+        'birthday',
+        'baby-shower',
+        'graduation',
+        'corporate',
+        'housewarming',
+        'shared'
     ];
 
     if (targetSet === 'all') {

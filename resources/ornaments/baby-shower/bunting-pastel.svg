@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 80">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Catenary Hanging String -->
+    <path d="M15,16 C100,38 260,38 345,16" stroke="{{c1}}" stroke-width="2" />
+    <path d="M15,19 C100,41 260,41 345,19" stroke="{{c2}}" stroke-width="0.8" stroke-dasharray="2,3" opacity="0.6" />
+
+    <!-- Soft Bows at string ends -->
+    <!-- Left Bow (15, 16) -->
+    <circle cx="15" cy="16" r="3" fill="{{c1}}" />
+    <path d="M15,16 C8,10 4,16 10,21 C14,23 15,16 15,16" fill="{{c2}}" stroke="{{c1}}" stroke-width="0.8" />
+    <path d="M15,16 C16,24 12,28 8,32" stroke="{{c1}}" stroke-width="1" />
+    <!-- Right Bow (345, 16) -->
+    <circle cx="345" cy="16" r="3" fill="{{c1}}" />
+    <path d="M345,16 C352,10 356,16 350,21 C346,23 345,16 345,16" fill="{{c2}}" stroke="{{c1}}" stroke-width="0.8" />
+    <path d="M345,16 C344,24 348,28 352,32" stroke="{{c1}}" stroke-width="1" />
+
+    <!-- 6 Rounded Soft Nursery Pennant Flags -->
+
+    <!-- Flag 1: Rounded swallowtail pennant (x=35..75, y_top~22) -->
+    <path d="M35,21 L75,27 L75,64 L55,54 L35,64 Z" fill="{{c2}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.4" />
+    <!-- Heart Motif on Flag 1 -->
+    <path d="M55,36 C52,32 46,34 46,39 C46,45 55,50 55,50 C55,50 64,45 64,39 C64,34 58,32 55,36 Z" fill="{{c1}}" stroke="{{c3}}" stroke-width="0.6" />
+
+    <!-- Flag 2: Scallop bottom pennant (x=85..125, y_top~28) -->
+    <path d="M85,28 L125,32 L125,66 C125,74 85,74 85,66 Z" fill="{{c3}}" opacity="0.75" stroke="{{c1}}" stroke-width="1.4" />
+    <!-- Polka Dots -->
+    <circle cx="105" cy="44" r="2.5" fill="{{c1}}" />
+    <circle cx="96" cy="54" r="1.8" fill="{{c2}}" />
+    <circle cx="114" cy="54" r="1.8" fill="{{c2}}" />
+
+    <!-- Flag 3: Swallowtail pennant (x=135..175, y_top~32) -->
+    <path d="M135,33 L175,35 L175,72 L155,62 L135,72 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.6" />
+    <!-- Cute Star on Flag 3 -->
+    <polygon points="155,42 157,46 161,46 158,49 159,53 155,51 151,53 152,49 149,46 153,46" fill="{{c2}}" stroke="{{c3}}" stroke-width="0.6" />
+
+    <!-- Flag 4: Swallowtail pennant (x=185..225, y_top~32) -->
+    <path d="M185,35 L225,33 L225,72 L205,62 L185,72 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.6" />
+    <!-- Cute Star on Flag 4 -->
+    <polygon points="205,42 207,46 211,46 208,49 209,53 205,51 201,53 202,49 199,46 203,46" fill="{{c2}}" stroke="{{c3}}" stroke-width="0.6" />
+
+    <!-- Flag 5: Scallop bottom pennant (x=235..275, y_top~28) -->
+    <path d="M235,32 L275,28 L275,66 C275,74 235,74 235,66 Z" fill="{{c3}}" opacity="0.75" stroke="{{c1}}" stroke-width="1.4" />
+    <circle cx="255" cy="44" r="2.5" fill="{{c1}}" />
+    <circle cx="246" cy="54" r="1.8" fill="{{c2}}" />
+    <circle cx="264" cy="54" r="1.8" fill="{{c2}}" />
+
+    <!-- Flag 6: Rounded swallowtail pennant (x=285..325, y_top~22) -->
+    <path d="M285,27 L325,21 L325,64 L305,54 L285,64 Z" fill="{{c2}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.4" />
+    <!-- Heart Motif on Flag 6 -->
+    <path d="M305,36 C302,32 296,34 296,39 C296,45 305,50 305,50 C305,50 314,45 314,39 C314,34 308,32 305,36 Z" fill="{{c1}}" stroke="{{c3}}" stroke-width="0.6" />
+
+    <!-- Soft hanging little pearls between flags -->
+    <circle cx="80" cy="27" r="1.6" fill="{{c3}}" />
+    <circle cx="130" cy="32" r="1.6" fill="{{c2}}" />
+    <circle cx="180" cy="34" r="2" fill="{{c3}}" />
+    <circle cx="230" cy="32" r="1.6" fill="{{c2}}" />
+    <circle cx="280" cy="27" r="1.6" fill="{{c3}}" />
+  </g>
+</svg>

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- GIFT BOW ON TOP OF LID (Center 100, 48) -->
+    <!-- Ribbon Streamers curling down from bow -->
+    <path d="M92,54 C70,62 58,80 50,105 C56,98 68,90 84,72" fill="{{c2}}" opacity="0.75" stroke="{{c1}}" stroke-width="1.2" />
+    <path d="M108,54 C130,62 142,80 150,105 C144,98 132,90 116,72" fill="{{c2}}" opacity="0.75" stroke="{{c1}}" stroke-width="1.2" />
+
+    <!-- Back Bow Loops (c3 shadow) -->
+    <path d="M100,48 C75,18 42,28 58,52 C70,62 90,56 100,48 Z" fill="{{c3}}" opacity="0.7" stroke="{{c1}}" stroke-width="1.4" />
+    <path d="M100,48 C125,18 158,28 142,52 C130,62 110,56 100,48 Z" fill="{{c3}}" opacity="0.7" stroke="{{c1}}" stroke-width="1.4" />
+
+    <!-- Front Bow Loops (c1/c2 main) -->
+    <path d="M100,48 C85,24 60,32 72,50 C80,58 92,54 100,48 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.8" />
+    <path d="M100,48 C115,24 140,32 128,50 C120,58 108,54 100,48 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.8" />
+
+    <!-- Top Center Bow Loops -->
+    <path d="M100,48 C94,30 106,30 100,48 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.2" />
+    <!-- Center Ribbon Knot -->
+    <circle cx="100" cy="50" r="6" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.6" />
+    <circle cx="100" cy="50" r="2.5" fill="{{c3}}" />
+
+    <!-- PRESENT BOX LID (y=56 to 82, width=144: x=28 to 172) -->
+    <rect x="28" y="56" width="144" height="26" rx="3" fill="{{c2}}" opacity="0.85" stroke="{{c1}}" stroke-width="2.2" />
+    <!-- Vertical Ribbon on Lid -->
+    <rect x="90" y="56" width="20" height="26" fill="{{c1}}" stroke="{{c1}}" stroke-width="1.4" />
+    <line x1="100" y1="56" x2="100" y2="82" stroke="{{c3}}" stroke-width="1.2" />
+
+    <!-- PRESENT BOX BASE (y=82 to 195, width=132: x=34 to 166) -->
+    <rect x="34" y="82" width="132" height="113" rx="2" fill="{{c3}}" opacity="0.35" stroke="{{c1}}" stroke-width="2.2" />
+
+    <!-- Vertical Ribbon on Base -->
+    <rect x="90" y="82" width="20" height="113" fill="{{c1}}" stroke="{{c1}}" stroke-width="1.5" />
+    <line x1="100" y1="82" x2="100" y2="195" stroke="{{c3}}" stroke-width="1.2" />
+
+    <!-- Horizontal Ribbon on Base (Midway: y=130 to 148) -->
+    <rect x="34" y="130" width="132" height="18" fill="{{c1}}" stroke="{{c1}}" stroke-width="1.5" />
+    <line x1="34" y1="139" x2="166" y2="139" stroke="{{c3}}" stroke-width="1.2" />
+
+    <!-- Ribbon Crossing Intersection Medallion (100, 139) -->
+    <rect x="90" y="130" width="20" height="18" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5" />
+    <circle cx="100" cy="139" r="3" fill="{{c3}}" />
+
+    <!-- Polka Dot Gift Wrap Accents on Box Corners -->
+    <circle cx="58" cy="106" r="3" fill="{{c2}}" />
+    <circle cx="142" cy="106" r="3" fill="{{c2}}" />
+    <circle cx="58" cy="168" r="3" fill="{{c2}}" />
+    <circle cx="142" cy="168" r="3" fill="{{c2}}" />
+
+    <!-- Hanging Gift Tag (Tied to bow, dangling at left) -->
+    <g transform="translate(62, 70) rotate(-18)">
+      <line x1="25" y1="0" x2="10" y2="10" stroke="{{c1}}" stroke-width="1" />
+      <polygon points="10,6 18,14 10,24 0,16" fill="{{c2}}" stroke="{{c1}}" stroke-width="1" />
+      <circle cx="12" cy="10" r="1.5" fill="{{c3}}" />
+    </g>
+
+    <!-- Celebration Sparkles around Gift -->
+    <path d="M22,45 L23.5,40 L25,45 L30,46.5 L25,48 L23.5,53 L22,48 L17,46.5 Z" fill="{{c1}}" />
+    <path d="M178,50 L179.5,45 L181,50 L186,51.5 L181,53 L179.5,58 L178,53 L173,51.5 Z" fill="{{c1}}" />
+    <path d="M172,160 L173.5,155 L175,160 L180,161.5 L175,163 L173.5,168 L172,163 L167,161.5 Z" fill="{{c2}}" />
+    <circle cx="20" cy="140" r="2" fill="{{c3}}" />
+    <circle cx="180" cy="110" r="2" fill="{{c2}}" />
+  </g>
+</svg>

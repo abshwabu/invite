@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 260" fill="none">
+  <!-- Academic Mortarboard Graduation Cap with Tassel and Highlights -->
+  <g class="mortarboard" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Skull Cap Base (beneath the square board) -->
+    <path d="M110 120 C106 150 118 186 160 186 C202 186 214 150 210 120" fill="{{c1}}" stroke="{{c3}}" stroke-width="2.5"/>
+    <path d="M120 145 C128 174 144 180 160 180 C176 180 192 174 200 145" stroke="{{c2}}" stroke-width="2" fill="none" opacity="0.6"/>
+
+    <!-- 3D Underside / Rim Edge of the square board -->
+    <path d="M20 90 L160 146 L300 90 L300 102 L160 158 L20 102 Z" fill="{{c3}}" opacity="0.85"/>
+
+    <!-- Main Diamond Cap Top Surface -->
+    <polygon points="160,34 300,90 160,146 20,90" fill="{{c1}}" stroke="{{c2}}" stroke-width="3"/>
+    
+    <!-- Top surface contour sheen / facet -->
+    <polygon points="160,38 290,90 160,142 30,90" fill="{{c2}}" opacity="0.12"/>
+    <line x1="160" y1="36" x2="160" y2="144" stroke="{{c2}}" stroke-width="1.2" opacity="0.4"/>
+    <line x1="22" y1="90" x2="298" y2="90" stroke="{{c2}}" stroke-width="1.2" opacity="0.4"/>
+
+    <!-- Center Button / Medallion -->
+    <ellipse cx="160" cy="90" rx="9" ry="6" fill="{{c2}}" stroke="{{c1}}" stroke-width="2"/>
+    <ellipse cx="160" cy="89" rx="5" ry="3.5" fill="#FFFFFF" opacity="0.7"/>
+
+    <!-- Tassel Cord looping over edge -->
+    <path d="M160 90 C180 88 230 92 250 114 C262 128 262 142 260 160" stroke="{{c2}}" stroke-width="3.5" fill="none"/>
+    <path d="M160 89 C180 87 228 91 248 113" stroke="#FFFFFF" stroke-width="1.2" fill="none" opacity="0.7"/>
+
+    <!-- Tassel Assembly -->
+    <g class="tassel-hanging">
+      <!-- Tassel Ring / Band -->
+      <ellipse cx="260" cy="162" rx="7" ry="4" fill="{{c1}}" stroke="{{c2}}" stroke-width="1.5"/>
+      <!-- Tassel Ball / Knot -->
+      <ellipse cx="260" cy="170" rx="9" ry="7" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.8"/>
+      <ellipse cx="258" cy="168" rx="4" ry="3" fill="#FFFFFF" opacity="0.6"/>
+      <!-- Tassel Neck Collar -->
+      <rect x="254" y="176" width="12" height="4" rx="2" fill="{{c1}}"/>
+      
+      <!-- Tassel Skirt / Silk Threads -->
+      <path d="M254 180 C250 206 244 236 242 248 L278 248 C276 236 270 206 266 180 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="2"/>
+      <!-- Thread Texture Lines -->
+      <line x1="248" y1="184" x2="246" y2="246" stroke="{{c3}}" stroke-width="1.5"/>
+      <line x1="254" y1="182" x2="253" y2="247" stroke="#FFFFFF" stroke-width="1.2" opacity="0.6"/>
+      <line x1="260" y1="182" x2="260" y2="248" stroke="{{c1}}" stroke-width="1.5"/>
+      <line x1="266" y1="182" x2="267" y2="247" stroke="#FFFFFF" stroke-width="1.2" opacity="0.6"/>
+      <line x1="272" y1="184" x2="274" y2="246" stroke="{{c3}}" stroke-width="1.5"/>
+      <!-- Bottom Fringe Cut -->
+      <line x1="242" y1="248" x2="278" y2="248" stroke="{{c1}}" stroke-width="2.5"/>
+    </g>
+
+    <!-- Floating celebratory stars / academic glory -->
+    <path d="M60 48 Q60 56 66 56 Q60 56 60 64 Q60 56 54 56 Q60 56 60 48 Z" fill="{{c2}}" opacity="0.85"/>
+    <path d="M260 40 Q260 46 266 46 Q260 46 260 52 Q260 46 254 46 Q260 46 260 40 Z" fill="{{c2}}" opacity="0.85"/>
+    <circle cx="78" cy="74" r="2.5" fill="{{c3}}"/>
+    <circle cx="280" cy="70" r="2" fill="{{c3}}"/>
+  </g>
+</svg>

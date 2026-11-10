@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 50" fill="none">
+  <!-- Formal dual parallel rule lines centered on a classical scrollwork flourish medallion -->
+  <g class="double-rule-ornament" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Center coordinate: (210, 25) -->
+
+    <!-- Left Dual Rules -->
+    <line x1="20" y1="21" x2="160" y2="21" stroke="{{c1}}" stroke-width="1.8"/>
+    <line x1="20" y1="29" x2="160" y2="29" stroke="{{c2}}" stroke-width="1.2"/>
+    <!-- Left Terminal End Ticks -->
+    <circle cx="20" cy="25" r="2.5" fill="{{c1}}"/>
+    <line x1="20" y1="18" x2="20" y2="32" stroke="{{c1}}" stroke-width="1.5"/>
+
+    <!-- Right Dual Rules -->
+    <line x1="260" y1="21" x2="400" y2="21" stroke="{{c1}}" stroke-width="1.8"/>
+    <line x1="260" y1="29" x2="400" y2="29" stroke="{{c2}}" stroke-width="1.2"/>
+    <!-- Right Terminal End Ticks -->
+    <circle cx="400" cy="25" r="2.5" fill="{{c1}}"/>
+    <line x1="400" y1="18" x2="400" y2="32" stroke="{{c1}}" stroke-width="1.5"/>
+
+    <!-- Central Classical Scrollwork Medallion (Between x=160 and x=260) -->
+    <!-- Left Wing C-Scrolls -->
+    <path d="M162 25 C174 15 186 16 194 25 C186 34 174 35 162 25 Z" fill="{{c2}}" opacity="0.3" stroke="{{c1}}" stroke-width="1.5"/>
+    <path d="M172 25 C180 18 188 20 190 25 C188 30 180 32 172 25" stroke="{{c2}}" stroke-width="1.2" fill="none"/>
+
+    <!-- Right Wing C-Scrolls -->
+    <path d="M258 25 C246 15 234 16 226 25 C234 34 246 35 258 25 Z" fill="{{c2}}" opacity="0.3" stroke="{{c1}}" stroke-width="1.5"/>
+    <path d="M248 25 C240 18 232 20 230 25 C232 30 240 32 248 25" stroke="{{c2}}" stroke-width="1.2" fill="none"/>
+
+    <!-- Top & Bottom Acanthus Palmette Tips -->
+    <path d="M210 10 C206 16 204 22 210 25 C216 22 214 16 210 10 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.2"/>
+    <circle cx="210" cy="8" r="2" fill="{{c1}}"/>
+
+    <path d="M210 40 C206 34 204 28 210 25 C216 28 214 34 210 40 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.2"/>
+    <circle cx="210" cy="42" r="2" fill="{{c1}}"/>
+
+    <!-- Center Rosette Disc -->
+    <circle cx="210" cy="25" r="10" fill="#FFFFFF" stroke="{{c1}}" stroke-width="2"/>
+    <circle cx="210" cy="25" r="7" fill="{{c1}}" stroke="{{c2}}" stroke-width="1.2"/>
+    <circle cx="210" cy="25" r="3" fill="{{c2}}"/>
+    <circle cx="210" cy="25" r="1.2" fill="#FFFFFF"/>
+
+    <!-- Flanking Accent Pearls -->
+    <circle cx="160" cy="25" r="3" fill="{{c1}}"/>
+    <circle cx="260" cy="25" r="3" fill="{{c1}}"/>
+  </g>
+</svg>

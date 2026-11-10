@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 440" fill="none">
+  <!-- Classical Romanesque arched doorway portal frame with keystone and fluted borders -->
+  <g class="arch-frame" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Outer Arch Contour (x from 24 to 296, top arch center at (160, 160), radius 136) -->
+    <!-- Base plinths at y=416 to 430 -->
+    <path d="M 24 416 
+      V 160 
+      A 136 136 0 0 1 296 160 
+      V 416 
+      H 24 Z" 
+      stroke="{{c1}}" stroke-width="3" fill="none"/>
+
+    <!-- Inner Arch Contour (radius 124, inset 12px) -->
+    <path d="M 36 416 
+      V 160 
+      A 124 124 0 0 1 284 160 
+      V 416" 
+      stroke="{{c2}}" stroke-width="2" fill="none"/>
+
+    <!-- Innermost Hairline Beaded Arch (radius 114) -->
+    <path d="M 46 416 
+      V 160 
+      A 114 114 0 0 1 274 160 
+      V 416" 
+      stroke="{{c3}}" stroke-width="1.2" stroke-dasharray="4 4" fill="none"/>
+
+    <!-- Impost Molding Blocks at Spring Line (y=160) -->
+    <!-- Left Impost Capital -->
+    <rect x="20" y="154" width="28" height="12" rx="2" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+    <line x1="20" y1="160" x2="48" y2="160" stroke="{{c1}}" stroke-width="1.2"/>
+    <circle cx="34" cy="160" r="2.5" fill="{{c1}}"/>
+
+    <!-- Right Impost Capital -->
+    <rect x="272" y="154" width="28" height="12" rx="2" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+    <line x1="272" y1="160" x2="300" y2="160" stroke="{{c1}}" stroke-width="1.2"/>
+    <circle cx="286" cy="160" r="2.5" fill="{{c1}}"/>
+
+    <!-- Keystone / Voussoir Apex Medallion at Crown (160, 24) -->
+    <g class="keystone">
+      <!-- Keystone Trapeze Facet -->
+      <polygon points="144,38 176,38 182,12 138,12" fill="{{c1}}" stroke="{{c2}}" stroke-width="2"/>
+      <polygon points="148,34 172,34 176,16 144,16" fill="{{c2}}" opacity="0.4"/>
+      <!-- Embossed Center Diamond on keystone -->
+      <polygon points="160,18 166,25 160,32 154,25" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.2"/>
+      <circle cx="160" cy="25" r="2" fill="#FFFFFF"/>
+    </g>
+
+    <!-- Radiating Voussoir Grooves along Arch Ring -->
+    <g stroke="{{c3}}" stroke-width="1.5" opacity="0.7">
+      <line x1="88" y1="44" x2="94" y2="54"/>
+      <line x1="52" y1="92" x2="62" y2="98"/>
+      <line x1="232" y1="44" x2="226" y2="54"/>
+      <line x1="268" y1="92" x2="258" y2="98"/>
+    </g>
+
+    <!-- Fluted Jamb Accents on vertical pillars -->
+    <line x1="30" y1="176" x2="30" y2="406" stroke="{{c2}}" stroke-width="1.5"/>
+    <line x1="290" y1="176" x2="290" y2="406" stroke="{{c2}}" stroke-width="1.5"/>
+
+    <!-- Base Plinths / Pedestals -->
+    <!-- Left Pedestal -->
+    <rect x="16" y="416" width="36" height="14" rx="2" fill="{{c1}}" stroke="{{c2}}" stroke-width="2"/>
+    <line x1="16" y1="422" x2="52" y2="422" stroke="{{c2}}" stroke-width="1.2"/>
+
+    <!-- Right Pedestal -->
+    <rect x="268" y="416" width="36" height="14" rx="2" fill="{{c1}}" stroke="{{c2}}" stroke-width="2"/>
+    <line x1="268" y1="422" x2="304" y2="422" stroke="{{c2}}" stroke-width="1.2"/>
+
+    <!-- Horizontal Connecting Threshold Baseline -->
+    <line x1="52" y1="424" x2="268" y2="424" stroke="{{c1}}" stroke-width="2"/>
+    <line x1="52" y1="428" x2="268" y2="428" stroke="{{c2}}" stroke-width="1"/>
+  </g>
+</svg>

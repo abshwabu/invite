@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 220">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Chin Ribbon Strings (Gathering at bottom: 80, 215) -->
+    <path d="M45,180 C40,195 65,205 80,215" stroke="{{c1}}" stroke-width="1.4" />
+    <path d="M115,180 C120,195 95,205 80,215" stroke="{{c1}}" stroke-width="1.4" />
+    <!-- Ribbon tie curl -->
+    <path d="M80,215 C72,218 68,225 74,228 C80,230 82,222 78,220" stroke="{{c2}}" stroke-width="1.2" />
+
+    <!-- Fluffy Pom-Pom at Hat Apex (Center 80, 28) -->
+    <circle cx="80" cy="28" r="14" fill="{{c2}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.6" />
+    <!-- Pom-pom fluffy tuft bumps -->
+    <circle cx="72" cy="22" r="5" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" />
+    <circle cx="88" cy="22" r="5" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" />
+    <circle cx="80" cy="18" r="5" fill="{{c1}}" />
+    <circle cx="68" cy="30" r="4.5" fill="{{c2}}" stroke="{{c1}}" stroke-width="0.8" />
+    <circle cx="92" cy="30" r="4.5" fill="{{c2}}" stroke="{{c1}}" stroke-width="0.8" />
+    <circle cx="80" cy="36" r="4" fill="{{c1}}" />
+
+    <!-- Party Hat Cone Body (Apex at 80, 40; Base curved from 30, 180 to 130, 180) -->
+    <!-- Cone Fill & Outline -->
+    <path d="M80,40 L30,175 C60,190 100,190 130,175 Z" fill="{{c1}}" opacity="0.95" stroke="{{c1}}" stroke-width="2.2" />
+
+    <!-- Pattern Band 1: Polka Dots Tier (Upper) -->
+    <circle cx="80" cy="68" r="3" fill="{{c3}}" />
+    <circle cx="72" cy="85" r="3" fill="{{c2}}" />
+    <circle cx="88" cy="85" r="3" fill="{{c2}}" />
+
+    <!-- Pattern Band 2: Diagonal / Zigzag Chevron Stripe (Mid) -->
+    <path d="M52,118 L64,106 L76,118 L88,106 L100,118 L112,106" stroke="{{c2}}" stroke-width="3" />
+    <path d="M48,126 L62,112 L76,126 L90,112 L104,126 L118,112" stroke="{{c3}}" stroke-width="1.6" />
+
+    <!-- Pattern Band 3: Big Confetti Circles (Lower) -->
+    <circle cx="58" cy="148" r="4.5" fill="{{c3}}" stroke="{{c2}}" stroke-width="1" />
+    <circle cx="80" cy="154" r="5" fill="{{c2}}" stroke="{{c3}}" stroke-width="1" />
+    <circle cx="102" cy="148" r="4.5" fill="{{c3}}" stroke="{{c2}}" stroke-width="1" />
+
+    <!-- Base Ruffled Trim / Scalloped Fringe (30, 175 to 130, 175) -->
+    <!-- Scalloped loops -->
+    <path d="M26,176 C32,185 40,185 46,178 
+             C52,187 62,187 68,180 
+             C74,189 86,189 92,180 
+             C98,187 108,187 114,178 
+             C120,185 128,185 134,176" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.8" />
+    <path d="M30,175 C60,188 100,188 130,175" stroke="{{c3}}" stroke-width="1.5" />
+
+    <!-- Celebratory Sparkles Floating Beside Hat -->
+    <path d="M22,65 L23.5,60 L25,65 L30,66.5 L25,68 L23.5,73 L22,68 L17,66.5 Z" fill="{{c2}}" />
+    <path d="M138,80 L139.5,75 L141,80 L146,81.5 L141,83 L139.5,88 L138,83 L133,81.5 Z" fill="{{c1}}" />
+    <circle cx="18" cy="110" r="2.2" fill="{{c3}}" />
+    <circle cx="142" cy="125" r="2.2" fill="{{c2}}" />
+    <circle cx="28" cy="140" r="1.5" fill="{{c1}}" />
+  </g>
+</svg>

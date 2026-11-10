@@ -12,7 +12,7 @@ class GenerateOrnamentSheetCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'ornaments:sheet {set=all : The ornament set name (wedding, anniversary, funeral, faith-symbols, religious-islamic, religious-ethiopian, or all)}';
+    protected $signature = 'ornaments:sheet {set=all : The ornament set name (wedding, anniversary, funeral, faith-symbols, religious-islamic, religious-ethiopian, birthday, baby-shower, graduation, corporate, housewarming, shared, or all)}';
 
     /**
      * The console command description.

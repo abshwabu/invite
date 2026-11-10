@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 300" fill="none">
+  <!-- Prestigious Graduation Honor Rosette Seal with Pleated Border and Ribbons -->
+  <g class="ribbon-seal" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Center of Rosette Medallion: (130, 110) -->
+
+    <!-- Hanging Swallowtail Ribbon Tails (Behind Rosette) -->
+    <g class="ribbon-tails">
+      <!-- Left Ribbon Tail -->
+      <path d="M110 110 L84 270 L108 252 L128 270 L118 110 Z" fill="{{c1}}" stroke="{{c2}}" stroke-width="2"/>
+      <line x1="102" y1="130" x2="98" y2="258" stroke="{{c3}}" stroke-width="1.8" opacity="0.6"/>
+      <line x1="108" y1="130" x2="108" y2="252" stroke="#FFFFFF" stroke-width="1.2" opacity="0.6"/>
+
+      <!-- Right Ribbon Tail -->
+      <path d="M142 110 L132 270 L152 252 L176 270 L150 110 Z" fill="{{c1}}" stroke="{{c2}}" stroke-width="2"/>
+      <line x1="152" y1="130" x2="152" y2="252" stroke="#FFFFFF" stroke-width="1.2" opacity="0.6"/>
+      <line x1="158" y1="130" x2="162" y2="258" stroke="{{c3}}" stroke-width="1.8" opacity="0.6"/>
+    </g>
+
+    <!-- Rosette Drop Shadow -->
+    <circle cx="130" cy="112" r="76" fill="{{c3}}" opacity="0.3"/>
+
+    <!-- Pleated Ribbon Rosette Petal Border (24 points star/pleat) -->
+    <g class="pleats">
+      <!-- Outer Pleated Disc (Layer 1) -->
+      <path d="M 130 35 
+        L 142 38 L 153 43 L 165 42 L 174 50 L 186 52 L 193 62 L 203 67 L 207 79 L 215 86 L 215 98 L 220 108 
+        L 216 120 L 217 132 L 210 142 L 207 154 L 197 162 L 191 173 L 179 178 L 170 186 L 158 188 L 147 194 
+        L 135 192 L 125 194 L 113 188 L 102 186 L 93 178 L 81 173 L 75 162 L 65 154 L 62 142 L 55 132 
+        L 56 120 L 52 108 L 57 98 L 57 86 L 65 79 L 69 67 L 79 62 L 86 52 L 98 50 L 107 42 L 119 43 Z" 
+        fill="{{c2}}" stroke="{{c1}}" stroke-width="2.5"/>
+
+      <!-- Inner Fold Lines radiating on pleats -->
+      <circle cx="130" cy="110" r="62" fill="{{c1}}" stroke="{{c2}}" stroke-width="2"/>
+      <circle cx="130" cy="110" r="56" stroke="{{c3}}" stroke-width="1.5" stroke-dasharray="3 3"/>
+    </g>
+
+    <!-- Center Gold Medallion -->
+    <g class="medallion">
+      <circle cx="130" cy="110" r="48" fill="#FFFFFF" stroke="{{c2}}" stroke-width="3"/>
+      <!-- Inner Ring -->
+      <circle cx="130" cy="110" r="42" fill="{{c2}}" opacity="0.2" stroke="{{c1}}" stroke-width="1.5"/>
+      <circle cx="130" cy="110" r="36" stroke="{{c2}}" stroke-width="1" stroke-dasharray="2 3"/>
+
+      <!-- Embossed Academic Star of Honor -->
+      <polygon points="130,82 135,97 150,97 138,107 142,122 130,113 118,122 122,107 110,97 125,97" fill="{{c1}}" stroke="{{c2}}" stroke-width="1.5"/>
+      <!-- Inner Star Highlight -->
+      <polygon points="130,88 133,99 143,99 135,106 138,116 130,110 122,116 125,106 117,99 127,99" fill="{{c2}}" opacity="0.6"/>
+
+      <!-- Academic Laurel Sprig under star -->
+      <path d="M116 126 C124 132 136 132 144 126" stroke="{{c1}}" stroke-width="2" fill="none"/>
+      <ellipse cx="122" cy="128" rx="2.5" ry="1.5" fill="{{c2}}" transform="rotate(-20 122 128)"/>
+      <ellipse cx="138" cy="128" rx="2.5" ry="1.5" fill="{{c2}}" transform="rotate(20 138 128)"/>
+      <circle cx="130" cy="131" r="2" fill="{{c1}}"/>
+    </g>
+
+    <!-- Floating Sparkles -->
+    <path d="M48 50 Q48 56 54 56 Q48 56 48 62 Q48 56 42 56 Q48 56 48 50 Z" fill="{{c2}}"/>
+    <path d="M212 50 Q212 56 218 56 Q212 56 212 62 Q212 56 206 56 Q212 56 212 50 Z" fill="{{c2}}"/>
+    <circle cx="36" cy="130" r="2.5" fill="{{c3}}"/>
+    <circle cx="224" cy="130" r="2.5" fill="{{c3}}"/>
+  </g>
+</svg>

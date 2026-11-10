@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 40" fill="none">
+  <!-- Elegant flowing sinusoidal wave divider with rhythmic ripples -->
+  <g class="wave" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Center baseline at y=20 -->
+
+    <!-- Primary Sinusoidal Wave: 4 full periods across width 400 (period = 100) -->
+    <!-- (0,20) -> (25,8) -> (50,20) -> (75,32) -> (100,20) ... -->
+    <path d="M0 20 
+      C 25 6 35 6 50 20 
+      C 65 34 75 34 100 20 
+      C 125 6 135 6 150 20 
+      C 165 34 175 34 200 20 
+      C 225 6 235 6 250 20 
+      C 265 34 275 34 300 20 
+      C 325 6 335 6 350 20 
+      C 365 34 375 34 400 20" 
+      stroke="{{c1}}" stroke-width="2.5" fill="none"/>
+
+    <!-- Secondary Harmonic Wave (offset phase) -->
+    <path d="M0 20 
+      C 25 30 35 30 50 20 
+      C 65 10 75 10 100 20 
+      C 125 30 135 30 150 20 
+      C 165 10 175 10 200 20 
+      C 225 30 235 30 250 20 
+      C 265 10 275 10 300 20 
+      C 325 30 335 30 350 20 
+      C 365 10 375 10 400 20" 
+      stroke="{{c2}}" stroke-width="1.5" stroke-dasharray="3 4" fill="none"/>
+
+    <!-- Subtle Crest Droplets / Beads on each wave apex -->
+    <!-- Upper crest beads (y ≈ 10) -->
+    <circle cx="30" cy="10" r="2.5" fill="{{c2}}"/>
+    <circle cx="130" cy="10" r="2.5" fill="{{c2}}"/>
+    <circle cx="230" cy="10" r="2.5" fill="{{c2}}"/>
+    <circle cx="330" cy="10" r="2.5" fill="{{c2}}"/>
+
+    <!-- Lower trough beads (y ≈ 30) -->
+    <circle cx="80" cy="30" r="2.5" fill="{{c3}}"/>
+    <circle cx="180" cy="30" r="2.5" fill="{{c3}}"/>
+    <circle cx="280" cy="30" r="2.5" fill="{{c3}}"/>
+    <circle cx="380" cy="30" r="2.5" fill="{{c3}}"/>
+
+    <!-- Node Intersection Pearls on the baseline -->
+    <circle cx="0" cy="20" r="2" fill="{{c1}}"/>
+    <circle cx="100" cy="20" r="3" fill="{{c1}}"/>
+    <circle cx="200" cy="20" r="4" fill="{{c1}}" stroke="{{c2}}" stroke-width="1.5"/>
+    <circle cx="300" cy="20" r="3" fill="{{c1}}"/>
+    <circle cx="400" cy="20" r="2" fill="{{c1}}"/>
+  </g>
+</svg>

@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 240">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- CAKE STAND PEDESTAL (Center 110, y=205 to 235) -->
+    <ellipse cx="110" cy="206" rx="90" ry="10" fill="{{c2}}" opacity="0.75" stroke="{{c1}}" stroke-width="2" />
+    <path d="M90,206 L84,232 L136,232 L130,206 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.8" />
+    <!-- Pedestal Base Foot -->
+    <ellipse cx="110" cy="232" rx="42" ry="7" fill="{{c3}}" stroke="{{c1}}" stroke-width="1.8" />
+
+    <!-- BOTTOM CAKE TIER (y=140 to 205, width=150: x=35 to 185) -->
+    <rect x="35" y="140" width="150" height="65" rx="4" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="2.2" />
+    <rect x="38" y="143" width="144" height="59" rx="2" fill="{{c3}}" opacity="0.25" />
+
+    <!-- Bottom Tier Piped Icing Swags & Pearls -->
+    <path d="M35,160 C50,172 70,172 85,160 
+             C100,172 120,172 135,160 
+             C150,172 170,172 185,160" stroke="{{c2}}" stroke-width="2.5" />
+    <path d="M35,178 C50,190 70,190 85,178 
+             C100,190 120,190 135,178 
+             C150,190 170,190 185,178" stroke="{{c3}}" stroke-width="1.6" />
+    <!-- Decorative Sugar Pearls at swag joints -->
+    <circle cx="85" cy="160" r="3" fill="{{c2}}" stroke="{{c1}}" stroke-width="0.8" />
+    <circle cx="135" cy="160" r="3" fill="{{c2}}" stroke="{{c1}}" stroke-width="0.8" />
+
+    <!-- TOP CAKE TIER (y=90 to 140, width=110: x=55 to 165) -->
+    <rect x="55" y="90" width="110" height="50" rx="4" fill="{{c1}}" opacity="0.95" stroke="{{c1}}" stroke-width="2" />
+    <rect x="58" y="93" width="104" height="44" rx="2" fill="{{c3}}" opacity="0.3" />
+
+    <!-- Top Tier Piped Icing Drips and Swags -->
+    <path d="M55,108 C68,118 82,118 92,108 
+             C102,118 118,118 128,108 
+             C138,118 152,118 165,108" stroke="{{c2}}" stroke-width="2.2" />
+    <!-- Sugar Pearls -->
+    <circle cx="92" cy="108" r="2.5" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.8" />
+    <circle cx="128" cy="108" r="2.5" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.8" />
+
+    <!-- Frosting Border along top of tiers -->
+    <line x1="55" y1="90" x2="165" y2="90" stroke="{{c2}}" stroke-width="2.5" />
+    <line x1="35" y1="140" x2="185" y2="140" stroke="{{c2}}" stroke-width="2.5" />
+
+    <!-- THREE CANDLES ON TOP (Centers at x=80, x=110, x=140, y=55 to 90) -->
+
+    <!-- Candle 1 (Left: x=80) -->
+    <rect x="76" y="58" width="8" height="32" rx="1.5" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.2" />
+    <line x1="77" y1="65" x2="83" y2="70" stroke="{{c3}}" stroke-width="1" />
+    <line x1="77" y1="75" x2="83" y2="80" stroke="{{c3}}" stroke-width="1" />
+    <!-- Wick -->
+    <line x1="80" y1="58" x2="80" y2="52" stroke="{{c1}}" stroke-width="1.4" />
+    <!-- Flame Teardrop -->
+    <path d="M80,32 C74,42 74,48 77,52 C80,55 83,52 83,48 C86,42 80,32 80,32 Z" fill="{{c1}}" opacity="0.95" stroke="{{c1}}" stroke-width="0.8" />
+    <circle cx="80" cy="46" r="2" fill="{{c3}}" />
+    <!-- Flame Halo -->
+    <circle cx="80" cy="44" r="10" stroke="{{c2}}" stroke-width="0.8" stroke-dasharray="1.5,2" opacity="0.6" />
+
+    <!-- Candle 2 - Center Tall (Center: x=110) -->
+    <rect x="106" y="52" width="8" height="38" rx="1.5" fill="{{c3}}" stroke="{{c1}}" stroke-width="1.2" />
+    <line x1="107" y1="60" x2="113" y2="65" stroke="{{c1}}" stroke-width="1" />
+    <line x1="107" y1="72" x2="113" y2="77" stroke="{{c1}}" stroke-width="1" />
+    <!-- Wick -->
+    <line x1="110" y1="52" x2="110" y2="45" stroke="{{c1}}" stroke-width="1.4" />
+    <!-- Flame Teardrop -->
+    <path d="M110,24 C104,35 104,41 107,45 C110,48 113,45 113,41 C116,35 110,24 110,24 Z" fill="{{c1}}" opacity="0.95" stroke="{{c1}}" stroke-width="0.8" />
+    <circle cx="110" cy="38" r="2.2" fill="{{c2}}" />
+    <!-- Flame Halo -->
+    <circle cx="110" cy="36" r="12" stroke="{{c2}}" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.7" />
+
+    <!-- Candle 3 (Right: x=140) -->
+    <rect x="136" y="58" width="8" height="32" rx="1.5" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.2" />
+    <line x1="137" y1="65" x2="143" y2="70" stroke="{{c3}}" stroke-width="1" />
+    <line x1="137" y1="75" x2="143" y2="80" stroke="{{c3}}" stroke-width="1" />
+    <!-- Wick -->
+    <line x1="140" y1="58" x2="140" y2="52" stroke="{{c1}}" stroke-width="1.4" />
+    <!-- Flame Teardrop -->
+    <path d="M140,32 C134,42 134,48 137,52 C140,55 143,52 143,48 C146,42 140,32 140,32 Z" fill="{{c1}}" opacity="0.95" stroke="{{c1}}" stroke-width="0.8" />
+    <circle cx="140" cy="46" r="2" fill="{{c3}}" />
+    <!-- Flame Halo -->
+    <circle cx="140" cy="44" r="10" stroke="{{c2}}" stroke-width="0.8" stroke-dasharray="1.5,2" opacity="0.6" />
+
+    <!-- Little Cherries on Top Tier -->
+    <circle cx="65" cy="88" r="4.5" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+    <path d="M65,84 C68,78 72,78 74,80" stroke="{{c2}}" stroke-width="1" />
+
+    <circle cx="155" cy="88" r="4.5" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+    <path d="M155,84 C152,78 148,78 146,80" stroke="{{c2}}" stroke-width="1" />
+
+    <!-- Floating Sparkles of Light -->
+    <path d="M42,50 L43.5,45 L45,50 L50,51.5 L45,53 L43.5,58 L42,53 L37,51.5 Z" fill="{{c2}}" />
+    <path d="M178,50 L179.5,45 L181,50 L186,51.5 L181,53 L179.5,58 L178,53 L173,51.5 Z" fill="{{c2}}" />
+    <circle cx="28" cy="85" r="1.8" fill="{{c3}}" />
+    <circle cx="192" cy="85" r="1.8" fill="{{c3}}" />
+  </g>
+</svg>

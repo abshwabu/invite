@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 440" fill="none">
+  <!-- Romantic vintage card frame with scalloped lace perimeter and corner rosettes -->
+  <g class="scalloped-frame" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Outer Scalloped Lace Border (x from 20 to 300, y from 20 to 420) -->
+    <!-- Scallop period: 20px. 14 scallops top/bottom (280px), 20 scallops left/right (400px) -->
+    <path d="M 20 20 
+      Q 30 12 40 20 Q 50 12 60 20 Q 70 12 80 20 Q 90 12 100 20 Q 110 12 120 20 Q 130 12 140 20 Q 150 12 160 20 
+      Q 170 12 180 20 Q 190 12 200 20 Q 210 12 220 20 Q 230 12 240 20 Q 250 12 260 20 Q 270 12 280 20 Q 290 12 300 20 
+      Q 308 30 300 40 Q 308 50 300 60 Q 308 70 300 80 Q 308 90 300 100 Q 308 110 300 120 Q 308 130 300 140 Q 308 150 300 160 
+      Q 308 170 300 180 Q 308 190 300 200 Q 308 210 300 220 Q 308 230 300 240 Q 308 250 300 260 Q 308 270 300 280 Q 308 290 300 300 
+      Q 308 310 300 320 Q 308 330 300 340 Q 308 350 300 360 Q 308 370 300 380 Q 308 390 300 400 Q 308 410 300 420 
+      Q 290 428 280 420 Q 270 428 260 420 Q 250 428 240 420 Q 230 428 220 420 Q 210 428 200 420 Q 190 428 180 420 Q 170 428 160 420 
+      Q 150 428 140 420 Q 130 428 120 420 Q 110 428 100 420 Q 90 428 80 420 Q 70 428 60 420 Q 50 428 40 420 Q 30 428 20 420 
+      Q 12 410 20 400 Q 12 390 20 380 Q 12 370 20 360 Q 12 350 20 340 Q 12 330 20 320 Q 12 310 20 300 Q 12 290 20 280 Q 12 270 20 260 
+      Q 12 250 20 240 Q 12 230 20 220 Q 12 210 20 200 Q 12 190 20 180 Q 12 170 20 160 Q 12 150 20 140 Q 12 130 20 120 Q 12 110 20 100 
+      Q 12 90 20 80 Q 12 70 20 60 Q 12 50 20 40 Q 12 30 20 20 Z" 
+      stroke="{{c1}}" stroke-width="2.5" fill="none"/>
+
+    <!-- Inner Smooth Rule Border -->
+    <rect x="28" y="28" width="264" height="384" rx="4" stroke="{{c2}}" stroke-width="1.8" fill="none"/>
+
+    <!-- Inset Fine Beaded Dashed Border -->
+    <rect x="36" y="36" width="248" height="368" rx="2" stroke="{{c3}}" stroke-width="1.2" stroke-dasharray="3 4" fill="none"/>
+
+    <!-- Corner Decorative Rosette Beads -->
+    <!-- Top-Left (28, 28) -->
+    <g class="corner-rosette-tl">
+      <circle cx="36" cy="36" r="6" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+      <circle cx="36" cy="36" r="2.5" fill="{{c1}}"/>
+      <path d="M28 44 C36 44 44 36 44 28" stroke="{{c1}}" stroke-width="1.5" fill="none"/>
+    </g>
+
+    <!-- Top-Right (292, 28) -->
+    <g class="corner-rosette-tr">
+      <circle cx="284" cy="36" r="6" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+      <circle cx="284" cy="36" r="2.5" fill="{{c1}}"/>
+      <path d="M292 44 C284 44 276 36 276 28" stroke="{{c1}}" stroke-width="1.5" fill="none"/>
+    </g>
+
+    <!-- Bottom-Left (28, 412) -->
+    <g class="corner-rosette-bl">
+      <circle cx="36" cy="404" r="6" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+      <circle cx="36" cy="404" r="2.5" fill="{{c1}}"/>
+      <path d="M28 396 C36 396 44 404 44 412" stroke="{{c1}}" stroke-width="1.5" fill="none"/>
+    </g>
+
+    <!-- Bottom-Right (292, 412) -->
+    <g class="corner-rosette-br">
+      <circle cx="284" cy="404" r="6" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+      <circle cx="284" cy="404" r="2.5" fill="{{c1}}"/>
+      <path d="M292 396 C284 396 276 404 276 412" stroke="{{c1}}" stroke-width="1.5" fill="none"/>
+    </g>
+
+    <!-- Midpoint Sweet Little Hearts -->
+    <path d="M160 25 C158 22 154 23 154 26 C154 30 160 33 160 33 C160 33 166 30 166 26 C166 23 162 22 160 25 Z" fill="{{c1}}"/>
+    <path d="M160 415 C158 412 154 413 154 416 C154 420 160 423 160 423 C160 423 166 420 166 416 C166 413 162 412 160 415 Z" fill="{{c1}}"/>
+  </g>
+</svg>

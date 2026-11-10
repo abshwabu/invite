@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 80">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Top Horizontal Suspension Guide Rail -->
+    <line x1="0" y1="4" x2="400" y2="4" stroke="{{c1}}" stroke-width="2" />
+    <line x1="0" y1="7" x2="400" y2="7" stroke="{{c2}}" stroke-width="0.8" stroke-dasharray="3,3" opacity="0.6" />
+
+    <!-- Streamer 1 (x=25, length ~65) -->
+    <path d="M25,6 C15,16 35,26 18,38 C8,48 28,58 20,68 C15,74 22,78 24,76" stroke="{{c1}}" stroke-width="2.2" />
+    <circle cx="25" cy="5" r="2.5" fill="{{c1}}" />
+
+    <!-- Streamer 2 (x=60, length ~45) -->
+    <path d="M60,6 C70,14 52,24 65,34 C74,42 58,48 64,52" stroke="{{c2}}" stroke-width="2" />
+    <circle cx="60" cy="5" r="2.5" fill="{{c2}}" />
+
+    <!-- Streamer 3 (x=100, length ~70) -->
+    <path d="M100,6 C88,18 112,28 92,42 C80,52 104,62 95,72 C90,76 96,80 98,78" stroke="{{c3}}" stroke-width="2.2" />
+    <circle cx="100" cy="5" r="2.5" fill="{{c3}}" />
+
+    <!-- Streamer 4 (x=140, length ~50) -->
+    <path d="M140,6 C150,15 132,26 145,36 C155,45 138,52 144,58" stroke="{{c1}}" stroke-width="2" />
+    <circle cx="140" cy="5" r="2.5" fill="{{c1}}" />
+
+    <!-- Streamer 5 - Center Majestic (x=200, length ~75) -->
+    <path d="M200,6 C215,18 185,30 210,44 C188,56 215,68 200,78" stroke="{{c2}}" stroke-width="2.5" />
+    <circle cx="200" cy="5" r="3.2" fill="{{c2}}" stroke="{{c1}}" stroke-width="0.8" />
+    <circle cx="200" cy="78" r="2.2" fill="{{c3}}" />
+
+    <!-- Streamer 6 (x=260, length ~50) -->
+    <path d="M260,6 C250,15 268,26 255,36 C245,45 262,52 256,58" stroke="{{c3}}" stroke-width="2" />
+    <circle cx="260" cy="5" r="2.5" fill="{{c3}}" />
+
+    <!-- Streamer 7 (x=300, length ~70) -->
+    <path d="M300,6 C312,18 288,28 308,42 C320,52 296,62 305,72 C310,76 304,80 302,78" stroke="{{c1}}" stroke-width="2.2" />
+    <circle cx="300" cy="5" r="2.5" fill="{{c1}}" />
+
+    <!-- Streamer 8 (x=340, length ~45) -->
+    <path d="M340,6 C330,14 348,24 335,34 C326,42 342,48 336,52" stroke="{{c2}}" stroke-width="2" />
+    <circle cx="340" cy="5" r="2.5" fill="{{c2}}" />
+
+    <!-- Streamer 9 (x=375, length ~65) -->
+    <path d="M375,6 C385,16 365,26 382,38 C392,48 372,58 380,68 C385,74 378,78 376,76" stroke="{{c3}}" stroke-width="2.2" />
+    <circle cx="375" cy="5" r="2.5" fill="{{c3}}" />
+
+    <!-- Scattered Floating Confetti Dots & Stars -->
+    <path d="M42,25 L43.5,21 L45,25 L49,26.5 L45,28 L43.5,32 L42,28 L38,26.5 Z" fill="{{c2}}" />
+    <path d="M170,28 L171.5,24 L173,28 L177,29.5 L173,31 L171.5,35 L170,31 L166,29.5 Z" fill="{{c1}}" />
+    <path d="M230,28 L231.5,24 L233,28 L237,29.5 L233,31 L231.5,35 L230,31 L226,29.5 Z" fill="{{c1}}" />
+    <path d="M358,25 L359.5,21 L361,25 L365,26.5 L361,28 L359.5,32 L358,28 L354,26.5 Z" fill="{{c2}}" />
+
+    <circle cx="80" cy="35" r="2.5" fill="{{c1}}" />
+    <circle cx="120" cy="22" r="2" fill="{{c2}}" />
+    <circle cx="160" cy="45" r="2.2" fill="{{c3}}" />
+    <circle cx="240" cy="45" r="2.2" fill="{{c3}}" />
+    <circle cx="280" cy="22" r="2" fill="{{c2}}" />
+    <circle cx="320" cy="35" r="2.5" fill="{{c1}}" />
+  </g>
+</svg>

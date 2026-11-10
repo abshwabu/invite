@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" fill="none">
+  <!-- Delicate soft baby botanical leaf garland with eucalyptus and berries -->
+  <g class="leaf-garland" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Main undulating vine stem -->
+    <path d="M10 60 C80 30 140 85 200 60 C260 35 320 85 390 60" stroke="{{c1}}" stroke-width="2.5" fill="none"/>
+    <path d="M10 60 C80 30 140 85 200 60 C260 35 320 85 390 60" stroke="{{c3}}" stroke-width="1.2" stroke-dasharray="4 6" fill="none" opacity="0.6"/>
+
+    <!-- Left section foliage -->
+    <!-- Sprig 1 -->
+    <path d="M40 50 C32 36 42 22 56 28 C56 42 48 50 40 50 Z" fill="{{c2}}" opacity="0.8" stroke="{{c1}}" stroke-width="1.5"/>
+    <path d="M42 52 C52 50 64 60 58 72 C46 72 40 60 42 52 Z" fill="{{c3}}" opacity="0.6" stroke="{{c1}}" stroke-width="1.5"/>
+    <circle cx="36" cy="38" r="3" fill="{{c1}}"/>
+    <circle cx="30" cy="44" r="2.2" fill="{{c2}}"/>
+
+    <!-- Sprig 2 -->
+    <path d="M85 40 C80 24 94 14 106 22 C104 36 94 42 85 40 Z" fill="{{c1}}" opacity="0.85" stroke="{{c3}}" stroke-width="1.2"/>
+    <path d="M92 45 C104 42 114 54 108 66 C96 66 90 54 92 45 Z" fill="{{c2}}" opacity="0.75" stroke="{{c1}}" stroke-width="1.2"/>
+    <ellipse cx="78" cy="28" rx="3" ry="3" fill="{{c3}}"/>
+    <ellipse cx="72" cy="34" rx="2.5" ry="2.5" fill="{{c1}}"/>
+
+    <!-- Sprig 3 (dip section) -->
+    <path d="M135 68 C130 52 144 42 156 50 C154 64 144 70 135 68 Z" fill="{{c2}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.5"/>
+    <path d="M142 75 C154 78 160 92 150 102 C138 100 134 88 142 75 Z" fill="{{c3}}" opacity="0.7" stroke="{{c1}}" stroke-width="1.5"/>
+    <circle cx="166" cy="62" r="3" fill="{{c1}}"/>
+    <circle cx="172" cy="70" r="2.2" fill="{{c2}}"/>
+
+    <!-- Centerpiece Sprigs & Ribbon Bow -->
+    <g class="center-accent">
+      <path d="M185 58 C180 40 196 28 208 38 C206 52 196 60 185 58 Z" fill="{{c1}}" opacity="0.9" stroke="{{c2}}" stroke-width="1.5"/>
+      <path d="M215 58 C220 40 204 28 192 38 C194 52 204 60 215 58 Z" fill="{{c2}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.5"/>
+      <!-- Tiny Center Bow -->
+      <path d="M200 62 C190 56 182 66 190 74 C196 78 200 68 200 64 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+      <path d="M200 62 C210 56 218 66 210 74 C204 78 200 68 200 64 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+      <circle cx="200" cy="63" r="3" fill="{{c1}}"/>
+      <path d="M198 66 L192 78" stroke="{{c1}}" stroke-width="1.5"/>
+      <path d="M202 66 L208 78" stroke="{{c1}}" stroke-width="1.5"/>
+    </g>
+
+    <!-- Right section foliage -->
+    <!-- Sprig 4 -->
+    <path d="M255 52 C248 38 258 24 272 30 C272 44 264 52 255 52 Z" fill="{{c3}}" opacity="0.8" stroke="{{c1}}" stroke-width="1.5"/>
+    <path d="M258 56 C268 56 278 68 270 78 C258 78 252 66 258 56 Z" fill="{{c1}}" opacity="0.8" stroke="{{c2}}" stroke-width="1.2"/>
+    <circle cx="238" cy="42" r="3" fill="{{c2}}"/>
+    <circle cx="232" cy="50" r="2.2" fill="{{c1}}"/>
+
+    <!-- Sprig 5 -->
+    <path d="M305 68 C300 52 314 42 326 50 C324 64 314 70 305 68 Z" fill="{{c2}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.5"/>
+    <path d="M312 75 C324 78 330 92 320 102 C308 100 304 88 312 75 Z" fill="{{c3}}" opacity="0.6" stroke="{{c1}}" stroke-width="1.5"/>
+    <circle cx="338" cy="60" r="3" fill="{{c1}}"/>
+    <circle cx="344" cy="66" r="2" fill="{{c2}}"/>
+
+    <!-- Sprig 6 -->
+    <path d="M355 52 C350 38 362 26 374 34 C372 48 364 54 355 52 Z" fill="{{c1}}" opacity="0.85" stroke="{{c3}}" stroke-width="1.2"/>
+    <path d="M360 56 C370 56 380 66 374 76 C362 76 356 66 360 56 Z" fill="{{c2}}" opacity="0.8" stroke="{{c1}}" stroke-width="1.2"/>
+    <circle cx="385" cy="48" r="2.5" fill="{{c3}}"/>
+  </g>
+</svg>

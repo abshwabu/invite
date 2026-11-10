@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 440" fill="none">
+  <!-- Clean luxury double-rule card frame with corner brackets and diamond nodes -->
+  <g class="thin-double-frame" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Outer Hairline Border -->
+    <rect x="16" y="16" width="288" height="408" rx="2" stroke="{{c1}}" stroke-width="2.5" fill="none"/>
+
+    <!-- Inset Fine Border -->
+    <rect x="24" y="24" width="272" height="392" stroke="{{c2}}" stroke-width="1.5" stroke-dasharray="6 4" fill="none"/>
+
+    <!-- Innermost Hairline Border -->
+    <rect x="30" y="30" width="260" height="380" stroke="{{c3}}" stroke-width="1" opacity="0.6" fill="none"/>
+
+    <!-- Four Corner Decorative Inset Brackets & Diamond Nodes -->
+    <!-- Top-Left Corner -->
+    <g class="corner-tl">
+      <path d="M 16 36 L 36 36 L 36 16" stroke="{{c1}}" stroke-width="2.5" fill="none"/>
+      <polygon points="36,36 40,32 44,36 40,40" fill="{{c2}}"/>
+      <circle cx="24" cy="24" r="2.5" fill="{{c1}}"/>
+      <circle cx="48" cy="48" r="2" fill="{{c3}}"/>
+    </g>
+
+    <!-- Top-Right Corner -->
+    <g class="corner-tr">
+      <path d="M 304 36 L 284 36 L 284 16" stroke="{{c1}}" stroke-width="2.5" fill="none"/>
+      <polygon points="284,36 280,32 276,36 280,40" fill="{{c2}}"/>
+      <circle cx="296" cy="24" r="2.5" fill="{{c1}}"/>
+      <circle cx="272" cy="48" r="2" fill="{{c3}}"/>
+    </g>
+
+    <!-- Bottom-Left Corner -->
+    <g class="corner-bl">
+      <path d="M 16 404 L 36 404 L 36 424" stroke="{{c1}}" stroke-width="2.5" fill="none"/>
+      <polygon points="36,404 40,400 44,404 40,408" fill="{{c2}}"/>
+      <circle cx="24" cy="416" r="2.5" fill="{{c1}}"/>
+      <circle cx="48" cy="392" r="2" fill="{{c3}}"/>
+    </g>
+
+    <!-- Bottom-Right Corner -->
+    <g class="corner-br">
+      <path d="M 304 404 L 284 404 L 284 424" stroke="{{c1}}" stroke-width="2.5" fill="none"/>
+      <polygon points="284,404 280,400 276,404 280,408" fill="{{c2}}"/>
+      <circle cx="296" cy="416" r="2.5" fill="{{c1}}"/>
+      <circle cx="272" cy="392" r="2" fill="{{c3}}"/>
+    </g>
+
+    <!-- Center Border Accent Diamond Marks on Top, Bottom, Left, Right -->
+    <polygon points="160,16 164,12 168,16 164,20" fill="{{c2}}"/>
+    <polygon points="160,424 164,420 168,424 164,428" fill="{{c2}}"/>
+    <polygon points="16,220 12,224 16,228 20,224" fill="{{c2}}"/>
+    <polygon points="304,220 300,224 304,228 308,224" fill="{{c2}}"/>
+  </g>
+</svg>

@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 120" fill="none">
+  <!-- Elegant housewarming welcome scroll banner with ribbon swallowtails and heart crest -->
+  <g class="welcome-band" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Center coordinate: (190, 60) -->
+
+    <!-- Ribbon Swallowtail Ends (Behind Main Band) -->
+    <!-- Left Swallowtail -->
+    <path d="M60 48 L22 36 L36 60 L20 84 L64 72 Z" fill="{{c1}}" stroke="{{c2}}" stroke-width="2"/>
+    <path d="M60 48 L64 72 L80 62 Z" fill="{{c3}}" stroke="{{c1}}" stroke-width="1.5"/>
+
+    <!-- Right Swallowtail -->
+    <path d="M320 48 L358 36 L344 60 L360 84 L316 72 Z" fill="{{c1}}" stroke="{{c2}}" stroke-width="2"/>
+    <path d="M320 48 L316 72 L300 62 Z" fill="{{c3}}" stroke="{{c1}}" stroke-width="1.5"/>
+
+    <!-- Main Front Arched Ribbon Banner -->
+    <path d="M72 42 C140 32 240 32 308 42 L300 78 C236 68 144 68 80 78 Z" fill="#FFFFFF" stroke="{{c1}}" stroke-width="2.5"/>
+    
+    <!-- Shaded Lower Rim of Banner -->
+    <path d="M78 68 C144 60 236 60 302 68 L300 78 C236 68 144 68 80 78 Z" fill="{{c2}}" opacity="0.3"/>
+
+    <!-- Gold Accent Pinstripes along Banner Edges -->
+    <path d="M76 46 C142 36 238 36 304 46" stroke="{{c2}}" stroke-width="1.5" fill="none"/>
+    <path d="M82 74 C146 64 234 64 298 74" stroke="{{c2}}" stroke-width="1.5" fill="none"/>
+
+    <!-- Center Crest Medallion (House & Heart Seal) -->
+    <g class="center-crest">
+      <!-- Medallion Drop Shadow -->
+      <circle cx="190" cy="56" r="26" fill="{{c3}}" opacity="0.3"/>
+      <!-- Medallion Outer Ring -->
+      <circle cx="190" cy="54" r="25" fill="{{c1}}" stroke="{{c2}}" stroke-width="2.5"/>
+      <circle cx="190" cy="54" r="21" fill="{{c2}}" opacity="0.25" stroke="{{c3}}" stroke-width="1.2" stroke-dasharray="2 3"/>
+
+      <!-- Inner White Disc -->
+      <circle cx="190" cy="54" r="17" fill="#FFFFFF" stroke="{{c2}}" stroke-width="1.5"/>
+
+      <!-- Mini House Silhouette with Heart in Center -->
+      <!-- Roof -->
+      <polygon points="190,42 201,50 179,50" fill="{{c1}}"/>
+      <!-- Walls -->
+      <rect x="182" y="50" width="16" height="12" fill="{{c1}}"/>
+      <!-- Heart Door -->
+      <path d="M190 54 C188 51 184 52 184 56 C184 60 190 64 190 64 C190 64 196 60 196 56 C196 52 192 51 190 54 Z" fill="{{c2}}"/>
+    </g>
+
+    <!-- Flanking Laurel Sprigs along the banner -->
+    <!-- Left Sprig -->
+    <g class="sprig-left">
+      <path d="M160 52 C140 48 116 52 98 56" stroke="{{c1}}" stroke-width="1.5" fill="none"/>
+      <ellipse cx="145" cy="46" rx="4" ry="2.5" fill="{{c2}}" stroke="{{c1}}" stroke-width="1" transform="rotate(-15 145 46)"/>
+      <ellipse cx="125" cy="48" rx="4" ry="2.5" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" transform="rotate(-10 125 48)"/>
+      <ellipse cx="108" cy="52" rx="3.5" ry="2" fill="{{c2}}" stroke="{{c1}}" stroke-width="1" transform="rotate(-5 108 52)"/>
+      <circle cx="135" cy="55" r="2" fill="{{c1}}"/>
+      <circle cx="116" cy="57" r="1.8" fill="{{c1}}"/>
+    </g>
+
+    <!-- Right Sprig -->
+    <g class="sprig-right">
+      <path d="M220 52 C240 48 264 52 282 56" stroke="{{c1}}" stroke-width="1.5" fill="none"/>
+      <ellipse cx="235" cy="46" rx="4" ry="2.5" fill="{{c2}}" stroke="{{c1}}" stroke-width="1" transform="rotate(15 235 46)"/>
+      <ellipse cx="255" cy="48" rx="4" ry="2.5" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" transform="rotate(10 255 48)"/>
+      <ellipse cx="272" cy="52" rx="3.5" ry="2" fill="{{c2}}" stroke="{{c1}}" stroke-width="1" transform="rotate(5 272 52)"/>
+      <circle cx="245" cy="55" r="2" fill="{{c1}}"/>
+      <circle cx="264" cy="57" r="1.8" fill="{{c1}}"/>
+    </g>
+
+    <!-- Starlight accents above banner -->
+    <polygon points="190,14 192,20 198,20 193,23 195,29 190,25 185,29 187,23 182,20 188,20" fill="{{c2}}"/>
+    <circle cx="168" cy="22" r="2" fill="{{c3}}"/>
+    <circle cx="212" cy="22" r="2" fill="{{c3}}"/>
+  </g>
+</svg>

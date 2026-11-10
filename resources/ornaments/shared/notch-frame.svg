@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 440" fill="none">
+  <!-- Elegant invitation card frame with 4 inverted circular corner notches -->
+  <g class="notch-frame" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Outer Inverted Corner Notched Path (Radius 24 at corners) -->
+    <!-- Bounds: x from 20 to 300, y from 20 to 420 -->
+    <path d="M 44 20 
+      H 276 
+      A 24 24 0 0 0 300 44 
+      V 396 
+      A 24 24 0 0 0 276 420 
+      H 44 
+      A 24 24 0 0 0 20 396 
+      V 44 
+      A 24 24 0 0 0 44 20 Z" 
+      stroke="{{c1}}" stroke-width="3" fill="none"/>
+
+    <!-- Inner Parallel Notched Accent Border (Inset 8px) -->
+    <path d="M 50 28 
+      H 270 
+      A 20 20 0 0 0 292 50 
+      V 390 
+      A 20 20 0 0 0 270 412 
+      H 50 
+      A 20 20 0 0 0 28 390 
+      V 50 
+      A 20 20 0 0 0 50 28 Z" 
+      stroke="{{c2}}" stroke-width="1.8" fill="none"/>
+
+    <!-- Innermost Hairline Beaded Border -->
+    <path d="M 56 36 
+      H 264 
+      A 16 16 0 0 0 284 56 
+      V 384 
+      A 16 16 0 0 0 264 404 
+      H 56 
+      A 16 16 0 0 0 36 384 
+      V 56 
+      A 16 16 0 0 0 56 36 Z" 
+      stroke="{{c3}}" stroke-width="1" stroke-dasharray="3 4" fill="none"/>
+
+    <!-- Corner Inset Pearls (Located at the center of each corner notch arc) -->
+    <!-- Top-Left (20, 20) -->
+    <circle cx="20" cy="20" r="7" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+    <circle cx="20" cy="20" r="3" fill="{{c1}}"/>
+    <circle cx="36" cy="36" r="2.5" fill="{{c3}}"/>
+
+    <!-- Top-Right (300, 20) -->
+    <circle cx="300" cy="20" r="7" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+    <circle cx="300" cy="20" r="3" fill="{{c1}}"/>
+    <circle cx="284" cy="36" r="2.5" fill="{{c3}}"/>
+
+    <!-- Bottom-Left (20, 420) -->
+    <circle cx="20" cy="420" r="7" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+    <circle cx="20" cy="420" r="3" fill="{{c1}}"/>
+    <circle cx="36" cy="404" r="2.5" fill="{{c3}}"/>
+
+    <!-- Bottom-Right (300, 420) -->
+    <circle cx="300" cy="420" r="7" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+    <circle cx="300" cy="420" r="3" fill="{{c1}}"/>
+    <circle cx="284" cy="404" r="2.5" fill="{{c3}}"/>
+
+    <!-- Midpoint Heraldic Crest Diamonds on each edge -->
+    <g fill="{{c1}}">
+      <polygon points="160,16 164,20 160,24 156,20"/>
+      <polygon points="160,416 164,420 160,424 156,420"/>
+      <polygon points="16,220 20,224 16,228 12,224"/>
+      <polygon points="296,220 300,224 296,228 292,224"/>
+    </g>
+    <circle cx="160" cy="20" r="1.5" fill="{{c2}}"/>
+    <circle cx="160" cy="420" r="1.5" fill="{{c2}}"/>
+    <circle cx="16" cy="224" r="1.5" fill="{{c2}}"/>
+    <circle cx="300" cy="224" r="1.5" fill="{{c2}}"/>
+  </g>
+</svg>

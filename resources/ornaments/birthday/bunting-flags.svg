@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 90">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Catenary Hanging Garland String -->
+    <path d="M10,18 C90,42 270,42 350,18" stroke="{{c1}}" stroke-width="2.4" />
+    <path d="M10,21 C90,45 270,45 350,21" stroke="{{c2}}" stroke-width="0.8" stroke-dasharray="2,3" opacity="0.6" />
+
+    <!-- Hanging Bow Knots at String Endpoints -->
+    <!-- Left Bow (10, 18) -->
+    <circle cx="10" cy="18" r="3.5" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+    <path d="M10,18 C2,10 -2,16 6,22 C10,24 10,18 10,18" fill="{{c2}}" stroke="{{c1}}" stroke-width="0.9" />
+    <path d="M10,18 C12,26 8,32 4,36" stroke="{{c1}}" stroke-width="1.2" />
+    <!-- Right Bow (350, 18) -->
+    <circle cx="350" cy="18" r="3.5" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+    <path d="M350,18 C358,10 362,16 354,22 C350,24 350,18 350,18" fill="{{c2}}" stroke="{{c1}}" stroke-width="0.9" />
+    <path d="M350,18 C348,26 352,32 356,36" stroke="{{c1}}" stroke-width="1.2" />
+
+    <!-- 7 Triangular Pennant Flags hanging along the catenary curve -->
+
+    <!-- Flag 1 (x=30..70, y_top~24) -->
+    <polygon points="30,23 70,29 50,68" fill="{{c1}}" opacity="0.95" stroke="{{c1}}" stroke-width="1.5" />
+    <!-- Inner chevron stripes -->
+    <path d="M36,24 L50,56 L64,28" stroke="{{c3}}" stroke-width="1.2" />
+    <circle cx="50" cy="38" r="2.5" fill="{{c2}}" />
+
+    <!-- Flag 2 (x=76..116, y_top~31) -->
+    <polygon points="76,30 116,34 96,75" fill="{{c2}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.5" />
+    <!-- Polka dots -->
+    <circle cx="96" cy="46" r="3" fill="{{c1}}" />
+    <circle cx="88" cy="56" r="2" fill="{{c3}}" />
+    <circle cx="104" cy="56" r="2" fill="{{c3}}" />
+
+    <!-- Flag 3 (x=122..162, y_top~36) -->
+    <polygon points="122,35 162,37 142,80" fill="{{c3}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.5" />
+    <!-- Vertical stripe -->
+    <line x1="142" y1="36" x2="142" y2="76" stroke="{{c1}}" stroke-width="2" />
+    <circle cx="142" cy="52" r="2.5" fill="{{c2}}" />
+
+    <!-- Flag 4 (Center: x=168..208, y_top~37) -->
+    <polygon points="168,37 208,37 188,82" fill="{{c1}}" opacity="0.95" stroke="{{c1}}" stroke-width="1.8" />
+    <!-- Star pattern on center flag -->
+    <path d="M188,48 L189.5,43 L191,48 L196,49.5 L191,51 L189.5,56 L188,51 L183,49.5 Z" fill="{{c2}}" />
+    <circle cx="188" cy="65" r="2.2" fill="{{c3}}" />
+
+    <!-- Flag 5 (x=214..254, y_top~36) -->
+    <polygon points="214,37 254,35 234,80" fill="{{c3}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.5" />
+    <line x1="234" y1="36" x2="234" y2="76" stroke="{{c1}}" stroke-width="2" />
+    <circle cx="234" cy="52" r="2.5" fill="{{c2}}" />
+
+    <!-- Flag 6 (x=260..300, y_top~31) -->
+    <polygon points="260,34 300,30 280,75" fill="{{c2}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.5" />
+    <circle cx="280" cy="46" r="3" fill="{{c1}}" />
+    <circle cx="272" cy="56" r="2" fill="{{c3}}" />
+    <circle cx="288" cy="56" r="2" fill="{{c3}}" />
+
+    <!-- Flag 7 (x=306..346, y_top~24) -->
+    <polygon points="306,29 346,23 326,68" fill="{{c1}}" opacity="0.95" stroke="{{c1}}" stroke-width="1.5" />
+    <path d="M312,28 L326,56 L340,24" stroke="{{c3}}" stroke-width="1.2" />
+    <circle cx="326" cy="38" r="2.5" fill="{{c2}}" />
+
+    <!-- Confetti Dots between and above flags -->
+    <circle cx="73" cy="20" r="1.8" fill="{{c3}}" />
+    <circle cx="119" cy="24" r="1.8" fill="{{c1}}" />
+    <circle cx="165" cy="26" r="2" fill="{{c2}}" />
+    <circle cx="211" cy="26" r="2" fill="{{c2}}" />
+    <circle cx="257" cy="24" r="1.8" fill="{{c1}}" />
+    <circle cx="303" cy="20" r="1.8" fill="{{c3}}" />
+  </g>
+</svg>

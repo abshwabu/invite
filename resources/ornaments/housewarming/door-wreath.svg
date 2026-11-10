@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 300" fill="none">
+  <!-- Welcoming botanical front door wreath with lush leaves, berries and ribbon bow -->
+  <g class="door-wreath" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Center of Wreath: (140, 150) -->
+
+    <!-- Drop Shadow Disc -->
+    <circle cx="140" cy="154" r="95" fill="{{c3}}" opacity="0.2"/>
+
+    <!-- Woven Twig / Grapevine Core Ring -->
+    <circle cx="140" cy="150" r="85" stroke="{{c1}}" stroke-width="6" fill="none"/>
+    <circle cx="140" cy="150" r="82" stroke="{{c3}}" stroke-width="2.5" stroke-dasharray="8 6" fill="none"/>
+    <circle cx="140" cy="150" r="88" stroke="{{c2}}" stroke-width="2" stroke-dasharray="5 7" fill="none"/>
+
+    <!-- Inner Hollow Ring (Door surface peeking through) -->
+    <circle cx="140" cy="150" r="54" fill="#FFFFFF" stroke="{{c1}}" stroke-width="2.5"/>
+    <circle cx="140" cy="150" r="48" stroke="{{c2}}" stroke-width="1.2" stroke-dasharray="3 4"/>
+
+    <!-- Botanical Foliage Layer (Leaves & Sprigs orbiting around the wreath) -->
+    <!-- Quadrant 1 (Top Right) -->
+    <path d="M165 72 C180 62 195 70 192 86 C178 88 168 80 165 72 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+    <path d="M192 88 C208 82 222 92 216 108 C202 108 194 98 192 88 Z" fill="{{c1}}" opacity="0.85" stroke="{{c2}}" stroke-width="1.5"/>
+    <path d="M214 112 C230 110 238 126 230 140 C218 136 212 124 214 112 Z" fill="{{c3}}" stroke="{{c1}}" stroke-width="1.5" opacity="0.8"/>
+    <!-- Berries -->
+    <circle cx="180" cy="80" r="3.5" fill="{{c1}}"/>
+    <circle cx="186" cy="74" r="2.5" fill="{{c2}}"/>
+    <circle cx="210" cy="102" r="3.5" fill="{{c2}}"/>
+
+    <!-- Quadrant 2 (Bottom Right) -->
+    <path d="M228 148 C236 164 228 180 214 182 C210 168 218 154 228 148 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+    <path d="M210 186 C214 204 200 218 184 216 C184 200 196 190 210 186 Z" fill="{{c1}}" opacity="0.85" stroke="{{c3}}" stroke-width="1.5"/>
+    <path d="M180 218 C178 234 162 242 148 236 C152 222 166 216 180 218 Z" fill="{{c3}}" stroke="{{c1}}" stroke-width="1.5" opacity="0.8"/>
+    <!-- Berries -->
+    <circle cx="218" cy="172" r="3.5" fill="{{c1}}"/>
+    <circle cx="196" cy="206" r="3.5" fill="{{c2}}"/>
+    <circle cx="166" cy="230" r="3.5" fill="{{c1}}"/>
+
+    <!-- Quadrant 3 (Bottom Left) -->
+    <path d="M132 236 C118 242 102 234 100 218 C114 216 128 222 132 236 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+    <path d="M96 216 C80 218 66 204 70 186 C84 190 96 200 96 216 Z" fill="{{c1}}" opacity="0.85" stroke="{{c2}}" stroke-width="1.5"/>
+    <path d="M66 182 C52 180 44 164 52 148 C62 154 70 168 66 182 Z" fill="{{c3}}" stroke="{{c1}}" stroke-width="1.5" opacity="0.8"/>
+    <!-- Berries -->
+    <circle cx="114" cy="230" r="3.5" fill="{{c2}}"/>
+    <circle cx="84" cy="206" r="3.5" fill="{{c1}}"/>
+    <circle cx="62" cy="172" r="3.5" fill="{{c2}}"/>
+
+    <!-- Quadrant 4 (Top Left) -->
+    <path d="M52 140 C44 126 52 110 68 112 C70 124 64 136 52 140 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+    <path d="M72 108 C66 92 80 82 96 88 C94 98 86 108 72 108 Z" fill="{{c1}}" opacity="0.85" stroke="{{c3}}" stroke-width="1.5"/>
+    <path d="M100 86 C98 70 112 62 128 72 C124 80 114 88 100 86 Z" fill="{{c3}}" stroke="{{c1}}" stroke-width="1.5" opacity="0.8"/>
+    <!-- Berries -->
+    <circle cx="70" cy="102" r="3.5" fill="{{c1}}"/>
+    <circle cx="94" cy="80" r="3.5" fill="{{c2}}"/>
+
+    <!-- Big Tied Satin Ribbon Bow at Crown Top (140, 68) -->
+    <g class="wreath-bow">
+      <!-- Hanging Ribbon Tails draping down over the wreath -->
+      <path d="M134 76 C124 104 116 136 108 160 L118 156 L124 168 C130 140 136 108 138 78 Z" fill="{{c1}}" stroke="{{c2}}" stroke-width="1.5"/>
+      <path d="M146 76 C156 104 164 136 172 160 L162 156 L156 168 C150 140 144 108 142 78 Z" fill="{{c1}}" stroke="{{c2}}" stroke-width="1.5"/>
+
+      <!-- Left Bow Loop -->
+      <path d="M140 68 C116 46 84 56 94 76 C104 94 130 82 140 70 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="2.5"/>
+      <path d="M124 62 C108 60 102 70 112 76" stroke="#FFFFFF" stroke-width="1.5" opacity="0.7"/>
+
+      <!-- Right Bow Loop -->
+      <path d="M140 68 C164 46 196 56 186 76 C176 94 150 82 140 70 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="2.5"/>
+      <path d="M156 62 C172 60 178 70 168 76" stroke="#FFFFFF" stroke-width="1.5" opacity="0.7"/>
+
+      <!-- Central Ribbon Knot -->
+      <ellipse cx="140" cy="69" rx="8" ry="7" fill="{{c1}}" stroke="{{c2}}" stroke-width="2"/>
+      <ellipse cx="138" cy="67" rx="3.5" ry="2.5" fill="#FFFFFF" opacity="0.7"/>
+
+      <!-- Top Hanging Loop (for nail/hook) -->
+      <path d="M140 62 C134 40 136 24 140 24 C144 24 146 40 140 62" stroke="{{c2}}" stroke-width="2.5" fill="none"/>
+      <circle cx="140" cy="22" r="3" fill="{{c1}}"/>
+    </g>
+
+    <!-- Warm floating home accents -->
+    <path d="M42 45 Q42 52 48 52 Q42 52 42 58 Q42 52 36 52 Q42 52 42 45 Z" fill="{{c2}}"/>
+    <path d="M238 45 Q238 52 244 52 Q238 52 238 58 Q238 52 232 52 Q238 52 238 45 Z" fill="{{c2}}"/>
+    <circle cx="140" cy="148" r="3" fill="{{c2}}"/>
+  </g>
+</svg>

@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Center background soft disc (120, 120, radius 72) -->
+    <circle cx="120" cy="120" r="72" fill="{{c3}}" opacity="0.22" />
+
+    <!-- Outermost Festive Party Beaded Rim (radius 104) -->
+    <circle cx="120" cy="120" r="106" stroke="{{c2}}" stroke-width="1" stroke-dasharray="3,3" opacity="0.6" />
+    <circle cx="120" cy="120" r="98" stroke="{{c1}}" stroke-width="2.2" />
+    <circle cx="120" cy="120" r="92" stroke="{{c2}}" stroke-width="1.2" />
+
+    <!-- 20 Festive Celebration Beads along circle r=86 -->
+    <g fill="{{c1}}">
+      <circle cx="206" cy="120" r="2.5" />
+      <circle cx="201.8" cy="146.6" r="2.2" />
+      <circle cx="189.6" cy="170.6" r="2.2" />
+      <circle cx="170.6" cy="189.6" r="2.2" />
+      <circle cx="146.6" cy="201.8" r="2.2" />
+      <circle cx="120" cy="206" r="2.5" />
+      <circle cx="93.4" cy="201.8" r="2.2" />
+      <circle cx="69.4" cy="189.6" r="2.2" />
+      <circle cx="50.4" cy="170.6" r="2.2" />
+      <circle cx="38.2" cy="146.6" r="2.2" />
+      <circle cx="34" cy="120" r="2.5" />
+      <circle cx="38.2" cy="93.4" r="2.2" />
+      <circle cx="50.4" cy="69.4" r="2.2" />
+      <circle cx="69.4" cy="50.4" r="2.2" />
+      <circle cx="93.4" cy="38.2" r="2.2" />
+      <circle cx="120" cy="34" r="2.5" />
+      <circle cx="146.6" cy="38.2" r="2.2" />
+      <circle cx="170.6" cy="50.4" r="2.2" />
+      <circle cx="189.6" cy="69.4" r="2.2" />
+      <circle cx="201.8" cy="93.4" r="2.2" />
+    </g>
+
+    <!-- Inner Concentric Frame Rings (Framing the milestone number) -->
+    <circle cx="120" cy="120" r="80" stroke="{{c1}}" stroke-width="1.6" />
+    <circle cx="120" cy="120" r="75" stroke="{{c2}}" stroke-width="1" stroke-dasharray="2,3" />
+    <circle cx="120" cy="120" r="70" stroke="{{c1}}" stroke-width="1.8" />
+
+    <!-- TOP STAR CREST (Center 120, 20) -->
+    <g transform="translate(120, 20)">
+      <!-- 8-Point Celebration Star -->
+      <path d="M0,-14 L2.5,-4 L12,-2.5 L3.5,3 L7,12 L0,5 L-7,12 L-3.5,3 L-12,-2.5 L-2.5,-4 Z" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+      <circle cx="0" cy="0" r="2.5" fill="{{c3}}" />
+      <!-- Flanking Swags -->
+      <path d="M-14,0 C-24,-4 -34,4 -38,12" stroke="{{c2}}" stroke-width="1.4" />
+      <path d="M14,0 C24,-4 34,4 38,12" stroke="{{c2}}" stroke-width="1.4" />
+    </g>
+
+    <!-- BOTTOM RIBBON BOW & STREAMERS (Center 120, 220) -->
+    <g transform="translate(120, 220)">
+      <!-- Streamers -->
+      <path d="M-6,2 C-16,10 -26,12 -36,10" stroke="{{c1}}" stroke-width="1.4" />
+      <path d="M6,2 C16,10 26,12 36,10" stroke="{{c1}}" stroke-width="1.4" />
+      <!-- Bow Loops -->
+      <path d="M0,0 C-10,-12 -22,-8 -22,0 C-22,6 -10,8 0,2 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.2" />
+      <path d="M0,0 C10,-12 22,-8 22,0 C22,6 10,8 0,2 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.2" />
+      <!-- Center Knot -->
+      <circle cx="0" cy="1" r="3.5" fill="{{c1}}" />
+      <circle cx="0" cy="1" r="1.5" fill="{{c3}}" />
+    </g>
+
+    <!-- LEFT & RIGHT ACCENT STARS (20, 120) and (220, 120) -->
+    <!-- Left Star (22, 120) -->
+    <g transform="translate(22, 120)">
+      <polygon points="0,-8 2,-2 8,0 2,2 0,8 -2,2 -8,0 -2,-2" fill="{{c2}}" stroke="{{c1}}" stroke-width="0.8" />
+    </g>
+    <!-- Right Star (218, 120) -->
+    <g transform="translate(218, 120)">
+      <polygon points="0,-8 2,-2 8,0 2,2 0,8 -2,2 -8,0 -2,-2" fill="{{c2}}" stroke="{{c1}}" stroke-width="0.8" />
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 280" fill="none">
+  <!-- Vintage ornate brass house key on keychain ring with decorative fob -->
+  <g class="key-ring" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Cast Shadow beneath key -->
+    <ellipse cx="120" cy="180" rx="45" ry="85" fill="{{c3}}" opacity="0.25" transform="rotate(30 120 180)"/>
+
+    <g class="key-assembly" transform="rotate(30 120 140)">
+      <!-- Key Ring Loop at top -->
+      <circle cx="120" cy="50" r="32" stroke="{{c1}}" stroke-width="4" fill="none"/>
+      <circle cx="120" cy="50" r="32" stroke="{{c2}}" stroke-width="1.5" stroke-dasharray="4 6" fill="none"/>
+      <!-- Ring Split / Joint -->
+      <line x1="120" y1="18" x2="120" y2="24" stroke="{{c3}}" stroke-width="3"/>
+
+      <!-- Hanging Ribbon Tag / Keychain Fob (House silhouette tag) -->
+      <g class="fob-tag" transform="translate(148, 62) rotate(-20)">
+        <polygon points="0,-16 20,-2 20,24 -20,24 -20,-2" fill="{{c2}}" stroke="{{c1}}" stroke-width="2"/>
+        <circle cx="0" cy="-6" r="4" fill="{{c1}}"/>
+        <!-- Heart on Tag -->
+        <path d="M0 6 C-3 2 -9 4 -9 9 C-9 14 0 19 0 19 C0 19 9 14 9 9 C9 4 3 2 0 6 Z" fill="{{c1}}"/>
+      </g>
+
+      <!-- Main Vintage Key (Center x: 120, extending down to y=230) -->
+      <!-- Ornate Bow / Handle (House / Trefoil Gothic Motif) -->
+      <g class="key-bow">
+        <!-- Outer Bow Frame -->
+        <circle cx="120" cy="98" r="28" fill="{{c2}}" opacity="0.8" stroke="{{c1}}" stroke-width="3"/>
+        <circle cx="120" cy="98" r="22" stroke="{{c3}}" stroke-width="1.5" fill="none"/>
+        
+        <!-- Inner Trefoil / Heart Cutouts -->
+        <!-- Center Heart Cutout -->
+        <path d="M120 92 C116 86 106 88 106 96 C106 104 120 114 120 114 C120 114 134 104 134 96 C134 88 124 86 120 92 Z" fill="#FFFFFF" stroke="{{c1}}" stroke-width="2"/>
+        <!-- Side mini perforations -->
+        <circle cx="104" cy="98" r="3.5" fill="#FFFFFF" stroke="{{c1}}" stroke-width="1.2"/>
+        <circle cx="136" cy="98" r="3.5" fill="#FFFFFF" stroke="{{c1}}" stroke-width="1.2"/>
+        
+        <!-- Key Bow Collar Ring -->
+        <rect x="112" y="124" width="16" height="6" rx="2" fill="{{c1}}" stroke="{{c2}}" stroke-width="1.5"/>
+      </g>
+
+      <!-- Key Shaft / Shank -->
+      <g class="key-shank">
+        <!-- Main Shaft Tube -->
+        <rect x="116" y="130" width="8" height="92" rx="2" fill="{{c1}}" stroke="{{c2}}" stroke-width="2"/>
+        <!-- Luster Highlight along shank -->
+        <line x1="118" y1="132" x2="118" y2="220" stroke="#FFFFFF" stroke-width="1.2" opacity="0.7"/>
+
+        <!-- Middle Decorative Turned Band Collar -->
+        <rect x="113" y="166" width="14" height="6" rx="2" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+        <circle cx="120" cy="169" r="1.5" fill="{{c1}}"/>
+
+        <!-- Key Tip Rounded Finial -->
+        <ellipse cx="120" cy="222" rx="5" ry="4" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+      </g>
+
+      <!-- Key Bit / Wards (Notched Teeth on the right) -->
+      <g class="key-bit">
+        <path d="M124 186 
+          H 146 
+          V 194 
+          H 136 
+          V 200 
+          H 148 
+          V 210 
+          H 138 
+          V 214 
+          H 144 
+          V 220 
+          H 124 Z" 
+          fill="{{c1}}" stroke="{{c2}}" stroke-width="2"/>
+        
+        <!-- Inner Ward Cross Slot -->
+        <line x1="126" y1="192" x2="132" y2="192" stroke="{{c3}}" stroke-width="2"/>
+        <line x1="126" y1="205" x2="134" y2="205" stroke="{{c3}}" stroke-width="2"/>
+      </g>
+    </g>
+
+    <!-- Welcome sparkle cluster -->
+    <path d="M42 60 Q42 68 50 68 Q42 68 42 76 Q42 68 34 68 Q42 68 42 60 Z" fill="{{c2}}"/>
+    <path d="M200 190 Q200 198 208 198 Q200 198 200 206 Q200 198 192 198 Q200 198 200 190 Z" fill="{{c2}}"/>
+    <circle cx="36" cy="110" r="2.5" fill="{{c1}}"/>
+    <circle cx="196" cy="140" r="2.5" fill="{{c3}}"/>
+  </g>
+</svg>

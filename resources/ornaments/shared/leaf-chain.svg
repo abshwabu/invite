@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 40" fill="none">
+  <!-- Botanical laurel leaf chain divider with repeating sprigs and berry accents -->
+  <g class="leaf-chain" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Continuous Center Stem -->
+    <line x1="0" y1="20" x2="400" y2="20" stroke="{{c1}}" stroke-width="2"/>
+    <line x1="0" y1="20" x2="400" y2="20" stroke="{{c2}}" stroke-width="1" stroke-dasharray="4 6"/>
+
+    <!-- Repeating Leaf Units (Every 50px: 25, 75, 125, 175, 225, 275, 325, 375) -->
+    <!-- Unit 1 at x=25 -->
+    <path d="M25 20 C18 10 32 4 40 10 C34 16 28 20 25 20 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.2"/>
+    <path d="M25 20 C18 30 32 36 40 30 C34 24 28 20 25 20 Z" fill="{{c3}}" stroke="{{c1}}" stroke-width="1.2" opacity="0.8"/>
+    <circle cx="36" cy="20" r="2.2" fill="{{c1}}"/>
+
+    <!-- Unit 2 at x=75 -->
+    <path d="M75 20 C68 10 82 4 90 10 C84 16 78 20 75 20 Z" fill="{{c1}}" opacity="0.9" stroke="{{c2}}" stroke-width="1.2"/>
+    <path d="M75 20 C68 30 82 36 90 30 C84 24 78 20 75 20 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.2"/>
+    <circle cx="86" cy="20" r="2.2" fill="{{c3}}"/>
+
+    <!-- Unit 3 at x=125 -->
+    <path d="M125 20 C118 10 132 4 140 10 C134 16 128 20 125 20 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.2"/>
+    <path d="M125 20 C118 30 132 36 140 30 C134 24 128 20 125 20 Z" fill="{{c3}}" stroke="{{c1}}" stroke-width="1.2" opacity="0.8"/>
+    <circle cx="136" cy="20" r="2.2" fill="{{c1}}"/>
+
+    <!-- Unit 4 at x=175 -->
+    <path d="M175 20 C168 10 182 4 190 10 C184 16 178 20 175 20 Z" fill="{{c1}}" opacity="0.9" stroke="{{c2}}" stroke-width="1.2"/>
+    <path d="M175 20 C168 30 182 36 190 30 C184 24 178 20 175 20 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.2"/>
+    <circle cx="186" cy="20" r="2.2" fill="{{c3}}"/>
+
+    <!-- Center Medallion Node at x=200 -->
+    <circle cx="200" cy="20" r="5" fill="{{c1}}" stroke="{{c2}}" stroke-width="1.5"/>
+    <circle cx="200" cy="20" r="2" fill="#FFFFFF"/>
+
+    <!-- Unit 5 at x=225 -->
+    <path d="M225 20 C218 10 232 4 240 10 C234 16 228 20 225 20 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.2"/>
+    <path d="M225 20 C218 30 232 36 240 30 C234 24 228 20 225 20 Z" fill="{{c3}}" stroke="{{c1}}" stroke-width="1.2" opacity="0.8"/>
+    <circle cx="236" cy="20" r="2.2" fill="{{c1}}"/>
+
+    <!-- Unit 6 at x=275 -->
+    <path d="M275 20 C268 10 282 4 290 10 C284 16 278 20 275 20 Z" fill="{{c1}}" opacity="0.9" stroke="{{c2}}" stroke-width="1.2"/>
+    <path d="M275 20 C268 30 282 36 290 30 C284 24 278 20 275 20 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.2"/>
+    <circle cx="286" cy="20" r="2.2" fill="{{c3}}"/>
+
+    <!-- Unit 7 at x=325 -->
+    <path d="M325 20 C318 10 332 4 340 10 C334 16 328 20 325 20 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.2"/>
+    <path d="M325 20 C318 30 332 36 340 30 C334 24 328 20 325 20 Z" fill="{{c3}}" stroke="{{c1}}" stroke-width="1.2" opacity="0.8"/>
+    <circle cx="336" cy="20" r="2.2" fill="{{c1}}"/>
+
+    <!-- Unit 8 at x=375 -->
+    <path d="M375 20 C368 10 382 4 390 10 C384 16 378 20 375 20 Z" fill="{{c1}}" opacity="0.9" stroke="{{c2}}" stroke-width="1.2"/>
+    <path d="M375 20 C368 30 382 36 390 30 C384 24 378 20 375 20 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.2"/>
+    <circle cx="386" cy="20" r="2.2" fill="{{c3}}"/>
+  </g>
+</svg>

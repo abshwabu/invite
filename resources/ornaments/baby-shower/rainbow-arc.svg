@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" fill="none">
+  <!-- Whimsical baby rainbow arc with cloud pedestals and starlight -->
+  <g class="rainbow-arc" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Rainbow Outer Band -->
+    <path d="M60 170 A100 100 0 0 1 260 170" stroke="{{c1}}" stroke-width="14" fill="none"/>
+    
+    <!-- Middle Band -->
+    <path d="M74 170 A86 86 0 0 1 246 170" stroke="{{c2}}" stroke-width="14" fill="none"/>
+
+    <!-- Inner Band -->
+    <path d="M88 170 A72 72 0 0 1 232 170" stroke="{{c3}}" stroke-width="14" fill="none" opacity="0.8"/>
+
+    <!-- Decorative Dotted Ring along outermost arc -->
+    <path d="M48 170 A112 112 0 0 1 272 170" stroke="{{c2}}" stroke-width="2.5" stroke-dasharray="3 8" fill="none"/>
+
+    <!-- Tiny center arc accent -->
+    <path d="M102 170 A58 58 0 0 1 218 170" stroke="{{c1}}" stroke-width="3" stroke-dasharray="4 6" fill="none" opacity="0.6"/>
+
+    <!-- Left Cloud Puff -->
+    <g class="cloud-left">
+      <path d="M30 190 C22 190 16 182 18 174 C20 164 30 160 38 163 C42 150 56 142 68 147 C78 136 96 140 102 153 C110 152 118 158 118 167 C118 178 112 188 100 190 Z" fill="{{c3}}" opacity="0.3"/>
+      <path d="M28 186 C20 186 15 179 17 172 C19 163 29 159 37 162 C41 150 54 142 65 147 C74 137 91 141 97 153 C104 152 112 157 112 165 C112 176 104 186 94 186 Z" fill="#FFFFFF" opacity="0.9" stroke="{{c1}}" stroke-width="2.5"/>
+      <!-- Soft blush on left cloud -->
+      <ellipse cx="44" cy="174" rx="8" ry="5" fill="{{c2}}" opacity="0.4"/>
+      <ellipse cx="88" cy="172" rx="7" ry="4.5" fill="{{c2}}" opacity="0.4"/>
+      <!-- Tiny star on cloud -->
+      <circle cx="66" cy="166" r="2" fill="{{c1}}"/>
+    </g>
+
+    <!-- Right Cloud Puff -->
+    <g class="cloud-right">
+      <path d="M208 190 C198 188 192 178 192 167 C192 158 200 152 208 153 C214 140 232 136 242 147 C254 142 268 150 272 163 C280 160 290 164 292 174 C294 182 288 190 280 190 Z" fill="{{c3}}" opacity="0.3"/>
+      <path d="M214 186 C206 186 198 176 198 165 C198 157 206 152 213 153 C219 141 236 137 245 147 C256 142 269 150 273 162 C281 159 291 163 293 172 C295 179 290 186 282 186 Z" fill="#FFFFFF" opacity="0.9" stroke="{{c1}}" stroke-width="2.5"/>
+      <!-- Soft blush on right cloud -->
+      <ellipse cx="224" cy="172" rx="7" ry="4.5" fill="{{c2}}" opacity="0.4"/>
+      <ellipse cx="268" cy="174" rx="8" ry="5" fill="{{c2}}" opacity="0.4"/>
+      <circle cx="246" cy="166" r="2" fill="{{c1}}"/>
+    </g>
+
+    <!-- Overhead Floating Sparkles and Stars -->
+    <g fill="{{c2}}" opacity="0.85">
+      <!-- Apex star -->
+      <path d="M160 40 Q160 52 168 52 Q160 52 160 64 Q160 52 152 52 Q160 52 160 40 Z"/>
+      <!-- Left side sparkles -->
+      <path d="M105 68 Q105 75 110 75 Q105 75 105 82 Q105 75 100 75 Q105 75 105 68 Z" fill="{{c1}}"/>
+      <circle cx="125" cy="54" r="2.5" fill="{{c3}}"/>
+      <!-- Right side sparkles -->
+      <path d="M215 68 Q215 75 220 75 Q215 75 215 82 Q215 75 210 75 Q215 75 215 68 Z" fill="{{c1}}"/>
+      <circle cx="195" cy="54" r="2.5" fill="{{c3}}"/>
+      <!-- Floating dots -->
+      <circle cx="160" cy="24" r="2.5" fill="{{c1}}"/>
+      <circle cx="82" cy="100" r="2" fill="{{c2}}"/>
+      <circle cx="238" cy="100" r="2" fill="{{c2}}"/>
+    </g>
+  </g>
+</svg>

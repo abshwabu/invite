@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 300" fill="none">
+  <!-- Newborn swaddle bundle hanging from a leafy branch with ribbon knot -->
+  <g class="bundle-stork-line" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Overhead branch with gentle leaves -->
+    <path d="M20 50 C80 40 160 52 260 38" stroke="{{c1}}" stroke-width="3"/>
+    <!-- Branch sprigs and leaves -->
+    <path d="M60 45 C54 34 60 22 72 26 C72 38 66 45 60 45 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+    <path d="M85 46 C92 36 104 38 102 48 C94 52 86 48 85 46 Z" fill="{{c3}}" stroke="{{c1}}" stroke-width="1.5" opacity="0.8"/>
+    <path d="M190 44 C198 32 210 36 210 46 C200 50 192 46 190 44 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+    <path d="M225 41 C224 28 238 28 240 38 C234 44 226 42 225 41 Z" fill="{{c3}}" stroke="{{c1}}" stroke-width="1.5" opacity="0.8"/>
+
+    <!-- Hanging straps / ribbons connected to branch -->
+    <path d="M130 47 L122 96" stroke="{{c2}}" stroke-width="2.5"/>
+    <path d="M150 46 L158 96" stroke="{{c2}}" stroke-width="2.5"/>
+
+    <!-- Ribbon Knot & Bow -->
+    <g class="bow">
+      <!-- Left loop -->
+      <path d="M140 96 C118 84 104 98 116 112 C126 122 136 106 140 100 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="2"/>
+      <path d="M128 98 C120 102 122 108 128 106" stroke="{{c3}}" stroke-width="1.5"/>
+      <!-- Right loop -->
+      <path d="M140 96 C162 84 176 98 164 112 C154 122 144 106 140 100 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="2"/>
+      <path d="M152 98 C160 102 158 108 152 106" stroke="{{c3}}" stroke-width="1.5"/>
+      <!-- Central Knot -->
+      <circle cx="140" cy="98" r="6" fill="{{c1}}"/>
+      <circle cx="140" cy="98" r="3" fill="{{c3}}"/>
+      <!-- Trailing ribbon ends -->
+      <path d="M136 104 C130 118 124 130 118 138" stroke="{{c1}}" stroke-width="2"/>
+      <path d="M144 104 C148 118 156 128 162 136" stroke="{{c1}}" stroke-width="2"/>
+    </g>
+
+    <!-- Hanging Swaddle Pouch -->
+    <g class="swaddle-pouch">
+      <!-- Shadow depth -->
+      <path d="M140 102 C95 118 64 168 76 218 C88 266 182 272 208 222 C220 174 185 118 140 102 Z" fill="{{c3}}" opacity="0.3"/>
+      
+      <!-- Main Sling Body -->
+      <path d="M140 100 C92 115 68 162 78 210 C88 258 180 264 204 214 C216 166 186 115 140 100 Z" fill="#FFFFFF" stroke="{{c1}}" stroke-width="3"/>
+      
+      <!-- Inner fold draping lines -->
+      <path d="M88 170 C108 200 168 214 198 180" stroke="{{c2}}" stroke-width="2.5" fill="none"/>
+      <path d="M96 195 C120 226 166 230 190 205" stroke="{{c3}}" stroke-width="2" fill="none"/>
+      <path d="M112 222 C130 240 156 242 174 228" stroke="{{c1}}" stroke-width="1.5" stroke-dasharray="3 3" fill="none"/>
+
+      <!-- Peeking baby bonnet / edge -->
+      <path d="M115 168 C115 148 135 142 145 142 C158 142 172 150 170 168" stroke="{{c1}}" stroke-width="2" fill="{{c2}}" opacity="0.4"/>
+      <!-- Soft sleeping face line -->
+      <path d="M136 158 C139 161 143 161 146 158" stroke="{{c1}}" stroke-width="1.8" fill="none"/>
+      <circle cx="132" cy="160" r="1.5" fill="{{c3}}"/>
+      <circle cx="150" cy="160" r="1.5" fill="{{c3}}"/>
+      
+      <!-- Little decorative heart patch on the blanket pouch -->
+      <path d="M140 204 C136 198 126 200 126 208 C126 216 140 226 140 226 C140 226 154 216 154 208 C154 200 144 198 140 204 Z" fill="{{c1}}" opacity="0.85"/>
+    </g>
+
+    <!-- Delicate accent sparkles -->
+    <circle cx="50" cy="130" r="2.5" fill="{{c2}}"/>
+    <circle cx="230" cy="135" r="3" fill="{{c2}}"/>
+    <path d="M228 170 Q228 176 234 176 Q228 176 228 182 Q228 176 222 176 Q228 176 228 170 Z" fill="{{c3}}"/>
+    <path d="M56 240 Q56 246 62 246 Q56 246 56 252 Q56 246 50 246 Q56 246 56 240 Z" fill="{{c1}}"/>
+  </g>
+</svg>

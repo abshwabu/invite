@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 44" fill="none">
+  <!-- Elegant calligraphic pen flourish divider with curving S-scrolls and teardrop terminals -->
+  <g class="simple-flourish" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Center coordinate: (190, 22) -->
+
+    <!-- Left Flourish S-Scroll Wing -->
+    <path d="M25 22 
+      C 60 22 80 8 110 8 
+      C 135 8 145 28 165 28 
+      C 175 28 182 22 190 22" 
+      stroke="{{c1}}" stroke-width="2.5" fill="none"/>
+
+    <!-- Left Lower Counter-Flourish Stroke -->
+    <path d="M50 22 
+      C 80 22 95 34 125 34 
+      C 150 34 165 22 178 22" 
+      stroke="{{c2}}" stroke-width="1.5" fill="none"/>
+
+    <!-- Left Teardrop Curl Terminal -->
+    <path d="M25 22 C18 22 14 16 18 10 C22 4 28 8 28 14 C28 18 24 22 25 22 Z" fill="{{c1}}"/>
+    <circle cx="110" cy="8" r="2.2" fill="{{c2}}"/>
+    <circle cx="125" cy="34" r="2.2" fill="{{c3}}"/>
+
+    <!-- Right Flourish S-Scroll Wing (Mirror of left) -->
+    <path d="M355 22 
+      C 320 22 300 8 270 8 
+      C 245 8 235 28 215 28 
+      C 205 28 198 22 190 22" 
+      stroke="{{c1}}" stroke-width="2.5" fill="none"/>
+
+    <!-- Right Lower Counter-Flourish Stroke -->
+    <path d="M330 22 
+      C 300 22 285 34 255 34 
+      C 230 34 215 22 202 22" 
+      stroke="{{c2}}" stroke-width="1.5" fill="none"/>
+
+    <!-- Right Teardrop Curl Terminal -->
+    <path d="M355 22 C362 22 366 16 362 10 C358 4 352 8 352 14 C352 18 356 22 355 22 Z" fill="{{c1}}"/>
+    <circle cx="270" cy="8" r="2.2" fill="{{c2}}"/>
+    <circle cx="255" cy="34" r="2.2" fill="{{c3}}"/>
+
+    <!-- Central Calligraphic Heart Knot & Medallion -->
+    <g class="center-knot">
+      <!-- Heart Loop -->
+      <path d="M190 22 C186 14 176 14 176 22 C176 30 190 38 190 38 C190 38 204 30 204 22 C204 14 194 14 190 22 Z" fill="{{c2}}" opacity="0.4" stroke="{{c1}}" stroke-width="1.8"/>
+      
+      <!-- Center Pearl -->
+      <circle cx="190" cy="22" r="4.5" fill="{{c1}}" stroke="{{c2}}" stroke-width="1.5"/>
+      <circle cx="190" cy="22" r="1.8" fill="#FFFFFF"/>
+
+      <!-- Accent Top Pearl -->
+      <circle cx="190" cy="8" r="2.5" fill="{{c2}}"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 240" fill="none">
+  <!-- Academic diploma scroll tied with satin ribbon and wax seal -->
+  <g class="scroll-ribbon" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Drop Shadow -->
+    <ellipse cx="150" cy="190" rx="95" ry="12" fill="{{c3}}" opacity="0.3"/>
+
+    <!-- Left curled parchment roll end -->
+    <g class="scroll-left-curl">
+      <ellipse cx="60" cy="115" rx="14" ry="46" fill="{{c3}}" stroke="{{c1}}" stroke-width="2.5"/>
+      <ellipse cx="60" cy="115" rx="9" ry="36" fill="#FFFFFF" opacity="0.8" stroke="{{c2}}" stroke-width="1.5"/>
+      <!-- Inner scroll spiral core -->
+      <path d="M58 88 C64 88 66 100 66 115 C66 130 62 142 58 142 C54 142 53 134 54 125" stroke="{{c1}}" stroke-width="1.5" fill="none"/>
+    </g>
+
+    <!-- Main Parchment Tube Cylinder -->
+    <path d="M60 69 L240 69 C248 69 254 90 254 115 C254 140 248 161 240 161 L60 161 Z" fill="#FFFFFF" stroke="{{c1}}" stroke-width="2.5"/>
+    <!-- Parchment subtle shading and aged texture lines -->
+    <path d="M60 148 L240 148 C246 148 252 134 252 115 C252 96 246 82 240 82 L60 82 Z" fill="{{c2}}" opacity="0.12"/>
+    <line x1="85" y1="92" x2="125" y2="92" stroke="{{c3}}" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.5"/>
+    <line x1="85" y1="102" x2="120" y2="102" stroke="{{c3}}" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.5"/>
+    <line x1="175" y1="92" x2="215" y2="92" stroke="{{c3}}" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.5"/>
+    <line x1="180" y1="102" x2="220" y2="102" stroke="{{c3}}" stroke-width="1.5" stroke-dasharray="3 4" opacity="0.5"/>
+
+    <!-- Right rolled edge -->
+    <path d="M240 69 C248 69 254 90 254 115 C254 140 248 161 240 161" stroke="{{c1}}" stroke-width="2.5" fill="none"/>
+
+    <!-- Center Satin Ribbon Band around parchment -->
+    <rect x="136" y="68" width="28" height="94" rx="2" fill="{{c1}}" stroke="{{c2}}" stroke-width="2"/>
+    <!-- Ribbon luster lines -->
+    <line x1="142" y1="70" x2="142" y2="160" stroke="#FFFFFF" stroke-width="1.2" opacity="0.6"/>
+    <line x1="158" y1="70" x2="158" y2="160" stroke="{{c3}}" stroke-width="1.5" opacity="0.5"/>
+
+    <!-- Ribbon Bow Knot & Flourish -->
+    <g class="ribbon-bow">
+      <!-- Left loop -->
+      <path d="M150 115 C132 95 106 102 112 120 C118 134 138 126 150 115 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="2"/>
+      <path d="M136 110 C124 108 120 116 128 120" stroke="#FFFFFF" stroke-width="1.5" opacity="0.7"/>
+      <!-- Right loop -->
+      <path d="M150 115 C168 95 194 102 188 120 C182 134 162 126 150 115 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="2"/>
+      <path d="M164 110 C176 108 180 116 172 120" stroke="#FFFFFF" stroke-width="1.5" opacity="0.7"/>
+
+      <!-- Tied tails with swallowtail cut -->
+      <path d="M146 122 C138 144 126 168 120 188 L128 185 L136 194 C140 172 148 146 150 125 Z" fill="{{c1}}" stroke="{{c2}}" stroke-width="1.5"/>
+      <path d="M154 122 C162 144 174 168 180 188 L172 185 L164 194 C160 172 152 146 150 125 Z" fill="{{c1}}" stroke="{{c2}}" stroke-width="1.5"/>
+
+      <!-- Wax Seal Center Medallion -->
+      <circle cx="150" cy="116" r="14" fill="{{c1}}" stroke="{{c2}}" stroke-width="2"/>
+      <circle cx="150" cy="116" r="10" fill="{{c2}}" opacity="0.85"/>
+      <!-- Star on seal -->
+      <polygon points="150,109 152,114 157,114 153,117 155,122 150,119 145,122 147,117 143,114 148,114" fill="{{c1}}"/>
+    </g>
+
+    <!-- Radiating academic sparkles -->
+    <path d="M72 44 Q72 50 78 50 Q72 50 72 56 Q72 50 66 50 Q72 50 72 44 Z" fill="{{c2}}"/>
+    <path d="M228 44 Q228 50 234 50 Q228 50 228 56 Q228 50 222 50 Q228 50 228 44 Z" fill="{{c2}}"/>
+    <circle cx="98" cy="38" r="2.5" fill="{{c3}}"/>
+    <circle cx="202" cy="38" r="2.5" fill="{{c3}}"/>
+  </g>
+</svg>

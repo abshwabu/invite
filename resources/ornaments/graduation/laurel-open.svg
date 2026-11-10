@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 280" fill="none">
+  <!-- Open Academic Laurel Wreath of Excellence -->
+  <g class="laurel-open" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Center ribbon knot at base -->
+    <g class="base-ribbon" transform="translate(160, 240)">
+      <!-- Left ribbon loop -->
+      <path d="M0 0 C-12 -10 -24 0 -16 10 C-10 16 0 4 0 0 Z" fill="{{c1}}" stroke="{{c2}}" stroke-width="1.5"/>
+      <!-- Right ribbon loop -->
+      <path d="M0 0 C12 -10 24 0 16 10 C10 16 0 4 0 0 Z" fill="{{c1}}" stroke="{{c2}}" stroke-width="1.5"/>
+      <circle cx="0" cy="0" r="4.5" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+      <!-- Ribbon Tails -->
+      <path d="M-2 4 C-8 16 -16 24 -24 28 L-18 24 L-20 32 C-14 26 -6 16 -2 4 Z" fill="{{c1}}"/>
+      <path d="M2 4 C8 16 16 24 24 28 L18 24 L20 32 C14 26 6 16 2 4 Z" fill="{{c1}}"/>
+    </g>
+
+    <!-- Left Laurel Branch -->
+    <g class="branch-left">
+      <!-- Main stem arc -->
+      <path d="M152 238 C90 220 52 165 60 90 C64 68 76 45 92 28" stroke="{{c1}}" stroke-width="2.5" fill="none"/>
+      
+      <!-- Leaf Pairs ascending -->
+      <!-- Pair 1 (near base) -->
+      <path d="M142 228 C128 228 122 216 130 210 C138 214 142 222 142 228 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+      <path d="M148 216 C140 204 142 192 150 194 C152 204 152 212 148 216 Z" fill="{{c3}}" stroke="{{c1}}" stroke-width="1.5" opacity="0.8"/>
+      <circle cx="134" cy="214" r="2.5" fill="{{c1}}"/>
+
+      <!-- Pair 2 -->
+      <path d="M116 206 C102 208 94 196 102 188 C112 190 118 200 116 206 Z" fill="{{c1}}" stroke="{{c2}}" stroke-width="1.5"/>
+      <path d="M124 192 C114 180 114 168 124 170 C128 180 128 188 124 192 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+      <circle cx="108" cy="190" r="2.5" fill="{{c3}}"/>
+
+      <!-- Pair 3 -->
+      <path d="M88 174 C74 176 68 162 76 154 C86 158 90 168 88 174 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+      <path d="M98 158 C88 144 88 132 98 134 C102 144 102 152 98 158 Z" fill="{{c3}}" stroke="{{c1}}" stroke-width="1.5" opacity="0.8"/>
+      <circle cx="82" cy="156" r="2.5" fill="{{c1}}"/>
+
+      <!-- Pair 4 -->
+      <path d="M68 136 C54 136 50 122 58 114 C68 118 70 128 68 136 Z" fill="{{c1}}" stroke="{{c2}}" stroke-width="1.5"/>
+      <path d="M78 120 C70 106 72 94 82 96 C84 106 82 116 78 120 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+      <circle cx="64" cy="118" r="2.5" fill="{{c3}}"/>
+
+      <!-- Pair 5 -->
+      <path d="M60 94 C48 90 48 76 56 68 C66 74 66 86 60 94 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+      <path d="M70 78 C64 64 70 52 78 56 C80 66 76 74 70 78 Z" fill="{{c3}}" stroke="{{c1}}" stroke-width="1.5" opacity="0.8"/>
+      <circle cx="58" cy="74" r="2.5" fill="{{c1}}"/>
+
+      <!-- Pair 6 (Tip) -->
+      <path d="M68 54 C58 48 62 34 72 30 C78 40 76 50 68 54 Z" fill="{{c1}}" stroke="{{c2}}" stroke-width="1.5"/>
+      <path d="M84 40 C80 26 90 18 98 22 C96 32 90 38 84 40 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+      <!-- Apex Leaf -->
+      <path d="M92 28 C96 14 110 14 112 26 C106 32 98 32 92 28 Z" fill="{{c1}}" stroke="{{c2}}" stroke-width="1.5"/>
+    </g>
+
+    <!-- Right Laurel Branch (Mirror symmetric) -->
+    <g class="branch-right">
+      <!-- Main stem arc -->
+      <path d="M168 238 C230 220 268 165 260 90 C256 68 244 45 228 28" stroke="{{c1}}" stroke-width="2.5" fill="none"/>
+      
+      <!-- Leaf Pairs ascending -->
+      <!-- Pair 1 -->
+      <path d="M178 228 C192 228 198 216 190 210 C182 214 178 222 178 228 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+      <path d="M172 216 C180 204 178 192 170 194 C168 204 168 212 172 216 Z" fill="{{c3}}" stroke="{{c1}}" stroke-width="1.5" opacity="0.8"/>
+      <circle cx="186" cy="214" r="2.5" fill="{{c1}}"/>
+
+      <!-- Pair 2 -->
+      <path d="M204 206 C218 208 226 196 218 188 C208 190 202 200 204 206 Z" fill="{{c1}}" stroke="{{c2}}" stroke-width="1.5"/>
+      <path d="M196 192 C206 180 206 168 196 170 C192 180 192 188 196 192 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+      <circle cx="212" cy="190" r="2.5" fill="{{c3}}"/>
+
+      <!-- Pair 3 -->
+      <path d="M232 174 C246 176 252 162 244 154 C234 158 230 168 232 174 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+      <path d="M222 158 C232 144 232 132 222 134 C218 144 218 152 222 158 Z" fill="{{c3}}" stroke="{{c1}}" stroke-width="1.5" opacity="0.8"/>
+      <circle cx="238" cy="156" r="2.5" fill="{{c1}}"/>
+
+      <!-- Pair 4 -->
+      <path d="M252 136 C266 136 270 122 262 114 C252 118 250 128 252 136 Z" fill="{{c1}}" stroke="{{c2}}" stroke-width="1.5"/>
+      <path d="M242 120 C250 106 248 94 238 96 C236 106 238 116 242 120 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+      <circle cx="256" cy="118" r="2.5" fill="{{c3}}"/>
+
+      <!-- Pair 5 -->
+      <path d="M260 94 C272 90 272 76 264 68 C254 74 254 86 260 94 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+      <path d="M250 78 C256 64 250 52 242 56 C240 66 244 74 250 78 Z" fill="{{c3}}" stroke="{{c1}}" stroke-width="1.5" opacity="0.8"/>
+      <circle cx="262" cy="74" r="2.5" fill="{{c1}}"/>
+
+      <!-- Pair 6 (Tip) -->
+      <path d="M252 54 C262 48 258 34 248 30 C242 40 244 50 252 54 Z" fill="{{c1}}" stroke="{{c2}}" stroke-width="1.5"/>
+      <path d="M236 40 C240 26 230 18 222 22 C224 32 230 38 236 40 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+      <!-- Apex Leaf -->
+      <path d="M228 28 C224 14 210 14 208 26 C214 32 222 32 228 28 Z" fill="{{c1}}" stroke="{{c2}}" stroke-width="1.5"/>
+    </g>
+
+    <!-- Star of Excellence at open crest top -->
+    <g class="crest-star" transform="translate(160, 48)">
+      <polygon points="0,-16 4.5,-4.5 16,0 4.5,4.5 0,16 -4.5,4.5 -16,0 -4.5,-4.5" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+      <circle cx="0" cy="0" r="3" fill="{{c1}}"/>
+    </g>
+  </g>
+</svg>

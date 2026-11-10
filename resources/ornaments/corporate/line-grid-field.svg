@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" fill="none">
+  <!-- Precision architectural perspective grid field with coordinate markers -->
+  <g class="line-grid-field" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Perspective Grid Lines radiating toward vanishing horizon (160, 20) -->
+    <g class="perspective-rays" stroke="{{c1}}" stroke-width="1.2" opacity="0.65">
+      <line x1="160" y1="20" x2="20" y2="200"/>
+      <line x1="160" y1="20" x2="60" y2="200"/>
+      <line x1="160" y1="20" x2="100" y2="200"/>
+      <line x1="160" y1="20" x2="130" y2="200"/>
+      <line x1="160" y1="20" x2="160" y2="200" stroke="{{c2}}" stroke-width="2"/>
+      <line x1="160" y1="20" x2="190" y2="200"/>
+      <line x1="160" y1="20" x2="220" y2="200"/>
+      <line x1="160" y1="20" x2="260" y2="200"/>
+      <line x1="160" y1="20" x2="300" y2="200"/>
+    </g>
+
+    <!-- Horizontal Traverses / Latitudes with exponential spacing -->
+    <line x1="140" y1="40" x2="180" y2="40" stroke="{{c2}}" stroke-width="1" opacity="0.4"/>
+    <line x1="126" y1="58" x2="194" y2="58" stroke="{{c3}}" stroke-width="1.2" opacity="0.5"/>
+    <line x1="108" y1="80" x2="212" y2="80" stroke="{{c2}}" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.7"/>
+    <line x1="86" y1="110" x2="234" y2="110" stroke="{{c1}}" stroke-width="1.8" opacity="0.8"/>
+    <line x1="58" y1="150" x2="262" y2="150" stroke="{{c2}}" stroke-width="2"/>
+    <line x1="20" y1="200" x2="300" y2="200" stroke="{{c1}}" stroke-width="2.5"/>
+
+    <!-- Data Plane Polygon Highlight -->
+    <polygon points="100,150 160,110 234,110 190,150" fill="{{c2}}" opacity="0.15" stroke="{{c2}}" stroke-width="1.5"/>
+    <polygon points="130,110 160,80 212,80 190,110" fill="{{c1}}" opacity="0.12" stroke="{{c1}}" stroke-width="1.2"/>
+
+    <!-- Grid Data Nodes / Crosshairs -->
+    <!-- Center Node -->
+    <circle cx="160" cy="110" r="5" fill="{{c1}}" stroke="#FFFFFF" stroke-width="1.5"/>
+    <circle cx="160" cy="110" r="9" stroke="{{c2}}" stroke-width="1.2" stroke-dasharray="2 3" fill="none"/>
+
+    <!-- Secondary Nodes -->
+    <circle cx="100" cy="150" r="3.5" fill="{{c2}}"/>
+    <circle cx="190" cy="150" r="3.5" fill="{{c2}}"/>
+    <circle cx="220" cy="150" r="3" fill="{{c3}}"/>
+    <circle cx="130" cy="110" r="3" fill="{{c3}}"/>
+    <circle cx="160" cy="80" r="3" fill="{{c1}}"/>
+    <circle cx="190" cy="110" r="3" fill="{{c2}}"/>
+
+    <!-- Coordinate Crosshair Marks -->
+    <g stroke="{{c1}}" stroke-width="1.5">
+      <!-- Top Left Crosshair -->
+      <line x1="36" y1="36" x2="48" y2="36"/>
+      <line x1="42" y1="30" x2="42" y2="42"/>
+
+      <!-- Top Right Crosshair -->
+      <line x1="272" y1="36" x2="284" y2="36"/>
+      <line x1="278" y1="30" x2="278" y2="42"/>
+    </g>
+
+    <!-- Technical Dimension Rulers at baseline -->
+    <g stroke="{{c2}}" stroke-width="1.2">
+      <line x1="20" y1="206" x2="300" y2="206"/>
+      <line x1="20" y1="203" x2="20" y2="209"/>
+      <line x1="90" y1="203" x2="90" y2="209"/>
+      <line x1="160" y1="201" x2="160" y2="211" stroke-width="2" stroke="{{c1}}"/>
+      <line x1="230" y1="203" x2="230" y2="209"/>
+      <line x1="300" y1="203" x2="300" y2="209"/>
+    </g>
+  </g>
+</svg>

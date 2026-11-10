@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 260" fill="none">
+  <!-- Professional corporate certification badge seal with geometric star facets -->
+  <g class="badge-seal" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Center coordinate: (130, 130) -->
+
+    <!-- Drop Shadow Disc -->
+    <circle cx="130" cy="132" r="108" fill="{{c3}}" opacity="0.25"/>
+
+    <!-- 16-point Geometric Star Perimeter / Faceted Star Ring -->
+    <path d="M 130 18 
+      L 144 32 L 164 22 L 174 40 L 195 38 L 199 58 L 220 65 L 217 86 L 236 100 L 226 118 L 242 136 L 226 154 L 236 172 
+      L 217 186 L 220 207 L 199 214 L 195 234 L 174 232 L 164 250 L 144 240 L 130 254 L 116 240 L 96 250 L 86 232 
+      L 65 234 L 61 214 L 40 207 L 43 186 L 24 172 L 34 154 L 18 136 L 34 118 L 24 100 L 43 86 L 40 65 L 61 58 
+      L 65 38 L 86 40 L 96 22 L 116 32 Z" 
+      fill="{{c1}}" stroke="{{c2}}" stroke-width="2.5"/>
+
+    <!-- Inner Facet Bevel Lines -->
+    <path d="M 130 36 
+      L 142 46 L 158 38 L 166 52 L 182 50 L 186 66 L 202 72 L 200 88 L 214 100 L 206 114 L 218 128 L 206 142 
+      L 214 156 L 200 168 L 202 184 L 186 190 L 182 206 L 166 204 L 158 218 L 142 210 L 130 220 L 118 210 
+      L 102 218 L 94 204 L 78 206 L 74 190 L 58 184 L 60 168 L 46 156 L 54 142 L 42 128 L 54 114 L 46 100 
+      L 60 88 L 58 72 L 74 66 L 78 50 L 94 52 L 102 38 L 118 46 Z" 
+      fill="{{c2}}" opacity="0.3"/>
+
+    <!-- Concentric Guilloche / Security Rings -->
+    <circle cx="130" cy="130" r="82" fill="#FFFFFF" stroke="{{c2}}" stroke-width="2.5"/>
+    <circle cx="130" cy="130" r="76" stroke="{{c1}}" stroke-width="1.5" stroke-dasharray="3 3"/>
+    <circle cx="130" cy="130" r="70" stroke="{{c3}}" stroke-width="1.2" stroke-dasharray="2 4"/>
+
+    <!-- Security Micro-Dentil Ring (36 tiny notches around r=64) -->
+    <circle cx="130" cy="130" r="62" fill="{{c1}}" opacity="0.08" stroke="{{c2}}" stroke-width="2"/>
+
+    <!-- Core Heraldic Shield / Checkmark Emblem of Trust -->
+    <g class="core-emblem">
+      <!-- Inner Gold Ring -->
+      <circle cx="130" cy="130" r="50" fill="{{c1}}" stroke="{{c2}}" stroke-width="2"/>
+      
+      <!-- Official Checkmark of Certification -->
+      <path d="M 108 130 L 122 144 L 154 112" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M 108 130 L 122 144 L 154 112" stroke="{{c2}}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <!-- Bottom mini stars of quality -->
+      <polygon points="130,154 132,158 136,158 133,160 134,164 130,162 126,164 127,160 124,158 128,158" fill="{{c2}}"/>
+      <polygon points="118,151 119.5,154 122.5,154 120.5,156 121,159 118,157.5 115,159 115.5,156 113.5,154 116.5,154" fill="{{c2}}" opacity="0.8"/>
+      <polygon points="142,151 143.5,154 146.5,154 144.5,156 145,159 142,157.5 139,159 139.5,156 137.5,154 140.5,154" fill="{{c2}}" opacity="0.8"/>
+    </g>
+
+    <!-- Cardinal Precision Ticks -->
+    <line x1="130" y1="42" x2="130" y2="48" stroke="{{c1}}" stroke-width="2"/>
+    <line x1="218" y1="130" x2="212" y2="130" stroke="{{c1}}" stroke-width="2"/>
+    <line x1="130" y1="218" x2="130" y2="212" stroke="{{c1}}" stroke-width="2"/>
+    <line x1="42" y1="130" x2="48" y2="130" stroke="{{c1}}" stroke-width="2"/>
+  </g>
+</svg>

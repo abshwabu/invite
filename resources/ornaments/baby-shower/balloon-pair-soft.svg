@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 320" fill="none">
+  <!-- Soft balloon pair with dimensional highlights, decorative bows and trailing ribbons -->
+  <g class="balloon-pair" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Back / right balloon -->
+    <g class="balloon-back">
+      <!-- Shadow offset / depth -->
+      <ellipse cx="148" cy="116" rx="60" ry="72" fill="{{c3}}" opacity="0.35"/>
+      <!-- Main body -->
+      <path d="M145 42 C185 42 205 78 205 116 C205 160 175 194 150 198 L142 198 C117 194 87 160 87 116 C87 78 107 42 145 42 Z" fill="{{c2}}" opacity="0.85" stroke="{{c1}}" stroke-width="2.5"/>
+      <!-- Soft inner crescent glow -->
+      <path d="M125 58 C105 78 102 112 106 142" stroke="{{c3}}" stroke-width="5" stroke-linecap="round" opacity="0.4"/>
+      <!-- Specular highlight -->
+      <path d="M172 65 C186 78 190 98 188 116" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" opacity="0.75"/>
+      <circle cx="178" cy="58" r="3.5" fill="#FFFFFF" opacity="0.85"/>
+      <!-- Knot -->
+      <path d="M142 198 L138 206 L152 206 L148 198 Z" fill="{{c1}}"/>
+      <!-- Curled string -->
+      <path d="M145 206 C143 230 162 248 152 272 C145 288 156 304 150 316" stroke="{{c1}}" stroke-width="2" fill="none" stroke-dasharray="4 2"/>
+    </g>
+
+    <!-- Front / left balloon -->
+    <g class="balloon-front">
+      <!-- Main body -->
+      <path d="M92 56 C132 56 154 90 154 130 C154 175 124 210 98 214 L90 214 C64 210 32 175 32 130 C32 90 54 56 92 56 Z" fill="{{c1}}" opacity="0.9" stroke="{{c3}}" stroke-width="2"/>
+      <!-- Inner shading base -->
+      <path d="M48 140 C52 176 74 204 95 210 C70 205 45 174 42 140 Z" fill="{{c3}}" opacity="0.4"/>
+      <!-- Soft crescent highlight -->
+      <path d="M68 76 C55 92 50 114 52 138" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" opacity="0.7"/>
+      <circle cx="76" cy="68" r="4" fill="#FFFFFF" opacity="0.85"/>
+      <!-- Tie Knot -->
+      <path d="M89 214 L84 223 L100 223 L95 214 Z" fill="{{c2}}" stroke="{{c3}}" stroke-width="1.5"/>
+      <!-- Decorative ribbon bow on front knot -->
+      <path d="M92 221 C82 216 70 220 72 227 C74 233 86 229 91 223 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+      <path d="M93 221 C103 216 115 220 113 227 C111 233 99 229 94 223 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+      <circle cx="92.5" cy="222" r="2.5" fill="{{c1}}"/>
+      <!-- Trailing ribbon ribbons -->
+      <path d="M90 225 C82 245 96 262 86 284 C78 302 88 312 84 320" stroke="{{c2}}" stroke-width="2.5" fill="none"/>
+      <path d="M94 225 C102 242 98 258 106 276 C112 290 106 306 110 318" stroke="{{c3}}" stroke-width="1.8" fill="none"/>
+    </g>
+
+    <!-- Floating starlight / bubbles around balloons -->
+    <circle cx="36" cy="64" r="3" fill="{{c2}}" opacity="0.8"/>
+    <circle cx="212" cy="148" r="2.5" fill="{{c1}}" opacity="0.7"/>
+    <path d="M198 82 Q198 90 206 90 Q198 90 198 98 Q198 90 190 90 Q198 90 198 82 Z" fill="{{c2}}" opacity="0.75"/>
+    <path d="M42 195 Q42 201 48 201 Q42 201 42 207 Q42 201 36 201 Q42 201 42 195 Z" fill="{{c3}}" opacity="0.7"/>
+  </g>
+</svg>

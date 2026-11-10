@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- 3D wrapped satin corner ribbon banner with folded edge shadows and gold stitch border -->
+  <g class="corner-ribbon" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Under-wrap Shadows where the ribbon folds behind the card edges -->
+    <!-- Top Edge Fold (Around x=120 to 175) -->
+    <polygon points="120,0 175,0 185,10 130,10" fill="{{c3}}" opacity="0.5"/>
+    <polygon points="120,0 130,10 130,0" fill="{{c1}}" opacity="0.6"/>
+
+    <!-- Left Edge Fold (Around y=120 to 175) -->
+    <polygon points="0,120 0,175 10,185 10,130" fill="{{c3}}" opacity="0.5"/>
+    <polygon points="0,120 10,130 0,130" fill="{{c1}}" opacity="0.6"/>
+
+    <!-- Drop Shadow cast by the ribbon onto the card face -->
+    <polygon points="0,60 60,0 185,0 0,185" fill="{{c3}}" opacity="0.3"/>
+
+    <!-- Main Front Satin Ribbon Band (Diagonal across corner) -->
+    <!-- Ribbon runs from (0, 130) to (130, 0) up to (0, 175) and (175, 0) -->
+    <polygon points="0,130 130,0 175,0 0,175" fill="{{c1}}" stroke="{{c2}}" stroke-width="2.5"/>
+
+    <!-- Satin Luster Sheen Stripe along the ribbon center -->
+    <polygon points="0,146 146,0 158,0 0,158" fill="{{c2}}" opacity="0.4"/>
+    <line x1="0" y1="152" x2="152" y2="0" stroke="#FFFFFF" stroke-width="1.8" opacity="0.7"/>
+
+    <!-- Gold Stitched Border Lines along inner and outer edges -->
+    <line x1="0" y1="136" x2="136" y2="0" stroke="{{c2}}" stroke-width="1.5" stroke-dasharray="3 3"/>
+    <line x1="0" y1="168" x2="168" y2="0" stroke="{{c2}}" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+    <!-- Central Embroidered Diamond / Star on the ribbon -->
+    <g class="ribbon-star" transform="translate(68, 68) rotate(-45)">
+      <polygon points="0,-10 3,-3 10,0 3,3 0,10 -3,3 -10,0 -3,-3" fill="{{c2}}" stroke="{{c1}}" stroke-width="1"/>
+      <circle cx="0" cy="0" r="2" fill="#FFFFFF"/>
+    </g>
+
+    <!-- Flanking Mini Accents on ribbon -->
+    <circle cx="48" cy="98" r="2.5" fill="{{c2}}"/>
+    <circle cx="98" cy="48" r="2.5" fill="{{c2}}"/>
+  </g>
+</svg>

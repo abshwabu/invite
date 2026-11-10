@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 240" fill="none">
+  <!-- Dynamic corporate diagonal accent bands with pinstripes and precision nodes -->
+  <g class="diagonal-bands" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Background Faint Accent Wash -->
+    <polygon points="0,40 180,0 240,0 0,160" fill="{{c3}}" opacity="0.15"/>
+
+    <!-- Broad Diagonal Strip 1 (Upper primary) -->
+    <polygon points="0,15 120,0 155,0 0,105" fill="{{c1}}" opacity="0.85"/>
+    <line x1="0" y1="12" x2="118" y2="0" stroke="{{c2}}" stroke-width="1.8"/>
+
+    <!-- Fine Hairline Divider -->
+    <line x1="0" y1="112" x2="164" y2="0" stroke="{{c2}}" stroke-width="2"/>
+    <line x1="0" y1="118" x2="172" y2="0" stroke="{{c3}}" stroke-width="1" stroke-dasharray="3 4"/>
+
+    <!-- Broad Diagonal Strip 2 (Midfield hero band) -->
+    <polygon points="0,126 182,0 220,0 0,154" fill="{{c2}}" opacity="0.9"/>
+    <!-- Inner luster highlight line along hero band -->
+    <line x1="0" y1="134" x2="194" y2="0" stroke="#FFFFFF" stroke-width="1.5" opacity="0.6"/>
+
+    <!-- Narrow Accent Strip 3 -->
+    <polygon points="0,162 232,0 244,0 0,170" fill="{{c1}}" stroke="{{c1}}" stroke-width="1"/>
+
+    <!-- Ultra-thin secondary band -->
+    <polygon points="0,178 254,0 268,0 0,188" fill="{{c3}}" opacity="0.7"/>
+
+    <!-- Outer Double Edge Rule -->
+    <line x1="0" y1="202" x2="288" y2="0" stroke="{{c1}}" stroke-width="2.5"/>
+    <line x1="0" y1="210" x2="300" y2="0" stroke="{{c2}}" stroke-width="1.5" stroke-dasharray="5 5"/>
+
+    <!-- Trailing Dot Matrix Sequence along parallel angle -->
+    <g fill="{{c1}}" opacity="0.75">
+      <circle cx="20" cy="225" r="2.5"/>
+      <circle cx="50" cy="205" r="2.5"/>
+      <circle cx="80" cy="185" r="2.5"/>
+      <circle cx="110" cy="165" r="2.5"/>
+      <circle cx="140" cy="145" r="2.5"/>
+      <circle cx="170" cy="125" r="2.5"/>
+      <circle cx="200" cy="105" r="2.5"/>
+      <circle cx="230" cy="85" r="2.5"/>
+      <circle cx="260" cy="65" r="2.5"/>
+    </g>
+
+    <g fill="{{c2}}" opacity="0.6">
+      <circle cx="40" cy="235" r="1.8"/>
+      <circle cx="70" cy="215" r="1.8"/>
+      <circle cx="100" cy="195" r="1.8"/>
+      <circle cx="130" cy="175" r="1.8"/>
+      <circle cx="160" cy="155" r="1.8"/>
+      <circle cx="190" cy="135" r="1.8"/>
+      <circle cx="220" cy="115" r="1.8"/>
+      <circle cx="250" cy="95" r="1.8"/>
+      <circle cx="280" cy="75" r="1.8"/>
+    </g>
+
+    <!-- Floating Technical Crosshair Markers -->
+    <g stroke="{{c1}}" stroke-width="1.5">
+      <line x1="215" y1="180" x2="227" y2="180"/>
+      <line x1="221" y1="174" x2="221" y2="186"/>
+
+      <line x1="260" y1="140" x2="272" y2="140"/>
+      <line x1="266" y1="134" x2="266" y2="146"/>
+    </g>
+    <circle cx="221" cy="180" r="1.5" fill="{{c2}}"/>
+    <circle cx="266" cy="140" r="1.5" fill="{{c2}}"/>
+  </g>
+</svg>

@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 260" fill="none">
+  <!-- Scholarly hardback book stack with bookmark ribbon and gilded page edges -->
+  <g class="book-stack" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Ground Shadow -->
+    <ellipse cx="140" cy="242" rx="100" ry="10" fill="{{c3}}" opacity="0.3"/>
+
+    <!-- Bottom Book (Largest) -->
+    <g class="book-bottom">
+      <!-- Book spine & cover -->
+      <path d="M40 185 C36 185 34 220 40 226 L230 226 C236 226 238 222 238 218 L238 185 Z" fill="{{c1}}" stroke="{{c3}}" stroke-width="2.5"/>
+      <!-- Spine curve left -->
+      <path d="M40 185 C34 195 34 215 40 226" stroke="{{c2}}" stroke-width="3" fill="none"/>
+      <!-- Spine ribs / decorative bands -->
+      <line x1="38" y1="195" x2="65" y2="195" stroke="{{c2}}" stroke-width="2"/>
+      <line x1="38" y1="205" x2="65" y2="205" stroke="{{c2}}" stroke-width="2"/>
+      <line x1="38" y1="215" x2="65" y2="215" stroke="{{c2}}" stroke-width="2"/>
+      <!-- Gilded Page Block Edge -->
+      <path d="M65 190 L228 190 C234 190 236 195 236 205 C236 215 234 220 228 220 L65 220 Z" fill="#FFFFFF" stroke="{{c2}}" stroke-width="1.5"/>
+      <line x1="72" y1="198" x2="222" y2="198" stroke="{{c3}}" stroke-width="1" opacity="0.6"/>
+      <line x1="72" y1="205" x2="222" y2="205" stroke="{{c3}}" stroke-width="1" opacity="0.6"/>
+      <line x1="72" y1="212" x2="222" y2="212" stroke="{{c3}}" stroke-width="1" opacity="0.6"/>
+    </g>
+
+    <!-- Middle Book (Shifted slightly) -->
+    <g class="book-middle">
+      <path d="M52 138 C48 138 46 173 52 179 L225 179 C230 179 232 175 232 171 L232 138 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="2.5"/>
+      <!-- Spine curve -->
+      <path d="M52 138 C46 148 46 168 52 179" stroke="{{c3}}" stroke-width="3" fill="none"/>
+      <!-- Spine ribs -->
+      <line x1="50" y1="148" x2="75" y2="148" stroke="{{c1}}" stroke-width="2"/>
+      <line x1="50" y1="158" x2="75" y2="158" stroke="{{c1}}" stroke-width="2"/>
+      <line x1="50" y1="168" x2="75" y2="168" stroke="{{c1}}" stroke-width="2"/>
+      <!-- Page Block Edge -->
+      <path d="M75 143 L218 143 C223 143 225 148 225 158 C225 168 223 173 218 173 L75 173 Z" fill="#FFFFFF" stroke="{{c1}}" stroke-width="1.5"/>
+      <line x1="82" y1="151" x2="212" y2="151" stroke="{{c3}}" stroke-width="1" opacity="0.6"/>
+      <line x1="82" y1="158" x2="212" y2="158" stroke="{{c3}}" stroke-width="1" opacity="0.6"/>
+      <line x1="82" y1="165" x2="212" y2="165" stroke="{{c3}}" stroke-width="1" opacity="0.6"/>
+    </g>
+
+    <!-- Top Book -->
+    <g class="book-top">
+      <path d="M65 92 C61 92 59 127 65 133 L215 133 C220 133 222 129 222 125 L222 92 Z" fill="{{c1}}" stroke="{{c3}}" stroke-width="2.5"/>
+      <!-- Spine curve -->
+      <path d="M65 92 C59 102 59 122 65 133" stroke="{{c2}}" stroke-width="3" fill="none"/>
+      <!-- Spine ribs -->
+      <line x1="63" y1="102" x2="88" y2="102" stroke="{{c2}}" stroke-width="2"/>
+      <line x1="63" y1="112" x2="88" y2="112" stroke="{{c2}}" stroke-width="2"/>
+      <line x1="63" y1="122" x2="88" y2="122" stroke="{{c2}}" stroke-width="2"/>
+      <!-- Page Block Edge -->
+      <path d="M88 97 L208 97 C213 97 215 102 215 112 C215 122 213 127 208 127 L88 127 Z" fill="#FFFFFF" stroke="{{c2}}" stroke-width="1.5"/>
+      <line x1="95" y1="105" x2="202" y2="105" stroke="{{c3}}" stroke-width="1" opacity="0.6"/>
+      <line x1="95" y1="112" x2="202" y2="112" stroke="{{c3}}" stroke-width="1" opacity="0.6"/>
+      <line x1="95" y1="119" x2="202" y2="119" stroke="{{c3}}" stroke-width="1" opacity="0.6"/>
+    </g>
+
+    <!-- Satin Bookmark Ribbon draping from top book down past the bottom -->
+    <path d="M175 96 C182 120 196 150 188 180 C182 202 188 226 182 244 L190 240 L196 248 C198 228 194 204 200 180 C206 152 192 120 184 96 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+
+    <!-- Mini Graduation Mortarboard sitting on top book -->
+    <g class="top-cap" transform="translate(130, 48)">
+      <!-- Cap crown base -->
+      <path d="M-18 24 C-16 34 -6 40 6 40 C18 40 28 34 30 24" fill="{{c1}}" stroke="{{c3}}" stroke-width="1.5"/>
+      <!-- Diamond cap top -->
+      <polygon points="6,6 46,22 6,38 -34,22" fill="{{c1}}" stroke="{{c2}}" stroke-width="2"/>
+      <!-- Center button -->
+      <ellipse cx="6" cy="22" rx="3.5" ry="2.5" fill="{{c2}}"/>
+      <!-- Dangling tassel -->
+      <path d="M6 22 C18 22 28 26 32 36 L31 46" stroke="{{c2}}" stroke-width="1.5" fill="none"/>
+      <circle cx="31" cy="46" r="2" fill="{{c1}}"/>
+      <path d="M29 48 L28 58 L34 58 L33 48 Z" fill="{{c2}}"/>
+    </g>
+
+    <!-- Floating laurel leaves of wisdom -->
+    <path d="M42 68 C36 54 44 42 56 46 C54 60 46 68 42 68 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+    <path d="M228 68 C234 54 226 42 214 46 C216 60 224 68 228 68 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5"/>
+    <circle cx="58" cy="74" r="2" fill="{{c3}}"/>
+    <circle cx="212" cy="74" r="2" fill="{{c3}}"/>
+  </g>
+</svg>

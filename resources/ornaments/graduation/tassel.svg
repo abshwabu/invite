@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 320" fill="none">
+  <!-- Classic Silk Graduation Cap Tassel with Braided Cord and Highlights -->
+  <g class="tassel" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Hanging Loop Cord at Top -->
+    <path d="M100 16 C85 16 75 36 75 60 C75 90 94 110 98 126" stroke="{{c2}}" stroke-width="3.5" fill="none"/>
+    <path d="M100 16 C115 16 125 36 125 60 C125 90 106 110 102 126" stroke="{{c2}}" stroke-width="3.5" fill="none"/>
+    <!-- Braided inner texture along cord -->
+    <path d="M100 18 C88 18 79 38 79 60 C79 88 96 108 100 124" stroke="#FFFFFF" stroke-width="1.2" fill="none" opacity="0.6"/>
+
+    <!-- Top Hanging Ring / Eyelet -->
+    <ellipse cx="100" cy="126" rx="9" ry="5" fill="{{c1}}" stroke="{{c2}}" stroke-width="2"/>
+    <ellipse cx="100" cy="126" rx="5" ry="2.5" fill="{{c3}}"/>
+
+    <!-- Tassel Bulb / Head Knot (Layered 3D) -->
+    <!-- Head drop shadow -->
+    <ellipse cx="100" cy="146" rx="20" ry="16" fill="{{c3}}" opacity="0.35"/>
+    <!-- Main Head Body -->
+    <ellipse cx="100" cy="144" rx="19" ry="15" fill="{{c1}}" stroke="{{c2}}" stroke-width="2.5"/>
+    <!-- Luster / Sheen crescent on the bulb -->
+    <path d="M88 135 C94 133 106 133 112 135 C116 142 114 150 100 152 C90 150 86 142 88 135 Z" fill="{{c2}}" opacity="0.5"/>
+    <ellipse cx="94" cy="138" rx="4" ry="2.5" fill="#FFFFFF" opacity="0.75"/>
+
+    <!-- Decorative Woven Collar / Ferrule Neck Band -->
+    <rect x="85" y="159" width="30" height="9" rx="3" fill="{{c2}}" stroke="{{c1}}" stroke-width="2"/>
+    <!-- Filigree marks on collar -->
+    <line x1="91" y1="160" x2="91" y2="167" stroke="{{c1}}" stroke-width="1.5"/>
+    <line x1="97" y1="160" x2="97" y2="167" stroke="{{c1}}" stroke-width="1.5"/>
+    <line x1="103" y1="160" x2="103" y2="167" stroke="{{c1}}" stroke-width="1.5"/>
+    <line x1="109" y1="160" x2="109" y2="167" stroke="{{c1}}" stroke-width="1.5"/>
+
+    <!-- Hanging Silk Skirt Body -->
+    <!-- Shaded background base -->
+    <path d="M86 168 C76 210 62 268 58 296 L142 296 C138 268 124 210 114 168 Z" fill="{{c3}}" opacity="0.3"/>
+    
+    <!-- Main Skirt Bell -->
+    <path d="M88 168 C78 210 66 266 62 294 L138 294 C134 266 122 210 112 168 Z" fill="{{c1}}" stroke="{{c2}}" stroke-width="2.5"/>
+    
+    <!-- Fine Silk Thread Texture Lines -->
+    <line x1="90" y1="172" x2="68" y2="292" stroke="{{c2}}" stroke-width="1.5"/>
+    <line x1="94" y1="172" x2="78" y2="292" stroke="#FFFFFF" stroke-width="1.2" opacity="0.6"/>
+    <line x1="98" y1="172" x2="88" y2="292" stroke="{{c3}}" stroke-width="1.5"/>
+    <line x1="100" y1="172" x2="100" y2="293" stroke="{{c2}}" stroke-width="1.8"/>
+    <line x1="102" y1="172" x2="112" y2="292" stroke="{{c3}}" stroke-width="1.5"/>
+    <line x1="106" y1="172" x2="122" y2="292" stroke="#FFFFFF" stroke-width="1.2" opacity="0.6"/>
+    <line x1="110" y1="172" x2="132" y2="292" stroke="{{c2}}" stroke-width="1.5"/>
+
+    <!-- Bottom Fringe Cut Edge -->
+    <line x1="62" y1="294" x2="138" y2="294" stroke="{{c2}}" stroke-width="3"/>
+    <!-- Scalloped bottom fiber tufts -->
+    <path d="M62 294 Q67 302 72 294 Q77 302 82 294 Q87 302 92 294 Q97 302 102 294 Q107 302 112 294 Q117 302 122 294 Q127 302 132 294 Q136 300 138 294" stroke="{{c1}}" stroke-width="1.5" fill="{{c2}}" opacity="0.8"/>
+
+    <!-- Subtle Twinkle Accents -->
+    <path d="M42 140 Q42 146 48 146 Q42 146 42 152 Q42 146 36 146 Q42 146 42 140 Z" fill="{{c2}}"/>
+    <path d="M156 180 Q156 186 162 186 Q156 186 156 192 Q156 186 150 186 Q156 186 156 180 Z" fill="{{c2}}"/>
+    <circle cx="152" cy="110" r="2.5" fill="{{c3}}"/>
+  </g>
+</svg>
