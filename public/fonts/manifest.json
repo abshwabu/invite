@@ -1,0 +1,298 @@
+[
+  {
+    "family": "Cormorant Garamond",
+    "style": "normal",
+    "weight": "400",
+    "file": "cormorant-garamond-normal-400.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Cormorant Garamond",
+    "style": "normal",
+    "weight": "600",
+    "file": "cormorant-garamond-normal-600.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Cormorant Garamond",
+    "style": "normal",
+    "weight": "700",
+    "file": "cormorant-garamond-normal-700.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Playfair Display",
+    "style": "italic",
+    "weight": "400",
+    "file": "playfair-display-italic-400.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Playfair Display",
+    "style": "normal",
+    "weight": "400",
+    "file": "playfair-display-normal-400.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Playfair Display",
+    "style": "normal",
+    "weight": "700",
+    "file": "playfair-display-normal-700.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "EB Garamond",
+    "style": "italic",
+    "weight": "400",
+    "file": "eb-garamond-italic-400.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "EB Garamond",
+    "style": "normal",
+    "weight": "400",
+    "file": "eb-garamond-normal-400.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "EB Garamond",
+    "style": "normal",
+    "weight": "700",
+    "file": "eb-garamond-normal-700.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Italiana",
+    "style": "normal",
+    "weight": "400",
+    "file": "italiana-normal-400.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Great Vibes",
+    "style": "normal",
+    "weight": "400",
+    "file": "great-vibes-normal-400.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Pinyon Script",
+    "style": "normal",
+    "weight": "400",
+    "file": "pinyon-script-normal-400.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Fredoka",
+    "style": "normal",
+    "weight": "400",
+    "file": "fredoka-normal-400.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Fredoka",
+    "style": "normal",
+    "weight": "600",
+    "file": "fredoka-normal-600.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Baloo 2",
+    "style": "normal",
+    "weight": "400",
+    "file": "baloo-2-normal-400.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Baloo 2",
+    "style": "normal",
+    "weight": "700",
+    "file": "baloo-2-normal-700.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Pacifico",
+    "style": "normal",
+    "weight": "400",
+    "file": "pacifico-normal-400.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Manrope",
+    "style": "normal",
+    "weight": "400",
+    "file": "manrope-normal-400.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Manrope",
+    "style": "normal",
+    "weight": "600",
+    "file": "manrope-normal-600.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Manrope",
+    "style": "normal",
+    "weight": "700",
+    "file": "manrope-normal-700.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "DM Serif Display",
+    "style": "normal",
+    "weight": "400",
+    "file": "dm-serif-display-normal-400.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Space Grotesk",
+    "style": "normal",
+    "weight": "400",
+    "file": "space-grotesk-normal-400.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Space Grotesk",
+    "style": "normal",
+    "weight": "700",
+    "file": "space-grotesk-normal-700.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Cinzel",
+    "style": "normal",
+    "weight": "400",
+    "file": "cinzel-normal-400.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Cinzel",
+    "style": "normal",
+    "weight": "700",
+    "file": "cinzel-normal-700.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Montserrat",
+    "style": "normal",
+    "weight": "400",
+    "file": "montserrat-normal-400.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Montserrat",
+    "style": "normal",
+    "weight": "600",
+    "file": "montserrat-normal-600.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Montserrat",
+    "style": "normal",
+    "weight": "700",
+    "file": "montserrat-normal-700.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Oswald",
+    "style": "normal",
+    "weight": "400",
+    "file": "oswald-normal-400.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Oswald",
+    "style": "normal",
+    "weight": "600",
+    "file": "oswald-normal-600.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Caveat",
+    "style": "normal",
+    "weight": "400",
+    "file": "caveat-normal-400.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Caveat",
+    "style": "normal",
+    "weight": "700",
+    "file": "caveat-normal-700.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Noto Serif Ethiopic",
+    "style": "normal",
+    "weight": "400",
+    "file": "noto-serif-ethiopic-normal-400.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Noto Serif Ethiopic",
+    "style": "normal",
+    "weight": "700",
+    "file": "noto-serif-ethiopic-normal-700.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Noto Sans Ethiopic",
+    "style": "normal",
+    "weight": "400",
+    "file": "noto-sans-ethiopic-normal-400.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Noto Sans Ethiopic",
+    "style": "normal",
+    "weight": "700",
+    "file": "noto-sans-ethiopic-normal-700.ttf",
+    "format": "truetype",
+    "license": "Open Font License (OFL)"
+  },
+  {
+    "family": "Abyssinica SIL",
+    "style": "normal",
+    "weight": "400",
+    "file": "abyssinica-sil-normal-400.ttf",
+    "format": "truetype",
+    "license": "SIL Open Font License (OFL)"
+  }
+]

@@ -26,6 +26,22 @@ for (const f of fontsMap) {
     }
 }
 
+// Also register all fonts from manifest.json
+const fontManifestPath = path.join(FONTS_DIR, 'manifest.json');
+if (fs.existsSync(fontManifestPath)) {
+    try {
+        const fontManifest = JSON.parse(fs.readFileSync(fontManifestPath, 'utf8'));
+        for (const f of fontManifest) {
+            const fontPath = path.join(FONTS_DIR, f.file);
+            if (fs.existsSync(fontPath)) {
+                GlobalFonts.registerFromPath(fontPath, f.family);
+            }
+        }
+    } catch (e) {
+        console.warn('Could not load font manifest:', e.message);
+    }
+}
+
 // 2. Load Ornament Manifest
 let ornamentsManifest = [];
 const manifestPath = path.join(ORNAMENTS_DIR, 'manifest.json');

@@ -1,51 +1,27 @@
 /* Self-hosted fonts for Invite */
+
 @font-face {
-  font-family: 'Noto Sans Ethiopic';
+  font-family: 'Cormorant Garamond';
   font-style: normal;
   font-weight: 400;
-  font-stretch: normal;
   font-display: swap;
-  src: url(/fonts/7cHPv50vjIepfJVOZZgcpQ5B9FBTH9KGNfhSTgtoow1KVnIvyBoMSzUMacb-T35OK6Dj.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Noto Sans Ethiopic';
-  font-style: normal;
-  font-weight: 700;
-  font-stretch: normal;
-  font-display: swap;
-  src: url(/fonts/7cHPv50vjIepfJVOZZgcpQ5B9FBTH9KGNfhSTgtoow1KVnIvyBoMSzUMacb-T36pLKDj.ttf) format('truetype');
+  src: url('/fonts/cormorant-garamond-normal-400.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Noto Serif Ethiopic';
+  font-family: 'Cormorant Garamond';
   font-style: normal;
-  font-weight: 400;
-  font-stretch: normal;
+  font-weight: 600;
   font-display: swap;
-  src: url(/fonts/V8mjoR7-XjwJ8_Au3Ti5tXj5Rd83frpWLK4d-taxqWw2HMWjDxBAg5S_0QsrggxCzSUjkQ.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Noto Serif Ethiopic';
-  font-style: normal;
-  font-weight: 700;
-  font-stretch: normal;
-  font-display: swap;
-  src: url(/fonts/V8mjoR7-XjwJ8_Au3Ti5tXj5Rd83frpWLK4d-taxqWw2HMWjDxBAg5S_0QsrggxCKiIjkQ.ttf) format('truetype');
+  src: url('/fonts/cormorant-garamond-normal-600.ttf') format('truetype');
 }
 
 @font-face {
-  font-family: 'Cinzel';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(/fonts/8vIU7ww63mVu7gtR-kwKxNvkNOjw-tbnTYo.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Cinzel';
+  font-family: 'Cormorant Garamond';
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url(/fonts/8vIU7ww63mVu7gtR-kwKxNvkNOjw-jHgTYo.ttf) format('truetype');
+  src: url('/fonts/cormorant-garamond-normal-700.ttf') format('truetype');
 }
 
 @font-face {
@@ -53,21 +29,55 @@
   font-style: italic;
   font-weight: 400;
   font-display: swap;
-  src: url(/fonts/nuFRD-vYSZviVYUb_rj3ij__anPXDTnCjmHKM4nYO7KN_qiTbtY.ttf) format('truetype');
+  src: url('/fonts/playfair-display-italic-400.ttf') format('truetype');
 }
+
 @font-face {
   font-family: 'Playfair Display';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(/fonts/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvUDQ.ttf) format('truetype');
+  src: url('/fonts/playfair-display-normal-400.ttf') format('truetype');
 }
+
 @font-face {
   font-family: 'Playfair Display';
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url(/fonts/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKeiukDQ.ttf) format('truetype');
+  src: url('/fonts/playfair-display-normal-700.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/eb-garamond-italic-400.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/eb-garamond-normal-400.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'EB Garamond';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/eb-garamond-normal-700.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Italiana';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/italiana-normal-400.ttf') format('truetype');
 }
 
 @font-face {
@@ -75,7 +85,119 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(/fonts/RWmMoKWR9v4ksMfaWd_JN-XC.ttf) format('truetype');
+  src: url('/fonts/great-vibes-normal-400.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Pinyon Script';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/pinyon-script-normal-400.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Fredoka';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/fredoka-normal-400.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Fredoka';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/fredoka-normal-600.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Baloo 2';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/baloo-2-normal-400.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Baloo 2';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/baloo-2-normal-700.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Pacifico';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/pacifico-normal-400.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/manrope-normal-400.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/manrope-normal-600.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/manrope-normal-700.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'DM Serif Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/dm-serif-display-normal-400.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/space-grotesk-normal-400.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/space-grotesk-normal-700.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Cinzel';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/cinzel-normal-400.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Cinzel';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/cinzel-normal-700.ttf') format('truetype');
 }
 
 @font-face {
@@ -83,21 +205,23 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(/fonts/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCtr6Ew-.ttf) format('truetype');
+  src: url('/fonts/montserrat-normal-400.ttf') format('truetype');
 }
+
 @font-face {
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url(/fonts/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCu170w-.ttf) format('truetype');
+  src: url('/fonts/montserrat-normal-600.ttf') format('truetype');
 }
+
 @font-face {
   font-family: 'Montserrat';
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url(/fonts/JTUHjIg1_i6t8kCHKm4532VJOt5-QNFgpCuM70w-.ttf) format('truetype');
+  src: url('/fonts/montserrat-normal-700.ttf') format('truetype');
 }
 
 @font-face {
@@ -105,14 +229,15 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(/fonts/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvgUE.ttf) format('truetype');
+  src: url('/fonts/oswald-normal-400.ttf') format('truetype');
 }
+
 @font-face {
   font-family: 'Oswald';
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url(/fonts/TK3_WkUHHAIjg75cFRf3bXL8LICs1y9ogUE.ttf) format('truetype');
+  src: url('/fonts/oswald-normal-600.ttf') format('truetype');
 }
 
 @font-face {
@@ -120,13 +245,54 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(/fonts/WnznHAc5bAfYB2QRah7pcpNvOx-pjfJ9SII.ttf) format('truetype');
+  src: url('/fonts/caveat-normal-400.ttf') format('truetype');
 }
+
 @font-face {
   font-family: 'Caveat';
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url(/fonts/WnznHAc5bAfYB2QRah7pcpNvOx-pjRV6SII.ttf) format('truetype');
+  src: url('/fonts/caveat-normal-700.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Noto Serif Ethiopic';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/noto-serif-ethiopic-normal-400.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Noto Serif Ethiopic';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/noto-serif-ethiopic-normal-700.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Noto Sans Ethiopic';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/noto-sans-ethiopic-normal-400.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Noto Sans Ethiopic';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/noto-sans-ethiopic-normal-700.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Abyssinica SIL';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/abyssinica-sil-normal-400.ttf') format('truetype');
 }
 

@@ -3,4 +3,7 @@
 !public/
 !ornament-sheets/
 !ornament-sheets/**
+!recipe-sheets/
+!recipe-sheets/**
+!copy-review.md
 !.gitignore
