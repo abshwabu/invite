@@ -25,19 +25,86 @@ use App\Http\Controllers\ThankYouController;
 use App\Http\Controllers\UsageController;
 use App\Models\Category;
 use App\Models\Template;
+use App\Models\Tier;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    $categories = Category::with([
-        'templates' => fn ($query) => $query->where('is_active', true)->where('is_system', true)->orderBy('sort'),
-    ])->orderBy('sort')->get();
+    $categories = Category::withCount(['templates' => fn ($q) => $q->where('kind', 'invitation')->where('is_active', true)])
+        ->orderBy('sort')
+        ->get(['id', 'slug', 'name_en', 'name_am']);
+
+    $heroTemplates = [
+        'wedding' => Template::where('kind', 'invitation')->whereHas('category', fn ($q) => $q->where('slug', 'wedding'))->first(),
+        'funeral' => Template::where('kind', 'invitation')->whereHas('category', fn ($q) => $q->where('slug', 'funeral'))->first(),
+        'birthday' => Template::where('kind', 'invitation')->whereHas('category', fn ($q) => $q->where('slug', 'birthday'))->first(),
+        'eid' => Template::where('kind', 'invitation')->whereJsonContains('tags', 'eid')->first() ?? Template::where('kind', 'invitation')->whereHas('category', fn ($q) => $q->where('slug', 'religious'))->first(),
+        'meskel' => Template::where('kind', 'invitation')->whereJsonContains('tags', 'meskel')->first() ?? Template::where('kind', 'invitation')->whereHas('category', fn ($q) => $q->where('slug', 'religious'))->skip(4)->first(),
+        'graduation' => Template::where('kind', 'invitation')->whereHas('category', fn ($q) => $q->where('slug', 'graduation'))->first(),
+    ];
+
+    $shelfTemplates = Template::with('category:id,slug,name_en,name_am')
+        ->where('kind', 'invitation')
+        ->where('is_active', true)
+        ->orderBy('sort')
+        ->get([
+            'id',
+            'category_id',
+            'name',
+            'preview_path',
+            'preview_path_am',
+            'palette',
+            'spec',
+            'tags',
+            'design_json',
+        ]);
+
+    $tiers = Tier::where('is_active', true)
+        ->where('is_public', true)
+        ->orderBy('sort')
+        ->get();
 
     return Inertia::render('Welcome', [
+        'appName' => config('app.name', 'Invite'),
         'categories' => $categories,
-        'featuredTemplates' => Template::where('is_active', true)->where('is_system', true)->latest()->take(6)->get(),
+        'heroTemplates' => $heroTemplates,
+        'shelfTemplates' => $shelfTemplates,
+        'tiers' => $tiers,
     ]);
 })->name('home');
+
+Route::get('/sitemap.xml', function () {
+    $baseUrl = url('/');
+    $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+    $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">' . "\n";
+    
+    // Home
+    $xml .= "    <url>\n";
+    $xml .= "        <loc>{$baseUrl}</loc>\n";
+    $xml .= "        <xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"{$baseUrl}\" />\n";
+    $xml .= "        <xhtml:link rel=\"alternate\" hreflang=\"am\" href=\"{$baseUrl}?lang=am\" />\n";
+    $xml .= "        <changefreq>daily</changefreq>\n";
+    $xml .= "        <priority>1.0</priority>\n";
+    $xml .= "    </url>\n";
+
+    // Templates
+    $xml .= "    <url>\n";
+    $xml .= "        <loc>{$baseUrl}/templates</loc>\n";
+    $xml .= "        <changefreq>weekly</changefreq>\n";
+    $xml .= "        <priority>0.8</priority>\n";
+    $xml .= "    </url>\n";
+
+    // Guest Editor
+    $xml .= "    <url>\n";
+    $xml .= "        <loc>{$baseUrl}/editor</loc>\n";
+    $xml .= "        <changefreq>weekly</changefreq>\n";
+    $xml .= "        <priority>0.8</priority>\n";
+    $xml .= "    </url>\n";
+
+    $xml .= '</urlset>';
+
+    return response($xml, 200, ['Content-Type' => 'application/xml']);
+})->name('sitemap');
 
 Route::post('/locale', [LocaleController::class, 'update'])->name('locale.update');
 

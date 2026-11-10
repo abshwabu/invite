@@ -1,3 +1,75 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    /* Design System Tokens for Step 15 & Step 16 */
+    --color-ink: #1C2140;
+    --color-ink-light: #2E3566;
+    --color-ink-dark: #111428;
+
+    --color-meskel: #F4B400;
+    --color-meskel-light: #FFCA28;
+    --color-meskel-dark: #D99F00;
+
+    --color-highland: #1E5B47;
+    --color-highland-light: #28795E;
+    --color-highland-dark: #133D30;
+
+    --color-orchid: #8E3B6E;
+    --color-orchid-light: #AC4D88;
+    --color-orchid-dark: #6E2C55;
+
+    --color-paper: #F6F5FA;
+    --color-paper-subtle: #EEEBF6;
+    --color-paper-pure: #FFFFFF;
+
+    --color-mist: #E4E3EE;
+    --color-mist-border: #D5D3E4;
+    --color-mist-light: #F0EFF8;
+
+    /* Semantic Roles */
+    --color-bg-base: var(--color-paper);
+    --color-bg-surface: #FFFFFF;
+    --color-text-main: var(--color-ink);
+    --color-text-muted: #525875;
+    --color-accent: var(--color-meskel);
+    --color-border: var(--color-mist);
+
+    /* Radius Scale */
+    --radius-sm: 4px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-pill: 9999px;
+
+    /* Fonts */
+    --font-serif: "Young Serif", "Noto Serif Ethiopic", serif;
+    --font-sans: "Instrument Sans", "Noto Sans Ethiopic", sans-serif;
+}
+
+/* Accessibility: Focus visible style */
+:focus-visible {
+    outline: 2px solid var(--color-meskel);
+    outline-offset: 2px;
+}
+
+/* Accessibility: prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Base Body Styles */
+body {
+    background-color: var(--color-bg-base);
+    color: var(--color-text-main);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

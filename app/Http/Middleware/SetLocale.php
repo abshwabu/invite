@@ -18,7 +18,13 @@ class SetLocale
 
         $locale = null;
 
-        if ($request->user() && in_array($request->user()->locale, $supported, true)) {
+        if ($request->has('lang') && in_array($request->query('lang'), $supported, true)) {
+            $locale = $request->query('lang');
+            session(['locale' => $locale]);
+        } elseif ($request->has('locale') && in_array($request->query('locale'), $supported, true)) {
+            $locale = $request->query('locale');
+            session(['locale' => $locale]);
+        } elseif ($request->user() && in_array($request->user()->locale, $supported, true)) {
             $locale = $request->user()->locale;
         } elseif ($request->hasCookie('locale') && in_array($request->cookie('locale'), $supported, true)) {
             $locale = $request->cookie('locale');

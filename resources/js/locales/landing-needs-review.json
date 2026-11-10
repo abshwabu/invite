@@ -1,0 +1,65 @@
+[
+  {
+    "key": "hero.headline",
+    "en": "Design the card. Send it to everyone. Scan them in at the door.",
+    "am": "ካርዱን ይንደፉ። ለሁሉም ይላኩ። በበሩ ላይ ፈትሸው ያስገቡ።",
+    "status": "needs_native_review",
+    "note": "Hero headline concise triplet"
+  },
+  {
+    "key": "hero.promise",
+    "en": "Choose a design, add your guests, and send by SMS or email. Works in Amharic and English.",
+    "am": "ዲዛይን ይምረጡ፣ የእንግዶችዎን ስም ያክሉ፣ በSMS ወይም በኢሜይል ይላኩ። በአማርኛ እና በእንግሊዝኛ ይሰራል።",
+    "status": "needs_native_review",
+    "note": "Value proposition subtitle"
+  },
+  {
+    "key": "hero.sms_mockup",
+    "en": "Selam {guest_name}! You are cordially invited to Helen & Dawit's Wedding. Tap your private link for event details, RSVP & door check-in pass: invite.et/s/w79a",
+    "am": "ሰላም {guest_name}! ወደ ሄለን እና ዳዊት የሠርግ ሥነ-ሥርዓት በክብር ተጋብዘዋል። ዝርዝር መረጃ፣ RSVP እና የQR መግቢያ ካርድዎን ለመመልከት ይህን ሊንክ ይጫኑ፡ invite.et/s/w79a",
+    "status": "needs_native_review",
+    "note": "SMS sample text sent to guests"
+  },
+  {
+    "key": "scanner.success_title",
+    "en": "Welcome, {name}",
+    "am": "እንኳን ደህና መጡ፣ {name}",
+    "status": "needs_native_review",
+    "note": "Green verified scan screen headline"
+  },
+  {
+    "key": "scanner.success_detail",
+    "en": "Party of {count} • Verified valid • Checked in",
+    "am": "{count} ሰዎች • የተረጋገጠ • ገብተዋል",
+    "status": "needs_native_review",
+    "note": "Green scan subtext"
+  },
+  {
+    "key": "scanner.duplicate_title",
+    "en": "Already used at {time}",
+    "am": "ቀደም ብሎ በ{time} ተቃኝቷል",
+    "status": "needs_native_review",
+    "note": "Red duplicate scan alert"
+  },
+  {
+    "key": "scanner.duplicate_detail",
+    "en": "Entry Denied • Single-use pass already redeemed",
+    "am": "መግባት አይቻልም • ነጠላ መግቢያ ካርድ ቀድሞ ገብቷል",
+    "status": "needs_native_review",
+    "note": "Red duplicate scan explanation"
+  },
+  {
+    "key": "built_for_ethiopia.memorial",
+    "en": "Funeral & Tazkar respectful memorial wording and sober dignified palettes",
+    "am": "የቀብር እና የተዝካር ሥነ-ሥርዓቶችን ክብር የጠበቁ አገላለጾች እና ዲዛይኖች",
+    "status": "needs_native_review",
+    "note": "Cultural sensitivity for solemn events"
+  },
+  {
+    "key": "pricing.quota_explanation",
+    "en": "1 card = 1 message to 1 guest. No recurring monthly subscriptions; pay per event.",
+    "am": "1 ካርድ = 1 መልእክት ለአንድ እንግዳ። ወርሃዊ ክፍያ የለም፤ የሚከፍሉት ለዝግጅትዎ ብቻ ነው።",
+    "status": "needs_native_review",
+    "note": "Pricing unit explanation"
+  }
+]

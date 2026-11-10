@@ -7,8 +7,9 @@
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link rel="preload" href="/fonts/young-serif-normal-400.ttf" as="font" type="font/ttf" crossorigin>
+        <link rel="preload" href="/fonts/instrument-sans-normal-400.ttf" as="font" type="font/ttf" crossorigin>
+        <link rel="preload" href="/fonts/noto-serif-ethiopic-normal-400.ttf" as="font" type="font/ttf" crossorigin>
         <link rel="stylesheet" href="/fonts/fonts.css">
 
         <!-- Scripts -->
