@@ -1410,8 +1410,8 @@ onUnmounted(() => {
                     >
                         {{ currentLocale === 'en' ? 'አማርኛ' : 'English' }}
                     </button>
-                    <Link :href="route('terms')" class="hover:text-ink transition-colors">{{ t('footer.terms') }}</Link>
-                    <Link :href="route('privacy')" class="hover:text-ink transition-colors">{{ t('footer.privacy') }}</Link>
+                    <Link :href="route('legal.terms')" class="hover:text-ink transition-colors">{{ t('footer.terms') }}</Link>
+                    <Link :href="route('legal.privacy')" class="hover:text-ink transition-colors">{{ t('footer.privacy') }}</Link>
                     <a href="mailto:support@teri.et" class="hover:text-ink transition-colors">{{ t('footer.contact') }}</a>
                 </div>
             </div>

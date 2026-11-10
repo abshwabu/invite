@@ -1,6 +1,6 @@
 # Amharic Copy Library Review Document
 
-> **Generated:** 2026-11-10 19:01:30
+> **Generated:** 2026-11-10 16:09:04
 > **Purpose:** Native Ge'ez / Amharic speaker review of all card copy lines across categories.
 > All Amharic strings below are marked with `needs_native_review: true`.
 
@@ -1220,4 +1220,25 @@ Entoto Kidane Mehret Church, Addis Ababa`
 - **Reviewer Notes:** _________________________________________
 
 ---
+
+## Brand Identity & Slogan (`brand_identity`)
+
+### Brand Name & Slogan
+- **English Reference:** `Teri - Invite with honor`
+- **Amharic Draft:** **ጠሪ - ጠሪ አክባሪ**
+- **Amharic Meaning Note:** "ጠሪ" is the host/person who invites; "አክባሪ" is the one who bestows honor and deep respect upon guests. Together: "ጠሪ አክባሪ" — "the inviter who honors."
+- **Status:** `[ ] Needs Native Review` (Flag: `needs_native_review: true`)
+- **Reviewer Notes:** _________________________________________
+
+### Brand Slogan Translation Subtitle
+- **English Reference:** `Invite with honor`
+- **Amharic Draft:** **በክብር ይጋብዙ** (Alternative contextual verb draft)
+- **Status:** `[ ] Needs Native Review` (Flag: `needs_native_review: true`)
+- **Reviewer Notes:** _________________________________________
+
+### Brand Footer & Watermark
+- **English Reference:** `Made with Teri` / `Powered by Teri`
+- **Amharic Draft:** **በጠሪ የተዘጋጀ** (Made with Teri)
+- **Status:** `[ ] Needs Native Review` (Flag: `needs_native_review: true`)
+- **Reviewer Notes:** _________________________________________
 

@@ -118,6 +118,8 @@ Route::get('/templates', [TemplateController::class, 'index'])->name('templates.
 // Legal Pages (accessible by guests and users)
 Route::get('/terms', [LegalController::class, 'terms'])->name('legal.terms');
 Route::get('/privacy', [LegalController::class, 'privacy'])->name('legal.privacy');
+Route::redirect('/legal/terms', '/terms')->name('terms');
+Route::redirect('/legal/privacy', '/privacy')->name('privacy');
 
 // Editor (accessible by guests and users)
 Route::get('/editor/{template?}', [EditorController::class, 'show'])->name('editor.show');

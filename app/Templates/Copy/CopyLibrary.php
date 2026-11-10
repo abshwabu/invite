@@ -1126,6 +1126,24 @@ class CopyLibrary
             $md .= "---\n\n";
         }
 
+        $md .= "## Brand Identity & Slogan (`brand_identity`)\n\n";
+        $md .= "### Brand Name & Slogan\n";
+        $md .= "- **English Reference:** `Teri - Invite with honor`\n";
+        $md .= "- **Amharic Draft:** **ጠሪ - ጠሪ አክባሪ**\n";
+        $md .= "- **Amharic Meaning Note:** \"ጠሪ\" is the host/person who invites; \"አክባሪ\" is the one who bestows honor and deep respect upon guests. Together: \"ጠሪ አክባሪ\" — \"the inviter who honors.\"\n";
+        $md .= "- **Status:** `[ ] Needs Native Review` (Flag: `needs_native_review: true`)\n";
+        $md .= "- **Reviewer Notes:** _________________________________________\n\n";
+        $md .= "### Brand Slogan Translation Subtitle\n";
+        $md .= "- **English Reference:** `Invite with honor`\n";
+        $md .= "- **Amharic Draft:** **በክብር ይጋብዙ** (Alternative contextual verb draft)\n";
+        $md .= "- **Status:** `[ ] Needs Native Review` (Flag: `needs_native_review: true`)\n";
+        $md .= "- **Reviewer Notes:** _________________________________________\n\n";
+        $md .= "### Brand Footer & Watermark\n";
+        $md .= "- **English Reference:** `Made with Teri` / `Powered by Teri`\n";
+        $md .= "- **Amharic Draft:** **በጠሪ የተዘጋጀ** (Made with Teri)\n";
+        $md .= "- **Status:** `[ ] Needs Native Review` (Flag: `needs_native_review: true`)\n";
+        $md .= "- **Reviewer Notes:** _________________________________________\n\n";
+
         file_put_contents($destinationPath, $md);
 
         return $destinationPath;
