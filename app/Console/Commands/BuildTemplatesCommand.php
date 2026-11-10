@@ -30,7 +30,7 @@ class BuildTemplatesCommand extends Command
     public function handle(): int
     {
         $this->info('====================================================');
-        $this->info('  Invite Template Build & QA Pipeline');
+        $this->info('  Teri Template Build & QA Pipeline');
         $this->info('====================================================');
 
         // Step 1: Seed Invitation Templates

@@ -78,7 +78,7 @@ const render = () => {
             ctx.font = `600 ${16 * targetScale}px Montserrat, sans-serif`;
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            ctx.fillText('Created with Invite • invite.et', w / 2, h - barH / 2);
+            ctx.fillText('Created with Teri • teri.et', w / 2, h - barH / 2);
             ctx.restore();
         }
     }
@@ -112,7 +112,7 @@ const exportDataUrl = (ratio = 2) => {
             ctx.font = `600 ${18 * ratio}px Montserrat, sans-serif`;
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            ctx.fillText('Created with Invite • invite.et', w / 2, h - barH / 2);
+            ctx.fillText('Created with Teri • teri.et', w / 2, h - barH / 2);
             ctx.restore();
         }
     }

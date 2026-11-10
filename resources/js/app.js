@@ -8,7 +8,7 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import { i18n } from './i18n';
 import VueKonva from 'vue-konva';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Invite';
+const appName = import.meta.env.VITE_APP_NAME || 'Teri';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,

@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
-    <title>@yield('title', 'Super Admin') - Invite</title>
+    <title>@yield('title', 'Super Admin') - Teri</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
@@ -36,7 +37,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                 </svg>
             </div>
-            <h1 class="text-2xl font-bold tracking-tight text-white">Invite Control Panel</h1>
+            <h1 class="text-2xl font-bold tracking-tight text-white">Teri Control Panel</h1>
             <p class="text-xs text-slate-400 mt-1">Authorized personnel only &bull; High security zone</p>
         </div>
 
@@ -46,7 +47,7 @@
         </div>
 
         <p class="text-center text-[11px] text-slate-600 mt-6 font-mono">
-            Invite Secure Core &bull; IP: {{ request()->ip() }}
+            Teri Secure Core &bull; IP: {{ request()->ip() }}
         </p>
     </div>
 </body>

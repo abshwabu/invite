@@ -187,7 +187,7 @@
         </div>
 
         <div class="footer">
-            <p style="margin: 0 0 8px 0;">Sent via Invite &bull; Effortless Ethiopian & International Event Invitations</p>
+            <p style="margin: 0 0 8px 0;">Sent via Teri (ጠሪ) &bull; ጠሪ አክባሪ &bull; Invite with honor</p>
             <p style="margin: 0;">
                 If you no longer wish to receive invitations for this event, you can <a href="{{ $optOutUrl }}">opt out here</a>.
             </p>

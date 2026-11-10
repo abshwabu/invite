@@ -32,6 +32,11 @@ class SuperadminPanelProvider extends PanelProvider
             ->id('superadmin')
             ->path($secretPath)
             ->authGuard('superadmin')
+            ->brandName('Teri Admin')
+            ->brandLogo('/brand/teri-lockup-horizontal.svg')
+            ->darkModeBrandLogo('/brand/teri-lockup-horizontal-reversed.svg')
+            ->brandLogoHeight('2.25rem')
+            ->favicon('/favicon.ico')
             ->colors([
                 'primary' => Color::Amber,
             ])

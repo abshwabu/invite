@@ -37,7 +37,7 @@ class BackupDatabaseCommand extends Command
         File::ensureDirectoryExists($backupDir);
 
         $timestamp = now()->format('Y-m-d_His');
-        $dbBackupPath = "{$backupDir}/invite-backup-{$timestamp}.sqlite";
+        $dbBackupPath = "{$backupDir}/teri-backup-{$timestamp}.sqlite";
 
         $this->info("Starting database hot backup to {$dbBackupPath}...");
 
@@ -64,7 +64,7 @@ class BackupDatabaseCommand extends Command
         if (! $this->option('no-receipts')) {
             $receiptsDir = storage_path('app/private/receipts');
             if (File::isDirectory($receiptsDir)) {
-                $receiptsBackupPath = "{$backupDir}/receipts-backup-{$timestamp}.zip";
+                $receiptsBackupPath = "{$backupDir}/teri-receipts-{$timestamp}.zip";
                 $this->info("Archiving receipts to {$receiptsBackupPath}...");
 
                 $zip = new ZipArchive();

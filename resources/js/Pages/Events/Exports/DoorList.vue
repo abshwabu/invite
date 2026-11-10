@@ -108,7 +108,7 @@ const printSheet = () => {
 
             <!-- Footer -->
             <div class="mt-8 pt-4 border-t border-slate-200 text-center text-[10px] text-slate-400">
-                Printed from Invite App • Sorted Alphabetically for Door Staff
+                Printed from Teri App • Sorted Alphabetically for Door Staff
             </div>
         </div>
     </div>

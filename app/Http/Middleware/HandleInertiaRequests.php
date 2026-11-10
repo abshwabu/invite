@@ -87,6 +87,12 @@ class HandleInertiaRequests extends Middleware
                 ];
             })() : null,
             'locale' => $locale,
+            'brand' => [
+                'name' => config('invite.brand.name', config('app.name', 'Teri')),
+                'name_am' => config('invite.brand.name_am', 'ጠሪ'),
+                'slogan_am' => config('invite.brand.slogan_am', 'ጠሪ አክባሪ'),
+                'slogan_en' => config('invite.brand.slogan_en', 'Invite with honor'),
+            ],
             'supportedLocales' => config('invite.supported_locales', ['en', 'am']),
             'turnstileSiteKey' => config('invite.turnstile.site_key'),
             'translations' => $translations ?? [],

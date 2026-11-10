@@ -342,7 +342,7 @@ class ManualPaymentProvider implements PaymentProvider
             if (config('invite.payments.notify_user_sms', false) && !empty($payment->user->phone)) {
                 $tierName = $payment->tier->name_en;
                 $quota = number_format($payment->tier->card_quota);
-                $smsText = "Your {$tierName} package on Invite is active. You have {$quota} cards ready to send.";
+                $smsText = "Your {$tierName} package on Teri is active. You have {$quota} cards ready to send.";
                 try {
                     $this->smsGateway->send($payment->user->phone, $smsText);
                 } catch (\Throwable) {}

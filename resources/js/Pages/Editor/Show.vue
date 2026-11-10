@@ -1131,7 +1131,7 @@ watch(() => currentCardLang.value, () => {
 
 <template>
     <div class="h-screen flex flex-col bg-zinc-950 text-zinc-100 font-sans select-none overflow-hidden">
-        <Head :title="event ? `Editor: ${event.title}` : 'Design Card • Invite'" />
+        <Head :title="event ? `Editor: ${event.title}` : 'Design Card • Teri'" />
 
         <!-- Hidden File Inputs -->
         <input ref="imageFileInput" type="file" accept="image/*" class="hidden" @change="handleImageUpload" />
@@ -1902,7 +1902,7 @@ watch(() => currentCardLang.value, () => {
                                         x: 0,
                                         y: canvasHeight - 44,
                                         width: canvasWidth,
-                                        text: 'Created with Invite • invite.et',
+                                        text: 'Created with Teri • teri.et',
                                         fontFamily: 'Montserrat, sans-serif',
                                         fontSize: 16,
                                         fontStyle: 'bold',

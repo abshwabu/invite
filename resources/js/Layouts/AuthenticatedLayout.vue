@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
+import BrandLogo from '@/Components/BrandLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
@@ -66,10 +66,10 @@ onMounted(async () => {
                             <!-- Logo -->
                             <div class="flex shrink-0 items-center">
                                 <Link :href="route('dashboard')" class="flex items-center gap-2">
-                                    <ApplicationLogo
-                                        class="block h-9 w-auto fill-current text-amber-600"
+                                    <BrandLogo
+                                        variant="horizontal"
+                                        class="block h-8 w-auto"
                                     />
-                                    <span class="font-bold text-lg text-gray-900 dark:text-white">Invite</span>
                                 </Link>
                             </div>
 

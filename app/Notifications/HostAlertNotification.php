@@ -38,8 +38,9 @@ class HostAlertNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
+        $appName = config('app.name', 'Teri');
         $mail = (new MailMessage)
-            ->subject("[Invite] {$this->title}")
+            ->subject("[{$appName}] {$this->title}")
             ->line($this->message);
 
         if ($this->actionUrl) {

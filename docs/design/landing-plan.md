@@ -1,7 +1,7 @@
-# Design System Tokens & Marketing Landing Plan: "Invite"
+# Design System Tokens & Marketing Landing Plan: "Teri" (ጠሪ)
 
 **Document:** `docs/design/landing-plan.md`  
-**Application:** Invite (invitation card design, SMS/email distribution, single-use QR door check-in)  
+**Application:** Teri (ጠሪ) · Slogan: "ጠሪ አክባሪ" (Invite with honor)  
 **Target Audience:** Ethiopian hosts locally and across the diaspora (Weddings, Tazkar/Funerals, Birthdays, Eid, Meskel, Graduations).  
 **Primary Job:** Showcase real product vector and typographic output within 5 seconds, allowing visitors to test guest personalization and transition straight into the editor with zero registration barrier.
 

@@ -26,7 +26,7 @@ class CreateSuperAdminCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Create a new super admin user for the Invite management panel';
+    protected $description = 'Create a new super admin user for the Teri management panel';
 
     /**
      * Execute the console command.

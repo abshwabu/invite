@@ -112,7 +112,7 @@ const printSheet = () => {
 
             <!-- Footer Signoff -->
             <div class="mt-12 pt-6 border-t border-slate-300 flex items-center justify-between text-xs text-slate-500">
-                <div>Generated on {{ new Date().toLocaleString() }} • Invite System</div>
+                <div>Generated on {{ new Date().toLocaleString() }} • Teri System</div>
                 <div class="flex items-center gap-6">
                     <span>Door Staff Signature: _______________________</span>
                 </div>

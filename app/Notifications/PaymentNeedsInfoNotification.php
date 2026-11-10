@@ -27,8 +27,10 @@ class PaymentNeedsInfoNotification extends Notification
 
     public function toMail(object $notifiable): MailMessage
     {
+        $appName = config('app.name', 'Teri');
+
         return (new MailMessage)
-            ->subject("[Invite] Action Required: Verification for Payment {$this->payment->payment_code}")
+            ->subject("[{$appName}] Action Required: Verification for Payment {$this->payment->payment_code}")
             ->greeting("Hello {$notifiable->name},")
             ->line("Our verification team needs more information to verify your payment.")
             ->line("Note from reviewer: {$this->infoMessage}")

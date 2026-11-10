@@ -169,7 +169,7 @@ const showReportModal = ref(false);
         <!-- Footer / Branding -->
         <footer class="mt-6 text-center text-[11px] text-slate-500 space-y-2">
             <div v-if="!hasRemoveBranding">
-                Powered by <strong class="text-purple-400">Invite</strong>
+                {{ activeLang === 'am' ? 'በጠሪ የተዘጋጀ' : 'Powered by' }} <strong class="text-purple-400">Teri · ጠሪ</strong>
             </div>
             <div>
                 {{ activeLang === 'am' ? 'ዲጂታል የካርድ እና የዝግጅት መድረክ' : 'Event invitation & thank-you platform' }}

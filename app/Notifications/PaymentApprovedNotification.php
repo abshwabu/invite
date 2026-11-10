@@ -24,6 +24,7 @@ class PaymentApprovedNotification extends Notification
 
     public function toMail(object $notifiable): MailMessage
     {
+        $appName = config('app.name', 'Teri');
         $tierName = $notifiable->locale === 'am' && $this->payment->tier->name_am
             ? $this->payment->tier->name_am
             : $this->payment->tier->name_en;
@@ -31,13 +32,13 @@ class PaymentApprovedNotification extends Notification
         $quota = number_format($this->payment->tier->card_quota);
 
         return (new MailMessage)
-            ->subject("[Invite] Payment Approved: {$tierName}")
+            ->subject("[{$appName}] Payment Approved: {$tierName}")
             ->greeting("Hello {$notifiable->name},")
             ->line("Your {$tierName} package is active. You have {$quota} cards.")
             ->line("Payment Code: {$this->payment->payment_code}")
             ->line("Amount Verified: " . number_format((float) $this->payment->amount_verified, 2) . " ETB")
             ->action('Open Dashboard', route('dashboard'))
-            ->line('Thank you for choosing Invite for your event celebrations!');
+            ->line("Thank you for choosing {$appName} for your event celebrations!");
     }
 
     public function toArray(object $notifiable): array

@@ -1,5 +1,6 @@
 {
-    "Invite": "Invite",
+    "Teri": "Teri",
+    "Invite": "Teri",
     "Home": "Home",
     "Gallery": "Templates",
     "Editor": "Editor",
@@ -141,7 +142,7 @@
     "pricing.validity": "Valid for {days} days",
     "pricing.unlimited_validity": "No expiration",
     "faq.title": "Frequently asked questions",
-    "faq.subtitle": "Everything you need to know about designing, sending, and scanning with Invite.",
+    "faq.subtitle": "Everything you need to know about designing, sending, and scanning with Teri.",
     "faq.q1": "What is a card?",
     "faq.a1": "A card is a personalized invitation sent to one guest or family. It includes their custom invitation card, personal RSVP link, directions, and single-use door QR pass.",
     "faq.q2": "Do guests need to install an app?",

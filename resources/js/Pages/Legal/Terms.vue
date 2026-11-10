@@ -5,7 +5,7 @@ import { Head, Link, usePage } from '@inertiajs/vue3';
 const props = defineProps({
     appName: {
         type: String,
-        default: 'Invite',
+        default: 'Teri',
     },
 });
 

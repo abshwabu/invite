@@ -1,7 +1,7 @@
 <script setup>
 import { Head, Link, router, useForm } from '@inertiajs/vue3';
 import LanguageSwitcher from '@/Components/LanguageSwitcher.vue';
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
+import BrandLogo from '@/Components/BrandLogo.vue';
 import Modal from '@/Components/Modal.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
@@ -125,8 +125,7 @@ const onSearchInput = () => {
         <header class="border-b border-gray-200 dark:border-gray-800 bg-white/90 dark:bg-gray-900/90 backdrop-blur sticky top-0 z-30">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
                 <Link href="/" class="flex items-center gap-2">
-                    <ApplicationLogo class="h-8 w-8 text-amber-600 fill-current" />
-                    <span class="font-bold text-xl tracking-tight">Invite</span>
+                    <BrandLogo variant="horizontal" class="h-8 w-auto" />
                 </Link>
 
                 <div class="flex items-center gap-4">

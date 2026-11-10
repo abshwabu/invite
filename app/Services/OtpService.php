@@ -61,7 +61,7 @@ class OtpService
         ]);
 
         // Send SMS
-        $message = __("Your Invite verification code is :code. Valid for 10 minutes.", ['code' => $code]);
+        $message = __("Your Teri verification code is :code. Valid for 10 minutes.", ['code' => $code]);
         $this->smsGateway->send($normalized, $message);
 
         return [

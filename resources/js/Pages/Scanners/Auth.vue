@@ -140,7 +140,7 @@ const submitPin = () => {
 
         <!-- Footer -->
         <div class="text-center text-[10px] text-slate-500 pb-2">
-            Secure single-use check-in system • Invite
+            Secure single-use check-in system • Teri
         </div>
     </div>
 </template>

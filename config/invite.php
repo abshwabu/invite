@@ -25,6 +25,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Brand Configuration (Step 17)
+    |--------------------------------------------------------------------------
+    */
+    'brand' => [
+        'name' => env('APP_NAME', 'Teri'),
+        'name_am' => env('APP_NAME_AM', 'ጠሪ'),
+        'slogan_am' => env('APP_SLOGAN_AM', 'ጠሪ አክባሪ'),
+        'slogan_en' => env('APP_SLOGAN_EN', 'Invite with honor'),
+        'support_email' => env('BRAND_SUPPORT_EMAIL', 'support@teri.et'),
+        'sender_id' => env('SMS_SENDER_ID', 'Teri'),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | SMS Provider Configuration
     |--------------------------------------------------------------------------
     |
@@ -33,11 +47,11 @@ return [
     */
     'sms' => [
         'default_provider' => env('SMS_GATEWAY', env('SMS_DEFAULT_PROVIDER', 'log')),
-        'sender_id' => env('SMS_SENDER_ID', 'INVITE'),
+        'sender_id' => env('SMS_SENDER_ID', 'Teri'),
         'default_country_code' => '+251',
         'afromessage' => [
             'token' => env('AFROMESSAGE_TOKEN', ''),
-            'sender_id' => env('AFROMESSAGE_SENDER_ID', env('SMS_SENDER_ID', 'INVITE')),
+            'sender_id' => env('AFROMESSAGE_SENDER_ID', env('SMS_SENDER_ID', 'Teri')),
             'callback_url' => env('AFROMESSAGE_CALLBACK_URL', ''),
         ],
         'geezsms' => [
@@ -97,7 +111,7 @@ return [
     */
     'payments' => [
         'provider' => env('PAYMENT_PROVIDER', 'manual'),
-        'admin_notification_emails' => env('PAYMENT_ADMIN_EMAILS', 'admin@invite.et'),
+        'admin_notification_emails' => env('PAYMENT_ADMIN_EMAILS', 'admin@teri.et'),
         'receipt_retention_days' => (int) env('PAYMENT_RECEIPT_RETENTION_DAYS', 90),
         'abandoned_after_days' => (int) env('PAYMENT_ABANDONED_AFTER_DAYS', 7),
         'max_open_payments_per_user' => (int) env('PAYMENT_MAX_OPEN_PER_USER', 3),

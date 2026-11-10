@@ -52,7 +52,7 @@ test('guest can request OTP and receives SMS message', function () {
     // Verify SMS was dispatched via Log driver
     $sent = LogSmsGateway::lastMessageFor('+251912345678');
     expect($sent)->not()->toBeNull();
-    expect($sent)->toContain('Your Invite verification code is');
+    expect($sent)->toContain('Your ' . config('app.name', 'Teri') . ' verification code is');
 });
 
 test('otp requests are throttled to 3 per hour per phone', function () {

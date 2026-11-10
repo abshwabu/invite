@@ -409,7 +409,7 @@ const toggleLanguage = (lang) => {
                 </div>
 
                 <div class="text-[11px] text-zinc-600">
-                    Powered by <strong class="text-zinc-400">Invite</strong> • invite.et
+                    {{ activeLang === 'am' ? 'በጠሪ የተዘጋጀ' : 'Powered by' }} <strong class="text-zinc-400">Teri · ጠሪ</strong> • teri.et
                 </div>
             </footer>
         </main>

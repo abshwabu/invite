@@ -2,7 +2,7 @@
 import { ref, computed, onMounted, onUnmounted, defineAsyncComponent, nextTick } from 'vue';
 import { Head, Link, usePage, router } from '@inertiajs/vue3';
 import { useI18n } from 'vue-i18n';
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
+import BrandLogo from '@/Components/BrandLogo.vue';
 
 // Lazy-load CardRenderer so the initial page bundle stays lightweight (<200KB)
 const CardRenderer = defineAsyncComponent({
@@ -13,7 +13,7 @@ const CardRenderer = defineAsyncComponent({
 const props = defineProps({
     appName: {
         type: String,
-        default: 'Invite',
+        default: 'Teri',
     },
     categories: {
         type: Array,
@@ -280,23 +280,25 @@ onUnmounted(() => {
 
 <template>
     <Head>
-        <title>{{ currentLocale === 'am' ? 'ይጋብዙ - የኢትዮጵያ ዲጂታል የግብዣ ካርዶች እና የበር ላይ QR ማረጋገጫ' : 'Invite - Ethiopian Digital Invitation Cards & Single-Use QR Pass' }}</title>
+        <title>{{ currentLocale === 'am' ? 'ጠሪ (Teri) - የኢትዮጵያ ዲጂታል የግብዣ ካርዶች እና የበር ላይ QR ማረጋገጫ' : 'Teri (ጠሪ) - Ethiopian Digital Invitation Cards & Single-Use QR Pass' }}</title>
         <meta name="description" :content="currentLocale === 'am' ? 'የሠርግ፣ የልደት፣ የተዝካር፣ የዒድ እና የምረቃ የግብዣ ካርዶችን በአማርኛ እና በእንግሊዝኛ ይንደፉ። በSMS ወይም በኢሜይል ይላኩ፣ በበር ላይ በነጠላ የQR ኮድ ያስገቡ።' : 'Design, customize, and deliver Ethiopian invitation cards in Amharic & English. Send via SMS and scan single-use QR passes at the door.'" />
-        <link rel="alternate" hreflang="en" href="https://invite.et/" />
-        <link rel="alternate" hreflang="am" href="https://invite.et/?lang=am" />
-        <meta property="og:title" :content="currentLocale === 'am' ? 'ይጋብዙ - የኢትዮጵያ ዲጂታል የግብዣ ካርዶች' : 'Invite - Ethiopian Event Invitations & QR Verification'" />
-        <meta property="og:description" content="Design in Amharic and English. Send via SMS and scan single-use QR tickets at the door." />
-        <meta property="og:image" content="/images/og-invite.png" />
+        <link rel="alternate" hreflang="en" href="https://teri.et/" />
+        <link rel="alternate" hreflang="am" href="https://teri.et/?lang=am" />
+        <meta property="og:title" :content="currentLocale === 'am' ? 'ጠሪ (Teri) - የኢትዮጵያ ዲጂታል የግብዣ ካርዶች' : 'Teri (ጠሪ) - Ethiopian Event Invitations & QR Verification'" />
+        <meta property="og:description" content="ጠሪ አክባሪ (Invite with honor). Design in Amharic and English. Send via SMS and scan single-use QR tickets at the door." />
+        <meta property="og:image" content="/og-image.png" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="/images/og-invite.png" />
+        <meta name="twitter:image" content="/og-image.png" />
         
         <!-- JSON-LD Structured Data Schema -->
         <component :is="'script'" type="application/ld+json">
             {
                 "@context": "https://schema.org",
                 "@type": "WebApplication",
-                "name": "Invite",
+                "name": "Teri",
+                "alternateName": "ጠሪ",
+                "slogan": "ጠሪ አክባሪ (Invite with honor)",
                 "applicationCategory": "DesignApplication",
                 "operatingSystem": "All",
                 "offers": {
@@ -319,17 +321,7 @@ onUnmounted(() => {
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
                 <!-- Brand Logo -->
                 <Link href="/" class="flex items-center gap-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-meskel rounded-sm">
-                    <span class="w-10 h-10 rounded-sm bg-ink text-meskel font-serif font-bold text-xl flex items-center justify-center shadow-sm">
-                        ይ
-                    </span>
-                    <div class="flex flex-col">
-                        <span class="font-serif font-bold text-2xl tracking-tight text-ink leading-tight">
-                            {{ appName }}
-                        </span>
-                        <span class="text-[11px] text-ink/60 -mt-1 font-medium">
-                            {{ currentLocale === 'am' ? 'ዲጂታል ካርዶች' : 'Ethiopian Invitations' }}
-                        </span>
-                    </div>
+                    <BrandLogo variant="horizontal" class="h-9 w-auto" />
                 </Link>
 
                 <!-- Navigation Controls -->
@@ -396,6 +388,13 @@ onUnmounted(() => {
                     
                     <!-- Left Column: Copy & Interactive Customization -->
                     <div class="lg:col-span-6 flex flex-col items-start text-left">
+                        <!-- Slogan Badge -->
+                        <div class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-mist/60 border border-mist mb-5">
+                            <BrandLogo variant="mark" class="w-4 h-4 flex-shrink-0" />
+                            <span class="text-xs font-serif font-bold text-ink">ጠሪ አክባሪ</span>
+                            <span class="text-[11px] text-ink/70 font-medium">Invite with honor</span>
+                        </div>
+
                         <h1 id="hero-heading" class="font-serif text-3xl sm:text-5xl lg:text-6xl text-ink leading-[1.15] tracking-tight mb-6 max-w-prose">
                             {{ t('hero.headline') }}
                         </h1>
@@ -798,7 +797,7 @@ onUnmounted(() => {
                             <!-- CSS-drawn Canvas Editor Frame -->
                             <div class="w-full max-w-md bg-white rounded-md border border-mist p-4 shadow-md">
                                 <div class="flex items-center justify-between border-b border-mist pb-2 mb-3 text-xs text-ink/70">
-                                    <span class="font-semibold text-ink">Invite Editor</span>
+                                    <span class="font-semibold text-ink">Teri Editor</span>
                                     <span>Font: Young Serif • Amharic</span>
                                 </div>
                                 <div class="bg-paper border border-mist/70 rounded-sm p-4 text-center">
@@ -942,7 +941,7 @@ onUnmounted(() => {
                             >
                                 <!-- Camera Header -->
                                 <div class="flex items-center justify-between text-xs text-white/70">
-                                    <span>Invite Scanner v2.0</span>
+                                    <span>Teri Scanner v2.0</span>
                                     <span>Hall Entrance A</span>
                                 </div>
 
@@ -1392,11 +1391,13 @@ onUnmounted(() => {
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
                 <!-- Brand & Rights -->
                 <div class="flex items-center gap-3">
+                    <BrandLogo variant="mark" class="w-6 h-6 flex-shrink-0" />
                     <span class="font-serif font-bold text-lg text-ink">
-                        {{ appName }}
+                        {{ appName }} · ጠሪ
                     </span>
                     <span>•</span>
                     <span>© 2026 {{ appName }}. {{ t('footer.rights') }}</span>
+                    <span class="hidden sm:inline text-xs text-ink/60 font-serif">• ጠሪ አክባሪ</span>
                 </div>
 
                 <!-- Footer Navigation Links (Strictly No Admin Paths) -->
@@ -1411,7 +1412,7 @@ onUnmounted(() => {
                     </button>
                     <Link :href="route('terms')" class="hover:text-ink transition-colors">{{ t('footer.terms') }}</Link>
                     <Link :href="route('privacy')" class="hover:text-ink transition-colors">{{ t('footer.privacy') }}</Link>
-                    <a href="mailto:support@invite.et" class="hover:text-ink transition-colors">{{ t('footer.contact') }}</a>
+                    <a href="mailto:support@teri.et" class="hover:text-ink transition-colors">{{ t('footer.contact') }}</a>
                 </div>
             </div>
         </footer>

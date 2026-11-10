@@ -1,5 +1,5 @@
 <script setup>
-import ApplicationLogo from '@/Components/ApplicationLogo.vue';
+import BrandLogo from '@/Components/BrandLogo.vue';
 import LanguageSwitcher from '@/Components/LanguageSwitcher.vue';
 import { Link } from '@inertiajs/vue3';
 </script>
@@ -13,9 +13,8 @@ import { Link } from '@inertiajs/vue3';
         </div>
 
         <div>
-            <Link href="/" class="flex flex-col items-center gap-2">
-                <ApplicationLogo class="h-16 w-16 fill-current text-amber-600" />
-                <span class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Invite</span>
+            <Link href="/" class="flex flex-col items-center">
+                <BrandLogo variant="stacked" class="h-20 w-auto" />
             </Link>
         </div>
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Warning: External Website - Invite</title>
+    <title>Warning: External Website - Teri</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -83,7 +83,7 @@
         <div class="icon">⚠️</div>
         <h1>External Website Warning</h1>
         <p>
-            You are leaving Invite to visit an unverified external website. Never share your telebirr PIN, bank passwords, or SMS verification codes on unverified websites.
+            You are leaving Teri to visit an unverified external website. Never share your telebirr PIN, bank passwords, or SMS verification codes on unverified websites.
         </p>
 
         <div class="target-box">

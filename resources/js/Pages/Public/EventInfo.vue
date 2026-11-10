@@ -101,7 +101,7 @@ const props = defineProps({
             </div>
 
             <footer class="pt-6 pb-12 text-center text-xs text-zinc-600">
-                Powered by <strong class="text-zinc-400">Invite</strong> • invite.et
+                Powered by <strong class="text-zinc-400">Teri · ጠሪ</strong> • teri.et
             </footer>
         </main>
     </div>

@@ -27,10 +27,11 @@ class PaymentRejectedNotification extends Notification
 
     public function toMail(object $notifiable): MailMessage
     {
+        $appName = config('app.name', 'Teri');
         $tierName = $this->payment->tier->name_en;
 
         return (new MailMessage)
-            ->subject("[Invite] Payment Review Update: {$this->payment->payment_code}")
+            ->subject("[{$appName}] Payment Review Update: {$this->payment->payment_code}")
             ->greeting("Hello {$notifiable->name},")
             ->line("Your payment for the {$tierName} package could not be verified.")
             ->line("Reason: {$this->reason}")
