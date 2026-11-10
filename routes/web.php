@@ -10,6 +10,7 @@ use App\Http\Controllers\EventDraftController;
 use App\Http\Controllers\EventMemberController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\GuestController;
+use App\Http\Controllers\LegalController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\NotificationCenterController;
 use App\Http\Controllers\PaymentInvoiceController;
@@ -33,47 +34,47 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    $categories = Category::withCount(['templates' => fn ($q) => $q->where('kind', 'invitation')->where('is_active', true)])
-        ->orderBy('sort')
-        ->get(['id', 'slug', 'name_en', 'name_am']);
+    $data = \Illuminate\Support\Facades\Cache::remember('welcome_page_data', 3600, function () {
+        $categories = Category::withCount(['templates' => fn ($q) => $q->where('kind', 'invitation')->where('is_active', true)])
+            ->orderBy('sort')
+            ->get(['id', 'slug', 'name_en', 'name_am']);
 
-    $heroTemplates = [
-        'wedding' => Template::where('kind', 'invitation')->whereHas('category', fn ($q) => $q->where('slug', 'wedding'))->first(),
-        'funeral' => Template::where('kind', 'invitation')->whereHas('category', fn ($q) => $q->where('slug', 'funeral'))->first(),
-        'birthday' => Template::where('kind', 'invitation')->whereHas('category', fn ($q) => $q->where('slug', 'birthday'))->first(),
-        'eid' => Template::where('kind', 'invitation')->whereJsonContains('tags', 'eid')->first() ?? Template::where('kind', 'invitation')->whereHas('category', fn ($q) => $q->where('slug', 'religious'))->first(),
-        'meskel' => Template::where('kind', 'invitation')->whereJsonContains('tags', 'meskel')->first() ?? Template::where('kind', 'invitation')->whereHas('category', fn ($q) => $q->where('slug', 'religious'))->skip(4)->first(),
-        'graduation' => Template::where('kind', 'invitation')->whereHas('category', fn ($q) => $q->where('slug', 'graduation'))->first(),
-    ];
+        $heroTemplates = [
+            'wedding' => Template::where('kind', 'invitation')->whereHas('category', fn ($q) => $q->where('slug', 'wedding'))->first(),
+            'funeral' => Template::where('kind', 'invitation')->whereHas('category', fn ($q) => $q->where('slug', 'funeral'))->first(),
+            'birthday' => Template::where('kind', 'invitation')->whereHas('category', fn ($q) => $q->where('slug', 'birthday'))->first(),
+            'eid' => Template::where('kind', 'invitation')->whereJsonContains('tags', 'eid')->first() ?? Template::where('kind', 'invitation')->whereHas('category', fn ($q) => $q->where('slug', 'religious'))->first(),
+            'meskel' => Template::where('kind', 'invitation')->whereJsonContains('tags', 'meskel')->first() ?? Template::where('kind', 'invitation')->whereHas('category', fn ($q) => $q->where('slug', 'religious'))->skip(4)->first(),
+            'graduation' => Template::where('kind', 'invitation')->whereHas('category', fn ($q) => $q->where('slug', 'graduation'))->first(),
+        ];
 
-    $shelfTemplates = Template::with('category:id,slug,name_en,name_am')
-        ->where('kind', 'invitation')
-        ->where('is_active', true)
-        ->orderBy('sort')
-        ->get([
-            'id',
-            'category_id',
-            'name',
-            'preview_path',
-            'preview_path_am',
-            'palette',
-            'spec',
-            'tags',
-            'design_json',
-        ]);
+        $shelfTemplates = Template::with('category:id,slug,name_en,name_am')
+            ->where('kind', 'invitation')
+            ->where('is_active', true)
+            ->orderBy('sort')
+            ->get([
+                'id',
+                'category_id',
+                'name',
+                'preview_path',
+                'preview_path_am',
+                'palette',
+                'spec',
+                'tags',
+                'design_json',
+            ]);
 
-    $tiers = Tier::where('is_active', true)
-        ->where('is_public', true)
-        ->orderBy('sort')
-        ->get();
+        $tiers = Tier::where('is_active', true)
+            ->where('is_public', true)
+            ->orderBy('sort')
+            ->get();
 
-    return Inertia::render('Welcome', [
+        return compact('categories', 'heroTemplates', 'shelfTemplates', 'tiers');
+    });
+
+    return Inertia::render('Welcome', array_merge([
         'appName' => config('app.name', 'Invite'),
-        'categories' => $categories,
-        'heroTemplates' => $heroTemplates,
-        'shelfTemplates' => $shelfTemplates,
-        'tiers' => $tiers,
-    ]);
+    ], $data));
 })->name('home');
 
 Route::get('/sitemap.xml', function () {
@@ -113,6 +114,10 @@ Route::post('/locale', [LocaleController::class, 'update'])->name('locale.update
 
 // Template gallery (accessible by guests)
 Route::get('/templates', [TemplateController::class, 'index'])->name('templates.index');
+
+// Legal Pages (accessible by guests and users)
+Route::get('/terms', [LegalController::class, 'terms'])->name('legal.terms');
+Route::get('/privacy', [LegalController::class, 'privacy'])->name('legal.privacy');
 
 // Editor (accessible by guests and users)
 Route::get('/editor/{template?}', [EditorController::class, 'show'])->name('editor.show');
@@ -227,6 +232,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/impersonation/leave', [\App\Http\Controllers\ImpersonationController::class, 'leave'])->name('impersonation.leave');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile/export', [ProfileController::class, 'export'])->name('profile.export');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
@@ -251,6 +257,10 @@ Route::middleware(['throttle:60,1'])->group(function () {
     Route::get('/t/{token}', [PublicThankYouController::class, 'show'])->name('public.thank-you.show');
     Route::post('/i/{token}/rsvp', [PublicInvitationController::class, 'rsvp'])->name('public.invitation.rsvp');
     Route::post('/i/{token}/opt-out', [PublicInvitationController::class, 'optOut'])->name('public.invitation.opt-out');
+    Route::post('/i/{token}/report', [PublicInvitationController::class, 'report'])->name('public.invitation.report');
+    Route::post('/t/{token}/report', [PublicThankYouController::class, 'report'])->name('public.thank-you.report');
+    Route::get('/unsubscribe/{token}', [PublicInvitationController::class, 'unsubscribe'])->name('public.unsubscribe');
+    Route::post('/unsubscribe/{token}/resubscribe', [PublicInvitationController::class, 'resubscribe'])->name('public.resubscribe');
     Route::get('/i/{token}/calendar.ics', [PublicInvitationController::class, 'calendarIcs'])->name('public.invitation.ics');
     Route::get('/i/{token}/qr-download', [PublicInvitationController::class, 'qrDownload'])->name('public.invitation.qr-download');
     Route::get('/i/{token}/og-image.png', [PublicInvitationController::class, 'ogImage'])->name('public.invitation.og-image');

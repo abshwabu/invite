@@ -6,6 +6,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import TurnstileWidget from '@/Components/TurnstileWidget.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
@@ -64,6 +65,7 @@ const otpForm = useForm({
 const otpStatus = ref('');
 const otpError = ref('');
 const isSendingOtp = ref(false);
+const turnstileToken = ref('');
 
 const requestOtp = async () => {
     otpError.value = '';
@@ -73,6 +75,7 @@ const requestOtp = async () => {
     try {
         const response = await axios.post(route('login.otp.request'), {
             phone: otpForm.phone,
+            'cf-turnstile-response': turnstileToken.value,
         });
         otpForm.phone = response.data.phone;
         otpStatus.value = response.data.message;
@@ -80,6 +83,8 @@ const requestOtp = async () => {
     } catch (error) {
         if (error.response?.data?.errors?.phone) {
             otpError.value = error.response.data.errors.phone[0];
+        } else if (error.response?.data?.errors?.['cf-turnstile-response']) {
+            otpError.value = error.response.data.errors['cf-turnstile-response'][0];
         } else if (error.response?.data?.message) {
             otpError.value = error.response.data.message;
         } else {
@@ -161,6 +166,8 @@ const verifyOtp = () => {
                         Ethiopian numbers (+251 9... or +251 7...)
                     </p>
                     <InputError class="mt-2" :message="otpError || otpForm.errors.phone" />
+
+                    <TurnstileWidget v-model="turnstileToken" class="mt-4" />
                 </div>
 
                 <div class="mt-6 flex items-center justify-between">

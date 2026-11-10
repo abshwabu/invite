@@ -88,6 +88,7 @@ class HandleInertiaRequests extends Middleware
             })() : null,
             'locale' => $locale,
             'supportedLocales' => config('invite.supported_locales', ['en', 'am']),
+            'turnstileSiteKey' => config('invite.turnstile.site_key'),
             'translations' => $translations ?? [],
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),

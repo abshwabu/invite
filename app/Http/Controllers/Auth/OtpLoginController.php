@@ -23,6 +23,7 @@ class OtpLoginController extends Controller
     {
         $validated = $request->validate([
             'phone' => ['required', 'string'],
+            'cf-turnstile-response' => ['nullable', new \App\Rules\TurnstileRule],
         ]);
 
         $result = $this->otpService->sendOtp($validated['phone']);
@@ -46,6 +47,12 @@ class OtpLoginController extends Controller
         ]);
 
         $user = $this->otpService->verifyOtp($validated['phone'], $validated['code']);
+
+        if ($user->is_suspended) {
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'phone' => __('Your account has been suspended. Please contact support.'),
+            ]);
+        }
 
         Auth::login($user, $request->boolean('remember', true));
         $request->session()->regenerate();

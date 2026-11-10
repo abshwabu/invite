@@ -23,6 +23,7 @@ class Subscription extends Model
         'source',
         'payment_id',
         'note',
+        'warnings_sent',
     ];
 
     protected function casts(): array
@@ -32,7 +33,29 @@ class Subscription extends Model
             'cards_used' => 'integer',
             'starts_at' => 'datetime',
             'expires_at' => 'datetime',
+            'warnings_sent' => 'array',
         ];
+    }
+
+    /**
+     * Check if a specific warning has already been sent for this subscription.
+     */
+    public function hasSentWarning(string $key): bool
+    {
+        $warnings = $this->warnings_sent ?? [];
+        return in_array($key, $warnings, true);
+    }
+
+    /**
+     * Record that a warning has been sent.
+     */
+    public function recordWarning(string $key): void
+    {
+        $warnings = $this->warnings_sent ?? [];
+        if (! in_array($key, $warnings, true)) {
+            $warnings[] = $key;
+            $this->update(['warnings_sent' => $warnings]);
+        }
     }
 
     public function user(): BelongsTo

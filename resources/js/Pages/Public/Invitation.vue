@@ -4,6 +4,7 @@ import { Head, useForm, router } from '@inertiajs/vue3';
 import CardRenderer from '@/Components/CardRenderer.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
+import ReportModal from '@/Components/ReportModal.vue';
 
 const props = defineProps({
     event: {
@@ -57,6 +58,7 @@ const rsvpForm = useForm({
 });
 
 const isOptedOut = ref(props.guest.opted_out);
+const showReportModal = ref(false);
 const cardRendererRef = ref(null);
 
 const submitRsvp = () => {
@@ -381,17 +383,29 @@ const toggleLanguage = (lang) => {
 
             <!-- Opt-out Link / Footer -->
             <footer class="pt-6 pb-12 text-center space-y-3 text-xs text-zinc-500">
-                <div v-if="!isOptedOut">
+                <div class="flex items-center justify-center gap-4 flex-wrap">
+                    <div v-if="!isOptedOut">
+                        <button
+                            type="button"
+                            @click="handleOptOut"
+                            class="hover:text-zinc-300 underline transition"
+                        >
+                            {{ activeLang === 'am' ? 'ከዚህ በኋላ ማሳሰቢያ እንዳይላክልኝ' : "Don't send me reminders for this event" }}
+                        </button>
+                    </div>
+                    <div v-else class="text-amber-500/80">
+                        ✓ {{ activeLang === 'am' ? 'ከማሳሰቢያዎች ተሰርዘዋል' : 'You are opted out from reminders.' }}
+                    </div>
+
+                    <span>•</span>
+
                     <button
                         type="button"
-                        @click="handleOptOut"
-                        class="hover:text-zinc-300 underline transition"
+                        @click="showReportModal = true"
+                        class="hover:text-red-400 underline transition"
                     >
-                        {{ activeLang === 'am' ? 'ከዚህ በኋላ ማሳሰቢያ እንዳይላክልኝ' : "Don't send me reminders for this event" }}
+                        {{ activeLang === 'am' ? 'ይህንን ግብዣ ሪፖርት ያድርጉ' : 'Report this invitation' }}
                     </button>
-                </div>
-                <div v-else class="text-amber-500/80">
-                    ✓ {{ activeLang === 'am' ? 'ከማሳሰቢያዎች ተሰርዘዋል' : 'You are opted out from reminders.' }}
                 </div>
 
                 <div class="text-[11px] text-zinc-600">
@@ -399,5 +413,13 @@ const toggleLanguage = (lang) => {
                 </div>
             </footer>
         </main>
+
+        <!-- Abuse Report Modal -->
+        <ReportModal
+            :show="showReportModal"
+            :report-url="route('public.invitation.report', { token: guest.token })"
+            :lang="activeLang"
+            @close="showReportModal = false"
+        />
     </div>
 </template>

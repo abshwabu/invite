@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { Head } from '@inertiajs/vue3';
 import CardRenderer from '@/Components/CardRenderer.vue';
+import ReportModal from '@/Components/ReportModal.vue';
 
 const props = defineProps({
     event: {
@@ -36,6 +37,7 @@ const props = defineProps({
 
 const activeLang = ref(props.locale || 'en');
 const cardRendererRef = ref(null);
+const showReportModal = ref(false);
 </script>
 
 <template>
@@ -165,13 +167,30 @@ const cardRendererRef = ref(null);
         </div>
 
         <!-- Footer / Branding -->
-        <footer class="mt-6 text-center text-[11px] text-slate-500 space-y-1">
+        <footer class="mt-6 text-center text-[11px] text-slate-500 space-y-2">
             <div v-if="!hasRemoveBranding">
                 Powered by <strong class="text-purple-400">Invite</strong>
             </div>
             <div>
                 {{ activeLang === 'am' ? 'ዲጂታል የካርድ እና የዝግጅት መድረክ' : 'Event invitation & thank-you platform' }}
             </div>
+            <div>
+                <button
+                    type="button"
+                    @click="showReportModal = true"
+                    class="text-slate-500 hover:text-red-400 underline transition"
+                >
+                    {{ activeLang === 'am' ? 'ይህንን ግብዣ ሪፖርት ያድርጉ' : 'Report this invitation' }}
+                </button>
+            </div>
         </footer>
+
+        <!-- Abuse Report Modal -->
+        <ReportModal
+            :show="showReportModal"
+            :report-url="route('public.thankyou.report', { token: guest.token })"
+            :lang="activeLang"
+            @close="showReportModal = false"
+        />
     </div>
 </template>

@@ -105,4 +105,37 @@ return [
         'notify_user_email' => (bool) env('PAYMENT_NOTIFY_USER_EMAIL', true),
         'notify_user_sms' => (bool) env('PAYMENT_NOTIFY_USER_SMS', false),
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Cloudflare Turnstile CAPTCHA (Abuse Prevention)
+    |--------------------------------------------------------------------------
+    |
+    | When keys are omitted, Turnstile is bypassed gracefully in dev/testing.
+    |
+    */
+    'turnstile' => [
+        'site_key' => env('TURNSTILE_SITE_KEY', ''),
+        'secret_key' => env('TURNSTILE_SECRET_KEY', ''),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Privacy & Data Retention Settings
+    |--------------------------------------------------------------------------
+    */
+    'privacy' => [
+        'guest_data_retention_days' => (int) env('GUEST_DATA_RETENTION_DAYS', 30),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Database & File Backups
+    |--------------------------------------------------------------------------
+    */
+    'backup' => [
+        'retention_days' => (int) env('BACKUP_RETENTION_DAYS', 14),
+        'storage_path' => env('BACKUP_PATH', storage_path('app/backups')),
+        'offsite_command' => env('BACKUP_OFFSITE_COMMAND', null),
+    ],
 ];

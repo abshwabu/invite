@@ -17,3 +17,7 @@ Schedule::command('subscriptions:check-expiring')->daily();
 Schedule::command('payments:expire-abandoned')->daily();
 Schedule::command('payments:purge-receipts')->daily();
 Schedule::command('payments:send-waiting-digest')->dailyAt('09:00');
+Schedule::command('subscriptions:check-expirations')->dailyAt('08:00');
+Schedule::command('guests:purge-retention')->dailyAt('02:00');
+Schedule::command('backup:database')->dailyAt('03:30');
+Schedule::command('quota:reconcile')->weeklyOn(0, '04:00');

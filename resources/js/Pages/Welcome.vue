@@ -1409,8 +1409,8 @@ onUnmounted(() => {
                     >
                         {{ currentLocale === 'en' ? 'አማርኛ' : 'English' }}
                     </button>
-                    <a href="#" class="hover:text-ink transition-colors">{{ t('footer.terms') }}</a>
-                    <a href="#" class="hover:text-ink transition-colors">{{ t('footer.privacy') }}</a>
+                    <Link :href="route('terms')" class="hover:text-ink transition-colors">{{ t('footer.terms') }}</Link>
+                    <Link :href="route('privacy')" class="hover:text-ink transition-colors">{{ t('footer.privacy') }}</Link>
                     <a href="mailto:support@invite.et" class="hover:text-ink transition-colors">{{ t('footer.contact') }}</a>
                 </div>
             </div>

@@ -218,6 +218,44 @@ class PublicInvitationController extends Controller
     }
 
     /**
+     * Unsubscribe / Opt-out landing page via direct GET link.
+     */
+    public function unsubscribe(Request $request, string $token): Response
+    {
+        $guest = Guest::where('token', $token)->first();
+        if (! $guest) {
+            abort(404, __('Invitation not found.'));
+        }
+
+        $guest->update(['opted_out' => true]);
+
+        return Inertia::render('Public/Unsubscribe', [
+            'guestName' => $guest->name,
+            'eventTitle' => $guest->event?->title ?? 'Event',
+            'token' => $guest->token,
+        ]);
+    }
+
+    /**
+     * Re-subscribe if opted out by mistake.
+     */
+    public function resubscribe(Request $request, string $token): JsonResponse|RedirectResponse
+    {
+        $guest = Guest::where('token', $token)->first();
+        if (! $guest) {
+            abort(404);
+        }
+
+        $guest->update(['opted_out' => false]);
+
+        if ($request->wantsJson()) {
+            return response()->json(['success' => true, 'message' => 'Resubscribed successfully.']);
+        }
+
+        return back()->with('success', 'You have been resubscribed.');
+    }
+
+    /**
      * Download .ics Calendar event.
      */
     public function calendarIcs(string $token): HttpResponse
@@ -388,5 +426,61 @@ class PublicInvitationController extends Controller
             'ethiopianDate' => $ethiopianDate,
             'isPast' => $isPast,
         ]);
+    }
+
+    /**
+     * Submit an abuse report for an invitation.
+     */
+    public function report(Request $request, string $token): \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+    {
+        $guest = Guest::where('token', $token)->first();
+        if (! $guest) {
+            abort(404, __('Invitation not found.'));
+        }
+
+        $event = $guest->event;
+        if (! $event) {
+            abort(404, __('Event not found.'));
+        }
+
+        $ip = $request->ip() ?? '127.0.0.1';
+        $rateLimitKey = "abuse_report_limit:{$ip}";
+        $recentReports = (int) \Illuminate\Support\Facades\Cache::get($rateLimitKey, 0);
+
+        if ($recentReports >= 5) {
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'message' => 'Too many reports submitted. Please wait before submitting another report.',
+                ], 429);
+            }
+            return back()->with('error', 'Too many reports submitted. Please wait before submitting another report.');
+        }
+
+        $validated = $request->validate([
+            'reason' => 'required|string|in:spam,phishing,inappropriate,fraud,harassment,other',
+            'description' => 'nullable|string|max:1000',
+            'reporter_email' => 'nullable|email|max:150',
+        ]);
+
+        \App\Models\AbuseReport::create([
+            'event_id' => $event->id,
+            'guest_id' => $guest->id,
+            'reporter_ip' => $ip,
+            'reporter_email' => $validated['reporter_email'] ?? null,
+            'reason' => $validated['reason'],
+            'description' => $validated['description'] ?? null,
+            'status' => 'pending',
+        ]);
+
+        \Illuminate\Support\Facades\Cache::put($rateLimitKey, $recentReports + 1, now()->addHour());
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Thank you. Your report has been submitted to our moderation team.',
+            ]);
+        }
+
+        return back()->with('success', 'Thank you. Your report has been submitted to our moderation team.');
     }
 }

@@ -4,6 +4,7 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import TurnstileWidget from '@/Components/TurnstileWidget.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import { ref, onMounted } from 'vue';
 
@@ -26,6 +27,7 @@ const form = useForm({
     phone: '',
     password: '',
     password_confirmation: '',
+    'cf-turnstile-response': '',
     draft: null,
     tier: typeof window !== 'undefined' ? (new URLSearchParams(window.location.search)).get('tier') || '' : '',
 });
@@ -138,6 +140,9 @@ const submit = () => {
                     :message="form.errors.password_confirmation"
                 />
             </div>
+
+            <TurnstileWidget v-model="form['cf-turnstile-response']" class="mt-4" />
+            <InputError class="mt-2" :message="form.errors['cf-turnstile-response']" />
 
             <div class="mt-6 flex items-center justify-between">
                 <Link

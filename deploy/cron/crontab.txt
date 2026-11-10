@@ -1,0 +1,16 @@
+# Invite Scheduled Worker Cron Setup
+# Add this entry to the crontab of the web server user (e.g., www-data or deploy user)
+# Edit crontab via: crontab -e -u www-data
+
+* * * * * cd /var/www/invite && php artisan schedule:run >> /dev/null 2>&1
+
+# DirectAdmin / cPanel instructions:
+# 1. In DirectAdmin Cron Jobs manager:
+#    Minute: * | Hour: * | Day: * | Month: * | Day of Week: *
+#    Command: /usr/local/bin/php /home/username/domains/domain.et/public_html/artisan schedule:run >> /dev/null 2>&1
+#
+# 2. SQLite Database Permissions:
+#    Ensure storage/ and database/ (including database.sqlite and database/ directory itself)
+#    are owned by the web server user (www-data / web user) with chmod 775 permissions:
+#    chmod -R 775 storage database
+#    chown -R www-data:www-data storage database

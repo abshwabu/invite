@@ -45,11 +45,13 @@ class PlanController extends Controller
             ->limit(30)
             ->get();
 
-        $allTiers = Tier::query()
-            ->where('is_active', true)
-            ->where('is_public', true)
-            ->orderBy('sort')
-            ->get();
+        $allTiers = \Illuminate\Support\Facades\Cache::remember('active_public_tiers', 3600, function () {
+            return Tier::query()
+                ->where('is_active', true)
+                ->where('is_public', true)
+                ->orderBy('sort')
+                ->get();
+        });
 
         return Inertia::render('Plan/Index', [
             'currentTier' => $currentTier,

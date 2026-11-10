@@ -39,6 +39,7 @@ class RegisteredUserController extends Controller
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
             'phone' => 'nullable|string|max:20|unique:'.User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'cf-turnstile-response' => ['nullable', new \App\Rules\TurnstileRule],
         ]);
 
         $phone = null;
