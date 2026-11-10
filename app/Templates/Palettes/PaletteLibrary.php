@@ -571,6 +571,38 @@ class PaletteLibrary
     }
 
     /**
+     * Get a curated list of alternate palettes for a category, padded to $limit (default 12).
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    public static function curatedForCategory(string $category, int $limit = 12): array
+    {
+        $normalized = strtolower(trim(str_replace('_', '-', $category)));
+        $matches = [];
+        $others = [];
+
+        foreach (self::$palettes as $id => $pal) {
+            $entry = array_merge(['id' => $id], $pal);
+            $cat = strtolower($pal['category'] ?? '');
+            if ($cat === $normalized || str_contains($cat, $normalized) || ($cat !== '' && str_contains($normalized, $cat))) {
+                $matches[$id] = $entry;
+            } else {
+                $others[$id] = $entry;
+            }
+        }
+
+        $result = $matches;
+        foreach ($others as $id => $pal) {
+            if (count($result) >= $limit) {
+                break;
+            }
+            $result[$id] = $pal;
+        }
+
+        return array_values($result);
+    }
+
+    /**
      * Validate WCAG contrast ratio criteria for all registered palettes:
      * - ink on bg >= 4.5:1
      * - ink on surface >= 4.5:1

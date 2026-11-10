@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Event;
+use App\Services\DesignUpgrader;
 use App\Services\DesignValidator;
 use App\Services\EntitlementService;
+use App\Templates\Palettes\PaletteLibrary;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -27,9 +29,10 @@ class EventDesignController extends Controller
     {
         Gate::authorize('update', $event);
 
-        $design = (is_array($event->design_json) && DesignValidator::isValid($event->design_json))
+        $rawDesign = (is_array($event->design_json) && DesignValidator::isValid($event->design_json))
             ? $event->design_json
             : ($event->template?->design_json ?? DesignValidator::blankDesign());
+        $design = DesignUpgrader::upgrade($rawDesign);
 
         $hasRemoveBranding = $this->entitlementService->can($request->user(), 'remove_branding');
 
@@ -37,12 +40,21 @@ class EventDesignController extends Controller
             'templates' => fn ($query) => $query->where('is_active', true)->where('kind', 'invitation')->orderBy('sort'),
         ])->orderBy('sort')->get();
 
+        $categorySlug = $event->category?->slug ?? ($event->template?->category?->slug ?? 'wedding');
+        $curatedPalettes = PaletteLibrary::curatedForCategory($categorySlug, 12);
+        $allPalettes = PaletteLibrary::all();
+        $initialTemplateDesign = $event->template?->design_json ? DesignUpgrader::upgrade($event->template->design_json) : null;
+
         return Inertia::render('Editor/Show', [
             'event' => $event->load(['category', 'template']),
             'target' => 'invitation',
             'design' => $design,
             'template' => $event->template,
+            'initialTemplateDesign' => $initialTemplateDesign,
             'categories' => $categories,
+            'curatedPalettes' => $curatedPalettes,
+            'allPalettes' => $allPalettes,
+            'cardLanguage' => $event->card_language ?? 'en',
             'hasRemoveBranding' => $hasRemoveBranding,
             'isGuest' => false,
             'eventData' => $this->formatEventData($event),
@@ -59,13 +71,17 @@ class EventDesignController extends Controller
         $validated = $request->validate([
             'design' => ['required', 'array'],
             'template_id' => ['nullable', 'exists:templates,id'],
+            'card_language' => ['nullable', 'in:en,am,both'],
         ]);
 
-        $normalized = DesignValidator::validate($validated['design']);
+        $normalized = DesignValidator::validate($validated['design'], autoUpgrade: true);
 
         $updateData = ['design_json' => $normalized];
         if (array_key_exists('template_id', $validated)) {
             $updateData['template_id'] = $validated['template_id'];
+        }
+        if (! empty($validated['card_language'])) {
+            $updateData['card_language'] = $validated['card_language'];
         }
 
         $event->update($updateData);
@@ -88,9 +104,10 @@ class EventDesignController extends Controller
     {
         Gate::authorize('updateThankYou', $event);
 
-        $design = (is_array($event->thankyou_design_json) && DesignValidator::isValid($event->thankyou_design_json))
+        $rawDesign = (is_array($event->thankyou_design_json) && DesignValidator::isValid($event->thankyou_design_json))
             ? $event->thankyou_design_json
             : ($event->thankyouTemplate?->design_json ?? DesignValidator::blankDesign());
+        $design = DesignUpgrader::upgrade($rawDesign);
 
         $hasRemoveBranding = $this->entitlementService->can($request->user(), 'remove_branding');
 
@@ -98,12 +115,21 @@ class EventDesignController extends Controller
             'templates' => fn ($query) => $query->where('is_active', true)->where('kind', 'thank_you')->orderBy('sort'),
         ])->orderBy('sort')->get();
 
+        $categorySlug = $event->category?->slug ?? ($event->thankyouTemplate?->category?->slug ?? 'wedding');
+        $curatedPalettes = PaletteLibrary::curatedForCategory($categorySlug, 12);
+        $allPalettes = PaletteLibrary::all();
+        $initialTemplateDesign = $event->thankyouTemplate?->design_json ? DesignUpgrader::upgrade($event->thankyouTemplate->design_json) : null;
+
         return Inertia::render('Editor/Show', [
             'event' => $event->load(['category', 'thankyouTemplate']),
             'target' => 'thank_you',
             'design' => $design,
             'template' => $event->thankyouTemplate,
+            'initialTemplateDesign' => $initialTemplateDesign,
             'categories' => $categories,
+            'curatedPalettes' => $curatedPalettes,
+            'allPalettes' => $allPalettes,
+            'cardLanguage' => $event->card_language ?? 'en',
             'hasRemoveBranding' => $hasRemoveBranding,
             'isGuest' => false,
             'eventData' => $this->formatEventData($event),
@@ -120,13 +146,17 @@ class EventDesignController extends Controller
         $validated = $request->validate([
             'design' => ['required', 'array'],
             'template_id' => ['nullable', 'exists:templates,id'],
+            'card_language' => ['nullable', 'in:en,am,both'],
         ]);
 
-        $normalized = DesignValidator::validate($validated['design']);
+        $normalized = DesignValidator::validate($validated['design'], autoUpgrade: true);
 
         $updateData = ['thankyou_design_json' => $normalized];
         if (array_key_exists('template_id', $validated)) {
             $updateData['thankyou_template_id'] = $validated['template_id'];
+        }
+        if (! empty($validated['card_language'])) {
+            $updateData['card_language'] = $validated['card_language'];
         }
 
         $event->update($updateData);

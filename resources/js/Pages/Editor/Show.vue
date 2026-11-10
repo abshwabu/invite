@@ -5,7 +5,34 @@ import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Modal from '@/Components/Modal.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
+import CardRenderer from '@/Components/CardRenderer.vue';
 import axios from 'axios';
+
+import {
+    renderDesignToCanvas,
+    renderBorderLayer,
+    renderOrnamentLayer,
+    renderPatternLayer,
+    renderShapeLayer,
+    renderImageLayer,
+    renderTextLayer,
+    resolvePlaceholders,
+} from '@/services/renderDesign';
+import {
+    resolveColor,
+    deriveHarmoniousPalette,
+    applyPalette,
+    DEFAULT_PALETTE,
+} from '@/services/paletteResolver';
+import {
+    getAllOrnaments,
+    getAllSets,
+    getAllTags,
+    findOrnament,
+    loadTintedSvg,
+} from '@/services/ornamentRegistry';
+import { getCachedTintedImage, clearRasterCache } from '@/services/rasterCache';
+import { renderBackgroundToContext } from '@/services/backgroundRenderer';
 
 const props = defineProps({
     event: {
@@ -24,9 +51,25 @@ const props = defineProps({
         type: Object,
         default: null,
     },
+    initialTemplateDesign: {
+        type: Object,
+        default: null,
+    },
     categories: {
         type: Array,
         default: () => [],
+    },
+    curatedPalettes: {
+        type: Array,
+        default: () => [],
+    },
+    allPalettes: {
+        type: Object,
+        default: () => ({}),
+    },
+    cardLanguage: {
+        type: String,
+        default: 'en', // 'en' | 'am' | 'both'
     },
     hasRemoveBranding: {
         type: Boolean,
@@ -42,20 +85,35 @@ const props = defineProps({
     },
 });
 
-// Deep clone design to make it locally reactive and editable
-const design = ref(JSON.parse(JSON.stringify(props.design || {
-    version: 1,
-    width: 1080,
-    height: 1528,
-    background: { type: 'color', value: '#18181B' },
-    layers: [],
-})));
+// Normalize design to v2 contract
+const normalizeDesign = (raw) => {
+    const clone = JSON.parse(JSON.stringify(raw || {}));
+    if (!clone.version || clone.version < 2) {
+        clone.version = 2;
+    }
+    if (!clone.width) clone.width = 1080;
+    if (!clone.height) clone.height = 1528;
+    if (!clone.palette || typeof clone.palette !== 'object') {
+        clone.palette = { ...DEFAULT_PALETTE };
+    }
+    if (!clone.background || typeof clone.background !== 'object') {
+        clone.background = { type: 'color', value: '@bg' };
+    }
+    if (!clone.background.texture) {
+        clone.background.texture = { kind: 'none', opacity: 0.08, seed: 1 };
+    }
+    if (clone.background.vignette === undefined) {
+        clone.background.vignette = 0;
+    }
+    if (!Array.isArray(clone.layers)) {
+        clone.layers = [];
+    }
+    return clone;
+};
 
-// Ensure design.layers is an array
-if (!Array.isArray(design.value.layers)) {
-    design.value.layers = [];
-}
-
+// Locally reactive design state
+const design = ref(normalizeDesign(props.design));
+const currentCardLang = ref(props.cardLanguage || 'en');
 const currentTemplateId = ref(props.template?.id || props.event?.template_id || null);
 
 // Viewport & Zoom State
@@ -71,10 +129,11 @@ const saveTimeout = ref(null);
 
 // Selection State
 const selectedLayerIds = ref([]);
-const activeSidebarTab = ref('insert'); // 'insert' | 'layers' | 'templates'
-const mobileTab = ref(null); // 'tools' | 'properties' | null (mobile drawer)
+const activeSidebarTab = ref('insert'); // 'insert' | 'ornaments' | 'palette' | 'layers' | 'templates'
+const mobileTab = ref(null); // 'tools' | 'ornaments' | 'palette' | 'layers' | 'properties' | null
 const showGuestModal = ref(false);
 const guestModalMessage = ref('');
+const showResetModal = ref(false);
 const overflowWarnings = ref([]);
 
 // Snapping Guide Lines
@@ -90,9 +149,51 @@ const history = ref([]);
 const historyIndex = ref(-1);
 const isHistoryNavigating = ref(false);
 
+// Background offscreen canvas cache for 60fps mobile drag
+let bgOffscreenCanvas = null;
+
+// Palette Tools
+const singleColorPicker = ref('#800020');
+const PALETTE_ROLES = [
+    { key: 'bg', label: 'Background (@bg)', role: '@bg' },
+    { key: 'surface', label: 'Card Surface (@surface)', role: '@surface' },
+    { key: 'primary', label: 'Primary Accent (@primary)', role: '@primary' },
+    { key: 'secondary', label: 'Secondary Gold (@secondary)', role: '@secondary' },
+    { key: 'accent', label: 'Decorative Accent (@accent)', role: '@accent' },
+    { key: 'ink', label: 'Body Text (@ink)', role: '@ink' },
+    { key: 'muted', label: 'Subtext & Borders (@muted)', role: '@muted' },
+];
+
+// Ornament Search & Filters
+const ornamentSearch = ref('');
+const ornamentSelectedSet = ref('all');
+const ornamentSelectedTag = ref('all');
+const allAvailableSets = computed(() => ['all', ...getAllSets()]);
+const allAvailableTags = computed(() => ['all', ...getAllTags().slice(0, 24)]);
+
+const filteredOrnaments = computed(() => {
+    let list = getAllOrnaments();
+    if (ornamentSelectedSet.value !== 'all') {
+        list = list.filter(o => o.set === ornamentSelectedSet.value);
+    }
+    if (ornamentSelectedTag.value !== 'all') {
+        list = list.filter(o => o.tags && o.tags.includes(ornamentSelectedTag.value));
+    }
+    if (ornamentSearch.value.trim()) {
+        const q = ornamentSearch.value.toLowerCase().trim();
+        list = list.filter(o =>
+            o.id.toLowerCase().includes(q) ||
+            (o.name_en && o.name_en.toLowerCase().includes(q)) ||
+            (o.name_am && o.name_am.includes(q)) ||
+            (o.tags && o.tags.some(t => t.toLowerCase().includes(q)))
+        );
+    }
+    return list;
+});
+
 const AVAILABLE_FONTS = [
-    { name: 'Noto Sans Ethiopic', label: 'Noto Sans Ethiopic (ኢትዮጵያ / Sans)', sample: 'እንኳን ደስ አላችሁ • Celebrate' },
-    { name: 'Noto Serif Ethiopic', label: 'Noto Serif Ethiopic (ኢትዮጵያ / Serif)', sample: 'የክብር ግብዣ • Formal' },
+    { name: 'Noto Serif Ethiopic', label: 'Noto Serif Ethiopic (የክብር ግብዣ • Serif)', sample: 'የክብር ግብዣ • Formal' },
+    { name: 'Noto Sans Ethiopic', label: 'Noto Sans Ethiopic (እንኳን ደስ አላችሁ • Sans)', sample: 'እንኳን ደስ አላችሁ • Celebrate' },
     { name: 'Cinzel', label: 'Cinzel (Classical Roman)', sample: 'CLASSICAL & NOBLE' },
     { name: 'Playfair Display', label: 'Playfair Display (Editorial Serif)', sample: 'Love, Joy & Elegance' },
     { name: 'Great Vibes', label: 'Great Vibes (Formal Calligraphy)', sample: 'Cordially Invites You' },
@@ -101,31 +202,7 @@ const AVAILABLE_FONTS = [
     { name: 'Caveat', label: 'Caveat (Warm Handwritten)', sample: 'Special Day With Us' },
 ];
 
-const COLOR_PALETTES = [
-    { name: 'Ethiopian Gold', value: '#D4AF37' },
-    { name: 'Warm Amber', value: '#F59E0B' },
-    { name: 'Pure White', value: '#FFFFFF' },
-    { name: 'Off White', value: '#F4F4F5' },
-    { name: 'Rich Black', value: '#18181B' },
-    { name: 'Deep Onyx', value: '#09090B' },
-    { name: 'Emerald Green', value: '#059669' },
-    { name: 'Forest Green', value: '#064E3B' },
-    { name: 'Royal Navy', value: '#1E3A8A' },
-    { name: 'Burgundy Wine', value: '#831843' },
-    { name: 'Rose Gold', value: '#FB7185' },
-    { name: 'Champagne Cream', value: '#F7E7CE' },
-    { name: 'Charcoal', value: '#3F3F46' },
-];
-
-const GRADIENT_PRESETS = [
-    { label: 'Dark Gold Horizon', start: '#2A2008', end: '#0A0802' },
-    { label: 'Obsidian Velvet', start: '#18181B', end: '#09090B' },
-    { label: 'Royal Emerald', start: '#064E3B', end: '#022C22' },
-    { label: 'Deep Burgundy', start: '#4C0519', end: '#1F020A' },
-    { label: 'Midnight Blue', start: '#1E293B', end: '#0F172A' },
-];
-
-// Target save endpoint
+// Save Endpoint URL
 const saveUrl = computed(() => {
     if (!props.event) return null;
     return props.target === 'thank_you'
@@ -133,13 +210,13 @@ const saveUrl = computed(() => {
         : route('events.design.update', { event: props.event.id });
 });
 
-// Currently selected primary layer
+// Primary selected layer
 const primarySelectedLayer = computed(() => {
     if (selectedLayerIds.value.length === 0) return null;
     return design.value.layers.find(l => l.id === selectedLayerIds.value[0]) || null;
 });
 
-// Canvas Size
+// Canvas dimensions
 const canvasWidth = computed(() => design.value.width || 1080);
 const canvasHeight = computed(() => design.value.height || 1528);
 
@@ -148,43 +225,30 @@ const stageConfig = computed(() => ({
     height: canvasHeight.value,
 }));
 
-// Background configuration
-const backgroundConfig = computed(() => {
-    const bg = design.value.background || { type: 'color', value: '#18181B' };
+// Effective Palette
+const effectivePalette = computed(() => ({
+    ...DEFAULT_PALETTE,
+    ...(design.value.palette || {}),
+}));
+
+// Pre-render background onto offscreen canvas for 60fps performance
+const updateBackgroundCache = () => {
+    if (typeof document === 'undefined') return;
     const w = canvasWidth.value;
     const h = canvasHeight.value;
 
-    if (bg.type === 'color') {
-        return {
-            x: 0,
-            y: 0,
-            width: w,
-            height: h,
-            fill: bg.value || '#18181B',
-        };
+    if (!bgOffscreenCanvas) {
+        bgOffscreenCanvas = document.createElement('canvas');
     }
+    bgOffscreenCanvas.width = w;
+    bgOffscreenCanvas.height = h;
 
-    if (bg.type === 'gradient') {
-        const stops = bg.gradientStops || [0, bg.value || '#2A2008', 1, '#09090B'];
-        return {
-            x: 0,
-            y: 0,
-            width: w,
-            height: h,
-            fillLinearGradientStartPoint: { x: 0, y: 0 },
-            fillLinearGradientEndPoint: { x: 0, y: h },
-            fillLinearGradientColorStops: stops,
-        };
+    const ctx = bgOffscreenCanvas.getContext('2d');
+    if (ctx) {
+        ctx.clearRect(0, 0, w, h);
+        renderBackgroundToContext(ctx, w, h, design.value.background, effectivePalette.value);
     }
-
-    return {
-        x: 0,
-        y: 0,
-        width: w,
-        height: h,
-        fill: '#18181B',
-    };
-});
+};
 
 // Preload Images
 const preloadImages = () => {
@@ -196,6 +260,7 @@ const preloadImages = () => {
             loadImage(layer.src);
         }
     }
+    updateBackgroundCache();
 };
 
 const loadImage = (src) => {
@@ -212,60 +277,26 @@ const loadImage = (src) => {
     img.src = src;
 };
 
-// Placeholder Text Replacement
+// Placeholder resolver helper
 const resolveText = (rawText) => {
-    if (!rawText) return '';
-    let result = String(rawText);
-    const replacements = {
-        '{{guest_name}}': props.eventData?.guest_name || 'Almaz Bekele',
-        '{{event_title}}': props.event?.title || props.eventData?.event_title || 'Grand Celebration',
-        '{{date}}': props.eventData?.date || 'Saturday, October 24, 2027',
-        '{{time}}': props.eventData?.time || '4:00 PM',
-        '{{venue}}': props.event?.venue_name || props.eventData?.venue || 'Sheraton Addis, Addis Ababa',
-        '{{host_names}}': props.event?.host_names || props.eventData?.host_names || 'Abebe & Chaltu',
-    };
-
-    for (const [key, val] of Object.entries(replacements)) {
-        const token = key.startsWith('{{') ? key : `{{${key}}}`;
-        result = result.replaceAll(token, String(val ?? ''));
-    }
-    return result;
+    return resolvePlaceholders(rawText, {
+        guest_name: props.eventData?.guest_name || 'Almaz Bekele',
+        event_title: props.event?.title || props.eventData?.event_title || 'Grand Celebration',
+        date: props.eventData?.date || 'Saturday, October 24, 2027',
+        time: props.eventData?.time || '4:00 PM',
+        venue: props.event?.venue_name || props.eventData?.venue || 'Sheraton Addis, Addis Ababa',
+        host_names: props.event?.host_names || props.eventData?.host_names || 'Abebe & Chaltu',
+    });
 };
 
-// Check for text box overflows
-const checkTextOverflows = () => {
-    overflowWarnings.value = [];
-    if (!stageRef.value) return;
-    const stage = stageRef.value.getNode();
-    if (!stage) return;
-
-    for (const layer of design.value.layers) {
-        if (layer.type === 'text') {
-            const node = stage.findOne(`#${layer.id}`);
-            if (node && layer.height > 0) {
-                const textHeight = node.textHeight || (node.textArr?.length * (layer.fontSize * (layer.lineHeight || 1.3)));
-                if (textHeight > layer.height + 4) {
-                    overflowWarnings.value.push({
-                        id: layer.id,
-                        text: resolveText(layer.text).substring(0, 32) + '...',
-                        overflow: Math.round(textHeight - layer.height),
-                    });
-                }
-            }
-        }
-    }
-};
-
-// History Recording
+// History recording
 const recordHistory = () => {
     if (isHistoryNavigating.value) return;
 
-    // Prune forward states if we navigated back
     const cloned = JSON.parse(JSON.stringify(design.value));
     const newHistory = history.value.slice(0, historyIndex.value + 1);
     newHistory.push(cloned);
 
-    // Limit to 50 steps
     if (newHistory.length > 50) {
         newHistory.shift();
     }
@@ -273,6 +304,7 @@ const recordHistory = () => {
     history.value = newHistory;
     historyIndex.value = newHistory.length - 1;
 
+    updateBackgroundCache();
     markDirty();
 };
 
@@ -304,10 +336,10 @@ const redo = () => {
     }
 };
 
-// Auto-fit Zoom calculation
+// Auto-fit Zoom
 const calculateFitZoom = () => {
     if (!canvasContainerRef.value) return;
-    const containerW = canvasContainerRef.value.clientWidth - 48; // padding
+    const containerW = canvasContainerRef.value.clientWidth - 48;
     const containerH = canvasContainerRef.value.clientHeight - 48;
     if (containerW <= 0 || containerH <= 0) return;
 
@@ -326,10 +358,9 @@ const markDirty = () => {
         clearTimeout(saveTimeout.value);
     }
 
-    // Debounce save 5s
     saveTimeout.value = setTimeout(() => {
         performSave();
-    }, 5000);
+    }, 3000);
 };
 
 const performSave = async () => {
@@ -339,11 +370,12 @@ const performSave = async () => {
             localStorage.setItem('invite_guest_draft', JSON.stringify({
                 template_id: currentTemplateId.value,
                 design_json: design.value,
+                card_language: currentCardLang.value,
                 updated_at: new Date().toISOString(),
             }));
             saveStatus.value = 'saved';
             isDirty.value = false;
-        } catch (e) {
+        } catch {
             saveStatus.value = 'error';
         }
         return;
@@ -356,15 +388,16 @@ const performSave = async () => {
         await axios.patch(saveUrl.value, {
             design: design.value,
             template_id: currentTemplateId.value,
+            card_language: currentCardLang.value,
         });
         saveStatus.value = 'saved';
         isDirty.value = false;
-    } catch (e) {
+    } catch {
         saveStatus.value = 'error';
     }
 };
 
-// Layer Selection & Transformer Management
+// Transformer and Selection
 const updateTransformer = () => {
     if (!transformerRef.value || !stageRef.value) return;
     const transformer = transformerRef.value.getNode();
@@ -381,7 +414,7 @@ const updateTransformer = () => {
         .filter(Boolean)
         .filter(node => {
             const layer = design.value.layers.find(l => l.id === node.id());
-            return layer && !layer.locked;
+            return layer && !layer.locked && !layer.hidden;
         });
 
     transformer.nodes(selectedNodes);
@@ -415,14 +448,13 @@ const deselectAll = () => {
 };
 
 const handleStageClick = (e) => {
-    // If clicked on stage or background rect, deselect
-    const clickedOnEmpty = e.target === e.target.getStage() || e.target.name() === 'background-rect' || e.target.name() === 'background-image';
+    const clickedOnEmpty = e.target === e.target.getStage() || e.target.name() === 'background-shape';
     if (clickedOnEmpty) {
         deselectAll();
     }
 };
 
-// Node drag and transform handlers
+// Snapping and dragging
 const handleDragStart = (e) => {
     const id = e.target.id();
     if (!selectedLayerIds.value.includes(id)) {
@@ -432,7 +464,7 @@ const handleDragStart = (e) => {
 };
 
 const handleDragMove = (e, layer) => {
-    if (layer.locked) return;
+    if (layer.locked || layer.hidden) return;
 
     const node = e.target;
     const threshold = 12;
@@ -446,13 +478,13 @@ const handleDragMove = (e, layer) => {
 
     const guides = [];
 
-    // Horizontal center snap (X center)
+    // Horizontal center snap
     if (Math.abs(centerX - stageW / 2) < threshold) {
         node.x(stageW / 2 - layerW / 2);
         guides.push({ points: [stageW / 2, 0, stageW / 2, stageH], stroke: '#D4AF37' });
     }
 
-    // Vertical center snap (Y center)
+    // Vertical center snap
     if (Math.abs(centerY - stageH / 2) < threshold) {
         node.y(stageH / 2 - layerH / 2);
         guides.push({ points: [0, stageH / 2, stageW, stageH / 2], stroke: '#D4AF37' });
@@ -503,44 +535,168 @@ const handleTransformEnd = (e, layer) => {
     recordHistory();
 };
 
-// Layer Operations
+// Configuration for each layer rendered on the Konva stage via custom sceneFunc
+const getKonvaLayerConfig = (layer) => {
+    const isHidden = !!layer.hidden;
+    const isLocked = !!layer.locked;
+
+    return {
+        id: layer.id,
+        name: layer.id,
+        x: layer.x,
+        y: layer.y,
+        width: layer.width || 100,
+        height: layer.height || 100,
+        rotation: layer.rotation || 0,
+        opacity: isHidden ? 0 : (layer.opacity !== undefined ? layer.opacity : 1),
+        draggable: !isPreviewMode.value && !isLocked && !isHidden,
+        listening: !isPreviewMode.value && !isHidden,
+        hitFunc: (context, shape) => {
+            context.beginPath();
+            context.rect(0, 0, shape.width(), shape.height());
+            context.closePath();
+            context.fillStrokeShape(shape);
+        },
+        sceneFunc: (context, shape) => {
+            if (isHidden) return;
+            const ctx = context._context;
+            const w = shape.width();
+            const h = shape.height();
+
+            ctx.save();
+
+            // Flip X & Y
+            if (layer.flipX || layer.flipY) {
+                const cx = w / 2;
+                const cy = h / 2;
+                ctx.translate(cx, cy);
+                ctx.scale(layer.flipX ? -1 : 1, layer.flipY ? -1 : 1);
+                ctx.translate(-cx, -cy);
+            }
+
+            if (layer.blendMode && layer.blendMode !== 'normal') {
+                ctx.globalCompositeOperation = layer.blendMode;
+            }
+
+            const pal = effectivePalette.value;
+            const renderOptions = {
+                data: props.eventData,
+                lang: currentCardLang.value,
+                palette: pal,
+                scale: 1,
+            };
+
+            switch (layer.type) {
+                case 'ornament': {
+                    const cached = getCachedTintedImage(
+                        layer.assetId,
+                        layer.tint,
+                        pal,
+                        () => {
+                            stageRef.value?.getNode()?.batchDraw();
+                        }
+                    );
+                    if (cached) {
+                        ctx.drawImage(cached, 0, 0, w, h);
+                    }
+                    break;
+                }
+                case 'border':
+                    renderBorderLayer(ctx, layer, 0, 0, w, h, 1, pal);
+                    break;
+                case 'pattern':
+                    renderPatternLayer(ctx, layer, 0, 0, w, h, 1, pal, {
+                        ...renderOptions,
+                        svgRasterizer: (svgStr, tw, th) => {
+                            return getCachedTintedImage(layer.assetId, layer.tint, pal);
+                        },
+                    });
+                    break;
+                case 'shape':
+                    renderShapeLayer(ctx, layer, 0, 0, w, h, 1, pal);
+                    break;
+                case 'image':
+                    if (loadedImages.value[layer.src]) {
+                        renderImageLayer(ctx, layer, 0, 0, w, h, 1, {
+                            ...renderOptions,
+                            imageLoader: () => loadedImages.value[layer.src],
+                        });
+                    } else if (layer.src) {
+                        loadImage(layer.src);
+                    }
+                    break;
+                case 'text':
+                    renderTextLayer(ctx, layer, 0, 0, w, h, 1, currentCardLang.value, pal, renderOptions);
+                    break;
+                case 'group':
+                    if (Array.isArray(layer.children)) {
+                        for (const child of layer.children) {
+                            ctx.save();
+                            ctx.translate(child.x, child.y);
+                            renderShapeLayer(ctx, child, 0, 0, child.width, child.height, 1, pal);
+                            ctx.restore();
+                        }
+                    }
+                    break;
+            }
+
+            ctx.restore();
+            context.fillStrokeShape(shape);
+        },
+    };
+};
+
+// Add Element Handlers
 const addTextLayer = (preset = 'heading') => {
     const id = crypto.randomUUID();
     let text = 'የክብር ግብዣ';
-    let fontSize = 56;
+    let am = 'የክብር ግብዣ';
+    let en = 'Cordially Invites You';
+    let fontSize = 48;
     let fontWeight = 700;
-    let fontFamily = 'Noto Sans Ethiopic';
+    let fontFamily = 'Noto Serif Ethiopic';
 
     if (preset === 'subheading') {
         text = 'Cordially Invites You';
-        fontSize = 38;
+        am = 'በታላቅ ደስታ ይጋብዝዎታል';
+        en = 'Cordially Invites You';
+        fontSize = 32;
         fontWeight = 400;
         fontFamily = 'Playfair Display';
     } else if (preset === 'body') {
         text = 'To celebrate our joyous union with dinner, dancing & blessing';
-        fontSize = 26;
+        am = 'በዚህ ታላቅ የደስታ ቀን አብረውን እንዲያከብሩ ጥሪያችንን እናቀርባለን';
+        en = 'To celebrate our joyous union with dinner, dancing & blessing';
+        fontSize = 24;
         fontWeight = 400;
         fontFamily = 'Noto Sans Ethiopic';
     }
 
     const newLayer = {
         id,
+        name: `Text (${preset})`,
         type: 'text',
         x: 140,
         y: 400 + (design.value.layers.length * 30),
         width: 800,
-        height: 120,
+        height: 100,
         rotation: 0,
         opacity: 1,
         locked: false,
         text,
+        i18n: { en, am },
         fontFamily,
         fontSize,
         fontWeight,
-        fill: '#FAFAFA',
+        fill: '@ink',
         align: 'center',
         lineHeight: 1.3,
         letterSpacing: 0,
+        curve: 0,
+        stroke: null,
+        strokeWidth: 0,
+        shadow: null,
+        autoFit: null,
     };
 
     design.value.layers.push(newLayer);
@@ -550,12 +706,18 @@ const addTextLayer = (preset = 'heading') => {
 
 const insertPlaceholder = (token) => {
     if (primarySelectedLayer.value && primarySelectedLayer.value.type === 'text') {
-        primarySelectedLayer.value.text += ` ${token}`;
+        if (primarySelectedLayer.value.i18n) {
+            primarySelectedLayer.value.i18n.en = (primarySelectedLayer.value.i18n.en || '') + ` ${token}`;
+            primarySelectedLayer.value.i18n.am = (primarySelectedLayer.value.i18n.am || '') + ` ${token}`;
+        } else {
+            primarySelectedLayer.value.text = (primarySelectedLayer.value.text || '') + ` ${token}`;
+        }
         recordHistory();
     } else {
         const id = crypto.randomUUID();
         const newLayer = {
             id,
+            name: `Token ${token}`,
             type: 'text',
             x: 140,
             y: 500,
@@ -565,10 +727,11 @@ const insertPlaceholder = (token) => {
             opacity: 1,
             locked: false,
             text: token,
-            fontFamily: 'Noto Sans Ethiopic',
-            fontSize: 42,
+            i18n: { en: token, am: token },
+            fontFamily: 'Noto Serif Ethiopic',
+            fontSize: 40,
             fontWeight: 600,
-            fill: '#D4AF37',
+            fill: '@primary',
             align: 'center',
             lineHeight: 1.2,
             letterSpacing: 0,
@@ -579,50 +742,117 @@ const insertPlaceholder = (token) => {
     }
 };
 
-const addShapeLayer = (shape = 'rect') => {
+const addOrnamentLayer = (ornament) => {
     const id = crypto.randomUUID();
-    let layerData = {
+    const aspect = ornament.defaultAspect || 1;
+    const width = 240;
+    const height = Math.round(240 / aspect);
+
+    const newLayer = {
         id,
-        type: 'shape',
-        shape,
-        x: 390,
-        y: 550,
-        width: 300,
-        height: 200,
+        name: ornament.name_en,
+        type: 'ornament',
+        assetId: ornament.id,
+        tint: {
+            c1: '@primary',
+            c2: '@secondary',
+            c3: '@accent',
+        },
+        x: Math.round((canvasWidth.value - width) / 2),
+        y: Math.round((canvasHeight.value - height) / 2),
+        width,
+        height,
         rotation: 0,
         opacity: 1,
         locked: false,
-        fill: 'transparent',
-        stroke: '#D4AF37',
-        strokeWidth: 2,
+        flipX: false,
+        flipY: false,
+        blendMode: 'normal',
     };
 
-    if (shape === 'line') {
-        layerData = {
-            ...layerData,
-            width: 400,
-            height: 4,
-            strokeWidth: 2,
-        };
-    } else if (shape === 'circle') {
-        layerData = {
-            ...layerData,
-            width: 250,
-            height: 250,
-        };
-    }
-
-    design.value.layers.push(layerData);
+    design.value.layers.push(newLayer);
     recordHistory();
     selectLayer(id);
 };
 
+const addBorderLayer = (style = 'double-rule') => {
+    const id = crypto.randomUUID();
+    const newLayer = {
+        id,
+        name: `Border (${style})`,
+        type: 'border',
+        style,
+        x: 0,
+        y: 0,
+        width: canvasWidth.value,
+        height: canvasHeight.value,
+        inset: 48,
+        stroke: '@primary',
+        strokeWidth: 2,
+        gap: 6,
+        rotation: 0,
+        opacity: 1,
+        locked: false,
+    };
+
+    design.value.layers.push(newLayer);
+    recordHistory();
+    selectLayer(id);
+};
+
+const addPatternLayer = (assetId = 'tilet-corner-01') => {
+    const id = crypto.randomUUID();
+    const newLayer = {
+        id,
+        name: 'Pattern Band',
+        type: 'pattern',
+        assetId,
+        x: 0,
+        y: 40,
+        width: canvasWidth.value,
+        height: 60,
+        tileWidth: 60,
+        tileHeight: 60,
+        gapX: 4,
+        gapY: 0,
+        tint: { c1: '@primary', c2: '@secondary' },
+        rotation: 0,
+        opacity: 1,
+        locked: false,
+    };
+
+    design.value.layers.push(newLayer);
+    recordHistory();
+    selectLayer(id);
+};
+
+const addShapeLayer = (shape = 'rect') => {
+    const id = crypto.randomUUID();
+    const newLayer = {
+        id,
+        name: `Shape (${shape})`,
+        type: 'shape',
+        shape,
+        x: 390,
+        y: 550,
+        width: shape === 'line' ? 300 : 200,
+        height: shape === 'line' ? 4 : 200,
+        rotation: 0,
+        opacity: 1,
+        locked: false,
+        fill: shape === 'line' ? '@secondary' : 'transparent',
+        stroke: '@primary',
+        strokeWidth: 2,
+        cornerRadius: 4,
+    };
+
+    design.value.layers.push(newLayer);
+    recordHistory();
+    selectLayer(id);
+};
+
+// Image Upload
 const promptImageUpload = () => {
-    if (props.isGuest) {
-        guestModalMessage.value = 'Upload custom images with an Invite account. Register now and your card draft will be safely imported!';
-        showGuestModal.value = true;
-        return;
-    }
     imageFileInput.value?.click();
 };
 
@@ -630,308 +860,230 @@ const handleImageUpload = async (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const formData = new FormData();
-    formData.append('image', file);
-
-    try {
-        saveStatus.value = 'saving';
-        const res = await axios.post(route('editor.upload-image'), formData, {
-            headers: { 'Content-Type': 'multipart/form-data' },
-        });
-
-        const id = crypto.randomUUID();
-        const newLayer = {
-            id,
-            type: 'image',
-            src: res.data.url,
-            x: 290,
-            y: 400,
-            width: 500,
-            height: 500,
-            rotation: 0,
-            opacity: 1,
-            locked: false,
-        };
-
-        loadImage(res.data.url);
-        design.value.layers.push(newLayer);
-        recordHistory();
-        selectLayer(id);
-        saveStatus.value = 'saved';
-    } catch (err) {
-        alert(err.response?.data?.message || 'Failed to upload image. Please try another image file.');
-        saveStatus.value = 'error';
-    } finally {
-        if (e.target) e.target.value = '';
-    }
-};
-
-const promptReplaceImage = () => {
     if (props.isGuest) {
-        guestModalMessage.value = 'Sign up to upload and replace custom photos!';
-        showGuestModal.value = true;
+        const reader = new FileReader();
+        reader.onload = (loadEvent) => {
+            const dataUrl = loadEvent.target.result;
+            insertImageLayer(dataUrl);
+        };
+        reader.readAsDataURL(file);
         return;
     }
-    replaceImageFileInput.value?.click();
-};
-
-const handleReplaceImage = async (e) => {
-    const file = e.target.files?.[0];
-    if (!file || !primarySelectedLayer.value) return;
 
     const formData = new FormData();
     formData.append('image', file);
 
     try {
-        saveStatus.value = 'saving';
-        const res = await axios.post(route('editor.upload-image'), formData, {
+        const res = await axios.post(route('events.design.upload-image'), formData, {
             headers: { 'Content-Type': 'multipart/form-data' },
         });
-
-        primarySelectedLayer.value.src = res.data.url;
-        loadImage(res.data.url);
-        recordHistory();
-        saveStatus.value = 'saved';
-    } catch (err) {
-        alert(err.response?.data?.message || 'Failed to replace image.');
-        saveStatus.value = 'error';
-    } finally {
-        if (e.target) e.target.value = '';
+        if (res.data?.url) {
+            insertImageLayer(res.data.url);
+        }
+    } catch {
+        alert('Failed to upload image. Please try again.');
     }
 };
 
-const duplicateSelected = () => {
-    if (!primarySelectedLayer.value) return;
-    const clone = JSON.parse(JSON.stringify(primarySelectedLayer.value));
-    clone.id = crypto.randomUUID();
-    clone.x += 24;
-    clone.y += 24;
-    design.value.layers.push(clone);
+const insertImageLayer = (src) => {
+    const id = crypto.randomUUID();
+    const newLayer = {
+        id,
+        name: 'Photo',
+        type: 'image',
+        src,
+        x: 340,
+        y: 500,
+        width: 400,
+        height: 400,
+        mask: 'circle',
+        maskOffsetX: 0,
+        maskOffsetY: 0,
+        rotation: 0,
+        opacity: 1,
+        locked: false,
+    };
+
+    loadImage(src);
+    design.value.layers.push(newLayer);
     recordHistory();
-    selectLayer(clone.id);
+    selectLayer(id);
 };
 
-const deleteSelected = () => {
-    if (selectedLayerIds.value.length === 0) return;
-    design.value.layers = design.value.layers.filter(l => !selectedLayerIds.value.includes(l.id));
-    deselectAll();
+// Palette Operations (Task 4)
+const selectAlternatePalette = (pal) => {
+    design.value = applyPalette(design.value, {
+        bg: pal.bg,
+        surface: pal.surface,
+        primary: pal.primary,
+        secondary: pal.secondary,
+        accent: pal.accent,
+        ink: pal.ink,
+        muted: pal.muted,
+    });
+    updateBackgroundCache();
     recordHistory();
+    stageRef.value?.getNode()?.batchDraw();
 };
 
-const toggleLockSelected = () => {
-    if (!primarySelectedLayer.value) return;
-    primarySelectedLayer.value.locked = !primarySelectedLayer.value.locked;
+const updatePaletteRole = (role, newHex) => {
+    if (!design.value.palette) {
+        design.value.palette = { ...DEFAULT_PALETTE };
+    }
+    design.value.palette[role] = newHex;
+    updateBackgroundCache();
+    recordHistory();
+    stageRef.value?.getNode()?.batchDraw();
+};
+
+const generateFromSingleColor = () => {
+    const newPalette = deriveHarmoniousPalette(singleColorPicker.value);
+    design.value = applyPalette(design.value, newPalette);
+    updateBackgroundCache();
+    recordHistory();
+    stageRef.value?.getNode()?.batchDraw();
+};
+
+// Reset to Template (Task 9)
+const handleResetToTemplate = () => {
+    const original = props.initialTemplateDesign || props.template?.design_json;
+    if (original) {
+        design.value = normalizeDesign(original);
+        recordHistory();
+        updateBackgroundCache();
+        selectedLayerIds.value = [];
+        showResetModal.value = false;
+        stageRef.value?.getNode()?.batchDraw();
+    }
+};
+
+// Layer Reordering & Management (Task 2)
+const moveLayerUp = (id) => {
+    const idx = design.value.layers.findIndex(l => l.id === id);
+    if (idx < design.value.layers.length - 1) {
+        const item = design.value.layers.splice(idx, 1)[0];
+        design.value.layers.splice(idx + 1, 0, item);
+        recordHistory();
+    }
+};
+
+const moveLayerDown = (id) => {
+    const idx = design.value.layers.findIndex(l => l.id === id);
+    if (idx > 0) {
+        const item = design.value.layers.splice(idx, 1)[0];
+        design.value.layers.splice(idx - 1, 0, item);
+        recordHistory();
+    }
+};
+
+const deleteLayer = (id) => {
+    design.value.layers = design.value.layers.filter(l => l.id !== id);
+    selectedLayerIds.value = selectedLayerIds.value.filter(selId => selId !== id);
     recordHistory();
     nextTick(() => updateTransformer());
 };
 
-const reorderLayer = (direction) => {
-    if (!primarySelectedLayer.value) return;
-    const index = design.value.layers.findIndex(l => l.id === primarySelectedLayer.value.id);
-    if (index === -1) return;
+const groupSelectedLayers = () => {
+    if (selectedLayerIds.value.length < 2) return;
+    const ids = [...selectedLayerIds.value];
+    const children = design.value.layers.filter(l => ids.includes(l.id));
+    const remaining = design.value.layers.filter(l => !ids.includes(l.id));
 
-    const layers = [...design.value.layers];
-    const item = layers.splice(index, 1)[0];
-
-    if (direction === 'front') {
-        layers.push(item);
-    } else if (direction === 'back') {
-        layers.unshift(item);
-    } else if (direction === 'forward') {
-        layers.splice(Math.min(layers.length, index + 1), 0, item);
-    } else if (direction === 'backward') {
-        layers.splice(Math.max(0, index - 1), 0, item);
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    for (const c of children) {
+        minX = Math.min(minX, c.x);
+        minY = Math.min(minY, c.y);
+        maxX = Math.max(maxX, c.x + c.width);
+        maxY = Math.max(maxY, c.y + c.height);
     }
 
-    design.value.layers = layers;
+    const groupId = crypto.randomUUID();
+    const groupLayer = {
+        id: groupId,
+        name: `Group (${children.length})`,
+        type: 'group',
+        x: minX,
+        y: minY,
+        width: Math.max(20, maxX - minX),
+        height: Math.max(20, maxY - minY),
+        rotation: 0,
+        opacity: 1,
+        locked: false,
+        children: children.map(c => ({
+            ...c,
+            x: c.x - minX,
+            y: c.y - minY,
+        })),
+    };
+
+    remaining.push(groupLayer);
+    design.value.layers = remaining;
+    selectedLayerIds.value = [groupId];
     recordHistory();
+    nextTick(() => updateTransformer());
 };
 
-// Switch Template
-const applyTemplate = (tmpl) => {
-    if (!confirm('Applying a new template will replace your current design canvas. Continue?')) {
-        return;
-    }
-    currentTemplateId.value = tmpl.id;
-    design.value = JSON.parse(JSON.stringify(tmpl.design_json));
-    preloadImages();
-    deselectAll();
+const ungroupSelectedLayer = () => {
+    if (!primarySelectedLayer.value || primarySelectedLayer.value.type !== 'group') return;
+    const group = primarySelectedLayer.value;
+    const idx = design.value.layers.findIndex(l => l.id === group.id);
+    if (idx === -1) return;
+
+    const unpacked = (group.children || []).map(c => ({
+        ...c,
+        x: c.x + group.x,
+        y: c.y + group.y,
+    }));
+
+    design.value.layers.splice(idx, 1, ...unpacked);
+    selectedLayerIds.value = unpacked.map(u => u.id);
     recordHistory();
+    nextTick(() => updateTransformer());
+};
+
+// Keyboard Shortcuts
+const handleKeyDown = (e) => {
+    const isCtrlOrMeta = e.ctrlKey || e.metaKey;
+    if (isCtrlOrMeta && (e.key === 'z' || e.key === 'Z')) {
+        e.preventDefault();
+        if (e.shiftKey) redo();
+        else undo();
+    } else if (isCtrlOrMeta && (e.key === 'y' || e.key === 'Y')) {
+        e.preventDefault();
+        redo();
+    } else if (e.key === 'Delete' || e.key === 'Backspace') {
+        const active = document.activeElement;
+        const isInput = active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.isContentEditable);
+        if (!isInput && selectedLayerIds.value.length > 0) {
+            e.preventDefault();
+            selectedLayerIds.value.forEach(id => deleteLayer(id));
+        }
+    }
 };
 
 // Export PNG
-const downloadPng = async () => {
+const exportCardPng = () => {
     isExporting.value = true;
     try {
-        const prevSelected = [...selectedLayerIds.value];
-        const prevPreview = isPreviewMode.value;
-
-        // Deselect transformer handles and turn on preview replacements
-        selectedLayerIds.value = [];
-        isPreviewMode.value = true;
-        updateTransformer();
-        await nextTick();
-
-        const stage = stageRef.value?.getNode();
-        if (!stage) return;
-
-        // High resolution 2x export (2160 x 3056 px)
-        const dataUrl = stage.toDataURL({
-            pixelRatio: 2,
-            mimeType: 'image/png',
+        const offscreen = document.createElement('canvas');
+        renderDesignToCanvas(offscreen, design.value, {
+            data: props.eventData,
+            lang: currentCardLang.value,
+            palette: effectivePalette.value,
+            scale: 2,
         });
-
         const link = document.createElement('a');
-        const filename = (props.event?.title || props.template?.name || 'invite')
-            .toLowerCase()
-            .replace(/[^a-z0-9]+/g, '-')
-            + `-${props.target || 'invitation'}.png`;
-
-        link.download = filename;
-        link.href = dataUrl;
-        document.body.appendChild(link);
+        link.download = `${props.event?.title || 'card-design'}.png`;
+        link.href = offscreen.toDataURL('image/png');
         link.click();
-        document.body.removeChild(link);
-
-        selectedLayerIds.value = prevSelected;
-        isPreviewMode.value = prevPreview;
-        nextTick(() => updateTransformer());
+    } catch (err) {
+        alert('Could not export PNG. ' + err.message);
     } finally {
         isExporting.value = false;
     }
 };
 
-// Keyboard Shortcuts
-const handleKeyDown = (e) => {
-    // Don't trigger if user is typing in input or textarea
-    if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) {
-        return;
-    }
-
-    // Undo: Ctrl+Z / Cmd+Z
-    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z' && !e.shiftKey) {
-        e.preventDefault();
-        undo();
-        return;
-    }
-
-    // Redo: Ctrl+Y or Ctrl+Shift+Z / Cmd+Shift+Z
-    if (((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'y') ||
-        ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'z')) {
-        e.preventDefault();
-        redo();
-        return;
-    }
-
-    // Duplicate: Ctrl+D / Cmd+D
-    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'd') {
-        e.preventDefault();
-        duplicateSelected();
-        return;
-    }
-
-    // Delete / Backspace
-    if (e.key === 'Delete' || e.key === 'Backspace') {
-        e.preventDefault();
-        deleteSelected();
-        return;
-    }
-
-    // Arrow keys nudge
-    if (primarySelectedLayer.value && ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
-        e.preventDefault();
-        const step = e.shiftKey ? 10 : 1;
-        if (e.key === 'ArrowUp') primarySelectedLayer.value.y -= step;
-        if (e.key === 'ArrowDown') primarySelectedLayer.value.y += step;
-        if (e.key === 'ArrowLeft') primarySelectedLayer.value.x -= step;
-        if (e.key === 'ArrowRight') primarySelectedLayer.value.x += step;
-        recordHistory();
-        nextTick(() => updateTransformer());
-    }
-};
-
-// Layer Config builder for Konva nodes
-const getLayerConfig = (layer) => {
-    const isSelected = selectedLayerIds.value.includes(layer.id);
-    const base = {
-        id: layer.id,
-        name: layer.id,
-        x: layer.x,
-        y: layer.y,
-        rotation: layer.rotation || 0,
-        opacity: layer.opacity !== undefined ? layer.opacity : 1,
-        draggable: !isPreviewMode.value && !layer.locked,
-        listening: !isPreviewMode.value,
-    };
-
-    if (layer.type === 'text') {
-        const textToDisplay = isPreviewMode.value ? resolveText(layer.text) : layer.text;
-        return {
-            ...base,
-            text: textToDisplay,
-            fontFamily: layer.fontFamily || 'Noto Sans Ethiopic',
-            fontSize: layer.fontSize || 36,
-            fontStyle: layer.fontWeight >= 600 ? 'bold' : 'normal',
-            fill: layer.fill || '#FAFAFA',
-            align: layer.align || 'center',
-            lineHeight: layer.lineHeight || 1.3,
-            letterSpacing: layer.letterSpacing || 0,
-            width: layer.width > 0 ? layer.width : undefined,
-            height: layer.height > 0 ? layer.height : undefined,
-            padding: 6,
-        };
-    }
-
-    if (layer.type === 'shape') {
-        if (layer.shape === 'circle') {
-            const radius = (layer.width || 100) / 2;
-            return {
-                ...base,
-                x: layer.x + radius,
-                y: layer.y + radius,
-                radius: radius,
-                fill: layer.fill || 'transparent',
-                stroke: layer.stroke || '#D4AF37',
-                strokeWidth: layer.strokeWidth !== undefined ? layer.strokeWidth : 2,
-            };
-        }
-
-        if (layer.shape === 'line') {
-            return {
-                ...base,
-                points: [0, 0, layer.width || 200, 0],
-                stroke: layer.stroke || '#D4AF37',
-                strokeWidth: layer.strokeWidth !== undefined ? layer.strokeWidth : 2,
-                lineCap: 'round',
-            };
-        }
-
-        return {
-            ...base,
-            width: layer.width || 100,
-            height: layer.height || 100,
-            fill: layer.fill || 'transparent',
-            stroke: layer.stroke || '#D4AF37',
-            strokeWidth: layer.strokeWidth !== undefined ? layer.strokeWidth : 2,
-            cornerRadius: 4,
-        };
-    }
-
-    if (layer.type === 'image') {
-        return {
-            ...base,
-            width: layer.width || 300,
-            height: layer.height || 300,
-            image: loadedImages.value[layer.src] || null,
-        };
-    }
-
-    return base;
-};
-
-// Lifecycle Hooks
 onMounted(() => {
-    // Record initial history snapshot
     history.value = [JSON.parse(JSON.stringify(design.value))];
     historyIndex.value = 0;
 
@@ -939,190 +1091,188 @@ onMounted(() => {
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('resize', calculateFitZoom);
 
-    // Initial zoom fit
     nextTick(() => {
         calculateFitZoom();
     });
 
-    // Check localStorage if guest mode
     if (props.isGuest) {
         try {
             const stored = localStorage.getItem('invite_guest_draft');
-            if (stored && !props.template) {
+            if (stored) {
                 const parsed = JSON.parse(stored);
                 if (parsed.design_json) {
-                    design.value = parsed.design_json;
-                    currentTemplateId.value = parsed.template_id || null;
-                    preloadImages();
+                    design.value = normalizeDesign(parsed.design_json);
+                    if (parsed.card_language) currentCardLang.value = parsed.card_language;
+                    updateBackgroundCache();
+                    history.value = [JSON.parse(JSON.stringify(design.value))];
                 }
             }
-        } catch (e) {}
+        } catch {
+            // Ignore
+        }
     }
 });
 
 onUnmounted(() => {
     window.removeEventListener('keydown', handleKeyDown);
     window.removeEventListener('resize', calculateFitZoom);
-    if (saveTimeout.value) {
-        clearTimeout(saveTimeout.value);
-    }
+    if (saveTimeout.value) clearTimeout(saveTimeout.value);
+    clearRasterCache();
 });
 
-// Watch preview mode toggle
-watch(isPreviewMode, (active) => {
-    if (active) {
-        deselectAll();
-        nextTick(() => {
-            checkTextOverflows();
-        });
-    } else {
-        overflowWarnings.value = [];
-    }
+watch(() => design.value.palette, () => {
+    updateBackgroundCache();
+}, { deep: true });
+
+watch(() => currentCardLang.value, () => {
+    stageRef.value?.getNode()?.batchDraw();
 });
 </script>
 
 <template>
-    <div class="h-screen w-screen bg-[#0E0E11] text-zinc-100 flex flex-col overflow-hidden select-none font-sans">
-        <Head :title="event ? `${event.title} - Card Editor` : 'Card Editor'" />
+    <div class="h-screen flex flex-col bg-zinc-950 text-zinc-100 font-sans select-none overflow-hidden">
+        <Head :title="event ? `Editor: ${event.title}` : 'Design Card • Invite'" />
 
         <!-- Hidden File Inputs -->
-        <input
-            ref="imageFileInput"
-            type="file"
-            accept="image/png,image/jpeg,image/webp,image/svg+xml"
-            class="hidden"
-            @change="handleImageUpload"
-        />
-        <input
-            ref="replaceImageFileInput"
-            type="file"
-            accept="image/png,image/jpeg,image/webp,image/svg+xml"
-            class="hidden"
-            @change="handleReplaceImage"
-        />
+        <input ref="imageFileInput" type="file" accept="image/*" class="hidden" @change="handleImageUpload" />
+        <input ref="replaceImageFileInput" type="file" accept="image/*" class="hidden" @change="handleImageUpload" />
 
-        <!-- Top Header Bar -->
-        <header class="h-14 bg-zinc-950 border-b border-zinc-800 px-4 flex items-center justify-between shrink-0 z-30">
+        <!-- TOP BAR -->
+        <header class="h-14 bg-zinc-900 border-b border-zinc-800 px-4 flex items-center justify-between z-30 shrink-0">
             <!-- Left: Back link & Title -->
             <div class="flex items-center space-x-3">
                 <Link
-                    :href="event ? route('dashboard') : route('templates.index')"
-                    class="p-2 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-800 transition"
-                    title="Exit Editor"
+                    v-if="event"
+                    :href="route('events.show', { event: event.id })"
+                    class="p-2 rounded-lg text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800 transition"
+                    title="Back to Event"
                 >
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                     </svg>
                 </Link>
+                <Link v-else :href="route('home')" class="p-2 text-zinc-400 hover:text-zinc-100">
+                    <ApplicationLogo class="w-6 h-6 text-[#D4AF37]" />
+                </Link>
+                <div>
+                    <h1 class="text-sm font-semibold text-zinc-200 truncate max-w-[200px] md:max-w-md">
+                        {{ event ? event.title : (template?.name || 'Custom Invitation') }}
+                    </h1>
+                    <div class="flex items-center space-x-2 text-[11px] text-zinc-400">
+                        <span class="capitalize">{{ target === 'thank_you' ? 'Thank-You Card' : 'Invitation Card' }}</span>
+                        <span>•</span>
+                        <span>v2 ({{ canvasWidth }} × {{ canvasHeight }})</span>
+                    </div>
+                </div>
+            </div>
 
-                <div class="flex items-center space-x-2">
-                    <span class="text-sm font-semibold tracking-wide text-zinc-100 max-w-[200px] truncate sm:max-w-xs">
-                        {{ event?.title || template?.name || 'Custom Invitation' }}
-                    </span>
-                    <span
-                        class="text-[11px] font-medium px-2 py-0.5 rounded uppercase tracking-wider"
-                        :class="target === 'thank_you' ? 'bg-amber-950/80 text-amber-300 border border-amber-800/60' : 'bg-zinc-800 text-zinc-300 border border-zinc-700'"
+            <!-- Center: Language Switcher & Save Status -->
+            <div class="flex items-center space-x-3">
+                <!-- Card Language Toggle (Task 5) -->
+                <div class="flex items-center bg-zinc-950 rounded-lg p-0.5 border border-zinc-800 text-xs">
+                    <button
+                        type="button"
+                        @click="currentCardLang = 'en'; markDirty();"
+                        :class="currentCardLang === 'en' ? 'bg-zinc-800 text-[#D4AF37] font-semibold' : 'text-zinc-400 hover:text-zinc-200'"
+                        class="px-2.5 py-1 rounded transition"
+                        title="English"
                     >
-                        {{ target === 'thank_you' ? 'Thank You Card' : 'Invitation Card' }}
+                        EN
+                    </button>
+                    <button
+                        type="button"
+                        @click="currentCardLang = 'am'; markDirty();"
+                        :class="currentCardLang === 'am' ? 'bg-zinc-800 text-[#D4AF37] font-semibold' : 'text-zinc-400 hover:text-zinc-200'"
+                        class="px-2.5 py-1 rounded transition"
+                        title="Amharic"
+                    >
+                        አማ
+                    </button>
+                    <button
+                        type="button"
+                        @click="currentCardLang = 'both'; markDirty();"
+                        :class="currentCardLang === 'both' ? 'bg-zinc-800 text-[#D4AF37] font-semibold' : 'text-zinc-400 hover:text-zinc-200'"
+                        class="px-2.5 py-1 rounded transition"
+                        title="Both English and Amharic"
+                    >
+                        Both
+                    </button>
+                </div>
+
+                <!-- Autosave Status -->
+                <div class="hidden sm:flex items-center space-x-1.5 text-xs">
+                    <span
+                        class="w-2 h-2 rounded-full"
+                        :class="{
+                            'bg-emerald-500': saveStatus === 'saved',
+                            'bg-amber-500 animate-pulse': saveStatus === 'saving',
+                            'bg-zinc-500': saveStatus === 'unsaved',
+                            'bg-rose-500': saveStatus === 'error'
+                        }"
+                    />
+                    <span class="text-zinc-400 text-[11px]">
+                        {{ saveStatus === 'saved' ? 'Saved' : (saveStatus === 'saving' ? 'Saving...' : 'Unsaved') }}
                     </span>
                 </div>
             </div>
 
-            <!-- Center: Autosave Status -->
-            <div class="hidden md:flex items-center space-x-2 text-xs">
-                <span
-                    v-if="saveStatus === 'saved'"
-                    class="flex items-center space-x-1.5 text-emerald-400 bg-emerald-950/50 px-2.5 py-1 rounded-full border border-emerald-800/40"
-                >
-                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-                    <span>All changes saved</span>
-                </span>
-                <span
-                    v-else-if="saveStatus === 'saving'"
-                    class="flex items-center space-x-1.5 text-amber-400 bg-amber-950/50 px-2.5 py-1 rounded-full border border-amber-800/40"
-                >
-                    <svg class="w-3.5 h-3.5 animate-spin" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-                    </svg>
-                    <span>Saving...</span>
-                </span>
-                <span
-                    v-else-if="saveStatus === 'unsaved'"
-                    class="flex items-center space-x-1.5 text-zinc-400 bg-zinc-900 px-2.5 py-1 rounded-full border border-zinc-800"
-                >
-                    <span class="w-2 h-2 rounded-full bg-zinc-500"></span>
-                    <span>Unsaved changes</span>
-                </span>
-                <span
-                    v-else-if="saveStatus === 'error'"
-                    class="flex items-center space-x-1.5 text-rose-400 bg-rose-950/50 px-2.5 py-1 rounded-full border border-rose-800/40"
-                >
-                    <span class="w-2 h-2 rounded-full bg-rose-500"></span>
-                    <span>Save error</span>
-                </span>
-            </div>
-
             <!-- Right: Actions -->
             <div class="flex items-center space-x-2">
-                <!-- Preview as Guest Switcher -->
+                <!-- Reset to Template Button (Task 9) -->
+                <button
+                    v-if="initialTemplateDesign || template"
+                    type="button"
+                    @click="showResetModal = true"
+                    class="px-2.5 py-1.5 text-xs text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 rounded-lg transition hidden md:flex items-center space-x-1"
+                    title="Reset to Template Design"
+                >
+                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                    <span>Reset</span>
+                </button>
+
+                <!-- Preview Toggle -->
                 <button
                     type="button"
-                    @click="isPreviewMode = !isPreviewMode"
-                    :class="isPreviewMode ? 'bg-[#D4AF37] text-black font-semibold' : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-200'"
-                    class="px-3 py-1.5 rounded-lg text-xs flex items-center space-x-1.5 transition"
-                    title="Toggle Guest Preview"
+                    @click="isPreviewMode = !isPreviewMode; deselectAll();"
+                    :class="isPreviewMode ? 'bg-[#D4AF37] text-zinc-950 font-semibold' : 'bg-zinc-800 text-zinc-300 hover:bg-zinc-700'"
+                    class="px-3 py-1.5 text-xs rounded-lg transition flex items-center space-x-1"
                 >
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                     </svg>
-                    <span class="hidden sm:inline">{{ isPreviewMode ? 'Exit Preview' : 'Preview as Guest' }}</span>
+                    <span>{{ isPreviewMode ? 'Edit' : 'Preview' }}</span>
                 </button>
 
                 <!-- Save Button -->
                 <button
                     type="button"
                     @click="performSave"
-                    class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 transition flex items-center space-x-1"
+                    class="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-zinc-800 hover:bg-zinc-700 text-[#D4AF37] border border-zinc-700 hover:border-[#D4AF37] transition"
                 >
-                    <svg class="w-3.5 h-3.5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
-                    </svg>
-                    <span>Save</span>
+                    Save
                 </button>
 
                 <!-- Export PNG Button -->
                 <button
                     type="button"
-                    @click="downloadPng"
+                    @click="exportCardPng"
                     :disabled="isExporting"
-                    class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-[#D4AF37] to-[#F59E0B] hover:brightness-110 text-black shadow-md transition flex items-center space-x-1.5 disabled:opacity-50"
+                    class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-gradient-to-r from-[#D4AF37] to-[#B38F24] hover:brightness-110 text-zinc-950 shadow transition flex items-center space-x-1"
                 >
-                    <svg v-if="!isExporting" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                     </svg>
-                    <svg v-else class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-                    </svg>
-                    <span>Download PNG</span>
+                    <span>{{ isExporting ? 'Exporting...' : 'Export' }}</span>
                 </button>
-
-                <!-- Guest Mode Import/Sign Up Trigger -->
-                <Link
-                    v-if="isGuest"
-                    :href="route('register')"
-                    class="hidden sm:inline-flex px-3 py-1.5 rounded-lg text-xs font-medium bg-emerald-600 hover:bg-emerald-500 text-white transition"
-                >
-                    Sign Up to Send
-                </Link>
             </div>
         </header>
 
-        <!-- Main Workspace Area -->
+        <!-- MAIN WORKSPACE -->
         <div class="flex-1 flex overflow-hidden relative">
-            <!-- Left Tool Sidebar (Desktop) -->
+            <!-- LEFT TOOL SIDEBAR (Desktop) -->
             <aside class="w-80 bg-zinc-950 border-r border-zinc-800 flex flex-col shrink-0 z-20 hidden md:flex">
                 <!-- Sidebar Tabs -->
                 <div class="flex border-b border-zinc-800 text-xs font-medium">
@@ -1133,6 +1283,22 @@ watch(isPreviewMode, (active) => {
                         class="flex-1 py-3 text-center transition"
                     >
                         Insert
+                    </button>
+                    <button
+                        type="button"
+                        @click="activeSidebarTab = 'ornaments'"
+                        :class="activeSidebarTab === 'ornaments' ? 'text-[#D4AF37] border-b-2 border-[#D4AF37] bg-zinc-900/60' : 'text-zinc-400 hover:text-zinc-200'"
+                        class="flex-1 py-3 text-center transition"
+                    >
+                        Ornaments
+                    </button>
+                    <button
+                        type="button"
+                        @click="activeSidebarTab = 'palette'"
+                        :class="activeSidebarTab === 'palette' ? 'text-[#D4AF37] border-b-2 border-[#D4AF37] bg-zinc-900/60' : 'text-zinc-400 hover:text-zinc-200'"
+                        class="flex-1 py-3 text-center transition"
+                    >
+                        Palette
                     </button>
                     <button
                         type="button"
@@ -1153,215 +1319,443 @@ watch(isPreviewMode, (active) => {
                     </button>
                 </div>
 
-                <!-- Tab Content -->
-                <div class="flex-1 overflow-y-auto p-4 space-y-6 text-sm">
-                    <!-- INSERT TAB -->
-                    <div v-if="activeSidebarTab === 'insert'" class="space-y-6">
-                        <!-- Add Text Section -->
-                        <div>
-                            <h4 class="text-xs uppercase font-bold text-zinc-400 tracking-wider mb-2.5">Text</h4>
+                <!-- TAB CONTENT -->
+                <div class="flex-1 overflow-y-auto p-4 custom-scrollbar">
+                    <!-- 1. INSERT TAB -->
+                    <div v-if="activeSidebarTab === 'insert'" class="space-y-5">
+                        <!-- Add Text Presets -->
+                        <div class="space-y-2">
+                            <h3 class="text-xs uppercase font-bold text-zinc-400 tracking-wider">Add Typography</h3>
                             <div class="grid grid-cols-1 gap-2">
                                 <button
                                     type="button"
                                     @click="addTextLayer('heading')"
-                                    class="w-full text-left px-3.5 py-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 transition flex items-center justify-between"
+                                    class="w-full text-left p-3 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-[#D4AF37] transition flex items-center justify-between"
                                 >
-                                    <span class="font-bold text-base text-zinc-100">Add Heading</span>
-                                    <span class="text-xs text-zinc-500">56px</span>
+                                    <div>
+                                        <div class="font-serif font-bold text-base text-zinc-100">የክብር ግብዣ • Title</div>
+                                        <div class="text-[11px] text-zinc-500">Noto Serif Ethiopic, Bold, 48px</div>
+                                    </div>
+                                    <span class="text-[#D4AF37] text-lg font-light">+</span>
                                 </button>
                                 <button
                                     type="button"
                                     @click="addTextLayer('subheading')"
-                                    class="w-full text-left px-3.5 py-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 transition flex items-center justify-between"
+                                    class="w-full text-left p-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-[#D4AF37] transition flex items-center justify-between"
                                 >
-                                    <span class="font-medium text-sm text-zinc-200">Add Subheading</span>
-                                    <span class="text-xs text-zinc-500">38px</span>
+                                    <div>
+                                        <div class="font-serif italic text-sm text-zinc-200">Cordially Invites You</div>
+                                        <div class="text-[11px] text-zinc-500">Playfair Display, 32px</div>
+                                    </div>
+                                    <span class="text-[#D4AF37] text-lg font-light">+</span>
                                 </button>
                                 <button
                                     type="button"
                                     @click="addTextLayer('body')"
-                                    class="w-full text-left px-3.5 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 transition flex items-center justify-between"
+                                    class="w-full text-left p-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-[#D4AF37] transition flex items-center justify-between"
                                 >
-                                    <span class="text-xs text-zinc-300">Add Body Text</span>
-                                    <span class="text-xs text-zinc-500">26px</span>
+                                    <div>
+                                        <div class="text-xs text-zinc-300">Event Details & Description</div>
+                                        <div class="text-[11px] text-zinc-500">Noto Sans Ethiopic, 24px</div>
+                                    </div>
+                                    <span class="text-[#D4AF37] text-lg font-light">+</span>
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Insert Placeholders -->
-                        <div>
-                            <div class="flex items-center justify-between mb-2">
-                                <h4 class="text-xs uppercase font-bold text-zinc-400 tracking-wider">Placeholders</h4>
-                                <span class="text-[11px] text-[#D4AF37]">Auto-filled</span>
-                            </div>
-                            <p class="text-xs text-zinc-500 mb-2.5">
-                                Insert variables replaced with recipient or event data:
-                            </p>
-                            <div class="grid grid-cols-2 gap-2">
+                        <!-- Add Decorative Borders (Task 6) -->
+                        <div class="space-y-2">
+                            <h3 class="text-xs uppercase font-bold text-zinc-400 tracking-wider">Frames & Borders</h3>
+                            <div class="grid grid-cols-2 gap-2 text-xs">
                                 <button
                                     type="button"
-                                    @click="insertPlaceholder('{{guest_name}}')"
-                                    class="px-2.5 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-[#D4AF37]/50 text-left transition"
+                                    @click="addBorderLayer('double-rule')"
+                                    class="p-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-[#D4AF37] transition text-center"
                                 >
-                                    <div class="text-xs font-mono font-medium text-amber-300">&#123;&#123;guest_name&#125;&#125;</div>
-                                    <div class="text-[10px] text-zinc-400 mt-0.5">Guest Full Name</div>
+                                    Double Rule Frame
                                 </button>
                                 <button
                                     type="button"
-                                    @click="insertPlaceholder('{{event_title}}')"
-                                    class="px-2.5 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-[#D4AF37]/50 text-left transition"
+                                    @click="addBorderLayer('ornate-corners')"
+                                    class="p-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-[#D4AF37] transition text-center"
                                 >
-                                    <div class="text-xs font-mono font-medium text-amber-300">&#123;&#123;event_title&#125;&#125;</div>
-                                    <div class="text-[10px] text-zinc-400 mt-0.5">Event Title</div>
+                                    Ornate Corners
                                 </button>
                                 <button
                                     type="button"
-                                    @click="insertPlaceholder('{{date}}')"
-                                    class="px-2.5 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-[#D4AF37]/50 text-left transition"
+                                    @click="addBorderLayer('tilet-band')"
+                                    class="p-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-[#D4AF37] transition text-center"
                                 >
-                                    <div class="text-xs font-mono font-medium text-amber-300">&#123;&#123;date&#125;&#125;</div>
-                                    <div class="text-[10px] text-zinc-400 mt-0.5">Event Date</div>
+                                    Tilet Band
                                 </button>
                                 <button
                                     type="button"
-                                    @click="insertPlaceholder('{{time}}')"
-                                    class="px-2.5 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-[#D4AF37]/50 text-left transition"
+                                    @click="addBorderLayer('single-rule')"
+                                    class="p-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-[#D4AF37] transition text-center"
                                 >
-                                    <div class="text-xs font-mono font-medium text-amber-300">&#123;&#123;time&#125;&#125;</div>
-                                    <div class="text-[10px] text-zinc-400 mt-0.5">Start Time</div>
-                                </button>
-                                <button
-                                    type="button"
-                                    @click="insertPlaceholder('{{venue}}')"
-                                    class="px-2.5 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-[#D4AF37]/50 text-left transition"
-                                >
-                                    <div class="text-xs font-mono font-medium text-amber-300">&#123;&#123;venue&#125;&#125;</div>
-                                    <div class="text-[10px] text-zinc-400 mt-0.5">Venue Name</div>
-                                </button>
-                                <button
-                                    type="button"
-                                    @click="insertPlaceholder('{{host_names}}')"
-                                    class="px-2.5 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-[#D4AF37]/50 text-left transition"
-                                >
-                                    <div class="text-xs font-mono font-medium text-amber-300">&#123;&#123;host_names&#125;&#125;</div>
-                                    <div class="text-[10px] text-zinc-400 mt-0.5">Hosts / Couple</div>
+                                    Single Rule
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Shapes -->
-                        <div>
-                            <h4 class="text-xs uppercase font-bold text-zinc-400 tracking-wider mb-2.5">Shapes & Lines</h4>
-                            <div class="grid grid-cols-3 gap-2">
+                        <!-- Add Pattern Band (Task 6) -->
+                        <div class="space-y-2">
+                            <h3 class="text-xs uppercase font-bold text-zinc-400 tracking-wider">Patterns</h3>
+                            <button
+                                type="button"
+                                @click="addPatternLayer()"
+                                class="w-full p-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-[#D4AF37] transition text-xs flex items-center justify-center space-x-2"
+                            >
+                                <span>✦ Add Pattern Band</span>
+                            </button>
+                        </div>
+
+                        <!-- Dynamic Placeholders -->
+                        <div class="space-y-2">
+                            <h3 class="text-xs uppercase font-bold text-zinc-400 tracking-wider">Dynamic Placeholders</h3>
+                            <div class="flex flex-wrap gap-1.5">
                                 <button
+                                    v-for="token in ['{{guest_name}}', '{{event_title}}', '{{date}}', '{{time}}', '{{venue}}', '{{host_names}}']"
+                                    :key="token"
                                     type="button"
-                                    @click="addShapeLayer('rect')"
-                                    class="p-3 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 flex flex-col items-center justify-center space-y-1.5 transition"
+                                    @click="insertPlaceholder(token)"
+                                    class="text-[11px] px-2 py-1 rounded-md bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-[#D4AF37] text-zinc-300 font-mono transition"
                                 >
-                                    <div class="w-8 h-6 border-2 border-[#D4AF37] rounded-sm"></div>
-                                    <span class="text-[11px] text-zinc-300">Rectangle</span>
+                                    {{ token }}
                                 </button>
+                            </div>
+                        </div>
+
+                        <!-- Basic Shapes -->
+                        <div class="space-y-2">
+                            <h3 class="text-xs uppercase font-bold text-zinc-400 tracking-wider">Shapes</h3>
+                            <div class="grid grid-cols-4 gap-2">
                                 <button
+                                    v-for="s in [
+                                        { name: 'rect', label: 'Box' },
+                                        { name: 'circle', label: 'Circle' },
+                                        { name: 'arch', label: 'Arch' },
+                                        { name: 'line', label: 'Divider' }
+                                    ]"
+                                    :key="s.name"
                                     type="button"
-                                    @click="addShapeLayer('circle')"
-                                    class="p-3 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 flex flex-col items-center justify-center space-y-1.5 transition"
+                                    @click="addShapeLayer(s.name)"
+                                    class="p-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-[#D4AF37] transition flex flex-col items-center justify-center text-xs"
                                 >
-                                    <div class="w-7 h-7 border-2 border-[#D4AF37] rounded-full"></div>
-                                    <span class="text-[11px] text-zinc-300">Circle</span>
-                                </button>
-                                <button
-                                    type="button"
-                                    @click="addShapeLayer('line')"
-                                    class="p-3 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 flex flex-col items-center justify-center space-y-1.5 transition"
-                                >
-                                    <div class="w-8 h-0.5 bg-[#D4AF37] my-3"></div>
-                                    <span class="text-[11px] text-zinc-300">Line</span>
+                                    <span>{{ s.label }}</span>
                                 </button>
                             </div>
                         </div>
 
                         <!-- Upload Image -->
-                        <div>
-                            <h4 class="text-xs uppercase font-bold text-zinc-400 tracking-wider mb-2.5">Images</h4>
+                        <div class="space-y-2">
+                            <h3 class="text-xs uppercase font-bold text-zinc-400 tracking-wider">Upload Media</h3>
                             <button
                                 type="button"
                                 @click="promptImageUpload"
-                                class="w-full py-3 px-4 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-dashed border-zinc-700 hover:border-[#D4AF37] flex flex-col items-center justify-center space-y-1.5 transition"
+                                class="w-full py-3 px-4 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-dashed border-zinc-700 hover:border-[#D4AF37] flex flex-col items-center justify-center space-y-1 transition"
                             >
-                                <svg class="w-6 h-6 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg class="w-5 h-5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                 </svg>
-                                <span class="text-xs font-medium text-zinc-200">Upload Image / Photo</span>
-                                <span class="text-[10px] text-zinc-500">PNG, JPG, WebP, SVG (Max 8MB)</span>
+                                <span class="text-xs font-medium text-zinc-200">Upload Photo / Portrait</span>
+                                <span class="text-[10px] text-zinc-500">Supports Circle, Arch, Oval Masks</span>
                             </button>
                         </div>
                     </div>
 
-                    <!-- LAYERS TAB -->
-                    <div v-else-if="activeSidebarTab === 'layers'" class="space-y-2">
-                        <div v-if="design.layers.length === 0" class="text-center py-10 text-zinc-500 text-xs">
-                            No elements added yet. Click "Insert" to add text, shapes or photos.
-                        </div>
+                    <!-- 2. ORNAMENTS TAB (Task 3) -->
+                    <div v-else-if="activeSidebarTab === 'ornaments'" class="space-y-3">
+                        <div class="space-y-2">
+                            <input
+                                v-model="ornamentSearch"
+                                type="text"
+                                placeholder="Search ornaments (cross, floral, tilet...)"
+                                class="w-full px-3 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg text-xs text-zinc-200 focus:border-[#D4AF37] focus:ring-0 placeholder-zinc-500"
+                            />
 
-                        <!-- Layers List (Reverse so top layers are first) -->
-                        <div
-                            v-for="(layer, idx) in [...design.layers].reverse()"
-                            :key="layer.id"
-                            @click="selectLayer(layer.id)"
-                            :class="selectedLayerIds.includes(layer.id) ? 'bg-zinc-800 border-[#D4AF37]' : 'bg-zinc-900/80 border-zinc-800 hover:bg-zinc-800/60'"
-                            class="p-2.5 rounded-lg border flex items-center justify-between cursor-pointer transition text-xs"
-                        >
-                            <div class="flex items-center space-x-2.5 overflow-hidden">
-                                <!-- Type Icon -->
-                                <span class="text-zinc-400 shrink-0">
-                                    <svg v-if="layer.type === 'text'" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
-                                    </svg>
-                                    <svg v-else-if="layer.type === 'image'" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                    </svg>
-                                    <svg v-else class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5z" />
-                                    </svg>
-                                </span>
-
-                                <span class="truncate font-medium text-zinc-200">
-                                    {{ layer.type === 'text' ? (layer.text || 'Empty Text') : (layer.shape || layer.type) }}
-                                </span>
+                            <!-- Set Selector -->
+                            <div class="flex items-center space-x-2">
+                                <label class="text-[11px] text-zinc-400 shrink-0">Set:</label>
+                                <select
+                                    v-model="ornamentSelectedSet"
+                                    class="w-full bg-zinc-900 border border-zinc-800 rounded text-xs py-1 px-2 text-zinc-200 focus:border-[#D4AF37] focus:ring-0"
+                                >
+                                    <option v-for="s in allAvailableSets" :key="s" :value="s">
+                                        {{ s.charAt(0).toUpperCase() + s.slice(1) }}
+                                    </option>
+                                </select>
                             </div>
 
-                            <div class="flex items-center space-x-1 shrink-0">
-                                <!-- Lock Toggle -->
+                            <!-- Tag Filter Pills -->
+                            <div class="flex flex-wrap gap-1 max-h-20 overflow-y-auto custom-scrollbar">
                                 <button
+                                    v-for="tag in allAvailableTags"
+                                    :key="tag"
                                     type="button"
-                                    @click.stop="layer.locked = !layer.locked; recordHistory(); updateTransformer();"
-                                    class="p-1 text-zinc-400 hover:text-zinc-200 rounded"
-                                    :title="layer.locked ? 'Unlock Layer' : 'Lock Layer'"
+                                    @click="ornamentSelectedTag = tag"
+                                    :class="ornamentSelectedTag === tag ? 'bg-[#D4AF37] text-zinc-950 font-bold' : 'bg-zinc-900 text-zinc-400 hover:text-zinc-200'"
+                                    class="text-[10px] px-2 py-0.5 rounded-full border border-zinc-800 transition"
                                 >
-                                    <svg v-if="layer.locked" class="w-3.5 h-3.5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
-                                    </svg>
-                                    <svg v-else class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
-                                    </svg>
+                                    {{ tag }}
                                 </button>
+                            </div>
+                        </div>
 
-                                <!-- Delete -->
+                        <!-- Ornaments Grid -->
+                        <div class="grid grid-cols-2 gap-2 max-h-[calc(100vh-280px)] overflow-y-auto custom-scrollbar pr-1">
+                            <div
+                                v-for="ornament in filteredOrnaments"
+                                :key="ornament.id"
+                                @click="addOrnamentLayer(ornament)"
+                                class="group cursor-pointer p-2.5 rounded-lg border border-zinc-800 hover:border-[#D4AF37] bg-zinc-900/60 hover:bg-zinc-800/80 transition flex flex-col items-center justify-between"
+                                :title="`${ornament.name_en} (${ornament.name_am})`"
+                            >
+                                <div class="w-full aspect-square flex items-center justify-center p-1.5 overflow-hidden">
+                                    <div
+                                        class="w-full h-full flex items-center justify-center text-zinc-300 group-hover:text-[#D4AF37] transition"
+                                        v-html="loadTintedSvg(ornament.id, { c1: effectivePalette.primary, c2: effectivePalette.secondary, c3: effectivePalette.accent }, effectivePalette)"
+                                    />
+                                </div>
+                                <div class="w-full mt-1.5 text-center">
+                                    <div class="text-[11px] font-medium text-zinc-300 group-hover:text-zinc-100 truncate">
+                                        {{ ornament.name_en }}
+                                    </div>
+                                    <div class="text-[9px] text-zinc-500 truncate">{{ ornament.name_am }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. PALETTE TAB (Task 4: The Key Feature) -->
+                    <div v-else-if="activeSidebarTab === 'palette'" class="space-y-5">
+                        <!-- Current Palette Roles -->
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-xs uppercase font-bold text-zinc-400 tracking-wider">Current Color Roles</h3>
+                                <span class="text-[10px] text-zinc-500">Click to change role</span>
+                            </div>
+                            <div class="space-y-1.5 bg-zinc-900/80 p-2.5 rounded-lg border border-zinc-800">
+                                <div
+                                    v-for="role in PALETTE_ROLES"
+                                    :key="role.key"
+                                    class="flex items-center justify-between py-1 border-b border-zinc-800/60 last:border-0"
+                                >
+                                    <div class="flex items-center space-x-2">
+                                        <label
+                                            class="w-6 h-6 rounded-md border border-zinc-700 shadow-sm cursor-pointer relative overflow-hidden shrink-0"
+                                            :style="{ backgroundColor: resolveColor(`@${role.key}`, effectivePalette) }"
+                                        >
+                                            <input
+                                                type="color"
+                                                :value="resolveColor(`@${role.key}`, effectivePalette)"
+                                                @input="updatePaletteRole(role.key, $event.target.value)"
+                                                class="opacity-0 absolute inset-0 cursor-pointer"
+                                            />
+                                        </label>
+                                        <span class="text-xs text-zinc-200 font-medium">{{ role.label }}</span>
+                                    </div>
+                                    <span class="text-[11px] font-mono text-zinc-400 uppercase">
+                                        {{ resolveColor(`@${role.key}`, effectivePalette) }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 1-Click Alternate Palettes for this Category (Task 4) -->
+                        <div class="space-y-2">
+                            <h3 class="text-xs uppercase font-bold text-zinc-400 tracking-wider">
+                                12 Curated Category Palettes
+                            </h3>
+                            <div class="space-y-2 max-h-[300px] overflow-y-auto custom-scrollbar pr-1">
+                                <div
+                                    v-for="pal in curatedPalettes"
+                                    :key="pal.id"
+                                    @click="selectAlternatePalette(pal)"
+                                    class="p-2.5 rounded-lg border border-zinc-800 hover:border-[#D4AF37] bg-zinc-900/70 hover:bg-zinc-800/90 cursor-pointer transition flex items-center justify-between group"
+                                >
+                                    <div>
+                                        <div class="text-xs font-semibold text-zinc-200 group-hover:text-[#D4AF37] transition">
+                                            {{ pal.name }}
+                                        </div>
+                                        <div class="text-[10px] text-zinc-500 capitalize">{{ pal.mood || pal.category }}</div>
+                                    </div>
+                                    <div class="flex items-center space-x-1 shrink-0">
+                                        <span
+                                            v-for="c in [pal.bg, pal.primary, pal.secondary, pal.accent, pal.ink]"
+                                            :key="c"
+                                            class="w-4 h-4 rounded-full border border-zinc-700 shadow-sm"
+                                            :style="{ backgroundColor: c }"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pick One Color & Generate Palette (Task 4) -->
+                        <div class="space-y-2 bg-zinc-900/60 p-3 rounded-lg border border-zinc-800">
+                            <h3 class="text-xs uppercase font-bold text-zinc-400 tracking-wider">
+                                Generate Harmonious Palette
+                            </h3>
+                            <p class="text-[11px] text-zinc-400">
+                                Pick a single theme color (e.g. dress or brand) to instantly generate a complete 7-role palette.
+                            </p>
+                            <div class="flex items-center space-x-2 pt-1">
+                                <label
+                                    class="w-8 h-8 rounded-lg border border-zinc-700 shadow-sm cursor-pointer relative overflow-hidden shrink-0"
+                                    :style="{ backgroundColor: singleColorPicker }"
+                                >
+                                    <input
+                                        type="color"
+                                        v-model="singleColorPicker"
+                                        class="opacity-0 absolute inset-0 cursor-pointer"
+                                    />
+                                </label>
+                                <input
+                                    type="text"
+                                    v-model="singleColorPicker"
+                                    class="flex-1 px-2.5 py-1.5 bg-zinc-950 border border-zinc-800 rounded-lg text-xs font-mono text-zinc-200"
+                                />
                                 <button
                                     type="button"
-                                    @click.stop="selectLayer(layer.id); deleteSelected();"
-                                    class="p-1 text-zinc-500 hover:text-rose-400 rounded"
-                                    title="Delete Layer"
+                                    @click="generateFromSingleColor"
+                                    class="px-3 py-1.5 bg-[#D4AF37] hover:brightness-110 text-zinc-950 font-semibold rounded-lg text-xs transition"
                                 >
-                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                    </svg>
+                                    Generate
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- TEMPLATES TAB -->
+                    <!-- 4. LAYERS TAB (Task 2) -->
+                    <div v-else-if="activeSidebarTab === 'layers'" class="space-y-3">
+                        <!-- Group / Ungroup Actions -->
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-zinc-400 font-medium">{{ design.layers.length }} Layers</span>
+                            <div class="flex items-center space-x-1.5">
+                                <button
+                                    v-if="selectedLayerIds.length >= 2"
+                                    type="button"
+                                    @click="groupSelectedLayers"
+                                    class="px-2 py-0.5 rounded bg-zinc-800 hover:bg-zinc-700 text-[11px] text-[#D4AF37] border border-zinc-700 font-medium transition"
+                                >
+                                    Group ({{ selectedLayerIds.length }})
+                                </button>
+                                <button
+                                    v-if="primarySelectedLayer && primarySelectedLayer.type === 'group'"
+                                    type="button"
+                                    @click="ungroupSelectedLayer"
+                                    class="px-2 py-0.5 rounded bg-zinc-800 hover:bg-zinc-700 text-[11px] text-[#D4AF37] border border-zinc-700 font-medium transition"
+                                >
+                                    Ungroup
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Layers List (Reverse so top layers are first) -->
+                        <div class="space-y-1.5 max-h-[calc(100vh-220px)] overflow-y-auto custom-scrollbar pr-1">
+                            <div
+                                v-for="layer in [...design.layers].reverse()"
+                                :key="layer.id"
+                                @click="selectLayer(layer.id, $event.shiftKey)"
+                                :class="selectedLayerIds.includes(layer.id) ? 'bg-zinc-800 border-[#D4AF37]' : 'bg-zinc-900/80 border-zinc-800 hover:bg-zinc-800/60'"
+                                class="p-2 rounded-lg border flex items-center justify-between cursor-pointer transition text-xs"
+                            >
+                                <div class="flex items-center space-x-2 overflow-hidden">
+                                    <!-- Type Icons (Task 2) -->
+                                    <span class="text-zinc-400 shrink-0">
+                                        <svg v-if="layer.type === 'text'" class="w-4 h-4 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+                                        </svg>
+                                        <svg v-else-if="layer.type === 'ornament'" class="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                                        </svg>
+                                        <svg v-else-if="layer.type === 'border'" class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <rect x="3" y="3" width="18" height="18" rx="2" stroke-width="2" />
+                                        </svg>
+                                        <svg v-else-if="layer.type === 'pattern'" class="w-4 h-4 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                                        </svg>
+                                        <svg v-else-if="layer.type === 'image'" class="w-4 h-4 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        </svg>
+                                        <svg v-else-if="layer.type === 'group'" class="w-4 h-4 text-amber-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                        </svg>
+                                        <svg v-else class="w-4 h-4 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5z" />
+                                        </svg>
+                                    </span>
+                                    <span class="truncate font-medium text-zinc-200">
+                                        {{ layer.name || (layer.type === 'text' ? (layer.i18n?.en || layer.text) : layer.type) }}
+                                    </span>
+                                </div>
+
+                                <div class="flex items-center space-x-1 shrink-0">
+                                    <!-- Move Up / Down (Task 2) -->
+                                    <button
+                                        type="button"
+                                        @click.stop="moveLayerUp(layer.id)"
+                                        class="p-1 text-zinc-500 hover:text-zinc-200 rounded"
+                                        title="Move Up"
+                                    >
+                                        ▲
+                                    </button>
+                                    <button
+                                        type="button"
+                                        @click.stop="moveLayerDown(layer.id)"
+                                        class="p-1 text-zinc-500 hover:text-zinc-200 rounded"
+                                        title="Move Down"
+                                    >
+                                        ▼
+                                    </button>
+
+                                    <!-- Hide / Show Toggle (Task 2) -->
+                                    <button
+                                        type="button"
+                                        @click.stop="layer.hidden = !layer.hidden; recordHistory(); updateTransformer();"
+                                        class="p-1 text-zinc-400 hover:text-zinc-200 rounded"
+                                        :title="layer.hidden ? 'Show Layer' : 'Hide Layer'"
+                                    >
+                                        <svg v-if="layer.hidden" class="w-3.5 h-3.5 text-zinc-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18" />
+                                        </svg>
+                                        <svg v-else class="w-3.5 h-3.5 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                        </svg>
+                                    </button>
+
+                                    <!-- Lock Toggle (Task 2) -->
+                                    <button
+                                        type="button"
+                                        @click.stop="layer.locked = !layer.locked; recordHistory(); updateTransformer();"
+                                        class="p-1 text-zinc-400 hover:text-zinc-200 rounded"
+                                        :title="layer.locked ? 'Unlock Layer' : 'Lock Layer'"
+                                    >
+                                        <svg v-if="layer.locked" class="w-3.5 h-3.5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                                        </svg>
+                                        <svg v-else class="w-3.5 h-3.5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
+                                        </svg>
+                                    </button>
+
+                                    <!-- Delete -->
+                                    <button
+                                        type="button"
+                                        @click.stop="deleteLayer(layer.id)"
+                                        class="p-1 text-zinc-500 hover:text-rose-400 rounded"
+                                        title="Delete Layer"
+                                    >
+                                        ✕
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. TEMPLATES TAB -->
                     <div v-else-if="activeSidebarTab === 'templates'" class="space-y-4">
                         <div v-for="cat in categories" :key="cat.id" class="space-y-2">
                             <h4 class="text-xs uppercase font-bold text-zinc-400 tracking-wider">{{ cat.name }}</h4>
@@ -1369,7 +1763,7 @@ watch(isPreviewMode, (active) => {
                                 <div
                                     v-for="tmpl in cat.templates"
                                     :key="tmpl.id"
-                                    @click="applyTemplate(tmpl)"
+                                    @click="design = normalizeDesign(tmpl.design_json); currentTemplateId = tmpl.id; recordHistory(); updateBackgroundCache();"
                                     class="group cursor-pointer rounded-lg overflow-hidden border border-zinc-800 hover:border-[#D4AF37] transition bg-zinc-900"
                                 >
                                     <div class="aspect-[3/4] bg-zinc-950 relative overflow-hidden flex items-center justify-center">
@@ -1391,31 +1785,14 @@ watch(isPreviewMode, (active) => {
                 </div>
             </aside>
 
-            <!-- Center Canvas Workspace -->
+            <!-- CENTER WORKSPACE (Canvas) -->
             <main
                 ref="canvasContainerRef"
-                class="flex-1 bg-[#0A0A0D] flex flex-col items-center justify-center p-4 relative overflow-auto"
+                class="flex-1 bg-zinc-950 relative overflow-hidden flex items-center justify-center p-6"
                 @click="deselectAll"
             >
-                <!-- Overflow Warning Banner -->
                 <div
-                    v-if="isPreviewMode && overflowWarnings.length > 0"
-                    class="absolute top-4 left-1/2 -translate-x-1/2 z-30 max-w-lg w-full bg-amber-950/90 border border-amber-600/80 rounded-xl p-3 shadow-2xl backdrop-blur text-xs text-amber-200 flex items-start space-x-2.5 animate-bounce-short"
-                >
-                    <svg class="w-5 h-5 text-amber-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                    </svg>
-                    <div class="flex-1">
-                        <div class="font-bold text-amber-100">Text Overflow Warning</div>
-                        <div class="mt-0.5">
-                            {{ overflowWarnings.length }} text box is overflowing its bounds with sample data. Increase box height or decrease font size to avoid clipping.
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Konva Canvas Wrapper scaled with reactive zoom -->
-                <div
-                    class="shadow-2xl rounded-sm transition-transform duration-75 relative origin-center"
+                    class="relative shadow-2xl transition-transform duration-75"
                     :style="{
                         width: `${canvasWidth * zoom}px`,
                         height: `${canvasHeight * zoom}px`,
@@ -1436,74 +1813,32 @@ watch(isPreviewMode, (active) => {
                             @click="handleStageClick"
                             @tap="handleStageClick"
                         >
-                            <!-- Background Layer -->
+                            <!-- 1. Background Layer (Cached Offscreen Canvas for 60fps) -->
                             <v-layer>
-                                <v-image
-                                    v-if="design.background?.type === 'image' && loadedImages[design.background.value]"
+                                <v-shape
                                     :config="{
-                                        name: 'background-image',
+                                        name: 'background-shape',
                                         x: 0,
                                         y: 0,
                                         width: canvasWidth,
                                         height: canvasHeight,
-                                        image: loadedImages[design.background.value]
-                                    }"
-                                />
-                                <v-rect
-                                    v-else
-                                    :config="{
-                                        name: 'background-rect',
-                                        ...backgroundConfig
+                                        listening: false,
+                                        sceneFunc: (context, shape) => {
+                                            if (bgOffscreenCanvas) {
+                                                context._context.drawImage(bgOffscreenCanvas, 0, 0);
+                                            } else {
+                                                renderBackgroundToContext(context._context, canvasWidth, canvasHeight, design.background, effectivePalette);
+                                            }
+                                        }
                                     }"
                                 />
                             </v-layer>
 
-                            <!-- Content Elements Layer -->
+                            <!-- 2. Content Elements Layer (Canonical Rendering via sceneFunc) -->
                             <v-layer>
                                 <template v-for="layer in design.layers" :key="layer.id">
-                                    <v-text
-                                        v-if="layer.type === 'text'"
-                                        :config="getLayerConfig(layer)"
-                                        @click="selectLayer(layer.id, $event.evt.shiftKey)"
-                                        @tap="selectLayer(layer.id)"
-                                        @dragstart="handleDragStart"
-                                        @dragmove="handleDragMove($event, layer)"
-                                        @dragend="handleDragEnd($event, layer)"
-                                        @transformend="handleTransformEnd($event, layer)"
-                                    />
-                                    <v-image
-                                        v-else-if="layer.type === 'image'"
-                                        :config="getLayerConfig(layer)"
-                                        @click="selectLayer(layer.id, $event.evt.shiftKey)"
-                                        @tap="selectLayer(layer.id)"
-                                        @dragstart="handleDragStart"
-                                        @dragmove="handleDragMove($event, layer)"
-                                        @dragend="handleDragEnd($event, layer)"
-                                        @transformend="handleTransformEnd($event, layer)"
-                                    />
-                                    <v-circle
-                                        v-else-if="layer.type === 'shape' && layer.shape === 'circle'"
-                                        :config="getLayerConfig(layer)"
-                                        @click="selectLayer(layer.id, $event.evt.shiftKey)"
-                                        @tap="selectLayer(layer.id)"
-                                        @dragstart="handleDragStart"
-                                        @dragmove="handleDragMove($event, layer)"
-                                        @dragend="handleDragEnd($event, layer)"
-                                        @transformend="handleTransformEnd($event, layer)"
-                                    />
-                                    <v-line
-                                        v-else-if="layer.type === 'shape' && layer.shape === 'line'"
-                                        :config="getLayerConfig(layer)"
-                                        @click="selectLayer(layer.id, $event.evt.shiftKey)"
-                                        @tap="selectLayer(layer.id)"
-                                        @dragstart="handleDragStart"
-                                        @dragmove="handleDragMove($event, layer)"
-                                        @dragend="handleDragEnd($event, layer)"
-                                        @transformend="handleTransformEnd($event, layer)"
-                                    />
-                                    <v-rect
-                                        v-else-if="layer.type === 'shape'"
-                                        :config="getLayerConfig(layer)"
+                                    <v-shape
+                                        :config="getKonvaLayerConfig(layer)"
                                         @click="selectLayer(layer.id, $event.evt.shiftKey)"
                                         @tap="selectLayer(layer.id)"
                                         @dragstart="handleDragStart"
@@ -1514,7 +1849,7 @@ watch(isPreviewMode, (active) => {
                                 </template>
                             </v-layer>
 
-                            <!-- Snapping Guides Layer -->
+                            <!-- 3. Snapping Guides Layer -->
                             <v-layer>
                                 <v-line
                                     v-for="(guide, i) in guideLines"
@@ -1529,7 +1864,7 @@ watch(isPreviewMode, (active) => {
                                 />
                             </v-layer>
 
-                            <!-- Transformer Layer -->
+                            <!-- 4. Transformer Layer -->
                             <v-layer>
                                 <v-transformer
                                     ref="transformerRef"
@@ -1550,7 +1885,7 @@ watch(isPreviewMode, (active) => {
                                 />
                             </v-layer>
 
-                            <!-- Free-tier Watermark (Visible if !hasRemoveBranding) -->
+                            <!-- 5. Free-tier Watermark (Visible if !hasRemoveBranding) -->
                             <v-layer v-if="!hasRemoveBranding">
                                 <v-rect
                                     :config="{
@@ -1569,7 +1904,8 @@ watch(isPreviewMode, (active) => {
                                         width: canvasWidth,
                                         text: 'Created with Invite • invite.et',
                                         fontFamily: 'Montserrat, sans-serif',
-                                        fontSize: 20,
+                                        fontSize: 16,
+                                        fontStyle: 'bold',
                                         fill: '#D4AF37',
                                         align: 'center',
                                         listening: false
@@ -1581,658 +1917,803 @@ watch(isPreviewMode, (active) => {
                 </div>
 
                 <!-- Floating Bottom Controls (Zoom & Undo/Redo) -->
-                <div class="absolute bottom-5 left-1/2 -translate-x-1/2 z-20 bg-zinc-950/90 border border-zinc-800 rounded-full px-4 py-2 shadow-xl backdrop-blur flex items-center space-x-3 text-xs">
+                <div class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-zinc-900/90 backdrop-blur border border-zinc-800 rounded-full px-4 py-2 flex items-center space-x-3 shadow-xl z-20">
                     <!-- Undo -->
                     <button
                         type="button"
                         @click="undo"
                         :disabled="historyIndex <= 0"
-                        class="p-1 text-zinc-400 hover:text-white disabled:opacity-30 transition"
+                        class="p-1 text-zinc-400 hover:text-zinc-100 disabled:opacity-30 disabled:hover:text-zinc-400"
                         title="Undo (Ctrl+Z)"
                     >
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
-                        </svg>
+                        ⟲
                     </button>
-
                     <!-- Redo -->
                     <button
                         type="button"
                         @click="redo"
                         :disabled="historyIndex >= history.length - 1"
-                        class="p-1 text-zinc-400 hover:text-white disabled:opacity-30 transition"
+                        class="p-1 text-zinc-400 hover:text-zinc-100 disabled:opacity-30 disabled:hover:text-zinc-400"
                         title="Redo (Ctrl+Y)"
                     >
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 10h-10a8 8 0 00-8 8v2M21 10l-6 6m6-6l-6-6" />
-                        </svg>
+                        ⟳
                     </button>
 
-                    <div class="w-px h-4 bg-zinc-800"></div>
+                    <div class="w-px h-4 bg-zinc-700" />
 
-                    <!-- Zoom Out -->
+                    <!-- Zoom Controls -->
                     <button
                         type="button"
-                        @click="zoom = Math.max(0.15, parseFloat((zoom - 0.1).toFixed(2)))"
-                        class="p-1 text-zinc-400 hover:text-white transition"
+                        @click="zoom = Math.max(0.15, zoom - 0.1)"
+                        class="text-zinc-400 hover:text-zinc-100 p-1"
                         title="Zoom Out"
                     >
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
-                        </svg>
+                        −
                     </button>
-
-                    <!-- Zoom Percentage -->
-                    <span class="font-mono text-zinc-300 w-12 text-center">
-                        {{ Math.round(zoom * 100) }}%
-                    </span>
-
-                    <!-- Zoom In -->
+                    <span class="text-xs font-mono text-zinc-300 w-12 text-center">{{ Math.round(zoom * 100) }}%</span>
                     <button
                         type="button"
-                        @click="zoom = Math.min(1.5, parseFloat((zoom + 0.1).toFixed(2)))"
-                        class="p-1 text-zinc-400 hover:text-white transition"
+                        @click="zoom = Math.min(1.5, zoom + 0.1)"
+                        class="text-zinc-400 hover:text-zinc-100 p-1"
                         title="Zoom In"
                     >
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                        </svg>
+                        +
                     </button>
-
-                    <!-- Fit Screen -->
                     <button
                         type="button"
                         @click="calculateFitZoom"
-                        class="text-[11px] font-medium text-[#D4AF37] hover:underline px-1.5 transition"
+                        class="text-[11px] text-[#D4AF37] hover:underline px-1.5"
                     >
                         Fit
                     </button>
                 </div>
             </main>
 
-            <!-- Right Properties Panel (Desktop) -->
+            <!-- RIGHT PROPERTIES PANEL (Desktop) -->
             <aside class="w-80 bg-zinc-950 border-l border-zinc-800 flex flex-col shrink-0 z-20 hidden md:flex">
                 <div class="h-12 border-b border-zinc-800 px-4 flex items-center justify-between">
-                    <span class="text-xs font-bold uppercase tracking-wider text-zinc-300">
-                        {{ primarySelectedLayer ? `${primarySelectedLayer.type.toUpperCase()} PROPERTIES` : 'BACKGROUND CANVAS' }}
+                    <span class="text-xs font-semibold text-zinc-300 uppercase tracking-wider">
+                        {{ primarySelectedLayer ? (primarySelectedLayer.name || primarySelectedLayer.type) : 'Card Background' }}
                     </span>
                     <button
                         v-if="primarySelectedLayer"
                         type="button"
-                        @click="deselectAll"
-                        class="text-xs text-zinc-500 hover:text-zinc-300"
+                        @click="deleteLayer(primarySelectedLayer.id)"
+                        class="text-rose-400 hover:text-rose-300 text-xs"
                     >
-                        Deselect
+                        Delete
                     </button>
                 </div>
 
-                <div class="flex-1 overflow-y-auto p-4 space-y-6 text-xs">
-                    <!-- IF TEXT LAYER SELECTED -->
+                <div class="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
+                    <!-- 1. TEXT LAYER CONTROLS (Task 5) -->
                     <div v-if="primarySelectedLayer && primarySelectedLayer.type === 'text'" class="space-y-4">
-                        <!-- Text Input -->
-                        <div>
-                            <label class="block text-zinc-400 font-semibold mb-1.5">Text Content</label>
-                            <textarea
-                                v-model="primarySelectedLayer.text"
-                                @input="recordHistory"
-                                rows="3"
-                                class="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-2.5 text-zinc-100 text-sm focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]"
-                            ></textarea>
+                        <!-- Bilingual / i18n Copy Editor (Task 5) -->
+                        <div class="space-y-2">
+                            <label class="text-xs font-medium text-zinc-400 flex items-center justify-between">
+                                <span>Copy Text</span>
+                                <!-- Missing Amharic Warning Badge (Task 5) -->
+                                <span
+                                    v-if="primarySelectedLayer.i18n && (!primarySelectedLayer.i18n.am || !primarySelectedLayer.i18n.am.trim())"
+                                    class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/40 font-semibold"
+                                >
+                                    ⚠️ Missing Amharic
+                                </span>
+                            </label>
+
+                            <!-- If i18n exists -->
+                            <div v-if="primarySelectedLayer.i18n" class="space-y-2">
+                                <div>
+                                    <div class="text-[10px] text-zinc-500 mb-1">English (EN):</div>
+                                    <textarea
+                                        v-model="primarySelectedLayer.i18n.en"
+                                        @input="recordHistory"
+                                        rows="2"
+                                        class="w-full px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg text-xs text-zinc-200 focus:border-[#D4AF37] focus:ring-0"
+                                    />
+                                </div>
+                                <div>
+                                    <div class="text-[10px] text-zinc-500 mb-1">Amharic (አማ):</div>
+                                    <textarea
+                                        v-model="primarySelectedLayer.i18n.am"
+                                        @input="recordHistory"
+                                        rows="2"
+                                        placeholder="የአማርኛ ጽሑፍ እዚህ ያስገቡ..."
+                                        class="w-full px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg text-xs text-zinc-200 focus:border-[#D4AF37] focus:ring-0"
+                                    />
+                                </div>
+                            </div>
+                            <!-- Plain Text Fallback -->
+                            <div v-else class="space-y-1.5">
+                                <textarea
+                                    v-model="primarySelectedLayer.text"
+                                    @input="recordHistory"
+                                    rows="3"
+                                    class="w-full px-2.5 py-1.5 bg-zinc-900 border border-zinc-800 rounded-lg text-xs text-zinc-200 focus:border-[#D4AF37] focus:ring-0"
+                                />
+                                <button
+                                    type="button"
+                                    @click="primarySelectedLayer.i18n = { en: primarySelectedLayer.text || '', am: '' }; recordHistory();"
+                                    class="text-[11px] text-[#D4AF37] hover:underline"
+                                >
+                                    + Add Bilingual (EN / አማ) Support
+                                </button>
+                            </div>
                         </div>
 
-                        <!-- Font Family Picker -->
-                        <div>
-                            <label class="block text-zinc-400 font-semibold mb-1.5">Font Family</label>
+                        <!-- Font Family -->
+                        <div class="space-y-1">
+                            <label class="text-xs font-medium text-zinc-400">Font Family</label>
                             <select
                                 v-model="primarySelectedLayer.fontFamily"
                                 @change="recordHistory"
-                                class="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-2.5 text-zinc-100 text-xs focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]"
+                                class="w-full bg-zinc-900 border border-zinc-800 rounded-lg text-xs py-1.5 px-2.5 text-zinc-200 focus:border-[#D4AF37] focus:ring-0"
                             >
-                                <option
-                                    v-for="font in AVAILABLE_FONTS"
-                                    :key="font.name"
-                                    :value="font.name"
-                                    :style="{ fontFamily: font.name }"
-                                >
+                                <option v-for="font in AVAILABLE_FONTS" :key="font.name" :value="font.name">
                                     {{ font.label }}
                                 </option>
                             </select>
-                            <div
-                                class="mt-2 p-2 rounded bg-zinc-900/60 border border-zinc-800 text-sm text-[#D4AF37] text-center truncate"
-                                :style="{ fontFamily: primarySelectedLayer.fontFamily }"
-                            >
-                                {{ AVAILABLE_FONTS.find(f => f.name === primarySelectedLayer.fontFamily)?.sample || 'እንኳን ደስ አላችሁ' }}
-                            </div>
                         </div>
 
                         <!-- Font Size & Weight -->
-                        <div class="grid grid-cols-2 gap-3">
+                        <div class="grid grid-cols-2 gap-2">
                             <div>
-                                <label class="block text-zinc-400 font-semibold mb-1.5">Size (px)</label>
+                                <label class="text-xs font-medium text-zinc-400">Size ({{ primarySelectedLayer.fontSize }}px)</label>
                                 <input
-                                    type="number"
+                                    type="range"
+                                    min="14"
+                                    max="120"
                                     v-model.number="primarySelectedLayer.fontSize"
                                     @input="recordHistory"
-                                    min="12"
-                                    max="200"
-                                    class="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-2 text-zinc-100 text-xs focus:border-[#D4AF37]"
+                                    class="w-full accent-[#D4AF37]"
                                 />
                             </div>
                             <div>
-                                <label class="block text-zinc-400 font-semibold mb-1.5">Weight</label>
+                                <label class="text-xs font-medium text-zinc-400">Weight</label>
                                 <select
-                                    v-model.number="primarySelectedLayer.fontWeight"
+                                    v-model="primarySelectedLayer.fontWeight"
                                     @change="recordHistory"
-                                    class="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-2 text-zinc-100 text-xs focus:border-[#D4AF37]"
+                                    class="w-full bg-zinc-900 border border-zinc-800 rounded-lg text-xs py-1.5 px-2.5 text-zinc-200 focus:border-[#D4AF37] focus:ring-0"
                                 >
-                                    <option :value="400">Regular (400)</option>
-                                    <option :value="600">Semi-Bold (600)</option>
+                                    <option :value="400">Normal (400)</option>
+                                    <option :value="600">Semibold (600)</option>
                                     <option :value="700">Bold (700)</option>
                                 </select>
                             </div>
                         </div>
 
-                        <!-- Text Color -->
-                        <div>
-                            <label class="block text-zinc-400 font-semibold mb-1.5">Text Color</label>
-                            <div class="flex items-center space-x-2 mb-2">
-                                <input
-                                    type="color"
+                        <!-- Color Role Picker -->
+                        <div class="space-y-1">
+                            <label class="text-xs font-medium text-zinc-400">Text Color / Role</label>
+                            <div class="flex items-center space-x-2">
+                                <span
+                                    class="w-6 h-6 rounded-md border border-zinc-700 shrink-0"
+                                    :style="{ backgroundColor: resolveColor(primarySelectedLayer.fill || '@ink', effectivePalette) }"
+                                />
+                                <select
                                     v-model="primarySelectedLayer.fill"
-                                    @input="recordHistory"
-                                    class="w-8 h-8 rounded border border-zinc-700 bg-transparent cursor-pointer"
-                                />
-                                <input
-                                    type="text"
-                                    v-model="primarySelectedLayer.fill"
-                                    @input="recordHistory"
-                                    class="flex-1 bg-zinc-900 border border-zinc-800 rounded-lg p-2 text-zinc-100 font-mono text-xs uppercase"
-                                />
-                            </div>
-                            <!-- Quick Palette -->
-                            <div class="grid grid-cols-7 gap-1.5">
-                                <button
-                                    v-for="color in COLOR_PALETTES"
-                                    :key="color.value"
-                                    type="button"
-                                    @click="primarySelectedLayer.fill = color.value; recordHistory();"
-                                    :style="{ backgroundColor: color.value }"
-                                    class="w-full aspect-square rounded border border-zinc-700/60 hover:scale-110 transition"
-                                    :title="color.name"
-                                ></button>
+                                    @change="recordHistory"
+                                    class="w-full bg-zinc-900 border border-zinc-800 rounded-lg text-xs py-1.5 px-2 text-zinc-200 focus:border-[#D4AF37] focus:ring-0"
+                                >
+                                    <option value="@ink">Ink (@ink)</option>
+                                    <option value="@primary">Primary (@primary)</option>
+                                    <option value="@secondary">Secondary (@secondary)</option>
+                                    <option value="@accent">Accent (@accent)</option>
+                                    <option value="@muted">Muted (@muted)</option>
+                                    <option value="#FFFFFF">White</option>
+                                    <option value="#18181B">Dark</option>
+                                </select>
                             </div>
                         </div>
 
-                        <!-- Alignment -->
-                        <div>
-                            <label class="block text-zinc-400 font-semibold mb-1.5">Alignment</label>
-                            <div class="grid grid-cols-3 gap-1 bg-zinc-900 p-1 rounded-lg border border-zinc-800">
+                        <!-- Curved Text (Task 5) -->
+                        <div class="space-y-1 pt-2 border-t border-zinc-800">
+                            <div class="flex items-center justify-between">
+                                <label class="text-xs font-medium text-zinc-400">
+                                    Curved Text Radius: {{ primarySelectedLayer.curve ? `${primarySelectedLayer.curve}px` : 'Straight' }}
+                                </label>
                                 <button
+                                    v-if="primarySelectedLayer.curve"
                                     type="button"
-                                    @click="primarySelectedLayer.align = 'left'; recordHistory();"
-                                    :class="primarySelectedLayer.align === 'left' ? 'bg-zinc-800 text-[#D4AF37]' : 'text-zinc-400'"
-                                    class="py-1 rounded text-center transition"
+                                    @click="primarySelectedLayer.curve = 0; recordHistory();"
+                                    class="text-[10px] text-zinc-500 hover:text-zinc-300"
                                 >
-                                    Left
-                                </button>
-                                <button
-                                    type="button"
-                                    @click="primarySelectedLayer.align = 'center'; recordHistory();"
-                                    :class="primarySelectedLayer.align === 'center' ? 'bg-zinc-800 text-[#D4AF37]' : 'text-zinc-400'"
-                                    class="py-1 rounded text-center transition"
-                                >
-                                    Center
-                                </button>
-                                <button
-                                    type="button"
-                                    @click="primarySelectedLayer.align = 'right'; recordHistory();"
-                                    :class="primarySelectedLayer.align === 'right' ? 'bg-zinc-800 text-[#D4AF37]' : 'text-zinc-400'"
-                                    class="py-1 rounded text-center transition"
-                                >
-                                    Right
+                                    Reset
                                 </button>
                             </div>
-                        </div>
-
-                        <!-- Line Height & Letter Spacing -->
-                        <div class="grid grid-cols-2 gap-3">
-                            <div>
-                                <label class="block text-zinc-400 font-semibold mb-1">Line Height ({{ primarySelectedLayer.lineHeight || 1.3 }})</label>
-                                <input
-                                    type="range"
-                                    v-model.number="primarySelectedLayer.lineHeight"
-                                    @input="recordHistory"
-                                    min="0.8"
-                                    max="2.5"
-                                    step="0.05"
-                                    class="w-full accent-[#D4AF37]"
-                                />
-                            </div>
-                            <div>
-                                <label class="block text-zinc-400 font-semibold mb-1">Letter Spacing ({{ primarySelectedLayer.letterSpacing || 0 }})</label>
-                                <input
-                                    type="range"
-                                    v-model.number="primarySelectedLayer.letterSpacing"
-                                    @input="recordHistory"
-                                    min="-2"
-                                    max="20"
-                                    step="1"
-                                    class="w-full accent-[#D4AF37]"
-                                />
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- IF IMAGE LAYER SELECTED -->
-                    <div v-else-if="primarySelectedLayer && primarySelectedLayer.type === 'image'" class="space-y-4">
-                        <div>
-                            <label class="block text-zinc-400 font-semibold mb-2">Image</label>
-                            <div class="w-full aspect-video rounded-lg overflow-hidden bg-zinc-900 border border-zinc-800 mb-2 flex items-center justify-center">
-                                <img
-                                    v-if="primarySelectedLayer.src"
-                                    :src="primarySelectedLayer.src"
-                                    class="w-full h-full object-contain"
-                                    alt="Layer Preview"
-                                />
-                            </div>
-                            <button
-                                type="button"
-                                @click="promptReplaceImage"
-                                class="w-full py-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 text-xs transition"
-                            >
-                                Replace Image...
-                            </button>
-                        </div>
-
-                        <!-- Opacity Slider -->
-                        <div>
-                            <label class="block text-zinc-400 font-semibold mb-1">Opacity ({{ Math.round((primarySelectedLayer.opacity ?? 1) * 100) }}%)</label>
                             <input
                                 type="range"
-                                v-model.number="primarySelectedLayer.opacity"
+                                min="-400"
+                                max="400"
+                                step="10"
+                                v-model.number="primarySelectedLayer.curve"
                                 @input="recordHistory"
-                                min="0.05"
-                                max="1"
-                                step="0.05"
                                 class="w-full accent-[#D4AF37]"
+                            />
+                        </div>
+
+                        <!-- Stroke Controls (Task 5) -->
+                        <div class="space-y-1 pt-2 border-t border-zinc-800">
+                            <label class="text-xs font-medium text-zinc-400">Text Stroke ({{ primarySelectedLayer.strokeWidth || 0 }}px)</label>
+                            <div class="flex items-center space-x-2">
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="8"
+                                    v-model.number="primarySelectedLayer.strokeWidth"
+                                    @input="recordHistory"
+                                    class="flex-1 accent-[#D4AF37]"
+                                />
+                                <select
+                                    v-model="primarySelectedLayer.stroke"
+                                    @change="recordHistory"
+                                    class="w-28 bg-zinc-900 border border-zinc-800 rounded text-xs py-1 text-zinc-200"
+                                >
+                                    <option :value="null">None</option>
+                                    <option value="@primary">Primary</option>
+                                    <option value="@secondary">Gold</option>
+                                    <option value="#FFFFFF">White</option>
+                                    <option value="#000000">Black</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- AutoFit Toggle (Task 5) -->
+                        <div class="flex items-center justify-between pt-2 border-t border-zinc-800">
+                            <span class="text-xs text-zinc-300">Auto-fit size on overflow</span>
+                            <input
+                                type="checkbox"
+                                :checked="!!primarySelectedLayer.autoFit"
+                                @change="primarySelectedLayer.autoFit = $event.target.checked ? { minSize: 14 } : null; recordHistory();"
+                                class="rounded bg-zinc-900 border-zinc-700 text-[#D4AF37] focus:ring-0"
                             />
                         </div>
                     </div>
 
-                    <!-- IF SHAPE LAYER SELECTED -->
-                    <div v-else-if="primarySelectedLayer && primarySelectedLayer.type === 'shape'" class="space-y-4">
-                        <!-- Fill Color -->
-                        <div>
-                            <div class="flex items-center justify-between mb-1.5">
-                                <label class="text-zinc-400 font-semibold">Fill Color</label>
-                                <button
-                                    type="button"
-                                    @click="primarySelectedLayer.fill = 'transparent'; recordHistory();"
-                                    class="text-[10px] text-zinc-400 hover:underline"
+                    <!-- 2. ORNAMENT LAYER CONTROLS (Task 3) -->
+                    <div v-else-if="primarySelectedLayer && primarySelectedLayer.type === 'ornament'" class="space-y-4">
+                        <div class="p-3 bg-zinc-900 rounded-lg border border-zinc-800 text-center">
+                            <div class="text-xs font-semibold text-zinc-200">{{ primarySelectedLayer.name }}</div>
+                            <div class="text-[10px] font-mono text-zinc-500">{{ primarySelectedLayer.assetId }}</div>
+                        </div>
+
+                        <!-- Tint Slots c1, c2, c3 (Task 3) -->
+                        <div class="space-y-2">
+                            <label class="text-xs font-medium text-zinc-400">Tint Slots</label>
+                            <div class="space-y-2">
+                                <div
+                                    v-for="slot in ['c1', 'c2', 'c3']"
+                                    :key="slot"
+                                    class="flex items-center justify-between p-2 rounded-lg bg-zinc-900 border border-zinc-800"
                                 >
-                                    Transparent
-                                </button>
-                            </div>
-                            <div class="flex items-center space-x-2 mb-2">
-                                <input
-                                    type="color"
-                                    :value="primarySelectedLayer.fill === 'transparent' ? '#000000' : primarySelectedLayer.fill"
-                                    @input="primarySelectedLayer.fill = $event.target.value; recordHistory();"
-                                    class="w-8 h-8 rounded border border-zinc-700 bg-transparent cursor-pointer"
-                                />
-                                <input
-                                    type="text"
-                                    v-model="primarySelectedLayer.fill"
-                                    @input="recordHistory"
-                                    class="flex-1 bg-zinc-900 border border-zinc-800 rounded-lg p-2 text-zinc-100 font-mono text-xs uppercase"
-                                />
+                                    <div class="flex items-center space-x-2">
+                                        <span class="text-[11px] font-mono font-bold text-zinc-400 uppercase">{{ slot }}</span>
+                                        <span
+                                            class="w-5 h-5 rounded border border-zinc-700 shrink-0"
+                                            :style="{ backgroundColor: resolveColor(primarySelectedLayer.tint?.[slot] || '@primary', effectivePalette) }"
+                                        />
+                                    </div>
+                                    <select
+                                        :value="primarySelectedLayer.tint?.[slot] || (slot === 'c1' ? '@primary' : (slot === 'c2' ? '@secondary' : '@accent'))"
+                                        @change="primarySelectedLayer.tint = { ...(primarySelectedLayer.tint || {}), [slot]: $event.target.value }; recordHistory();"
+                                        class="bg-zinc-950 border border-zinc-800 rounded text-xs py-1 px-2 text-zinc-200 focus:border-[#D4AF37] focus:ring-0"
+                                    >
+                                        <option value="@primary">Primary (@primary)</option>
+                                        <option value="@secondary">Secondary (@secondary)</option>
+                                        <option value="@accent">Accent (@accent)</option>
+                                        <option value="@ink">Ink (@ink)</option>
+                                        <option value="@surface">Surface (@surface)</option>
+                                        <option value="@muted">Muted (@muted)</option>
+                                        <option value="#FFFFFF">White</option>
+                                        <option value="#18181B">Dark</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Stroke Color & Width -->
-                        <div>
-                            <label class="block text-zinc-400 font-semibold mb-1.5">Border / Stroke</label>
-                            <div class="flex items-center space-x-2 mb-2">
-                                <input
-                                    type="color"
-                                    v-model="primarySelectedLayer.stroke"
-                                    @input="recordHistory"
-                                    class="w-8 h-8 rounded border border-zinc-700 bg-transparent cursor-pointer"
-                                />
-                                <input
-                                    type="text"
-                                    v-model="primarySelectedLayer.stroke"
-                                    @input="recordHistory"
-                                    class="flex-1 bg-zinc-900 border border-zinc-800 rounded-lg p-2 text-zinc-100 font-mono text-xs uppercase"
-                                />
+                        <!-- Flip Controls (Task 3) -->
+                        <div class="space-y-1 pt-2 border-t border-zinc-800">
+                            <label class="text-xs font-medium text-zinc-400">Orientation</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button
+                                    type="button"
+                                    @click="primarySelectedLayer.flipX = !primarySelectedLayer.flipX; recordHistory();"
+                                    :class="primarySelectedLayer.flipX ? 'bg-[#D4AF37] text-zinc-950 font-bold' : 'bg-zinc-900 text-zinc-300'"
+                                    class="py-1.5 px-3 rounded-lg border border-zinc-800 text-xs transition text-center"
+                                >
+                                    ⇄ Flip Horizontal
+                                </button>
+                                <button
+                                    type="button"
+                                    @click="primarySelectedLayer.flipY = !primarySelectedLayer.flipY; recordHistory();"
+                                    :class="primarySelectedLayer.flipY ? 'bg-[#D4AF37] text-zinc-950 font-bold' : 'bg-zinc-900 text-zinc-300'"
+                                    class="py-1.5 px-3 rounded-lg border border-zinc-800 text-xs transition text-center"
+                                >
+                                    ⇅ Flip Vertical
+                                </button>
                             </div>
+                        </div>
+                    </div>
 
-                            <label class="block text-zinc-400 font-semibold mb-1">Stroke Width ({{ primarySelectedLayer.strokeWidth || 0 }}px)</label>
+                    <!-- 3. BORDER LAYER CONTROLS (Task 6) -->
+                    <div v-else-if="primarySelectedLayer && primarySelectedLayer.type === 'border'" class="space-y-4">
+                        <div class="space-y-1">
+                            <label class="text-xs font-medium text-zinc-400">Border Style</label>
+                            <select
+                                v-model="primarySelectedLayer.style"
+                                @change="recordHistory"
+                                class="w-full bg-zinc-900 border border-zinc-800 rounded-lg text-xs py-1.5 px-2.5 text-zinc-200 focus:border-[#D4AF37] focus:ring-0"
+                            >
+                                <option value="double-rule">Double Rule Frame</option>
+                                <option value="single-rule">Single Rule Frame</option>
+                                <option value="ornate-corners">Ornate Corner Accents</option>
+                                <option value="dotted">Dotted Rule</option>
+                                <option value="tilet-band">Traditional Tilet Band</option>
+                            </select>
+                        </div>
+
+                        <div class="space-y-1">
+                            <label class="text-xs font-medium text-zinc-400">Inset ({{ primarySelectedLayer.inset || 40 }}px)</label>
                             <input
                                 type="range"
+                                min="0"
+                                max="120"
+                                v-model.number="primarySelectedLayer.inset"
+                                @input="recordHistory"
+                                class="w-full accent-[#D4AF37]"
+                            />
+                        </div>
+
+                        <div class="space-y-1">
+                            <label class="text-xs font-medium text-zinc-400">Stroke Width ({{ primarySelectedLayer.strokeWidth || 2 }}px)</label>
+                            <input
+                                type="range"
+                                min="1"
+                                max="16"
                                 v-model.number="primarySelectedLayer.strokeWidth"
                                 @input="recordHistory"
-                                min="0"
-                                max="20"
-                                step="1"
                                 class="w-full accent-[#D4AF37]"
                             />
                         </div>
 
-                        <!-- Opacity Slider -->
-                        <div>
-                            <label class="block text-zinc-400 font-semibold mb-1">Opacity ({{ Math.round((primarySelectedLayer.opacity ?? 1) * 100) }}%)</label>
+                        <div v-if="primarySelectedLayer.style === 'double-rule'" class="space-y-1">
+                            <label class="text-xs font-medium text-zinc-400">Gap ({{ primarySelectedLayer.gap || 6 }}px)</label>
                             <input
                                 type="range"
-                                v-model.number="primarySelectedLayer.opacity"
+                                min="2"
+                                max="24"
+                                v-model.number="primarySelectedLayer.gap"
                                 @input="recordHistory"
-                                min="0.05"
-                                max="1"
-                                step="0.05"
+                                class="w-full accent-[#D4AF37]"
+                            />
+                        </div>
+
+                        <div class="space-y-1">
+                            <label class="text-xs font-medium text-zinc-400">Border Color Role</label>
+                            <select
+                                v-model="primarySelectedLayer.stroke"
+                                @change="recordHistory"
+                                class="w-full bg-zinc-900 border border-zinc-800 rounded-lg text-xs py-1.5 px-2.5 text-zinc-200 focus:border-[#D4AF37] focus:ring-0"
+                            >
+                                <option value="@primary">Primary (@primary)</option>
+                                <option value="@secondary">Secondary (@secondary)</option>
+                                <option value="@accent">Accent (@accent)</option>
+                                <option value="@muted">Muted (@muted)</option>
+                                <option value="#FFFFFF">White</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- 4. PATTERN LAYER CONTROLS (Task 6) -->
+                    <div v-else-if="primarySelectedLayer && primarySelectedLayer.type === 'pattern'" class="space-y-4">
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="text-xs font-medium text-zinc-400">Tile Width ({{ primarySelectedLayer.tileWidth || 60 }}px)</label>
+                                <input
+                                    type="range"
+                                    min="20"
+                                    max="160"
+                                    v-model.number="primarySelectedLayer.tileWidth"
+                                    @input="recordHistory"
+                                    class="w-full accent-[#D4AF37]"
+                                />
+                            </div>
+                            <div>
+                                <label class="text-xs font-medium text-zinc-400">Tile Height ({{ primarySelectedLayer.tileHeight || 60 }}px)</label>
+                                <input
+                                    type="range"
+                                    min="20"
+                                    max="160"
+                                    v-model.number="primarySelectedLayer.tileHeight"
+                                    @input="recordHistory"
+                                    class="w-full accent-[#D4AF37]"
+                                />
+                            </div>
+                        </div>
+
+                        <div class="space-y-1">
+                            <label class="text-xs font-medium text-zinc-400">Tile Gap X ({{ primarySelectedLayer.gapX || 0 }}px)</label>
+                            <input
+                                type="range"
+                                min="0"
+                                max="32"
+                                v-model.number="primarySelectedLayer.gapX"
+                                @input="recordHistory"
                                 class="w-full accent-[#D4AF37]"
                             />
                         </div>
                     </div>
 
-                    <!-- IF NO LAYER SELECTED: BACKGROUND CONTROLS -->
+                    <!-- 5. IMAGE LAYER CONTROLS (Task 7: Image Masks) -->
+                    <div v-else-if="primarySelectedLayer && primarySelectedLayer.type === 'image'" class="space-y-4">
+                        <!-- Mask Selector (Task 7) -->
+                        <div class="space-y-1">
+                            <label class="text-xs font-medium text-zinc-400">Image Mask Shape</label>
+                            <select
+                                v-model="primarySelectedLayer.mask"
+                                @change="recordHistory"
+                                class="w-full bg-zinc-900 border border-zinc-800 rounded-lg text-xs py-1.5 px-2.5 text-zinc-200 focus:border-[#D4AF37] focus:ring-0"
+                            >
+                                <option value="circle">Circle Mask</option>
+                                <option value="arch">Cathedral Arch Mask</option>
+                                <option value="oval">Oval Mask</option>
+                                <option value="rounded">Rounded Rectangle</option>
+                                <option value="none">Unmasked (Rectangle)</option>
+                            </select>
+                        </div>
+
+                        <!-- Drag-to-Reposition / Mask Offset (Task 7) -->
+                        <div class="space-y-2 pt-2 border-t border-zinc-800">
+                            <label class="text-xs font-medium text-zinc-400">Reposition Inside Mask</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <span class="text-[10px] text-zinc-500">Offset X: {{ primarySelectedLayer.maskOffsetX || 0 }}px</span>
+                                    <input
+                                        type="range"
+                                        min="-150"
+                                        max="150"
+                                        v-model.number="primarySelectedLayer.maskOffsetX"
+                                        @input="recordHistory"
+                                        class="w-full accent-[#D4AF37]"
+                                    />
+                                </div>
+                                <div>
+                                    <span class="text-[10px] text-zinc-500">Offset Y: {{ primarySelectedLayer.maskOffsetY || 0 }}px</span>
+                                    <input
+                                        type="range"
+                                        min="-150"
+                                        max="150"
+                                        v-model.number="primarySelectedLayer.maskOffsetY"
+                                        @input="recordHistory"
+                                        class="w-full accent-[#D4AF37]"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <button
+                            type="button"
+                            @click="promptImageUpload"
+                            class="w-full py-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-lg text-xs text-zinc-200 transition"
+                        >
+                            Replace Image
+                        </button>
+                    </div>
+
+                    <!-- 6. SHAPE LAYER CONTROLS -->
+                    <div v-else-if="primarySelectedLayer && primarySelectedLayer.type === 'shape'" class="space-y-4">
+                        <div class="space-y-1">
+                            <label class="text-xs font-medium text-zinc-400">Shape</label>
+                            <select
+                                v-model="primarySelectedLayer.shape"
+                                @change="recordHistory"
+                                class="w-full bg-zinc-900 border border-zinc-800 rounded-lg text-xs py-1.5 px-2.5 text-zinc-200 focus:border-[#D4AF37] focus:ring-0"
+                            >
+                                <option value="rect">Rectangle</option>
+                                <option value="circle">Circle</option>
+                                <option value="arch">Arch</option>
+                                <option value="line">Line</option>
+                                <option value="star">Star</option>
+                            </select>
+                        </div>
+
+                        <div class="space-y-1">
+                            <label class="text-xs font-medium text-zinc-400">Fill Color</label>
+                            <select
+                                v-model="primarySelectedLayer.fill"
+                                @change="recordHistory"
+                                class="w-full bg-zinc-900 border border-zinc-800 rounded-lg text-xs py-1.5 px-2.5 text-zinc-200"
+                            >
+                                <option value="transparent">Transparent</option>
+                                <option value="@surface">Surface (@surface)</option>
+                                <option value="@primary">Primary (@primary)</option>
+                                <option value="@secondary">Secondary (@secondary)</option>
+                            </select>
+                        </div>
+
+                        <div class="space-y-1">
+                            <label class="text-xs font-medium text-zinc-400">Stroke Color</label>
+                            <select
+                                v-model="primarySelectedLayer.stroke"
+                                @change="recordHistory"
+                                class="w-full bg-zinc-900 border border-zinc-800 rounded-lg text-xs py-1.5 px-2.5 text-zinc-200"
+                            >
+                                <option value="@primary">Primary (@primary)</option>
+                                <option value="@secondary">Secondary (@secondary)</option>
+                                <option value="@accent">Accent (@accent)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- 7. BACKGROUND PANEL (Task 8: When No Layer Selected) -->
                     <div v-else class="space-y-4">
-                        <div>
-                            <label class="block text-zinc-400 font-semibold mb-2">Background Type</label>
-                            <div class="grid grid-cols-2 gap-1 bg-zinc-900 p-1 rounded-lg border border-zinc-800">
+                        <!-- Background Type -->
+                        <div class="space-y-1">
+                            <label class="text-xs font-medium text-zinc-400">Background Type</label>
+                            <div class="grid grid-cols-2 gap-1 bg-zinc-900 p-1 rounded-lg">
                                 <button
                                     type="button"
-                                    @click="design.background.type = 'color'; recordHistory();"
-                                    :class="design.background.type === 'color' ? 'bg-zinc-800 text-[#D4AF37]' : 'text-zinc-400'"
-                                    class="py-1.5 rounded text-center transition"
+                                    @click="design.background = { type: 'color', value: '@bg', texture: design.background?.texture || { kind: 'none' }, vignette: design.background?.vignette || 0 }; recordHistory();"
+                                    :class="design.background?.type === 'color' ? 'bg-zinc-800 text-[#D4AF37] font-semibold' : 'text-zinc-400'"
+                                    class="py-1 rounded text-xs transition"
                                 >
                                     Solid Color
                                 </button>
                                 <button
                                     type="button"
-                                    @click="design.background.type = 'gradient'; recordHistory();"
-                                    :class="design.background.type === 'gradient' ? 'bg-zinc-800 text-[#D4AF37]' : 'text-zinc-400'"
-                                    class="py-1.5 rounded text-center transition"
+                                    @click="design.background = { type: 'gradient', value: { type: 'linear', angle: 180, stops: [[0, '@bg'], [1, '@surface']] }, texture: design.background?.texture || { kind: 'none' }, vignette: design.background?.vignette || 0 }; recordHistory();"
+                                    :class="design.background?.type === 'gradient' ? 'bg-zinc-800 text-[#D4AF37] font-semibold' : 'text-zinc-400'"
+                                    class="py-1 rounded text-xs transition"
                                 >
                                     Gradient
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Solid Background Color -->
-                        <div v-if="design.background.type === 'color'">
-                            <label class="block text-zinc-400 font-semibold mb-1.5">Color</label>
-                            <div class="flex items-center space-x-2 mb-2">
+                        <!-- Solid Background Color Role -->
+                        <div v-if="design.background?.type === 'color'" class="space-y-1">
+                            <label class="text-xs font-medium text-zinc-400">Background Color / Role</label>
+                            <select
+                                v-model="design.background.value"
+                                @change="recordHistory"
+                                class="w-full bg-zinc-900 border border-zinc-800 rounded-lg text-xs py-1.5 px-2.5 text-zinc-200"
+                            >
+                                <option value="@bg">Default Background (@bg)</option>
+                                <option value="@surface">Surface (@surface)</option>
+                                <option value="#FAF7F2">Cream Paper</option>
+                                <option value="#18181B">Dark Onyx</option>
+                            </select>
+                        </div>
+
+                        <!-- Procedural Textures (Task 8) -->
+                        <div class="space-y-2 pt-2 border-t border-zinc-800">
+                            <label class="text-xs font-medium text-zinc-400">Procedural Texture</label>
+                            <select
+                                :value="design.background?.texture?.kind || 'none'"
+                                @change="design.background.texture = { ...(design.background.texture || { opacity: 0.08, seed: 1 }), kind: $event.target.value }; recordHistory();"
+                                class="w-full bg-zinc-900 border border-zinc-800 rounded-lg text-xs py-1.5 px-2.5 text-zinc-200 focus:border-[#D4AF37] focus:ring-0"
+                            >
+                                <option value="none">None (Clean)</option>
+                                <option value="paper">Fine Paper Texture</option>
+                                <option value="linen">Natural Woven Linen</option>
+                                <option value="grain">Subtle Film Grain</option>
+                                <option value="watercolor">Soft Watercolor Wash</option>
+                            </select>
+
+                            <div v-if="design.background?.texture?.kind && design.background.texture.kind !== 'none'" class="space-y-1">
+                                <span class="text-[10px] text-zinc-500">
+                                    Texture Strength ({{ Math.round((design.background.texture.opacity || 0.08) * 100) }}%)
+                                </span>
                                 <input
-                                    type="color"
-                                    v-model="design.background.value"
+                                    type="range"
+                                    min="0.02"
+                                    max="0.25"
+                                    step="0.01"
+                                    v-model.number="design.background.texture.opacity"
                                     @input="recordHistory"
-                                    class="w-8 h-8 rounded border border-zinc-700 bg-transparent cursor-pointer"
-                                />
-                                <input
-                                    type="text"
-                                    v-model="design.background.value"
-                                    @input="recordHistory"
-                                    class="flex-1 bg-zinc-900 border border-zinc-800 rounded-lg p-2 text-zinc-100 font-mono text-xs uppercase"
+                                    class="w-full accent-[#D4AF37]"
                                 />
                             </div>
-                            <!-- Quick Palette -->
-                            <div class="grid grid-cols-7 gap-1.5">
-                                <button
-                                    v-for="color in COLOR_PALETTES"
-                                    :key="color.value"
-                                    type="button"
-                                    @click="design.background.value = color.value; recordHistory();"
-                                    :style="{ backgroundColor: color.value }"
-                                    class="w-full aspect-square rounded border border-zinc-700/60 hover:scale-110 transition"
-                                    :title="color.name"
-                                ></button>
-                            </div>
                         </div>
 
-                        <!-- Gradient Presets -->
-                        <div v-if="design.background.type === 'gradient'" class="space-y-2">
-                            <label class="block text-zinc-400 font-semibold mb-1.5">Gradient Styles</label>
-                            <div class="space-y-1.5">
-                                <button
-                                    v-for="(grad, i) in GRADIENT_PRESETS"
-                                    :key="i"
-                                    type="button"
-                                    @click="design.background.value = grad.start; design.background.gradientStops = [0, grad.start, 1, grad.end]; recordHistory();"
-                                    :style="{ background: `linear-gradient(to right, ${grad.start}, ${grad.end})` }"
-                                    class="w-full py-2.5 px-3 rounded-lg border border-zinc-700 text-left text-xs font-medium text-zinc-100 flex items-center justify-between hover:border-[#D4AF37] transition"
-                                >
-                                    <span>{{ grad.label }}</span>
-                                </button>
-                            </div>
+                        <!-- Vignette Darkness (Task 8) -->
+                        <div class="space-y-1 pt-2 border-t border-zinc-800">
+                            <label class="text-xs font-medium text-zinc-400">
+                                Edge Vignette: {{ Math.round((design.background?.vignette || 0) * 100) }}%
+                            </label>
+                            <input
+                                type="range"
+                                min="0"
+                                max="1"
+                                step="0.05"
+                                v-model.number="design.background.vignette"
+                                @input="recordHistory"
+                                class="w-full accent-[#D4AF37]"
+                            />
                         </div>
-                    </div>
-
-                    <!-- Layer Actions (Duplicate, Reorder, Delete) -->
-                    <div v-if="primarySelectedLayer" class="pt-4 border-t border-zinc-800 space-y-2">
-                        <div class="grid grid-cols-2 gap-2">
-                            <button
-                                type="button"
-                                @click="duplicateSelected"
-                                class="py-2 px-3 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-200 transition text-center"
-                            >
-                                Duplicate
-                            </button>
-                            <button
-                                type="button"
-                                @click="toggleLockSelected"
-                                :class="primarySelectedLayer.locked ? 'text-amber-400 border-amber-800/80 bg-amber-950/40' : 'text-zinc-200 bg-zinc-900 border-zinc-800'"
-                                class="py-2 px-3 rounded-lg hover:bg-zinc-800 border transition text-center"
-                            >
-                                {{ primarySelectedLayer.locked ? 'Unlock' : 'Lock Layer' }}
-                            </button>
-                        </div>
-
-                        <!-- Arrange / Reorder -->
-                        <div class="grid grid-cols-4 gap-1 text-[11px] text-zinc-300">
-                            <button
-                                type="button"
-                                @click="reorderLayer('front')"
-                                class="p-1.5 rounded bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-center"
-                                title="Bring to Front"
-                            >
-                                Front
-                            </button>
-                            <button
-                                type="button"
-                                @click="reorderLayer('forward')"
-                                class="p-1.5 rounded bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-center"
-                                title="Bring Forward"
-                            >
-                                Forward
-                            </button>
-                            <button
-                                type="button"
-                                @click="reorderLayer('backward')"
-                                class="p-1.5 rounded bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-center"
-                                title="Send Backward"
-                            >
-                                Backward
-                            </button>
-                            <button
-                                type="button"
-                                @click="reorderLayer('back')"
-                                class="p-1.5 rounded bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-center"
-                                title="Send to Back"
-                            >
-                                Back
-                            </button>
-                        </div>
-
-                        <button
-                            type="button"
-                            @click="deleteSelected"
-                            class="w-full py-2 px-3 rounded-lg bg-rose-950/30 hover:bg-rose-900/50 border border-rose-800/60 text-rose-300 transition text-center mt-2"
-                        >
-                            Delete Layer
-                        </button>
                     </div>
                 </div>
             </aside>
         </div>
 
-        <!-- Mobile Drawer Toolbar (Visible only on small screens) -->
-        <div class="md:hidden bg-zinc-950 border-t border-zinc-800 p-2 flex items-center justify-around text-xs shrink-0 z-30">
+        <!-- Mobile Bottom Toolbar (Task 9) -->
+        <div class="md:hidden h-14 bg-zinc-900 border-t border-zinc-800 flex items-center justify-around px-2 z-30 shrink-0 text-[10px]">
             <button
                 type="button"
                 @click="mobileTab = mobileTab === 'insert' ? null : 'insert'"
                 :class="mobileTab === 'insert' ? 'text-[#D4AF37]' : 'text-zinc-400'"
-                class="flex flex-col items-center py-1"
+                class="flex flex-col items-center p-1"
             >
-                <svg class="w-5 h-5 mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                 </svg>
-                <span>Add</span>
+                <span>Insert</span>
             </button>
             <button
                 type="button"
-                @click="mobileTab = mobileTab === 'props' ? null : 'props'"
-                :class="mobileTab === 'props' ? 'text-[#D4AF37]' : 'text-zinc-400'"
-                class="flex flex-col items-center py-1"
+                @click="mobileTab = mobileTab === 'ornaments' ? null : 'ornaments'"
+                :class="mobileTab === 'ornaments' ? 'text-[#D4AF37]' : 'text-zinc-400'"
+                class="flex flex-col items-center p-1"
             >
-                <svg class="w-5 h-5 mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                </svg>
+                <span>Ornaments</span>
+            </button>
+            <button
+                type="button"
+                @click="mobileTab = mobileTab === 'palette' ? null : 'palette'"
+                :class="mobileTab === 'palette' ? 'text-[#D4AF37]' : 'text-zinc-400'"
+                class="flex flex-col items-center p-1"
+            >
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4 5 5 0 015-5c.66 0 1.3.13 1.88.37A6 6 0 0118 7a6 6 0 016 6 5 5 0 01-5 5H7z" />
+                </svg>
+                <span>Palette</span>
+            </button>
+            <button
+                type="button"
+                @click="mobileTab = mobileTab === 'layers' ? null : 'layers'"
+                :class="mobileTab === 'layers' ? 'text-[#D4AF37]' : 'text-zinc-400'"
+                class="flex flex-col items-center p-1"
+            >
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                </svg>
+                <span>Layers</span>
+            </button>
+            <button
+                type="button"
+                @click="mobileTab = mobileTab === 'properties' ? null : 'properties'"
+                :class="mobileTab === 'properties' ? 'text-[#D4AF37]' : 'text-zinc-400'"
+                class="flex flex-col items-center p-1"
+            >
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                 </svg>
-                <span>Edit</span>
-            </button>
-            <button
-                type="button"
-                @click="undo"
-                :disabled="historyIndex <= 0"
-                class="flex flex-col items-center py-1 text-zinc-400 disabled:opacity-30"
-            >
-                <svg class="w-5 h-5 mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
-                </svg>
-                <span>Undo</span>
-            </button>
-            <button
-                type="button"
-                @click="downloadPng"
-                class="flex flex-col items-center py-1 text-[#D4AF37]"
-            >
-                <svg class="w-5 h-5 mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                </svg>
-                <span>Export</span>
+                <span>Properties</span>
             </button>
         </div>
 
-        <!-- Mobile Sheet Modal -->
-        <Modal :show="mobileTab !== null" @close="mobileTab = null">
-            <div class="p-5 bg-zinc-900 text-zinc-100 max-h-[75vh] overflow-y-auto">
-                <div class="flex items-center justify-between pb-3 border-b border-zinc-800 mb-4">
-                    <h3 class="font-bold text-sm uppercase text-[#D4AF37]">
-                        {{ mobileTab === 'insert' ? 'Add Elements' : 'Properties' }}
+        <!-- Mobile Bottom Sheet Drawer (Task 9) -->
+        <div
+            v-if="mobileTab"
+            class="md:hidden fixed inset-0 z-40 flex flex-col justify-end bg-black/60 backdrop-blur-sm"
+            @click.self="mobileTab = null"
+        >
+            <div class="bg-zinc-900 border-t border-zinc-800 rounded-t-2xl max-h-[75vh] flex flex-col overflow-hidden shadow-2xl">
+                <div class="p-3 border-b border-zinc-800 flex items-center justify-between shrink-0">
+                    <h3 class="text-xs font-bold text-zinc-200 uppercase tracking-wider">
+                        {{ mobileTab.toUpperCase() }}
                     </h3>
-                    <button type="button" @click="mobileTab = null" class="text-zinc-400 hover:text-white">
+                    <button type="button" @click="mobileTab = null" class="p-1 text-zinc-400 hover:text-zinc-100">
                         ✕
                     </button>
                 </div>
-
-                <div v-if="mobileTab === 'insert'" class="space-y-4">
-                    <button
-                        type="button"
-                        @click="addTextLayer('heading'); mobileTab = null;"
-                        class="w-full py-2.5 px-3 rounded bg-zinc-800 text-left text-sm font-bold"
-                    >
-                        + Heading
-                    </button>
-                    <button
-                        type="button"
-                        @click="addTextLayer('body'); mobileTab = null;"
-                        class="w-full py-2.5 px-3 rounded bg-zinc-800 text-left text-sm"
-                    >
-                        + Body Text
-                    </button>
-                    <div class="grid grid-cols-2 gap-2">
-                        <button
-                            type="button"
-                            @click="insertPlaceholder('{{guest_name}}'); mobileTab = null;"
-                            class="p-2 rounded bg-zinc-800 text-xs font-mono text-amber-300 text-left"
+                <div class="p-4 overflow-y-auto custom-scrollbar space-y-4">
+                    <div v-if="mobileTab === 'palette'" class="space-y-4">
+                        <div class="space-y-2">
+                            <h4 class="text-xs font-semibold text-zinc-300">Alternate Palettes</h4>
+                            <div class="grid grid-cols-1 gap-2">
+                                <div
+                                    v-for="pal in curatedPalettes"
+                                    :key="pal.id"
+                                    @click="selectAlternatePalette(pal); mobileTab = null;"
+                                    class="p-2.5 rounded-lg border border-zinc-800 bg-zinc-950 flex items-center justify-between"
+                                >
+                                    <span class="text-xs text-zinc-200">{{ pal.name }}</span>
+                                    <div class="flex space-x-1">
+                                        <span v-for="c in [pal.bg, pal.primary, pal.secondary, pal.accent, pal.ink]" :key="c" class="w-3.5 h-3.5 rounded-full" :style="{ backgroundColor: c }" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-else-if="mobileTab === 'ornaments'" class="space-y-3">
+                        <input
+                            v-model="ornamentSearch"
+                            type="text"
+                            placeholder="Search ornaments..."
+                            class="w-full px-3 py-1.5 bg-zinc-950 border border-zinc-800 rounded-lg text-xs text-zinc-200"
+                        />
+                        <div class="grid grid-cols-2 gap-2">
+                            <div
+                                v-for="ornament in filteredOrnaments.slice(0, 30)"
+                                :key="ornament.id"
+                                @click="addOrnamentLayer(ornament); mobileTab = null;"
+                                class="p-2 rounded-lg border border-zinc-800 bg-zinc-950 flex flex-col items-center justify-center text-center cursor-pointer"
+                            >
+                                <div class="w-12 h-12 flex items-center justify-center" v-html="loadTintedSvg(ornament.id, { c1: effectivePalette.primary, c2: effectivePalette.secondary }, effectivePalette)" />
+                                <span class="text-[10px] text-zinc-300 truncate w-full mt-1">{{ ornament.name_en }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-else-if="mobileTab === 'layers'" class="space-y-2">
+                        <div
+                            v-for="layer in [...design.layers].reverse()"
+                            :key="layer.id"
+                            @click="selectLayer(layer.id); mobileTab = 'properties';"
+                            class="p-2 rounded border border-zinc-800 bg-zinc-950 flex items-center justify-between text-xs"
                         >
-                            &#123;&#123;guest_name&#125;&#125;
+                            <span class="text-zinc-200 truncate">{{ layer.name || layer.type }}</span>
+                            <button type="button" @click.stop="deleteLayer(layer.id)" class="text-rose-400">✕</button>
+                        </div>
+                    </div>
+                    <div v-else-if="mobileTab === 'insert'" class="space-y-3">
+                        <button type="button" @click="addTextLayer('heading'); mobileTab = null;" class="w-full p-2 bg-zinc-950 border border-zinc-800 rounded text-xs text-left text-zinc-200">
+                            + Add Heading Text
                         </button>
-                        <button
-                            type="button"
-                            @click="insertPlaceholder('{{event_title}}'); mobileTab = null;"
-                            class="p-2 rounded bg-zinc-800 text-xs font-mono text-amber-300 text-left"
-                        >
-                            &#123;&#123;event_title&#125;&#125;
+                        <button type="button" @click="addTextLayer('body'); mobileTab = null;" class="w-full p-2 bg-zinc-950 border border-zinc-800 rounded text-xs text-left text-zinc-200">
+                            + Add Body Text
+                        </button>
+                        <button type="button" @click="addBorderLayer('double-rule'); mobileTab = null;" class="w-full p-2 bg-zinc-950 border border-zinc-800 rounded text-xs text-left text-zinc-200">
+                            + Add Border
+                        </button>
+                        <button type="button" @click="promptImageUpload(); mobileTab = null;" class="w-full p-2 bg-zinc-950 border border-zinc-800 rounded text-xs text-left text-zinc-200">
+                            + Upload Photo
                         </button>
                     </div>
-                    <button
-                        type="button"
-                        @click="promptImageUpload(); mobileTab = null;"
-                        class="w-full py-2.5 px-3 rounded bg-zinc-800 text-left text-sm"
-                    >
-                        + Upload Image
-                    </button>
-                </div>
-
-                <div v-else-if="mobileTab === 'props'" class="space-y-4">
-                    <div v-if="primarySelectedLayer && primarySelectedLayer.type === 'text'" class="space-y-3">
-                        <label class="block text-xs text-zinc-400">Edit Text</label>
-                        <textarea
-                            v-model="primarySelectedLayer.text"
-                            @input="recordHistory"
-                            rows="2"
-                            class="w-full bg-zinc-800 rounded p-2 text-sm text-white"
-                        ></textarea>
-                        <button
-                            type="button"
-                            @click="deleteSelected(); mobileTab = null;"
-                            class="w-full py-2 bg-rose-900/50 text-rose-300 rounded text-xs mt-3"
-                        >
-                            Delete Layer
-                        </button>
-                    </div>
-                    <div v-else class="text-zinc-400 text-xs text-center py-6">
-                        Tap a layer on the canvas first to view and edit its properties.
+                    <div v-else-if="mobileTab === 'properties'" class="space-y-4">
+                        <div v-if="!primarySelectedLayer" class="text-xs text-zinc-400 text-center py-4">
+                            No layer selected. Tap a layer on canvas or choose from Layers tab.
+                        </div>
+                        <div v-else class="space-y-3 text-xs">
+                            <div>Selected: <span class="font-bold text-[#D4AF37]">{{ primarySelectedLayer.name || primarySelectedLayer.type }}</span></div>
+                            <div v-if="primarySelectedLayer.type === 'text'">
+                                <textarea v-if="primarySelectedLayer.i18n" v-model="primarySelectedLayer.i18n.en" @input="recordHistory" class="w-full p-2 bg-zinc-950 border border-zinc-800 rounded text-xs" rows="2" />
+                                <textarea v-else v-model="primarySelectedLayer.text" @input="recordHistory" class="w-full p-2 bg-zinc-950 border border-zinc-800 rounded text-xs" rows="2" />
+                            </div>
+                            <button type="button" @click="deleteLayer(primarySelectedLayer.id); mobileTab = null;" class="w-full p-2 bg-rose-950 border border-rose-800 text-rose-300 rounded text-xs font-semibold">
+                                Delete Layer
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </Modal>
+        </div>
 
-        <!-- Guest Modal -->
-        <Modal :show="showGuestModal" @close="showGuestModal = false">
-            <div class="p-6 bg-zinc-950 text-zinc-100 border border-zinc-800 rounded-2xl">
-                <div class="w-12 h-12 rounded-full bg-amber-500/10 text-[#D4AF37] flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                    </svg>
-                </div>
-
-                <h3 class="text-lg font-bold text-center text-zinc-100">
-                    Sign Up to Continue
-                </h3>
-                <p class="mt-2 text-sm text-zinc-400 text-center">
-                    {{ guestModalMessage || 'Create a free account to upload your photos, add guest lists, and send invitations. Your card design draft will be preserved automatically!' }}
+        <!-- Reset to Template Confirmation Modal (Task 9) -->
+        <Modal :show="showResetModal" @close="showResetModal = false" max-width="md">
+            <div class="p-6 bg-zinc-900 text-zinc-100 rounded-xl space-y-4">
+                <h3 class="text-base font-bold text-zinc-100">Reset Design to Template?</h3>
+                <p class="text-xs text-zinc-400 leading-relaxed">
+                    This will replace your current edits with the original layout, copy and styling from the template.
+                    You can always use <span class="text-zinc-200 font-semibold">Undo</span> to revert if needed.
                 </p>
-
-                <div class="mt-6 flex flex-col space-y-2">
-                    <Link
-                        :href="route('register')"
-                        class="w-full py-2.5 px-4 rounded-xl text-center font-semibold bg-[#D4AF37] hover:bg-amber-400 text-black text-sm transition"
-                    >
-                        Create Free Account
-                    </Link>
-                    <Link
-                        :href="route('login')"
-                        class="w-full py-2.5 px-4 rounded-xl text-center font-medium bg-zinc-900 hover:bg-zinc-800 text-zinc-300 text-sm transition"
-                    >
-                        Log In to Existing Account
-                    </Link>
+                <div class="flex items-center justify-end space-x-2 pt-2">
                     <button
                         type="button"
-                        @click="showGuestModal = false"
-                        class="text-xs text-zinc-500 hover:text-zinc-300 py-1"
+                        @click="showResetModal = false"
+                        class="px-4 py-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-xs font-medium text-zinc-300 transition"
                     >
-                        Continue Editing as Guest
+                        Cancel
+                    </button>
+                    <button
+                        type="button"
+                        @click="handleResetToTemplate"
+                        class="px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 text-xs font-semibold text-white transition"
+                    >
+                        Reset Design
                     </button>
                 </div>
             </div>
@@ -2241,11 +2722,18 @@ watch(isPreviewMode, (active) => {
 </template>
 
 <style scoped>
-@keyframes bounce-short {
-    0%, 100% { transform: translate(-50%, 0); }
-    50% { transform: translate(-50%, -6px); }
+.custom-scrollbar::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
 }
-.animate-bounce-short {
-    animation: bounce-short 1.5s ease-in-out infinite;
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #27272a;
+    border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #3f3f46;
 }
 </style>

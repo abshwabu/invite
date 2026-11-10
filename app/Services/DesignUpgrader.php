@@ -67,81 +67,86 @@ class DesignUpgrader
             'vignette' => 0,
         ];
 
-        $v2Layers = [];
-        foreach ($design['layers'] ?? [] as $index => $layer) {
-            if (! is_array($layer)) {
-                continue;
-            }
-
-            $id = $layer['id'] ?? (string) Str::uuid();
-            $type = $layer['type'] ?? 'text';
-
-            $base = [
-                'id' => (string) $id,
-                'name' => $layer['name'] ?? ucfirst($type) . ' ' . ($index + 1),
-                'type' => $type,
-                'x' => (float) ($layer['x'] ?? 0),
-                'y' => (float) ($layer['y'] ?? 0),
-                'width' => (float) ($layer['width'] ?? 200),
-                'height' => (float) ($layer['height'] ?? 100),
-                'rotation' => (float) ($layer['rotation'] ?? 0),
-                'opacity' => isset($layer['opacity']) ? (float) $layer['opacity'] : 1.0,
-                'locked' => (bool) ($layer['locked'] ?? false),
-                'flipX' => (bool) ($layer['flipX'] ?? false),
-                'flipY' => (bool) ($layer['flipY'] ?? false),
-                'blendMode' => $layer['blendMode'] ?? 'normal',
-            ];
-
-            if ($type === 'text') {
-                $base['text'] = (string) ($layer['text'] ?? '');
-                if (isset($layer['i18n'])) {
-                    $base['i18n'] = $layer['i18n'];
+        if (isset($design['layers']) && ! is_array($design['layers'])) {
+            $v2Layers = $design['layers'];
+        } else {
+            $v2Layers = [];
+            $layers = is_array($design['layers'] ?? null) ? $design['layers'] : [];
+            foreach ($layers as $index => $layer) {
+                if (! is_array($layer)) {
+                    continue;
                 }
-                $base['fontFamily'] = $layer['fontFamily'] ?? 'Noto Serif Ethiopic';
-                $base['fontSize'] = (float) ($layer['fontSize'] ?? 28);
-                $base['fontWeight'] = (int) ($layer['fontWeight'] ?? 400);
-                $base['fontStyle'] = $layer['fontStyle'] ?? 'normal';
-                $base['fill'] = $layer['fill'] ?? '@ink';
-                $base['align'] = $layer['align'] ?? 'center';
-                $base['verticalAlign'] = $layer['verticalAlign'] ?? 'top';
-                $base['lineHeight'] = (float) ($layer['lineHeight'] ?? 1.3);
-                $base['letterSpacing'] = (float) ($layer['letterSpacing'] ?? 0);
-                $base['curve'] = (float) ($layer['curve'] ?? 0);
-                $base['stroke'] = $layer['stroke'] ?? null;
-                $base['strokeWidth'] = (float) ($layer['strokeWidth'] ?? 0);
-                $base['shadow'] = $layer['shadow'] ?? null;
-                $base['autoFit'] = $layer['autoFit'] ?? null;
-            } elseif ($type === 'shape') {
-                $base['shape'] = $layer['shape'] ?? 'rect';
-                $base['fill'] = $layer['fill'] ?? '@primary';
-                $base['stroke'] = $layer['stroke'] ?? null;
-                $base['strokeWidth'] = (float) ($layer['strokeWidth'] ?? 0);
-                $base['cornerRadius'] = $layer['cornerRadius'] ?? 0;
-            } elseif ($type === 'image') {
-                $base['src'] = $layer['src'] ?? '';
-                $base['mask'] = $layer['mask'] ?? 'none';
-                $base['objectFit'] = $layer['objectFit'] ?? 'cover';
-                $base['filter'] = $layer['filter'] ?? null;
-            } elseif ($type === 'ornament') {
-                $base['assetId'] = $layer['assetId'] ?? 'meskel-cross-01';
-                $base['tint'] = $layer['tint'] ?? [
-                    'c1' => '@primary',
-                    'c2' => '@secondary',
-                    'c3' => '@accent',
-                ];
-            } elseif ($type === 'border') {
-                $base['style'] = $layer['style'] ?? 'single-rule';
-                $base['inset'] = (float) ($layer['inset'] ?? 40);
-                $base['stroke'] = $layer['stroke'] ?? '@primary';
-                $base['strokeWidth'] = (float) ($layer['strokeWidth'] ?? 2);
-            } elseif ($type === 'pattern') {
-                $base['assetId'] = $layer['assetId'] ?? 'tilet-corner-01';
-                $base['tint'] = $layer['tint'] ?? [];
-            } elseif ($type === 'group') {
-                $base['children'] = $layer['children'] ?? [];
-            }
 
-            $v2Layers[] = $base;
+                $id = $layer['id'] ?? (string) Str::uuid();
+                $type = $layer['type'] ?? 'text';
+
+                $base = [
+                    'id' => (string) $id,
+                    'name' => $layer['name'] ?? ucfirst($type) . ' ' . ($index + 1),
+                    'type' => $type,
+                    'x' => (float) ($layer['x'] ?? 0),
+                    'y' => (float) ($layer['y'] ?? 0),
+                    'width' => (float) ($layer['width'] ?? 200),
+                    'height' => (float) ($layer['height'] ?? 100),
+                    'rotation' => (float) ($layer['rotation'] ?? 0),
+                    'opacity' => isset($layer['opacity']) ? (float) $layer['opacity'] : 1.0,
+                    'locked' => (bool) ($layer['locked'] ?? false),
+                    'flipX' => (bool) ($layer['flipX'] ?? false),
+                    'flipY' => (bool) ($layer['flipY'] ?? false),
+                    'blendMode' => $layer['blendMode'] ?? 'normal',
+                ];
+
+                if ($type === 'text') {
+                    $base['text'] = (string) ($layer['text'] ?? '');
+                    if (isset($layer['i18n'])) {
+                        $base['i18n'] = $layer['i18n'];
+                    }
+                    $base['fontFamily'] = $layer['fontFamily'] ?? 'Noto Serif Ethiopic';
+                    $base['fontSize'] = (float) ($layer['fontSize'] ?? 28);
+                    $base['fontWeight'] = (int) ($layer['fontWeight'] ?? 400);
+                    $base['fontStyle'] = $layer['fontStyle'] ?? 'normal';
+                    $base['fill'] = $layer['fill'] ?? '@ink';
+                    $base['align'] = $layer['align'] ?? 'center';
+                    $base['verticalAlign'] = $layer['verticalAlign'] ?? 'top';
+                    $base['lineHeight'] = (float) ($layer['lineHeight'] ?? 1.3);
+                    $base['letterSpacing'] = (float) ($layer['letterSpacing'] ?? 0);
+                    $base['curve'] = (float) ($layer['curve'] ?? 0);
+                    $base['stroke'] = $layer['stroke'] ?? null;
+                    $base['strokeWidth'] = (float) ($layer['strokeWidth'] ?? 0);
+                    $base['shadow'] = $layer['shadow'] ?? null;
+                    $base['autoFit'] = $layer['autoFit'] ?? null;
+                } elseif ($type === 'shape') {
+                    $base['shape'] = $layer['shape'] ?? 'rect';
+                    $base['fill'] = $layer['fill'] ?? '@primary';
+                    $base['stroke'] = $layer['stroke'] ?? null;
+                    $base['strokeWidth'] = (float) ($layer['strokeWidth'] ?? 0);
+                    $base['cornerRadius'] = $layer['cornerRadius'] ?? 0;
+                } elseif ($type === 'image') {
+                    $base['src'] = $layer['src'] ?? '';
+                    $base['mask'] = $layer['mask'] ?? 'none';
+                    $base['objectFit'] = $layer['objectFit'] ?? 'cover';
+                    $base['filter'] = $layer['filter'] ?? null;
+                } elseif ($type === 'ornament') {
+                    $base['assetId'] = $layer['assetId'] ?? 'meskel-cross-01';
+                    $base['tint'] = $layer['tint'] ?? [
+                        'c1' => '@primary',
+                        'c2' => '@secondary',
+                        'c3' => '@accent',
+                    ];
+                } elseif ($type === 'border') {
+                    $base['style'] = $layer['style'] ?? 'single-rule';
+                    $base['inset'] = (float) ($layer['inset'] ?? 40);
+                    $base['stroke'] = $layer['stroke'] ?? '@primary';
+                    $base['strokeWidth'] = (float) ($layer['strokeWidth'] ?? 2);
+                } elseif ($type === 'pattern') {
+                    $base['assetId'] = $layer['assetId'] ?? 'tilet-corner-01';
+                    $base['tint'] = $layer['tint'] ?? [];
+                } elseif ($type === 'group') {
+                    $base['children'] = $layer['children'] ?? [];
+                }
+
+                $v2Layers[] = $base;
+            }
         }
 
         return [

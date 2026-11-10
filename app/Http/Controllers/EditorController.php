@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Template;
+use App\Services\DesignUpgrader;
 use App\Services\DesignValidator;
 use App\Services\EntitlementService;
+use App\Templates\Palettes\PaletteLibrary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -33,14 +35,24 @@ class EditorController extends Controller
         $user = Auth::user();
         $hasRemoveBranding = $user ? $this->entitlementService->can($user, 'remove_branding') : false;
 
-        $design = $template?->design_json ?? DesignValidator::blankDesign();
+        $rawDesign = $template?->design_json ?? DesignValidator::blankDesign();
+        $design = DesignUpgrader::upgrade($rawDesign);
+
+        $categorySlug = $template?->category?->slug ?? 'wedding';
+        $curatedPalettes = PaletteLibrary::curatedForCategory($categorySlug, 12);
+        $allPalettes = PaletteLibrary::all();
+        $initialTemplateDesign = $template?->design_json ? DesignUpgrader::upgrade($template->design_json) : null;
 
         return Inertia::render('Editor/Show', [
             'event' => null,
             'target' => $template?->kind === 'thank_you' ? 'thank_you' : 'invitation',
             'design' => $design,
             'template' => $template,
+            'initialTemplateDesign' => $initialTemplateDesign,
             'categories' => $categories,
+            'curatedPalettes' => $curatedPalettes,
+            'allPalettes' => $allPalettes,
+            'cardLanguage' => 'en',
             'hasRemoveBranding' => $hasRemoveBranding,
             'isGuest' => ! Auth::check(),
             'eventData' => [

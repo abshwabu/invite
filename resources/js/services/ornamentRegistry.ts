@@ -25,6 +25,24 @@ export function getAllOrnaments(): OrnamentItem[] {
     return ornamentsManifest;
 }
 
+export function getAllSets(): string[] {
+    const sets = new Set<string>();
+    for (const item of ornamentsManifest) {
+        if (item.set) sets.add(item.set);
+    }
+    return Array.from(sets);
+}
+
+export function getAllTags(): string[] {
+    const tags = new Set<string>();
+    for (const item of ornamentsManifest) {
+        for (const t of item.tags || []) {
+            tags.add(t);
+        }
+    }
+    return Array.from(tags).sort();
+}
+
 export function getOrnamentsBySet(set: string): OrnamentItem[] {
     return ornamentsManifest.filter(o => o.set === set);
 }

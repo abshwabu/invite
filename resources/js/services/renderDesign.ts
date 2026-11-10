@@ -27,10 +27,18 @@ const DEFAULT_REPLACEMENTS: Record<string, string> = {
 export function resolvePlaceholders(text: string, data?: Record<string, string>): string {
     if (!text) return '';
     let result = String(text);
-    const replacements = { ...DEFAULT_REPLACEMENTS, ...(data || {}) };
 
-    for (const [key, val] of Object.entries(replacements)) {
-        const token = key.startsWith('{{') ? key : `{{${key}}}`;
+    const normalizedData: Record<string, string> = {};
+    if (data) {
+        for (const [k, v] of Object.entries(data)) {
+            const token = k.startsWith('{{') ? k : `{{${k}}}`;
+            normalizedData[token] = String(v ?? '');
+        }
+    }
+
+    const replacements = { ...DEFAULT_REPLACEMENTS, ...normalizedData };
+
+    for (const [token, val] of Object.entries(replacements)) {
         result = result.replaceAll(token, String(val ?? ''));
     }
 
@@ -77,7 +85,7 @@ export function renderDesignToCanvas(
     return canvas;
 }
 
-function renderLayer(
+export function renderLayer(
     ctx: CanvasRenderingContext2D,
     layer: Layer,
     scale: number,
@@ -147,7 +155,7 @@ function renderLayer(
     ctx.restore();
 }
 
-function renderBorderLayer(
+export function renderBorderLayer(
     ctx: CanvasRenderingContext2D,
     layer: BorderLayer,
     x: number,
@@ -204,7 +212,7 @@ function renderBorderLayer(
     ctx.restore();
 }
 
-function renderOrnamentLayer(
+export function renderOrnamentLayer(
     ctx: CanvasRenderingContext2D,
     layer: OrnamentLayer,
     x: number,
@@ -236,7 +244,7 @@ function renderOrnamentLayer(
     }
 }
 
-function renderShapeLayer(
+export function renderShapeLayer(
     ctx: CanvasRenderingContext2D,
     layer: ShapeLayer,
     x: number,
@@ -308,7 +316,7 @@ function renderShapeLayer(
     ctx.restore();
 }
 
-function renderPatternLayer(
+export function renderPatternLayer(
     ctx: CanvasRenderingContext2D,
     layer: PatternLayer,
     x: number,
@@ -348,7 +356,7 @@ function renderPatternLayer(
     ctx.restore();
 }
 
-function renderImageLayer(
+export function renderImageLayer(
     ctx: CanvasRenderingContext2D,
     layer: ImageLayer,
     x: number,
@@ -376,6 +384,10 @@ function renderImageLayer(
         ctx.beginPath();
         ctx.arc(x + r, y + r, r, 0, Math.PI * 2);
         ctx.clip();
+    } else if (layer.mask === 'oval') {
+        ctx.beginPath();
+        ctx.ellipse(x + w / 2, y + h / 2, w / 2, h / 2, 0, 0, Math.PI * 2);
+        ctx.clip();
     } else if (layer.mask === 'arch') {
         const r = w / 2;
         ctx.beginPath();
@@ -394,15 +406,18 @@ function renderImageLayer(
         }
     }
 
+    const imgX = x + ((layer.maskOffsetX || 0) * scale);
+    const imgY = y + ((layer.maskOffsetY || 0) * scale);
+
     try {
-        ctx.drawImage(img, x, y, w, h);
+        ctx.drawImage(img, imgX, imgY, w, h);
     } catch {
         // Image not yet loaded or invalid
     }
     ctx.restore();
 }
 
-function renderTextLayer(
+export function renderTextLayer(
     ctx: CanvasRenderingContext2D,
     layer: TextLayer,
     x: number,
@@ -518,7 +533,7 @@ function renderTextLayer(
 /**
  * Render curved text along an arc of radius R.
  */
-function renderCurvedText(
+export function renderCurvedText(
     ctx: CanvasRenderingContext2D,
     text: string,
     cx: number,

@@ -143,6 +143,8 @@ export interface ImageLayer extends BaseLayer {
     type: 'image';
     src: string;
     mask?: ImageMask;
+    maskOffsetX?: number;
+    maskOffsetY?: number;
     objectFit?: ImageObjectFit;
     filter?: string;
 }
