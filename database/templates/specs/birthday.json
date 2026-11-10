@@ -1,0 +1,173 @@
+[
+  {
+    "key": "birthday-balloon-arch",
+    "category": "birthday",
+    "name_en": "Balloons Fiesta Arch",
+    "name_am": "የፊኛ ቅስት የልደት ድግስ",
+    "recipe": "R2",
+    "palette": "pop-fiesta-sun",
+    "fonts": "playful-celebration",
+    "ornaments": {
+      "top": "balloon-arch",
+      "divider": "sparkle-trio"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["balloons", "festive", "party", "cheerful"],
+    "texture": "paper",
+    "suite_key": "birthday-balloon-arch"
+  },
+  {
+    "key": "birthday-confetti-joy",
+    "category": "birthday",
+    "name_en": "Confetti Joy Explosion",
+    "name_am": "የኮንፌቲ የደስታ ፍንጣቂ",
+    "recipe": "R10",
+    "palette": "pop-citrus-berry",
+    "fonts": "playful-celebration",
+    "ornaments": {
+      "top": "confetti-scatter-a",
+      "divider": "sparkle-trio"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["confetti", "vibrant", "energetic", "fun"],
+    "texture": "paper",
+    "suite_key": "birthday-confetti-joy"
+  },
+  {
+    "key": "birthday-bunting-celebration",
+    "category": "birthday",
+    "name_en": "Festive Bunting Flags",
+    "name_am": "የባንዲራዎች የልደት ጨዋታ",
+    "recipe": "R3",
+    "palette": "pastel-candy-sweet",
+    "fonts": "sweet-storybook",
+    "ornaments": {
+      "top": "bunting-flags",
+      "divider": "sparkle-trio"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["bunting", "pastel", "kids", "sweet"],
+    "texture": "paper",
+    "suite_key": "birthday-bunting-celebration"
+  },
+  {
+    "key": "birthday-polaroid-collage",
+    "category": "birthday",
+    "name_en": "Polaroid Scrapbook Collage",
+    "name_am": "የትውስታ ፎቶዎች የልደት ምሽት",
+    "recipe": "R10",
+    "palette": "pop-fiesta-sun",
+    "fonts": "whimsical-script",
+    "ornaments": {
+      "top": "confetti-scatter-b",
+      "divider": "sparkle-trio"
+    },
+    "copy": { "variant": 3 },
+    "tags": ["polaroid", "scrapbook", "youth", "dancing"],
+    "texture": "paper",
+    "suite_key": "birthday-polaroid-collage"
+  },
+  {
+    "key": "birthday-bignumber-poster",
+    "category": "birthday",
+    "name_en": "Big Number Milestone Poster",
+    "name_am": "የዓመታት ድል ፖስተር",
+    "recipe": "R5",
+    "palette": "pop-neon-party",
+    "fonts": "bold-contemporary",
+    "ornaments": {
+      "top": "number-frame-circle",
+      "divider": "geometric-divider"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["milestone", "poster", "bold", "modern"],
+    "texture": "grain",
+    "suite_key": "birthday-bignumber-poster"
+  },
+  {
+    "key": "birthday-neon-night",
+    "category": "birthday",
+    "name_en": "Neon Night Cyber Party",
+    "name_am": "የኒዮን ምሽት የዳንስ ድግስ",
+    "recipe": "R8",
+    "palette": "neon-cyber-cyan",
+    "fonts": "creative-tech",
+    "ornaments": {
+      "top": "starburst",
+      "divider": "geometric-divider"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["neon", "cyber", "night", "club", "party"],
+    "texture": "grain",
+    "suite_key": "birthday-neon-night"
+  },
+  {
+    "key": "birthday-adult-gold-black",
+    "category": "birthday",
+    "name_en": "Black & Gold Adult Soiree",
+    "name_am": "የጥቁር እና ወርቅ የክብር ልደት",
+    "recipe": "R1",
+    "palette": "midnight-gold-classic",
+    "fonts": "modern-luxury",
+    "ornaments": {
+      "top": "champagne-clink",
+      "divider": "flourish-divider-ornate"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["adult", "champagne", "luxury", "evening"],
+    "texture": "linen",
+    "suite_key": "birthday-adult-gold-black"
+  },
+  {
+    "key": "birthday-jungle-safari",
+    "category": "birthday",
+    "name_en": "Jungle Safari Kids Adventure",
+    "name_am": "የጫካ ጀብዱ የህፃናት ልደት",
+    "recipe": "R4",
+    "palette": "jungle-emerald",
+    "fonts": "playful-celebration",
+    "ornaments": {
+      "top": "balloon-cluster",
+      "corner": "olive-branch-corner",
+      "divider": "sparkle-trio"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["jungle", "safari", "kids", "animals", "green"],
+    "texture": "paper",
+    "suite_key": "birthday-jungle-safari"
+  },
+  {
+    "key": "birthday-cosmic-space",
+    "category": "birthday",
+    "name_en": "Cosmic Galaxy Space Voyager",
+    "name_am": "የጠፈር ጉዞ የልጆች ልደት",
+    "recipe": "R8",
+    "palette": "space-aurora",
+    "fonts": "cosmic-party",
+    "ornaments": {
+      "top": "sparkle-trio",
+      "divider": "starburst"
+    },
+    "copy": { "variant": 3 },
+    "tags": ["space", "cosmic", "stars", "galaxy", "kids"],
+    "texture": "grain",
+    "suite_key": "birthday-cosmic-space"
+  },
+  {
+    "key": "birthday-milestone-candles",
+    "category": "birthday",
+    "name_en": "Golden Cake & Candles",
+    "name_am": "የኬክ እና ሻማ የደስታ ቀን",
+    "recipe": "R6",
+    "palette": "burgundy-velvet",
+    "fonts": "classic-ceremonial",
+    "ornaments": {
+      "top": "cake-candles",
+      "divider": "floral-divider"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["cake", "candles", "tradition", "milestone"],
+    "texture": "paper",
+    "suite_key": "birthday-milestone-candles"
+  }
+]

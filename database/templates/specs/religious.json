@@ -1,0 +1,173 @@
+[
+  {
+    "key": "religious-eid-emerald-star",
+    "category": "religious",
+    "name_en": "Eid Mubarak Emerald Rosette",
+    "name_am": "የዒድ ሙባረክ የኤመራልድ ኮከብ",
+    "recipe": "R2",
+    "palette": "eid-emerald-gold",
+    "fonts": "sacred-tradition",
+    "ornaments": {
+      "top": "star-12-rosette",
+      "divider": "geometric-divider"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["eid", "ramadan", "islamic", "emerald", "gold", "star"],
+    "texture": "paper",
+    "suite_key": "religious-eid-emerald-star"
+  },
+  {
+    "key": "religious-ramadan-lantern",
+    "category": "religious",
+    "name_en": "Ramadan Kareem Crescent Lantern",
+    "name_am": "የረመዳን ከሪም የፋኖስ ብርሃን",
+    "recipe": "R1",
+    "palette": "eid-night-gold",
+    "fonts": "sacred-tradition",
+    "ornaments": {
+      "top": "crescent-lantern",
+      "divider": "geometric-divider"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["ramadan", "lantern", "crescent", "evening", "blessing"],
+    "texture": "linen",
+    "suite_key": "religious-ramadan-lantern"
+  },
+  {
+    "key": "religious-eid-mosque-skyline",
+    "category": "religious",
+    "name_en": "Eid Mosque Minaret Skyline",
+    "name_am": "የመስጊድ ማማ የዒድ በዓል ጥሪ",
+    "recipe": "R9",
+    "palette": "eid-pearl-jade",
+    "fonts": "sacred-tradition",
+    "ornaments": {
+      "top": "mosque-skyline",
+      "divider": "geometric-divider"
+    },
+    "copy": { "variant": 3 },
+    "tags": ["eid", "mosque", "minaret", "skyline", "celebration"],
+    "texture": "paper",
+    "suite_key": "religious-eid-mosque-skyline"
+  },
+  {
+    "key": "religious-mawlid-celebration",
+    "category": "religious",
+    "name_en": "Mawlid an-Nabi Festive Light",
+    "name_am": "የመውሊድ በዓል የብርሃን ምሽት",
+    "recipe": "R3",
+    "palette": "eid-emerald-gold",
+    "fonts": "classic-ceremonial",
+    "ornaments": {
+      "top": "hanging-lantern-pair",
+      "divider": "geometric-divider"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["mawlid", "lanterns", "islamic", "prophet", "gathering"],
+    "texture": "paper",
+    "suite_key": "religious-mawlid-celebration"
+  },
+  {
+    "key": "religious-meskel-demera",
+    "category": "religious",
+    "name_en": "Meskel Demera Processional Cross",
+    "name_am": "የመስቀል ደመራ የክብር በዓል",
+    "recipe": "R11",
+    "palette": "meskel-yellow-green",
+    "fonts": "sacred-tradition",
+    "ornaments": {
+      "top": "meskel-cross-ornate",
+      "divider": "tilet-divider-01"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["meskel", "demera", "cross", "yellow", "green", "orthodox"],
+    "texture": "paper",
+    "suite_key": "religious-meskel-demera"
+  },
+  {
+    "key": "religious-timkat-adey-abeba",
+    "category": "religious",
+    "name_en": "Timkat Epiphany & Adey Abeba",
+    "name_am": "የጥምቀት እና የአደይ አበባ በዓል",
+    "recipe": "R4",
+    "palette": "meskel-golden-cross",
+    "fonts": "regal-heritage",
+    "ornaments": {
+      "top": "adey-abeba-daisy-sprig",
+      "corner": "tilet-corner-01",
+      "divider": "tilet-divider-01"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["timkat", "adey-abeba", "flower", "spring", "orthodox"],
+    "texture": "paper",
+    "suite_key": "religious-timkat-adey-abeba"
+  },
+  {
+    "key": "religious-genna-fasika",
+    "category": "religious",
+    "name_en": "Genna & Fasika Joyous Feast",
+    "name_am": "የገና እና የትንሣኤ የደስታ በዓል",
+    "recipe": "R6",
+    "palette": "habesha-white-gold-green-red",
+    "fonts": "regal-heritage",
+    "ornaments": {
+      "top": "ethiopian-orthodox-cross-lalibela",
+      "divider": "tilet-divider-01"
+    },
+    "copy": { "variant": 3 },
+    "tags": ["genna", "fasika", "christmas", "easter", "orthodox"],
+    "texture": "paper",
+    "suite_key": "religious-genna-fasika"
+  },
+  {
+    "key": "religious-hajj-umrah",
+    "category": "religious",
+    "name_en": "Hajj & Umrah Pilgrimage Send-off",
+    "name_am": "የሐጅ እና ዑምራ የስንብት ዱዓ",
+    "recipe": "R2",
+    "palette": "eid-pearl-jade",
+    "fonts": "sacred-tradition",
+    "ornaments": {
+      "top": "mihrab-arch-frame",
+      "divider": "geometric-divider"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["hajj", "umrah", "pilgrimage", "mihrab", "mecca"],
+    "texture": "paper",
+    "suite_key": "religious-hajj-umrah"
+  },
+  {
+    "key": "religious-orthodox-ceremonial",
+    "category": "religious",
+    "name_en": "Gondar Orthodox Ceremonial Blessing",
+    "name_am": "የጎንደር መስቀል የክብር ቡራኬ",
+    "recipe": "R1",
+    "palette": "habesha-royal-kemis",
+    "fonts": "regal-heritage",
+    "ornaments": {
+      "top": "ethiopian-orthodox-cross-gondar",
+      "divider": "tilet-divider-01"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["gondar", "cross", "orthodox", "ceremony", "blessing"],
+    "texture": "linen",
+    "suite_key": "religious-orthodox-ceremonial"
+  },
+  {
+    "key": "religious-islamic-nikah",
+    "category": "religious",
+    "name_en": "Sacred Islamic Nikah Walima",
+    "name_am": "የተባረከ የኒካህ እና ወሊማ በዓል",
+    "recipe": "R8",
+    "palette": "eid-night-gold",
+    "fonts": "classic-ceremonial",
+    "ornaments": {
+      "top": "arabesque-corner",
+      "divider": "geometric-divider"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["nikah", "walima", "marriage", "islamic", "sacred"],
+    "texture": "paper",
+    "suite_key": "religious-islamic-nikah"
+  }
+]

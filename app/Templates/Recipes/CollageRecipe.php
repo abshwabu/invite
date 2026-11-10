@@ -61,84 +61,98 @@ class CollageRecipe extends AbstractRecipe
                 'text-opening',
                 $spec->opening,
                 144,
-                240,
+                232,
                 792,
-                64,
+                48,
                 $fonts['script_or_accent'],
-                34,
+                32,
                 $spec,
                 ['fill' => '@primary', 'fontWeight' => '400']
             ),
 
-            // Text 2: Title (Festive display)
+            // Text 2: Title
             $this->makeTextLayer(
                 'text-title',
                 $spec->title,
                 144,
-                320,
+                288,
                 792,
-                200,
+                168,
                 $fonts['display'],
                 88,
                 $spec,
                 ['fill' => '@primary', 'fontWeight' => '700', 'autoFit' => true]
             ),
 
-            // Text 3: Invitation line
+            // Text 3: Host Names
+            $this->makeTextLayer(
+                'text-hosts',
+                $spec->hostNames,
+                144,
+                464,
+                792,
+                48,
+                $fonts['body'],
+                28,
+                $spec,
+                ['fill' => '@ink', 'fontWeight' => '400']
+            ),
+
+            // Text 4: Invitation line
             $this->makeTextLayer(
                 'text-invitation',
                 $spec->invitation,
                 144,
-                536,
+                520,
                 792,
-                112,
+                72,
                 $fonts['body'],
-                34,
+                32,
                 $spec,
                 ['fill' => '@ink', 'fontWeight' => '400']
             ),
 
             // 5. Non-text: Center divider star/flourish
-            $this->makeOrnamentLayer('ornament-center-flourish', 'double-rule-ornament', 440, 664, 200, 48, [
+            $this->makeOrnamentLayer('ornament-center-flourish', 'double-rule-ornament', 440, 600, 200, 40, [
                 'tint' => ['c1' => '@primary', 'c2' => '@secondary', 'c3' => '@accent'],
             ]),
 
-            // Text 4: Details
+            // Text 5: Details
             $this->makeTextLayer(
                 'text-details',
                 $spec->details,
                 144,
-                736,
+                656,
                 792,
-                240,
+                224,
                 $fonts['body'],
-                32,
+                30,
                 $spec,
                 ['fill' => '@ink', 'fontWeight' => '400', 'lineHeight' => 1.45]
             ),
 
-            // Text 5: Closing line
+            // Text 6: Closing line
             $this->makeTextLayer(
                 'text-closing',
                 $spec->closing,
                 144,
-                1000,
+                896,
                 792,
-                72,
+                64,
                 $fonts['script_or_accent'],
-                32,
+                30,
                 $spec,
                 ['fill' => '@primary', 'fontWeight' => '400']
             ),
 
-            // Text 6: RSVP
+            // Text 7: RSVP
             $this->makeTextLayer(
                 'text-rsvp',
                 $spec->rsvp,
                 144,
-                1160,
+                976,
                 600,
-                80,
+                64,
                 $fonts['body'],
                 30,
                 $spec,

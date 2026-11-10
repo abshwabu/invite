@@ -1049,7 +1049,17 @@ class CopyLibrary
      */
     public static function get(string $category, string $role, int $variant = 0, string $locale = 'en'): ?string
     {
-        $variants = static::$copy[$category][$role] ?? null;
+        $resolvedCategory = match ($category) {
+            'religious' => 'religious-ethiopian',
+            'other' => 'corporate',
+            default => $category,
+        };
+
+        $variants = static::$copy[$resolvedCategory][$role] ?? static::$copy[$category][$role] ?? null;
+        if (!$variants || !isset($variants[$variant])) {
+            $variants = static::$copy['wedding'][$role] ?? null;
+        }
+
         if (!$variants || !isset($variants[$variant])) {
             return null;
         }

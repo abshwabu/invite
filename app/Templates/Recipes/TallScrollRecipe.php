@@ -22,7 +22,7 @@ class TallScrollRecipe extends AbstractRecipe
     public function build(RecipeSpec $spec): array
     {
         $fonts = $spec->getFontRoles();
-        $divider = $this->defaultDividerOrnament($spec->category);
+        $divider = $spec->dividerOrnament ?: $this->defaultDividerOrnament($spec->category);
 
         $layers = [
             // 1. Non-text: Left vertical dividing spine
@@ -31,7 +31,7 @@ class TallScrollRecipe extends AbstractRecipe
                 'strokeWidth' => 2,
             ]),
 
-            // 2. Non-text: Left column vertical floral/motif vine
+            // 2. Non-text: Left column vertical floral vine
             $this->makeOrnamentLayer('ornament-left-vine', 'leaf-chain', 112, 120, 112, 440, [
                 'tint' => ['c1' => '@primary', 'c2' => '@secondary', 'c3' => '@accent'],
             ]),
@@ -49,89 +49,103 @@ class TallScrollRecipe extends AbstractRecipe
                 'flipY' => true,
             ]),
 
-            // Text 1: Opening line (Right column)
+            // Text 1: Opening line
             $this->makeTextLayer(
                 'text-opening',
                 $spec->opening,
                 280,
-                128,
+                112,
                 704,
-                56,
+                48,
                 $fonts['body'],
                 32,
                 $spec,
                 ['fill' => '@ink', 'fontWeight' => '400', 'textAlign' => 'left']
             ),
 
-            // Text 2: Title (Right column)
+            // Text 2: Title
             $this->makeTextLayer(
                 'text-title',
                 $spec->title,
                 280,
-                200,
+                168,
                 704,
-                240,
+                200,
                 $fonts['display'],
                 88,
                 $spec,
                 ['fill' => '@primary', 'fontWeight' => '700', 'textAlign' => 'left', 'autoFit' => true]
             ),
 
-            // Text 3: Invitation line (Right column)
+            // Text 3: Host Names
+            $this->makeTextLayer(
+                'text-hosts',
+                $spec->hostNames,
+                280,
+                376,
+                704,
+                48,
+                $fonts['body'],
+                28,
+                $spec,
+                ['fill' => '@ink', 'fontWeight' => '400', 'textAlign' => 'left']
+            ),
+
+            // Text 4: Invitation line
             $this->makeTextLayer(
                 'text-invitation',
                 $spec->invitation,
                 280,
-                456,
+                432,
                 704,
-                112,
+                72,
                 $fonts['body'],
-                34,
+                32,
                 $spec,
                 ['fill' => '@ink', 'fontWeight' => '400', 'textAlign' => 'left']
             ),
 
             // 5. Non-text: Horizontal accent divider in right column
-            $this->makeOrnamentLayer('ornament-right-divider', $divider, 280, 584, 256, 48, [
+            $this->makeOrnamentLayer('ornament-right-divider', $divider, 280, 520, 256, 40, [
                 'tint' => ['c1' => '@secondary', 'c2' => '@primary', 'c3' => '@accent'],
             ]),
 
-            // Text 4: Details (Right column)
+            // Text 5: Details (Date, Time, Venue)
             $this->makeTextLayer(
                 'text-details',
                 $spec->details,
                 280,
-                656,
+                576,
                 704,
-                264,
+                224,
                 $fonts['body'],
-                32,
+                30,
                 $spec,
                 ['fill' => '@ink', 'fontWeight' => '400', 'textAlign' => 'left', 'lineHeight' => 1.45]
             ),
 
-            // Text 5: Closing line (Right column)
+            // Text 6: Closing line
             $this->makeTextLayer(
                 'text-closing',
                 $spec->closing,
                 280,
-                944,
+                816,
                 704,
-                72,
+                64,
                 $fonts['script_or_accent'],
-                34,
+                32,
                 $spec,
                 ['fill' => '@primary', 'fontWeight' => '400', 'textAlign' => 'left']
             ),
 
-            // Text 6: RSVP (Right column)
+            // Text 7: RSVP
             $this->makeTextLayer(
                 'text-rsvp',
                 $spec->rsvp,
                 280,
-                1080,
+                896,
                 704,
-                80,
+                64,
                 $fonts['body'],
                 30,
                 $spec,

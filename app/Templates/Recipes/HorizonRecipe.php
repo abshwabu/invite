@@ -30,116 +30,130 @@ class HorizonRecipe extends AbstractRecipe
             'graduation' => 'crest-rays',
             default => 'laurel-wreath-pair',
         };
-        $divider = $this->defaultDividerOrnament($spec->category);
+        $divider = $spec->dividerOrnament ?: $this->defaultDividerOrnament($spec->category);
 
         $layers = [
             // 1. Non-text: Upper scenic anchor ornament
-            $this->makeOrnamentLayer('ornament-horizon-sky', $sceneAnchor, 280, 96, 520, 220, [
+            $this->makeOrnamentLayer('ornament-horizon-sky', $sceneAnchor, 280, 96, 520, 200, [
                 'tint' => ['c1' => '@primary', 'c2' => '@secondary', 'c3' => '@accent'],
             ]),
 
-            // 2. Non-text: Flanking sparkle/sprig left
+            // 2. Non-text: Flanking sparkle left
             $this->makeOrnamentLayer('ornament-flank-left', 'sparkle-trio', 120, 160, 120, 120, [
                 'tint' => ['c1' => '@secondary', 'c2' => '@primary', 'c3' => '@accent'],
             ]),
 
-            // 3. Non-text: Flanking sparkle/sprig right
+            // 3. Non-text: Flanking sparkle right
             $this->makeOrnamentLayer('ornament-flank-right', 'sparkle-trio', 840, 160, 120, 120, [
                 'tint' => ['c1' => '@secondary', 'c2' => '@primary', 'c3' => '@accent'],
                 'flipX' => true,
             ]),
 
-            // Text 1: Opening line in horizon sky
+            // Text 1: Opening line
             $this->makeTextLayer(
                 'text-opening',
                 $spec->opening,
                 120,
-                336,
+                304,
                 840,
-                56,
+                48,
                 $fonts['script_or_accent'],
                 32,
                 $spec,
                 ['fill' => '@primary', 'fontWeight' => '400']
             ),
 
-            // Text 2: Title centered above paper panel
+            // Text 2: Title
             $this->makeTextLayer(
                 'text-title',
                 $spec->title,
                 112,
-                408,
+                360,
                 856,
-                192,
+                168,
                 $fonts['display'],
                 88,
                 $spec,
                 ['fill' => '@primary', 'fontWeight' => '700', 'autoFit' => true]
             ),
 
+            // Text 3: Host Names
+            $this->makeTextLayer(
+                'text-hosts',
+                $spec->hostNames,
+                120,
+                536,
+                840,
+                48,
+                $fonts['body'],
+                28,
+                $spec,
+                ['fill' => '@ink', 'fontWeight' => '400']
+            ),
+
             // 4. Non-text: Bottom paper card panel
-            $this->makeShapeLayer('shape-bottom-panel', 'rect', 96, 624, 888, 768, [
+            $this->makeShapeLayer('shape-bottom-panel', 'rect', 96, 600, 888, 768, [
                 'fill' => '@surface',
                 'stroke' => '@secondary',
                 'strokeWidth' => 2,
                 'cornerRadius' => 20,
             ]),
 
-            // Text 3: Invitation line on paper panel
+            // Text 4: Invitation line on paper panel
             $this->makeTextLayer(
                 'text-invitation',
                 $spec->invitation,
                 120,
-                656,
+                632,
                 840,
-                96,
+                72,
                 $fonts['body'],
-                34,
+                32,
                 $spec,
                 ['fill' => '@ink', 'fontWeight' => '400']
             ),
 
             // 5. Non-text: Panel divider ornament
-            $this->makeOrnamentLayer('ornament-panel-divider', $divider, 412, 768, 256, 48, [
+            $this->makeOrnamentLayer('ornament-panel-divider', $divider, 412, 712, 256, 40, [
                 'tint' => ['c1' => '@secondary', 'c2' => '@primary', 'c3' => '@accent'],
             ]),
 
-            // Text 4: Details
+            // Text 5: Details
             $this->makeTextLayer(
                 'text-details',
                 $spec->details,
                 120,
-                832,
+                768,
                 840,
-                240,
+                224,
                 $fonts['body'],
-                32,
+                30,
                 $spec,
                 ['fill' => '@ink', 'fontWeight' => '400', 'lineHeight' => 1.45]
             ),
 
-            // Text 5: Closing line
+            // Text 6: Closing line
             $this->makeTextLayer(
                 'text-closing',
                 $spec->closing,
                 120,
-                1096,
+                1008,
                 840,
-                72,
+                64,
                 $fonts['script_or_accent'],
-                32,
+                30,
                 $spec,
                 ['fill' => '@primary', 'fontWeight' => '400']
             ),
 
-            // Text 6: RSVP
+            // Text 7: RSVP
             $this->makeTextLayer(
                 'text-rsvp',
                 $spec->rsvp,
                 120,
-                1240,
+                1088,
                 840,
-                80,
+                64,
                 $fonts['body'],
                 30,
                 $spec,

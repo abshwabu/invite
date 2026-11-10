@@ -33,8 +33,8 @@ class CornerFloralsRecipe extends AbstractRecipe
     public function build(RecipeSpec $spec): array
     {
         $fonts = $spec->getFontRoles();
-        $corner = $spec->ornamentId ?: $this->cornerOrnamentForCategory($spec->category);
-        $divider = $this->defaultDividerOrnament($spec->category);
+        $corner = $spec->cornerOrnament ?: ($spec->ornamentId ?: $this->cornerOrnamentForCategory($spec->category));
+        $divider = $spec->dividerOrnament ?: $this->defaultDividerOrnament($spec->category);
 
         $layers = [
             // 1. Non-text: Thin inset frame
@@ -55,89 +55,103 @@ class CornerFloralsRecipe extends AbstractRecipe
                 'flipY' => true,
             ]),
 
-            // Text 1: Opening line (in clear central column)
+            // Text 1: Opening line
             $this->makeTextLayer(
                 'text-opening',
                 $spec->opening,
                 144,
-                296,
+                264,
                 792,
-                64,
+                56,
                 $fonts['body'],
                 32,
                 $spec,
                 ['fill' => '@ink', 'fontWeight' => '400']
             ),
 
-            // Text 2: Title (Centered, safe from corners)
+            // Text 2: Title
             $this->makeTextLayer(
                 'text-title',
                 $spec->title,
                 144,
-                376,
+                328,
                 792,
-                184,
+                168,
                 $fonts['display'],
                 88,
                 $spec,
                 ['fill' => '@primary', 'fontWeight' => '700', 'autoFit' => true]
             ),
 
-            // Text 3: Invitation line
+            // Text 3: Host Names
+            $this->makeTextLayer(
+                'text-hosts',
+                $spec->hostNames,
+                144,
+                504,
+                792,
+                48,
+                $fonts['body'],
+                28,
+                $spec,
+                ['fill' => '@ink', 'fontWeight' => '400']
+            ),
+
+            // Text 4: Invitation line
             $this->makeTextLayer(
                 'text-invitation',
                 $spec->invitation,
                 144,
-                576,
+                560,
                 792,
-                112,
+                80,
                 $fonts['body'],
-                34,
+                32,
                 $spec,
                 ['fill' => '@ink', 'fontWeight' => '400']
             ),
 
             // 4. Non-text: Center divider ornament
-            $this->makeOrnamentLayer('ornament-center-divider', $divider, 412, 704, 256, 48, [
+            $this->makeOrnamentLayer('ornament-center-divider', $divider, 412, 656, 256, 40, [
                 'tint' => ['c1' => '@secondary', 'c2' => '@primary', 'c3' => '@accent'],
             ]),
 
-            // Text 4: Details
+            // Text 5: Details
             $this->makeTextLayer(
                 'text-details',
                 $spec->details,
                 144,
-                776,
+                712,
                 792,
-                240,
+                224,
                 $fonts['body'],
-                32,
+                30,
                 $spec,
                 ['fill' => '@ink', 'fontWeight' => '400', 'lineHeight' => 1.45]
             ),
 
-            // Text 5: Closing line
+            // Text 6: Closing line
             $this->makeTextLayer(
                 'text-closing',
                 $spec->closing,
                 144,
-                1040,
+                952,
                 792,
-                72,
+                64,
                 $fonts['script_or_accent'],
-                34,
+                32,
                 $spec,
                 ['fill' => '@primary', 'fontWeight' => '400']
             ),
 
-            // Text 6: RSVP (above the bottom right corner)
+            // Text 7: RSVP
             $this->makeTextLayer(
                 'text-rsvp',
                 $spec->rsvp,
                 144,
-                1136,
+                1032,
                 640,
-                80,
+                64,
                 $fonts['body'],
                 30,
                 $spec,

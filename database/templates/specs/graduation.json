@@ -1,0 +1,138 @@
+[
+  {
+    "key": "graduation-classic-mortarboard",
+    "category": "graduation",
+    "name_en": "Classic Scholar Cap",
+    "name_am": "የተመራቂ ቆብ እና የክብር ምረቃ",
+    "recipe": "R1",
+    "palette": "deep-navy-dove",
+    "fonts": "academic-honor",
+    "ornaments": {
+      "top": "mortarboard",
+      "divider": "line-grid-field"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["commencement", "academic", "mortarboard", "honor"],
+    "texture": "paper",
+    "suite_key": "graduation-classic-mortarboard"
+  },
+  {
+    "key": "graduation-laurel-commencement",
+    "category": "graduation",
+    "name_en": "Open Laurel Degree",
+    "name_am": "የሎረል ቅጠል የድል በዓል",
+    "recipe": "R2",
+    "palette": "deep-navy-ivory",
+    "fonts": "academic-honor",
+    "ornaments": {
+      "top": "laurel-open",
+      "divider": "line-grid-field"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["laurel", "degree", "arch", "distinction"],
+    "texture": "linen",
+    "suite_key": "graduation-laurel-commencement"
+  },
+  {
+    "key": "graduation-diploma-roll",
+    "category": "graduation",
+    "name_en": "Crimson Diploma Roll",
+    "name_am": "የዲፕሎማ ጥቅል የደስታ ግብዣ",
+    "recipe": "R6",
+    "palette": "burgundy-velvet",
+    "fonts": "classic-ceremonial",
+    "ornaments": {
+      "top": "diploma-roll",
+      "divider": "floral-divider"
+    },
+    "copy": { "variant": 3 },
+    "tags": ["diploma", "crimson", "scroll", "university"],
+    "texture": "paper",
+    "suite_key": "graduation-diploma-roll"
+  },
+  {
+    "key": "graduation-crest-rays",
+    "category": "graduation",
+    "name_en": "Radiant Crest of Triumph",
+    "name_am": "የስኬት ብርሃን አክሊል",
+    "recipe": "R8",
+    "palette": "midnight-gold-classic",
+    "fonts": "academic-honor",
+    "ornaments": {
+      "top": "crest-rays",
+      "divider": "line-grid-field"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["crest", "rays", "triumph", "gold", "evening"],
+    "texture": "grain",
+    "suite_key": "graduation-crest-rays"
+  },
+  {
+    "key": "graduation-poster-stack",
+    "category": "graduation",
+    "name_en": "Graduate Poster Stack",
+    "name_am": "የምረቃ ፖስተር እና የእራት ግብዣ",
+    "recipe": "R5",
+    "palette": "corporate-slate",
+    "fonts": "bold-contemporary",
+    "ornaments": {
+      "top": "scroll-ribbon",
+      "divider": "line-grid-field"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["poster", "bold", "swiss", "modern", "celebration"],
+    "texture": "paper",
+    "suite_key": "graduation-poster-stack"
+  },
+  {
+    "key": "graduation-ticket-admission",
+    "category": "graduation",
+    "name_en": "Commencement Ticket Pass",
+    "name_am": "የምረቃ በዓል የክብር ትኬት",
+    "recipe": "R7",
+    "palette": "midnight-royal-gold",
+    "fonts": "creative-tech",
+    "ornaments": {
+      "top": "ticket-notch-frame",
+      "divider": "line-grid-field"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["ticket", "admission", "ceremony", "pass"],
+    "texture": "grain",
+    "suite_key": "graduation-ticket-admission"
+  },
+  {
+    "key": "graduation-book-stack",
+    "category": "graduation",
+    "name_en": "Scholar's Library Milestone",
+    "name_am": "የእውቀት ማማ የድል ምዕራፍ",
+    "recipe": "R3",
+    "palette": "burgundy-champagne",
+    "fonts": "academic-honor",
+    "ornaments": {
+      "top": "book-stack",
+      "divider": "double-rule-ornament"
+    },
+    "copy": { "variant": 3 },
+    "tags": ["books", "scholar", "library", "milestone"],
+    "texture": "paper",
+    "suite_key": "graduation-book-stack"
+  },
+  {
+    "key": "graduation-ribbon-seal",
+    "category": "graduation",
+    "name_en": "Imperial Academic Seal",
+    "name_am": "የክብር ማኅተም የምረቃ ድግስ",
+    "recipe": "R11",
+    "palette": "corporate-steel",
+    "fonts": "architectural-modern",
+    "ornaments": {
+      "top": "ribbon-seal",
+      "divider": "diagonal-bands"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["seal", "ribbon", "imperial", "formal"],
+    "texture": "linen",
+    "suite_key": "graduation-ribbon-seal"
+  }
+]

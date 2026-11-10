@@ -23,7 +23,7 @@ class WashRecipe extends AbstractRecipe
     {
         $fonts = $spec->getFontRoles();
         $anchor = $spec->ornamentId ?: $this->defaultAnchorOrnament($spec->category);
-        $divider = $this->defaultDividerOrnament($spec->category);
+        $divider = $spec->dividerOrnament ?: $this->defaultDividerOrnament($spec->category);
 
         $layers = [
             // 1. Non-text: Inset framing rule
@@ -32,7 +32,7 @@ class WashRecipe extends AbstractRecipe
                 'strokeWidth' => 1,
             ]),
 
-            // 2. Non-text: Large, low-opacity central watermark ornament
+            // 2. Non-text: Large central watermark
             $this->makeOrnamentLayer('ornament-watermark', $anchor, 270, 440, 540, 540, [
                 'tint' => ['c1' => '@primary', 'c2' => '@secondary', 'c3' => '@accent'],
                 'opacity' => 0.14,
@@ -48,84 +48,98 @@ class WashRecipe extends AbstractRecipe
                 'text-opening',
                 $spec->opening,
                 120,
-                216,
+                200,
                 840,
-                64,
+                56,
                 $fonts['body'],
                 32,
                 $spec,
                 ['fill' => '@ink', 'fontWeight' => '400', 'letterSpacing' => 1]
             ),
 
-            // Text 2: Grand Scale Display Title (96px)
+            // Text 2: Title
             $this->makeTextLayer(
                 'text-title',
                 $spec->title,
                 112,
-                304,
+                264,
                 856,
-                224,
+                200,
                 $fonts['display'],
                 96,
                 $spec,
                 ['fill' => '@primary', 'fontWeight' => '700', 'autoFit' => true]
             ),
 
-            // Text 3: Invitation line
+            // Text 3: Host Names
+            $this->makeTextLayer(
+                'text-hosts',
+                $spec->hostNames,
+                120,
+                472,
+                840,
+                48,
+                $fonts['body'],
+                28,
+                $spec,
+                ['fill' => '@ink', 'fontWeight' => '400']
+            ),
+
+            // Text 4: Invitation line
             $this->makeTextLayer(
                 'text-invitation',
                 $spec->invitation,
                 120,
-                552,
+                528,
                 840,
-                112,
+                80,
                 $fonts['body'],
-                36,
+                34,
                 $spec,
                 ['fill' => '@ink', 'fontWeight' => '400']
             ),
 
             // 4. Non-text: Center divider
-            $this->makeOrnamentLayer('ornament-divider', $divider, 412, 688, 256, 48, [
+            $this->makeOrnamentLayer('ornament-divider', $divider, 412, 624, 256, 40, [
                 'tint' => ['c1' => '@secondary', 'c2' => '@primary', 'c3' => '@accent'],
             ]),
 
-            // Text 4: Details
+            // Text 5: Details (Date, Time, Venue)
             $this->makeTextLayer(
                 'text-details',
                 $spec->details,
                 120,
-                760,
+                680,
                 840,
-                240,
+                224,
                 $fonts['body'],
-                34,
+                32,
                 $spec,
                 ['fill' => '@ink', 'fontWeight' => '400', 'lineHeight' => 1.45]
             ),
 
-            // Text 5: Closing line
+            // Text 6: Closing line
             $this->makeTextLayer(
                 'text-closing',
                 $spec->closing,
                 120,
-                1024,
+                928,
                 840,
-                72,
+                64,
                 $fonts['script_or_accent'],
-                34,
+                32,
                 $spec,
                 ['fill' => '@primary', 'fontWeight' => '400']
             ),
 
-            // Text 6: RSVP
+            // Text 7: RSVP
             $this->makeTextLayer(
                 'text-rsvp',
                 $spec->rsvp,
                 120,
-                1184,
+                1008,
                 840,
-                80,
+                64,
                 $fonts['body'],
                 30,
                 $spec,

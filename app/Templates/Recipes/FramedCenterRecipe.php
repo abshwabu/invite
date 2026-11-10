@@ -23,7 +23,7 @@ class FramedCenterRecipe extends AbstractRecipe
     {
         $fonts = $spec->getFontRoles();
         $anchor = $spec->ornamentId ?: $this->defaultAnchorOrnament($spec->category);
-        $divider = $this->defaultDividerOrnament($spec->category);
+        $divider = $spec->dividerOrnament ?: $this->defaultDividerOrnament($spec->category);
         $borderStyle = $spec->borderStyle ?: 'double-rule';
 
         $layers = [
@@ -35,7 +35,7 @@ class FramedCenterRecipe extends AbstractRecipe
             ]),
 
             // 2. Non-text: Top Crown Ornament
-            $this->makeOrnamentLayer('ornament-top', $anchor, 440, 112, 200, 144, [
+            $this->makeOrnamentLayer('ornament-top', $anchor, 440, 112, 200, 136, [
                 'tint' => ['c1' => '@primary', 'c2' => '@secondary', 'c3' => '@accent'],
             ]),
 
@@ -44,9 +44,9 @@ class FramedCenterRecipe extends AbstractRecipe
                 'text-opening',
                 $spec->opening,
                 120,
-                288,
+                264,
                 840,
-                64,
+                56,
                 $fonts['body'],
                 32,
                 $spec,
@@ -58,75 +58,89 @@ class FramedCenterRecipe extends AbstractRecipe
                 'text-title',
                 $spec->title,
                 112,
-                368,
+                328,
                 856,
-                184,
+                168,
                 $fonts['display'],
                 88,
                 $spec,
                 ['fill' => '@primary', 'fontWeight' => '700', 'autoFit' => true]
             ),
 
-            // Text 3: Invitation line
+            // Text 3: Host Names
+            $this->makeTextLayer(
+                'text-hosts',
+                $spec->hostNames,
+                120,
+                504,
+                840,
+                48,
+                $fonts['body'],
+                28,
+                $spec,
+                ['fill' => '@ink', 'fontWeight' => '400']
+            ),
+
+            // Text 4: Invitation line
             $this->makeTextLayer(
                 'text-invitation',
                 $spec->invitation,
                 120,
-                568,
+                560,
                 840,
-                112,
+                80,
                 $fonts['body'],
-                34,
+                32,
                 $spec,
                 ['fill' => '@ink', 'fontWeight' => '400']
             ),
 
             // 3. Non-text: Center Divider Ornament
-            $this->makeOrnamentLayer('ornament-divider', $divider, 412, 704, 256, 48, [
+            $this->makeOrnamentLayer('ornament-divider', $divider, 412, 656, 256, 40, [
                 'tint' => ['c1' => '@secondary', 'c2' => '@primary', 'c3' => '@accent'],
             ]),
 
-            // Text 4: Details (Date, Time, Venue)
+            // Text 5: Details (Date, Time, Venue)
             $this->makeTextLayer(
                 'text-details',
                 $spec->details,
                 120,
-                776,
+                712,
                 840,
-                240,
+                224,
                 $fonts['body'],
-                32,
+                30,
                 $spec,
                 ['fill' => '@ink', 'fontWeight' => '400', 'lineHeight' => 1.45]
             ),
 
-            // Text 5: Closing line
+            // Text 6: Closing line
             $this->makeTextLayer(
                 'text-closing',
                 $spec->closing,
                 120,
-                1040,
+                952,
                 840,
-                72,
+                64,
                 $fonts['script_or_accent'],
-                36,
+                32,
                 $spec,
                 ['fill' => '@primary', 'fontWeight' => '400']
             ),
 
             // 4. Non-text: Bottom flourish
-            $this->makeOrnamentLayer('ornament-bottom', 'double-rule-ornament', 440, 1136, 200, 40, [
+            $this->makeOrnamentLayer('ornament-bottom', 'double-rule-ornament', 440, 1032, 200, 36, [
                 'tint' => ['c1' => '@secondary', 'c2' => '@primary', 'c3' => '@accent'],
             ]),
 
-            // Text 6: RSVP
+            // Text 7: RSVP
             $this->makeTextLayer(
                 'text-rsvp',
                 $spec->rsvp,
                 120,
-                1208,
+                1088,
                 840,
-                80,
+                64,
                 $fonts['body'],
                 30,
                 $spec,

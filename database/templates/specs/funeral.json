@@ -1,0 +1,138 @@
+[
+  {
+    "key": "funeral-peaceful-dove",
+    "category": "funeral",
+    "name_en": "Peaceful Ascension Dove",
+    "name_am": "የሰላም እርግብ መታሰቢያ",
+    "recipe": "R8",
+    "palette": "sober-charcoal",
+    "fonts": "solemn-memorial",
+    "ornaments": {
+      "top": "dove-ascending",
+      "divider": "double-rule-ornament"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["memorial", "peace", "dove", "reverence"],
+    "texture": "paper",
+    "suite_key": "funeral-peaceful-dove"
+  },
+  {
+    "key": "funeral-olive-repose",
+    "category": "funeral",
+    "name_en": "Olive Branch Repose",
+    "name_am": "የወይራ ቅንጣት መታሰቢያ",
+    "recipe": "R1",
+    "palette": "sober-ebony",
+    "fonts": "solemn-memorial",
+    "ornaments": {
+      "top": "olive-branch-pair",
+      "divider": "double-rule-ornament"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["dignity", "repose", "olive", "memorial"],
+    "texture": "linen",
+    "suite_key": "funeral-olive-repose"
+  },
+  {
+    "key": "funeral-lily-remembrance",
+    "category": "funeral",
+    "name_en": "Lily of Remembrance",
+    "name_am": "የሊሊ አበባ የጸሎት መታሰቢያ",
+    "recipe": "R12",
+    "palette": "deep-navy-dove",
+    "fonts": "solemn-memorial",
+    "ornaments": {
+      "top": "lily-spray",
+      "divider": "double-rule-ornament"
+    },
+    "copy": { "variant": 3 },
+    "tags": ["lily", "remembrance", "grace", "serene"],
+    "texture": "paper",
+    "suite_key": "funeral-lily-remembrance"
+  },
+  {
+    "key": "funeral-orthodox-lalibela",
+    "category": "funeral",
+    "name_en": "Lalibela Orthodox Memorial",
+    "name_am": "የላሊበላ መስቀል የፍትሐት ጸሎት",
+    "recipe": "R2",
+    "palette": "warm-stone-taupe",
+    "fonts": "regal-heritage",
+    "ornaments": {
+      "top": "ethiopian-orthodox-cross-lalibela",
+      "divider": "tilet-divider-01"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["orthodox", "lalibela", "cross", "ethiopian", "prayer"],
+    "texture": "grain",
+    "suite_key": "funeral-orthodox-lalibela"
+  },
+  {
+    "key": "funeral-orthodox-axum",
+    "category": "funeral",
+    "name_en": "Axum Cross Remembrance",
+    "name_am": "የአክሱም መስቀል የነፍስ ማረፊያ",
+    "recipe": "R11",
+    "palette": "sober-charcoal",
+    "fonts": "regal-heritage",
+    "ornaments": {
+      "top": "ethiopian-orthodox-cross-axum",
+      "divider": "tilet-divider-01"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["axum", "cross", "orthodox", "tilet", "memorial"],
+    "texture": "paper",
+    "suite_key": "funeral-orthodox-axum"
+  },
+  {
+    "key": "funeral-islamic-crescent",
+    "category": "funeral",
+    "name_en": "Islamic Crescent Janazah",
+    "name_am": "የጀናዛ እና የዱዓ መታሰቢያ",
+    "recipe": "R3",
+    "palette": "forest-hush",
+    "fonts": "classic-ceremonial",
+    "ornaments": {
+      "top": "crescent-star-simple",
+      "divider": "geometric-divider"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["islamic", "janazah", "crescent", "dua", "muslim"],
+    "texture": "paper",
+    "suite_key": "funeral-islamic-crescent"
+  },
+  {
+    "key": "funeral-islamic-geometric",
+    "category": "funeral",
+    "name_en": "Islamic Geometric Tribute",
+    "name_am": "የእስላማዊ ጂኦሜትሪ የዱዓ ጥሪ",
+    "recipe": "R1",
+    "palette": "sober-charcoal",
+    "fonts": "classic-ceremonial",
+    "ornaments": {
+      "top": "star-8-tile-pattern",
+      "divider": "geometric-divider"
+    },
+    "copy": { "variant": 3 },
+    "tags": ["islamic", "geometric", "star", "dua", "respectful"],
+    "texture": "linen",
+    "suite_key": "funeral-islamic-geometric"
+  },
+  {
+    "key": "funeral-christian-cross",
+    "category": "funeral",
+    "name_en": "Grace Latin Cross Memorial",
+    "name_am": "የመስቀል የጸሎት እና የመጽናናት ቀን",
+    "recipe": "R6",
+    "palette": "warm-stone-sand",
+    "fonts": "solemn-memorial",
+    "ornaments": {
+      "top": "latin-cross-simple",
+      "divider": "double-rule-ornament"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["christian", "latin-cross", "comfort", "memorial"],
+    "texture": "paper",
+    "suite_key": "funeral-christian-cross"
+  }
+]

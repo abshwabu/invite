@@ -1,0 +1,139 @@
+[
+  {
+    "key": "baby-dreamy-clouds",
+    "category": "baby-shower",
+    "name_en": "Dreamy Pastel Clouds",
+    "name_am": "የደመናዎች ህልም የህፃን ምርቃት",
+    "recipe": "R9",
+    "palette": "pastel-mint-blush",
+    "fonts": "sweet-storybook",
+    "ornaments": {
+      "top": "cloud-trio",
+      "divider": "sparkle-trio"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["clouds", "neutral", "dreamy", "pastel", "sweet"],
+    "texture": "paper",
+    "suite_key": "baby-dreamy-clouds"
+  },
+  {
+    "key": "baby-sleepy-moon",
+    "category": "baby-shower",
+    "name_en": "Sleepy Moon & Starlight",
+    "name_am": "የጨረቃ እና የኮከቦች በረከት",
+    "recipe": "R2",
+    "palette": "pastel-lavender-mist",
+    "fonts": "sweet-storybook",
+    "ornaments": {
+      "top": "moon-star-sleepy",
+      "divider": "sparkle-trio"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["moon", "stars", "sleepy", "neutral", "nursery"],
+    "texture": "paper",
+    "suite_key": "baby-sleepy-moon"
+  },
+  {
+    "key": "baby-boy-bunting",
+    "category": "baby-shower",
+    "name_en": "Little Prince Blue Bunting",
+    "name_am": "ትንሹ ልዑክ የባንዲራዎች በዓል",
+    "recipe": "R3",
+    "palette": "dusty-blue-slate",
+    "fonts": "playful-celebration",
+    "ornaments": {
+      "top": "bunting-pastel",
+      "divider": "sparkle-trio"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["boy", "blue", "bunting", "celebration"],
+    "texture": "linen",
+    "suite_key": "baby-boy-bunting"
+  },
+  {
+    "key": "baby-girl-rainbow",
+    "category": "baby-shower",
+    "name_en": "Sweet Rainbow Arc",
+    "name_am": "የቀስተ ደመና የህፃን ደስታ",
+    "recipe": "R1",
+    "palette": "garden-peony",
+    "fonts": "whimsical-script",
+    "ornaments": {
+      "top": "rainbow-arc",
+      "divider": "floral-divider"
+    },
+    "copy": { "variant": 3 },
+    "tags": ["girl", "rainbow", "pink", "delicate", "joy"],
+    "texture": "paper",
+    "suite_key": "baby-girl-rainbow"
+  },
+  {
+    "key": "baby-soft-balloons",
+    "category": "baby-shower",
+    "name_en": "Soft Pastel Balloon Pair",
+    "name_am": "የለስላሳ ፊኛዎች የደስታ ቀን",
+    "recipe": "R4",
+    "palette": "pastel-candy-sweet",
+    "fonts": "sweet-storybook",
+    "ornaments": {
+      "top": "balloon-pair-soft",
+      "corner": "olive-branch-corner",
+      "divider": "sparkle-trio"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["balloons", "pastel", "gentle", "nursery"],
+    "texture": "watercolor",
+    "suite_key": "baby-soft-balloons"
+  },
+  {
+    "key": "baby-stork-delivery",
+    "category": "baby-shower",
+    "name_en": "Stork's Little Miracle",
+    "name_am": "የሽመላው አዲስ በረከት",
+    "recipe": "R8",
+    "palette": "warm-stone-taupe",
+    "fonts": "sweet-storybook",
+    "ornaments": {
+      "top": "bundle-stork-line",
+      "divider": "double-rule-ornament"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["stork", "miracle", "bundle", "neutral"],
+    "texture": "paper",
+    "suite_key": "baby-stork-delivery"
+  },
+  {
+    "key": "baby-safari-teddy",
+    "category": "baby-shower",
+    "name_en": "Safari Teddy Bear Playtime",
+    "name_am": "የቴዲ ድብ የህፃናት ፍቅር",
+    "recipe": "R10",
+    "palette": "pop-citrus-berry",
+    "fonts": "playful-celebration",
+    "ornaments": {
+      "top": "teddy-line",
+      "divider": "sparkle-trio"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["teddy", "safari", "cute", "playful"],
+    "texture": "paper",
+    "suite_key": "baby-safari-teddy"
+  },
+  {
+    "key": "baby-vintage-pram",
+    "category": "baby-shower",
+    "name_en": "Tiny Footprints & Pram",
+    "name_am": "የህፃን ጋሪ እና የእግር አሻራ",
+    "recipe": "R6",
+    "palette": "garden-sage",
+    "fonts": "whimsical-script",
+    "ornaments": {
+      "top": "footprints",
+      "divider": "floral-divider"
+    },
+    "copy": { "variant": 3 },
+    "tags": ["footprints", "pram", "vintage", "heirloom"],
+    "texture": "paper",
+    "suite_key": "baby-vintage-pram"
+  }
+]

@@ -18,7 +18,7 @@ class TemplateSeeder extends Seeder
     {
         $categories = Category::all()->keyBy('slug');
 
-        $this->seedInvitations($categories);
+        $this->call(InvitationTemplateSeeder::class);
         $this->seedThankYous($categories);
     }
 

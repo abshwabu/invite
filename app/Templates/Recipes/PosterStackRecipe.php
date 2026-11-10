@@ -28,6 +28,7 @@ class PosterStackRecipe extends AbstractRecipe
             'wedding', 'anniversary' => 'geometric-divider',
             default => 'geo-triangles-corner',
         };
+        $dividerOrnament = $spec->dividerOrnament ?: 'geometric-divider';
 
         $layers = [
             // 1. Non-text: Left vertical accent stripe
@@ -42,50 +43,63 @@ class PosterStackRecipe extends AbstractRecipe
                 'tint' => ['c1' => '@primary', 'c2' => '@secondary', 'c3' => '@accent'],
             ]),
 
-            // 3. Non-text: Horizontal dividing rule
-            $this->makeShapeLayer('shape-divider-line', 'line', 128, 640, 856, 4, [
-                'stroke' => '@secondary',
-                'strokeWidth' => 2,
+            // 3. Non-text: Dividing ornament
+            $this->makeOrnamentLayer('ornament-divider', $dividerOrnament, 128, 640, 240, 32, [
+                'tint' => ['c1' => '@secondary', 'c2' => '@primary', 'c3' => '@accent'],
             ]),
 
-            // Text 1: Opening / Prehead (Left-aligned)
+            // Text 1: Opening / Prehead
             $this->makeTextLayer(
                 'text-opening',
                 $spec->opening,
                 128,
                 112,
                 600,
-                56,
+                48,
                 $fonts['body'],
                 30,
                 $spec,
                 ['fill' => '@ink', 'fontWeight' => '600', 'textAlign' => 'left', 'letterSpacing' => 1]
             ),
 
-            // Text 2: Huge Headline Title (Left-aligned, 100px)
+            // Text 2: Host Names
+            $this->makeTextLayer(
+                'text-hosts',
+                $spec->hostNames,
+                128,
+                168,
+                600,
+                48,
+                $fonts['body'],
+                28,
+                $spec,
+                ['fill' => '@ink', 'fontWeight' => '400', 'textAlign' => 'left']
+            ),
+
+            // Text 3: Huge Headline Title
             $this->makeTextLayer(
                 'text-title',
                 $spec->title,
                 128,
-                184,
+                224,
                 824,
-                432,
+                400,
                 $fonts['display'],
-                100,
+                96,
                 $spec,
                 ['fill' => '@primary', 'fontWeight' => '700', 'textAlign' => 'left', 'autoFit' => true]
             ),
 
-            // Text 3: Invitation line
+            // Text 4: Invitation line
             $this->makeTextLayer(
                 'text-invitation',
                 $spec->invitation,
                 128,
-                664,
+                656,
                 824,
-                96,
+                72,
                 $fonts['body'],
-                34,
+                32,
                 $spec,
                 ['fill' => '@ink', 'fontWeight' => '400', 'textAlign' => 'left']
             ),
@@ -97,42 +111,42 @@ class PosterStackRecipe extends AbstractRecipe
                 'strokeWidth' => 0,
             ]),
 
-            // Text 4: Bold details column
+            // Text 5: Bold details column
             $this->makeTextLayer(
                 'text-details',
                 $spec->details,
                 128,
-                784,
+                744,
                 824,
-                264,
+                240,
                 $fonts['body'],
-                34,
+                32,
                 $spec,
                 ['fill' => '@ink', 'fontWeight' => '600', 'textAlign' => 'left', 'lineHeight' => 1.45]
             ),
 
-            // Text 5: Closing line
+            // Text 6: Closing line
             $this->makeTextLayer(
                 'text-closing',
                 $spec->closing,
                 128,
-                1080,
+                1000,
                 824,
-                72,
+                64,
                 $fonts['script_or_accent'],
-                32,
+                30,
                 $spec,
                 ['fill' => '@primary', 'fontWeight' => '400', 'textAlign' => 'left']
             ),
 
-            // Text 6: RSVP line
+            // Text 7: RSVP line
             $this->makeTextLayer(
                 'text-rsvp',
                 $spec->rsvp,
                 128,
-                1216,
+                1080,
                 824,
-                80,
+                64,
                 $fonts['body'],
                 30,
                 $spec,

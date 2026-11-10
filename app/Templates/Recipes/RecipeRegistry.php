@@ -54,13 +54,15 @@ class RecipeRegistry
     }
 
     /**
-     * Return a specific recipe by ID.
+     * Return a specific recipe by ID or code (e.g. 'framed-center' or 'R1').
      */
     public static function get(string $id): ?AbstractRecipe
     {
         static::init();
 
-        return static::$recipes[$id] ?? null;
+        $resolved = RecipeSpec::RECIPE_CODE_MAP[strtoupper($id)] ?? $id;
+
+        return static::$recipes[$resolved] ?? null;
     }
 
     /**
@@ -70,7 +72,9 @@ class RecipeRegistry
     {
         static::init();
 
-        return isset(static::$recipes[$id]);
+        $resolved = RecipeSpec::RECIPE_CODE_MAP[strtoupper($id)] ?? $id;
+
+        return isset(static::$recipes[$resolved]);
     }
 
     /**
@@ -84,5 +88,24 @@ class RecipeRegistry
         }
 
         return $recipe->build($spec);
+    }
+
+    /**
+     * Build directly from a RecipeSpec instance.
+     */
+    public static function buildFromSpec(RecipeSpec $spec): array
+    {
+        return static::build($spec->recipeId, $spec);
+    }
+
+    /**
+     * Build from a raw spec array.
+     */
+    public static function buildFromSpecArray(array $specArray, string $locale = 'en'): array
+    {
+        $specArray['locale'] = $locale;
+        $spec = new RecipeSpec($specArray);
+
+        return static::buildFromSpec($spec);
     }
 }

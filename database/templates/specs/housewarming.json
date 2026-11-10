@@ -1,0 +1,139 @@
+[
+  {
+    "key": "housewarming-jebena-coffee",
+    "category": "housewarming",
+    "name_en": "Traditional Jebena Coffee Blessing",
+    "name_am": "የባህላዊ ጀበና ቡና ምርቃት",
+    "recipe": "R2",
+    "palette": "warm-terracotta",
+    "fonts": "cozy-hearth",
+    "ornaments": {
+      "top": "jebena-coffee-set-warm",
+      "divider": "tilet-divider-01"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["jebena", "coffee", "traditional", "habesha", "blessing"],
+    "texture": "paper",
+    "suite_key": "housewarming-jebena-coffee"
+  },
+  {
+    "key": "housewarming-new-roof",
+    "category": "housewarming",
+    "name_en": "New Roof & Warm Hearth",
+    "name_am": "የአዲስ ጣሪያ እና ሞቅ ያለ ማረፊያ",
+    "recipe": "R9",
+    "palette": "warm-stone-sand",
+    "fonts": "warm-editorial",
+    "ornaments": {
+      "top": "house-line-roof",
+      "divider": "double-rule-ornament"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["roof", "hearth", "horizon", "home", "cozy"],
+    "texture": "paper",
+    "suite_key": "housewarming-new-roof"
+  },
+  {
+    "key": "housewarming-door-wreath",
+    "category": "housewarming",
+    "name_en": "Welcome Door Garland Wreath",
+    "name_am": "የበር አክሊል የቤት ምርቃት",
+    "recipe": "R1",
+    "palette": "warm-stone-taupe",
+    "fonts": "cozy-hearth",
+    "ornaments": {
+      "top": "door-wreath",
+      "divider": "floral-divider"
+    },
+    "copy": { "variant": 3 },
+    "tags": ["door", "wreath", "garland", "welcome", "entry"],
+    "texture": "linen",
+    "suite_key": "housewarming-door-wreath"
+  },
+  {
+    "key": "housewarming-golden-keys",
+    "category": "housewarming",
+    "name_en": "New Home Golden Keyring",
+    "name_am": "የአዲሱ ቤት የወርቅ ቁልፍ",
+    "recipe": "R6",
+    "palette": "midnight-gold-classic",
+    "fonts": "modern-luxury",
+    "ornaments": {
+      "top": "key-ring",
+      "divider": "geometric-divider"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["keys", "keyring", "golden", "milestone", "homeowner"],
+    "texture": "grain",
+    "suite_key": "housewarming-golden-keys"
+  },
+  {
+    "key": "housewarming-potted-plants",
+    "category": "housewarming",
+    "name_en": "Botanical Living Plant Trio",
+    "name_am": "የአበባ ማስቀመጫዎች ሞቅታ",
+    "recipe": "R4",
+    "palette": "forest-moss",
+    "fonts": "warm-editorial",
+    "ornaments": {
+      "top": "plant-pot-trio",
+      "corner": "olive-branch-corner",
+      "divider": "floral-divider"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["plants", "greenery", "botanical", "living", "garden"],
+    "texture": "paper",
+    "suite_key": "housewarming-potted-plants"
+  },
+  {
+    "key": "housewarming-window-light",
+    "category": "housewarming",
+    "name_en": "Window Sunlight Sanctuary",
+    "name_am": "የመስኮት ብርሃን እና ሰላም",
+    "recipe": "R8",
+    "palette": "warm-stone-sand",
+    "fonts": "cozy-hearth",
+    "ornaments": {
+      "top": "window-light-frame",
+      "divider": "double-rule-ornament"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["window", "sunlight", "warmth", "sanctuary"],
+    "texture": "watercolor",
+    "suite_key": "housewarming-window-light"
+  },
+  {
+    "key": "housewarming-playful-openhouse",
+    "category": "housewarming",
+    "name_en": "Playful Ivy Vine Open House",
+    "name_am": "የሀረግ ቅጠሎች ክፍት ቤት ድግስ",
+    "recipe": "R10",
+    "palette": "pop-citrus-berry",
+    "fonts": "playful-celebration",
+    "ornaments": {
+      "top": "ivy-vine",
+      "divider": "sparkle-trio"
+    },
+    "copy": { "variant": 3 },
+    "tags": ["playful", "open-house", "friends", "casual", "ivy"],
+    "texture": "paper",
+    "suite_key": "housewarming-playful-openhouse"
+  },
+  {
+    "key": "housewarming-modern-minimal",
+    "category": "housewarming",
+    "name_en": "Modern Minimalist Welcome",
+    "name_am": "ዘመናዊ ቀላል የቤት ምርቃት",
+    "recipe": "R5",
+    "palette": "sober-charcoal",
+    "fonts": "clean-minimalist",
+    "ornaments": {
+      "top": "welcome-band",
+      "divider": "line-grid-field"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["minimalist", "modern", "architecture", "swiss", "welcome"],
+    "texture": "paper",
+    "suite_key": "housewarming-modern-minimal"
+  }
+]

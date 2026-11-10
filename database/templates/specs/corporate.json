@@ -1,0 +1,138 @@
+[
+  {
+    "key": "corporate-executive-summit",
+    "category": "corporate",
+    "name_en": "Executive Leadership Summit",
+    "name_am": "ዓመታዊ የአመራር እና ቢዝነስ ጉባኤ",
+    "recipe": "R5",
+    "palette": "corporate-slate",
+    "fonts": "architectural-modern",
+    "ornaments": {
+      "top": "line-grid-field",
+      "divider": "line-grid-field"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["executive", "summit", "conference", "business", "poster"],
+    "texture": "paper",
+    "suite_key": "corporate-executive-summit"
+  },
+  {
+    "key": "corporate-tech-ticket",
+    "category": "corporate",
+    "name_en": "Tech Expo VIP Admission Pass",
+    "name_am": "የቴክኖሎጂ ኤክስፖ የክብር መግቢያ",
+    "recipe": "R7",
+    "palette": "corporate-steel",
+    "fonts": "clean-minimalist",
+    "ornaments": {
+      "top": "ticket-notch-frame",
+      "divider": "geometric-divider"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["ticket", "tech", "expo", "admission", "pass"],
+    "texture": "grain",
+    "suite_key": "corporate-tech-ticket"
+  },
+  {
+    "key": "corporate-gala-night",
+    "category": "corporate",
+    "name_en": "Black-Tie Corporate Gala",
+    "name_am": "የድርጅቱ የክብር ምሽት ግብዣ",
+    "recipe": "R1",
+    "palette": "midnight-gold-classic",
+    "fonts": "academic-honor",
+    "ornaments": {
+      "top": "badge-seal",
+      "divider": "geometric-divider"
+    },
+    "copy": { "variant": 3 },
+    "tags": ["gala", "black-tie", "gold", "evening", "formal"],
+    "texture": "linen",
+    "suite_key": "corporate-gala-night"
+  },
+  {
+    "key": "corporate-product-launch",
+    "category": "corporate",
+    "name_en": "Next-Gen Product Showcase",
+    "name_am": "የአዲስ ምርት እና ፈጠራ ይፋ ማድረጊያ",
+    "recipe": "R3",
+    "palette": "corporate-tech-navy",
+    "fonts": "clean-minimalist",
+    "ornaments": {
+      "top": "circle-rings",
+      "divider": "geometric-divider"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["launch", "product", "innovation", "keynote", "tech"],
+    "texture": "paper",
+    "suite_key": "corporate-product-launch"
+  },
+  {
+    "key": "corporate-award-night",
+    "category": "corporate",
+    "name_en": "Annual Excellence Awards Dinner",
+    "name_am": "ዓመታዊ የስራ አፈፃፀም የሽልማት ምሽት",
+    "recipe": "R6",
+    "palette": "midnight-royal-gold",
+    "fonts": "academic-honor",
+    "ornaments": {
+      "top": "geo-triangles-corner",
+      "divider": "geometric-divider"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["awards", "excellence", "dinner", "trophy", "recognition"],
+    "texture": "grain",
+    "suite_key": "corporate-award-night"
+  },
+  {
+    "key": "corporate-innovation-symposium",
+    "category": "corporate",
+    "name_en": "Global Innovation Symposium",
+    "name_am": "ዓለም አቀፍ የኢኖቬሽን ሲምፖዚየም",
+    "recipe": "R11",
+    "palette": "corporate-slate",
+    "fonts": "architectural-modern",
+    "ornaments": {
+      "top": "diagonal-bands",
+      "divider": "line-grid-field"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["symposium", "innovation", "bands", "industry", "future"],
+    "texture": "paper",
+    "suite_key": "corporate-innovation-symposium"
+  },
+  {
+    "key": "corporate-leadership-scroll",
+    "category": "corporate",
+    "name_en": "Board of Directors Assembly",
+    "name_am": "የዳይሬክተሮች ቦርድ የውይይት መድረክ",
+    "recipe": "R12",
+    "palette": "sober-charcoal",
+    "fonts": "architectural-modern",
+    "ornaments": {
+      "top": "dot-matrix",
+      "divider": "geometric-divider"
+    },
+    "copy": { "variant": 3 },
+    "tags": ["board", "leadership", "assembly", "governance", "minimal"],
+    "texture": "paper",
+    "suite_key": "corporate-leadership-scroll"
+  },
+  {
+    "key": "corporate-partners-reception",
+    "category": "corporate",
+    "name_en": "Strategic Partners Cocktail Reception",
+    "name_am": "የስትራቴጂክ አጋሮች የመስተንግዶ ምሽት",
+    "recipe": "R8",
+    "palette": "deep-navy-dove",
+    "fonts": "clean-minimalist",
+    "ornaments": {
+      "top": "wave-lines",
+      "divider": "line-grid-field"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["partners", "networking", "cocktails", "navy", "clean"],
+    "texture": "paper",
+    "suite_key": "corporate-partners-reception"
+  }
+]

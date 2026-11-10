@@ -1,0 +1,174 @@
+[
+  {
+    "key": "wedding-garden-arch",
+    "category": "wedding",
+    "name_en": "Garden Arch",
+    "name_am": "የአትክልት ቅስት",
+    "recipe": "R2",
+    "palette": "garden-rose",
+    "fonts": "cormorant-pinyon",
+    "ornaments": {
+      "top": "floral-arch-wreath",
+      "corner": "floral-corner-garden",
+      "divider": "flourish-divider-ornate"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["floral", "romantic", "outdoor", "garden"],
+    "texture": "paper",
+    "suite_key": "wedding-garden-arch"
+  },
+  {
+    "key": "wedding-midnight-gold",
+    "category": "wedding",
+    "name_en": "Midnight Gold Elegance",
+    "name_am": "የእኩለ ሌሊት ወርቅ ድምቀት",
+    "recipe": "R1",
+    "palette": "midnight-gold-classic",
+    "fonts": "cinzel-great-vibes",
+    "ornaments": {
+      "top": "monogram-laurel-frame",
+      "divider": "flourish-divider-ornate"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["luxury", "gold", "evening", "formal"],
+    "texture": "grain",
+    "suite_key": "wedding-midnight-gold"
+  },
+  {
+    "key": "wedding-burgundy-velvet",
+    "category": "wedding",
+    "name_en": "Burgundy Velvet",
+    "name_am": "የቡርጉንዲ ቬልቬት",
+    "recipe": "R6",
+    "palette": "burgundy-velvet",
+    "fonts": "classic-ceremonial",
+    "ornaments": {
+      "top": "wreath-round-eucalyptus",
+      "divider": "floral-divider"
+    },
+    "copy": { "variant": 3 },
+    "tags": ["burgundy", "regal", "rich", "autumn"],
+    "texture": "linen",
+    "suite_key": "wedding-burgundy-velvet"
+  },
+  {
+    "key": "wedding-dusty-blue-peony",
+    "category": "wedding",
+    "name_en": "Dusty Blue Peony",
+    "name_am": "ደብዛዛ ሰማያዊ ፒዮኒ",
+    "recipe": "R4",
+    "palette": "dusty-blue-slate",
+    "fonts": "fine-art-botanical",
+    "ornaments": {
+      "top": "floral-corner-peony",
+      "corner": "floral-corner-peony",
+      "divider": "sprig-olive"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["blue", "serene", "botanical", "soft"],
+    "texture": "watercolor",
+    "suite_key": "wedding-dusty-blue-peony"
+  },
+  {
+    "key": "wedding-minimal-monogram",
+    "category": "wedding",
+    "name_en": "Modern Line Monogram",
+    "name_am": "ዘመናዊ የፍቅር ቀለበት",
+    "recipe": "R5",
+    "palette": "sober-charcoal",
+    "fonts": "modern-luxury",
+    "ornaments": {
+      "top": "rings-interlocked",
+      "divider": "geometric-divider"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["minimalist", "modern", "chic", "black-tie"],
+    "texture": "paper",
+    "suite_key": "wedding-minimal-monogram"
+  },
+  {
+    "key": "wedding-sage-sanctuary",
+    "category": "wedding",
+    "name_en": "Sage Botanical Sanctuary",
+    "name_am": "የለምለም ቅጠላ ቅጠል",
+    "recipe": "R2",
+    "palette": "garden-sage",
+    "fonts": "romantic-editorial",
+    "ornaments": {
+      "top": "bouquet-bottom-spray",
+      "divider": "olive-branch-corner"
+    },
+    "copy": { "variant": 3 },
+    "tags": ["sage", "greenery", "sanctuary", "natural"],
+    "texture": "linen",
+    "suite_key": "wedding-sage-sanctuary"
+  },
+  {
+    "key": "wedding-dove-harmony",
+    "category": "wedding",
+    "name_en": "Dove Harmony",
+    "name_am": "የእርግብ ጥንዶች ስምምነት",
+    "recipe": "R1",
+    "palette": "deep-navy-ivory",
+    "fonts": "regal-heritage",
+    "ornaments": {
+      "top": "dove-pair",
+      "divider": "flourish-divider-ornate"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["doves", "peace", "harmony", "traditional"],
+    "texture": "paper",
+    "suite_key": "wedding-dove-harmony"
+  },
+  {
+    "key": "wedding-watercolor-wash",
+    "category": "wedding",
+    "name_en": "Coastal Watercolor Wash",
+    "name_am": "የባህር ዳርቻ የውሃ ቀለም",
+    "recipe": "R8",
+    "palette": "dusty-blue-coastal",
+    "fonts": "fine-art-botanical",
+    "ornaments": {
+      "top": "floral-arch-wreath",
+      "divider": "floral-divider"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["watercolor", "wash", "coastal", "soft"],
+    "texture": "watercolor",
+    "suite_key": "wedding-watercolor-wash"
+  },
+  {
+    "key": "wedding-habesha-tilet",
+    "category": "wedding",
+    "name_en": "Imperial Habesha Tilet",
+    "name_am": "የጥበብ ጥለት የሰርግ ጥሪ",
+    "recipe": "R11",
+    "palette": "habesha-white-gold-green-red",
+    "fonts": "regal-heritage",
+    "ornaments": {
+      "top": "tilet-band-straight",
+      "divider": "tilet-divider-01"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["habesha", "tilet", "ethiopian", "cultural", "kemis"],
+    "texture": "paper",
+    "suite_key": "wedding-habesha-tilet"
+  },
+  {
+    "key": "wedding-teklil-royal-kemis",
+    "category": "wedding",
+    "name_en": "Royal Teklil Crown",
+    "name_am": "የተክሊል የክብር ጋብቻ",
+    "recipe": "R3",
+    "palette": "habesha-royal-kemis",
+    "fonts": "classic-ceremonial",
+    "ornaments": {
+      "top": "meskel-cross-ornate",
+      "divider": "tilet-divider-01"
+    },
+    "copy": { "variant": 3 },
+    "tags": ["teklil", "orthodox", "royal", "ethiopian"],
+    "texture": "grain",
+    "suite_key": "wedding-teklil-royal-kemis"
+  }
+]

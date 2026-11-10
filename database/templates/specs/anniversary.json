@@ -1,0 +1,139 @@
+[
+  {
+    "key": "anniversary-silver-laurels",
+    "category": "anniversary",
+    "name_en": "Silver Jubilee Laurels",
+    "name_am": "የብር ኢዮቤልዩ የክብር በዓል",
+    "recipe": "R1",
+    "palette": "sober-charcoal",
+    "fonts": "classic-ceremonial",
+    "ornaments": {
+      "top": "laurel-wreath-pair",
+      "divider": "flourish-divider-ornate"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["silver", "jubilee", "laurel", "milestone", "25th"],
+    "texture": "paper",
+    "suite_key": "anniversary-silver-laurels"
+  },
+  {
+    "key": "anniversary-golden-medallion",
+    "category": "anniversary",
+    "name_en": "Golden Milestone Medallion",
+    "name_am": "የወርቅ ኢዮቤልዩ መታሰቢያ ሜዳሊያ",
+    "recipe": "R6",
+    "palette": "midnight-gold-classic",
+    "fonts": "classic-ceremonial",
+    "ornaments": {
+      "top": "numeral-medallion-frame",
+      "divider": "floral-divider"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["gold", "medallion", "numeral", "50th", "regal"],
+    "texture": "grain",
+    "suite_key": "anniversary-golden-medallion"
+  },
+  {
+    "key": "anniversary-art-deco",
+    "category": "anniversary",
+    "name_en": "Art Deco Roaring Romance",
+    "name_am": "የአርት ዲኮ የፍቅር ድምቀት",
+    "recipe": "R3",
+    "palette": "midnight-royal-gold",
+    "fonts": "modern-luxury",
+    "ornaments": {
+      "top": "art-deco-corner",
+      "divider": "geometric-divider"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["art-deco", "vintage", "geometric", "glamour"],
+    "texture": "linen",
+    "suite_key": "anniversary-art-deco"
+  },
+  {
+    "key": "anniversary-rose-romance",
+    "category": "anniversary",
+    "name_en": "Blushing Rose Garland",
+    "name_am": "የፅጌረዳ አበባ የፍቅር ማስታወሻ",
+    "recipe": "R4",
+    "palette": "garden-rose",
+    "fonts": "romantic-editorial",
+    "ornaments": {
+      "top": "floral-corner-garden",
+      "corner": "floral-corner-garden",
+      "divider": "floral-divider"
+    },
+    "copy": { "variant": 3 },
+    "tags": ["rose", "garland", "romantic", "botanical"],
+    "texture": "paper",
+    "suite_key": "anniversary-rose-romance"
+  },
+  {
+    "key": "anniversary-ruby-jubilee",
+    "category": "anniversary",
+    "name_en": "Royal Ruby Ribbon Arch",
+    "name_am": "የሩቢ ጌጥ የጋብቻ በዓል",
+    "recipe": "R2",
+    "palette": "burgundy-velvet",
+    "fonts": "classic-ceremonial",
+    "ornaments": {
+      "top": "ribbon-banner",
+      "divider": "double-rule-ornament"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["ruby", "ribbon", "arch", "burgundy", "40th"],
+    "texture": "paper",
+    "suite_key": "anniversary-ruby-jubilee"
+  },
+  {
+    "key": "anniversary-minimal-heart",
+    "category": "anniversary",
+    "name_en": "Enduring Line Art Heart",
+    "name_am": "የፍቅር መስመር ልብ መታሰቢያ",
+    "recipe": "R5",
+    "palette": "warm-stone-sand",
+    "fonts": "warm-editorial",
+    "ornaments": {
+      "top": "heart-line-art",
+      "divider": "geometric-divider"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["heart", "minimalist", "line-art", "modern"],
+    "texture": "paper",
+    "suite_key": "anniversary-minimal-heart"
+  },
+  {
+    "key": "anniversary-champagne-toast",
+    "category": "anniversary",
+    "name_en": "Golden Champagne Toast",
+    "name_am": "የሻምፓኝ ብርጭቆዎች የደስታ ቶስት",
+    "recipe": "R8",
+    "palette": "burgundy-champagne",
+    "fonts": "romantic-editorial",
+    "ornaments": {
+      "top": "champagne-clink",
+      "divider": "flourish-divider-ornate"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["champagne", "toast", "celebration", "evening"],
+    "texture": "watercolor",
+    "suite_key": "anniversary-champagne-toast"
+  },
+  {
+    "key": "anniversary-timeless-scroll",
+    "category": "anniversary",
+    "name_en": "Timeless Botanical Wreath Scroll",
+    "name_am": "የዘመናት ፍቅር አረንጓዴ አክሊል",
+    "recipe": "R12",
+    "palette": "forest-hush",
+    "fonts": "fine-art-botanical",
+    "ornaments": {
+      "top": "wreath-round-eucalyptus",
+      "divider": "floral-divider"
+    },
+    "copy": { "variant": 3 },
+    "tags": ["botanical", "scroll", "eucalyptus", "everlasting"],
+    "texture": "linen",
+    "suite_key": "anniversary-timeless-scroll"
+  }
+]

@@ -152,7 +152,9 @@ test('seeder creates at least 8 invitations and at least 5 thank-you templates p
     foreach ($funeralTemplates as $ft) {
         $design = $ft->design_json;
         // Background must not be saturated party colors
-        $bgVal = strtolower($design['background']['value'] ?? '');
+        $bgVal = is_string($design['background']['value'] ?? null)
+            ? strtolower($design['background']['value'])
+            : json_encode($design['background']['value'] ?? '');
         expect($bgVal)->not->toBe('#ff0000')
             ->and($bgVal)->not->toBe('#ffff00');
     }

@@ -1,0 +1,104 @@
+[
+  {
+    "key": "other-grand-opening",
+    "category": "other",
+    "name_en": "Grand Opening Ribbon Premiere",
+    "name_am": "የአዲስ ድርጅት ይፋዊ ምረቃ",
+    "recipe": "R7",
+    "palette": "corporate-slate",
+    "fonts": "bold-contemporary",
+    "ornaments": {
+      "top": "ticket-notch-frame",
+      "divider": "geometric-divider"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["grand-opening", "ribbon", "premiere", "launch", "pass"],
+    "texture": "paper",
+    "suite_key": "other-grand-opening"
+  },
+  {
+    "key": "other-joyful-reunion",
+    "category": "other",
+    "name_en": "Family & Alumni Joyful Reunion",
+    "name_am": "የቤተሰብ እና የቀድሞ ተማሪዎች ዳግም መገናኘት",
+    "recipe": "R10",
+    "palette": "pop-fiesta-sun",
+    "fonts": "playful-celebration",
+    "ornaments": {
+      "top": "confetti-scatter-a",
+      "divider": "sparkle-trio"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["reunion", "alumni", "family", "gathering", "joy"],
+    "texture": "paper",
+    "suite_key": "other-joyful-reunion"
+  },
+  {
+    "key": "other-community-gathering",
+    "category": "other",
+    "name_en": "Horizon Community Fellowship",
+    "name_am": "የማህበረሰብ አንድነት እና በረከት",
+    "recipe": "R9",
+    "palette": "warm-stone-taupe",
+    "fonts": "warm-editorial",
+    "ornaments": {
+      "top": "leaf-chain",
+      "divider": "double-rule-ornament"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["community", "fellowship", "unity", "gathering"],
+    "texture": "paper",
+    "suite_key": "other-community-gathering"
+  },
+  {
+    "key": "other-charity-fundraiser",
+    "category": "other",
+    "name_en": "Hope Charity Gala & Fundraiser",
+    "name_am": "የበጎ አድራጎት እና የድጋፍ ማሰባሰቢያ ምሽት",
+    "recipe": "R1",
+    "palette": "burgundy-velvet",
+    "fonts": "classic-ceremonial",
+    "ornaments": {
+      "top": "badge-seal",
+      "divider": "flourish-divider-ornate"
+    },
+    "copy": { "variant": 3 },
+    "tags": ["charity", "fundraiser", "hope", "gala", "giving"],
+    "texture": "linen",
+    "suite_key": "other-charity-fundraiser"
+  },
+  {
+    "key": "other-fond-farewell",
+    "category": "other",
+    "name_en": "Fond Farewell & Bon Voyage",
+    "name_am": "መልካም ጉዞ እና የስንብት ምሽት",
+    "recipe": "R8",
+    "palette": "dusty-blue-slate",
+    "fonts": "romantic-editorial",
+    "ornaments": {
+      "top": "dove-pair",
+      "divider": "floral-divider"
+    },
+    "copy": { "variant": 2 },
+    "tags": ["farewell", "bon-voyage", "tribute", "journey"],
+    "texture": "watercolor",
+    "suite_key": "other-fond-farewell"
+  },
+  {
+    "key": "other-milestone-celebration",
+    "category": "other",
+    "name_en": "Golden Starburst Milestone",
+    "name_am": "ልዩ የወርቅ ድምቀት የክብር በዓል",
+    "recipe": "R6",
+    "palette": "midnight-gold-classic",
+    "fonts": "modern-luxury",
+    "ornaments": {
+      "top": "starburst",
+      "divider": "geometric-divider"
+    },
+    "copy": { "variant": 1 },
+    "tags": ["milestone", "celebration", "honor", "festive"],
+    "texture": "grain",
+    "suite_key": "other-milestone-celebration"
+  }
+]
