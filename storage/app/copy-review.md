@@ -1,6 +1,6 @@
 # Amharic Copy Library Review Document
 
-> **Generated:** 2026-11-10 16:09:04
+> **Generated:** 2026-11-10 21:02:25
 > **Purpose:** Native Ge'ez / Amharic speaker review of all card copy lines across categories.
 > All Amharic strings below are marked with `needs_native_review: true`.
 

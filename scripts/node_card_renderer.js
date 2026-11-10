@@ -125,6 +125,66 @@ export function rasterizeSvgWithResvg(svgString, targetWidth, targetHeight) {
     }
 }
 
+/**
+ * Wraps text so that every line strictly fits within maxWidth.
+ * Handles explicit newlines (\n), whitespace, Ethiopic word separators (፡, ፣, ፤),
+ * and gracefully breaks unbreakable tokens if they exceed maxWidth.
+ */
+export function wrapTextLines(ctx, text, maxWidth) {
+    if (!text) return [];
+    if (maxWidth <= 0) return [text];
+
+    const paragraphs = text.split('\n');
+    const resultLines = [];
+
+    for (const paragraph of paragraphs) {
+        if (!paragraph.trim()) {
+            resultLines.push('');
+            continue;
+        }
+
+        // Tokenize into words, preserving trailing whitespace and Ethiopic separators
+        const tokens = paragraph.match(/[^\s፡]+[\s፡]*/g) || [paragraph];
+        let currentLine = '';
+
+        for (const token of tokens) {
+            const testLine = currentLine ? currentLine + token : token;
+            const testWidth = ctx.measureText(testLine.trim()).width;
+
+            if (testWidth <= maxWidth) {
+                currentLine = testLine;
+            } else {
+                if (currentLine) {
+                    resultLines.push(currentLine.trim());
+                    currentLine = '';
+                }
+
+                if (ctx.measureText(token.trim()).width <= maxWidth) {
+                    currentLine = token;
+                } else {
+                    let sub = '';
+                    for (const char of token) {
+                        const testSub = sub + char;
+                        if (ctx.measureText(testSub.trim()).width > maxWidth && sub) {
+                            resultLines.push(sub.trim());
+                            sub = char;
+                        } else {
+                            sub = testSub;
+                        }
+                    }
+                    currentLine = sub;
+                }
+            }
+        }
+
+        if (currentLine.trim()) {
+            resultLines.push(currentLine.trim());
+        }
+    }
+
+    return resultLines.length > 0 ? resultLines : [''];
+}
+
 export function createPrng(seed) {
     let s = (seed || 1) | 0;
     return function() {
@@ -293,10 +353,10 @@ function renderLayer(ctx, layer, scale, lang, palette, options) {
     ctx.save();
     ctx.globalAlpha = layer.opacity !== undefined ? Math.max(0, Math.min(1, layer.opacity)) : 1.0;
 
-    const lx = layer.x * scale;
-    const ly = layer.y * scale;
-    const lw = layer.width * scale;
-    const lh = layer.height * scale;
+    const lx = (layer.x ?? 0) * scale;
+    const ly = (layer.y ?? 0) * scale;
+    const lw = ((layer.width ?? layer.w) ?? 0) * scale;
+    const lh = ((layer.height ?? layer.h) ?? 0) * scale;
     const cx = lx + lw / 2;
     const cy = ly + lh / 2;
 
@@ -472,31 +532,56 @@ function renderLayer(ctx, layer, scale, lang, palette, options) {
         const fontWeight = layer.fontWeight || 400;
         const fontStyle = layer.fontStyle || 'normal';
         const fill = resolveColor(layer.fill || '@ink', palette);
+        const lineHeightMultiplier = layer.lineHeight || 1.3;
 
-        // AutoFit
-        if (layer.autoFit && layer.autoFit.minSize) {
-            const minSize = Math.max(8, Math.round(layer.autoFit.minSize * scale));
-            while (fontSize > minSize) {
-                ctx.font = `${fontStyle} ${fontWeight} ${fontSize}px "${fontFamily}", sans-serif`;
-                const lines = rawText.split('\n');
-                let maxW = 0;
-                for (const line of lines) {
-                    const m = ctx.measureText(line);
-                    if (m.width > maxW) maxW = m.width;
-                }
-                if (maxW <= lw) break;
-                fontSize -= 1;
-            }
-        }
-
-        ctx.font = `${fontStyle} ${fontWeight} ${fontSize}px "${fontFamily}", sans-serif`;
-        ctx.fillStyle = fill;
-        ctx.textBaseline = 'top';
+        // AutoFit minimum font size:
+        // Respect layer.autoFit.minSize if given; otherwise sensible floor
+        const configuredMin = layer.autoFit?.minSize ? Math.round(layer.autoFit.minSize * scale) : null;
+        const minFontSize = Math.max(8, configuredMin ?? Math.max(10, Math.round(Math.min(14 * scale, fontSize * 0.45))));
 
         if (layer.curve && layer.curve !== 0) {
+            while (fontSize > minFontSize) {
+                ctx.font = `${fontStyle} ${fontWeight} ${fontSize}px "${fontFamily}", "Noto Serif Ethiopic", sans-serif`;
+                if (ctx.measureText(rawText).width <= lw) break;
+                fontSize -= 1;
+            }
+            ctx.font = `${fontStyle} ${fontWeight} ${fontSize}px "${fontFamily}", "Noto Serif Ethiopic", sans-serif`;
+            ctx.fillStyle = fill;
+            ctx.textBaseline = 'middle';
             renderCurvedText(ctx, rawText, lx + lw / 2, ly + lh / 2, layer.curve * scale);
         } else {
-            const align = layer.align || 'center';
+            // AutoFit & Wrap loop: iteratively decrease fontSize until text fits inside [lw, lh]
+            let lines = [];
+            while (fontSize >= minFontSize) {
+                ctx.font = `${fontStyle} ${fontWeight} ${fontSize}px "${fontFamily}", "Noto Serif Ethiopic", sans-serif`;
+                lines = wrapTextLines(ctx, rawText, lw);
+                const currentLineHeight = lineHeightMultiplier * fontSize;
+                const totalHeight = lines.length * currentLineHeight;
+
+                if (totalHeight <= lh) {
+                    break;
+                }
+
+                if (fontSize <= minFontSize) {
+                    break;
+                }
+
+                const step = fontSize > 40 ? 2 : 1;
+                fontSize = Math.max(minFontSize, fontSize - step);
+            }
+
+            ctx.font = `${fontStyle} ${fontWeight} ${fontSize}px "${fontFamily}", "Noto Serif Ethiopic", sans-serif`;
+            ctx.fillStyle = fill;
+            ctx.textBaseline = 'top';
+
+            if (layer.shadow) {
+                ctx.shadowColor = resolveColor(layer.shadow.color || '#000000', palette);
+                ctx.shadowBlur = (layer.shadow.blur || 4) * scale;
+                ctx.shadowOffsetX = (layer.shadow.x || 0) * scale;
+                ctx.shadowOffsetY = (layer.shadow.y || 2) * scale;
+            }
+
+            const align = layer.align || layer.textAlign || 'center';
             let startX = lx;
             if (align === 'center') {
                 ctx.textAlign = 'center';
@@ -506,11 +591,27 @@ function renderLayer(ctx, layer, scale, lang, palette, options) {
                 startX = lx + lw;
             } else {
                 ctx.textAlign = 'left';
+                startX = lx;
             }
 
-            const lines = rawText.split('\n');
-            const lineHeight = (layer.lineHeight || 1.3) * fontSize;
+            const finalLineHeight = lineHeightMultiplier * fontSize;
+            const finalTotalH = lines.length * finalLineHeight;
             let currentY = ly;
+
+            if (layer.verticalAlign === 'top') {
+                currentY = ly;
+            } else if (layer.verticalAlign === 'bottom') {
+                currentY = ly + Math.max(0, lh - finalTotalH);
+            } else {
+                currentY = ly + Math.max(0, (lh - finalTotalH) / 2);
+            }
+
+            // Safety clipping to designated bounding box
+            const shadowPad = layer.shadow ? Math.max(4, ((layer.shadow.blur || 4) + Math.abs(layer.shadow.y || 2)) * scale) : 4;
+            ctx.save();
+            ctx.beginPath();
+            ctx.rect(lx - shadowPad, ly - shadowPad, lw + shadowPad * 2, lh + shadowPad * 2);
+            ctx.clip();
 
             for (const line of lines) {
                 ctx.fillText(line, startX, currentY);
@@ -519,8 +620,10 @@ function renderLayer(ctx, layer, scale, lang, palette, options) {
                     ctx.lineWidth = Math.max(1, layer.strokeWidth * scale);
                     ctx.strokeText(line, startX, currentY);
                 }
-                currentY += lineHeight;
+                currentY += finalLineHeight;
             }
+
+            ctx.restore();
         }
     }
 

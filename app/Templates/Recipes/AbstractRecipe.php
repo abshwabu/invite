@@ -107,11 +107,14 @@ abstract class AbstractRecipe
             'opacity' => (float) ($options['opacity'] ?? 1.0),
         ];
 
-        if (!empty($options['autoFit'])) {
-            $layer['autoFit'] = is_array($options['autoFit']) ? $options['autoFit'] : [
+        if (isset($options['autoFit']) && $options['autoFit'] === false) {
+            // explicitly disabled
+        } else {
+            $defaultMin = $fontSize >= 60 ? 40 : ($fontSize >= 36 ? 24 : 14);
+            $layer['autoFit'] = is_array($options['autoFit'] ?? null) ? $options['autoFit'] : [
                 'enabled' => true,
-                'minSize' => 48,
-                'step' => 2,
+                'minSize' => $defaultMin,
+                'step' => $fontSize > 40 ? 2 : 1,
             ];
         }
 

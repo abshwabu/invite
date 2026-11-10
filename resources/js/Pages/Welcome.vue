@@ -86,17 +86,46 @@ const activeHeroTemplate = computed(() => {
 const heroDesign = computed(() => {
     if (!activeHeroTemplate.value || !activeHeroTemplate.value.design_json) return null;
     const json = JSON.parse(JSON.stringify(activeHeroTemplate.value.design_json));
-    
-    // Ensure {{guest_name}} exists in at least one layer so typing immediately updates canvas
-    const hasToken = json.layers?.some((l) => l.text && l.text.includes('{{guest_name}}'));
-    if (!hasToken && json.layers) {
-        const textLayer = json.layers.find((l) => l.id === 'text-opening' || l.id === 'text-invitation');
-        if (textLayer) {
-            textLayer.text = currentLocale.value === 'am'
-                ? 'ክቡር/ት {{guest_name}}፤ ' + textLayer.text
-                : 'Cordially inviting {{guest_name}} — ' + textLayer.text;
+    if (!json.layers || !Array.isArray(json.layers)) return json;
+
+    const occasion = activeOccasion.value;
+    const isFuneral = occasion === 'funeral';
+    const isBirthday = occasion === 'birthday';
+    const enSalutation = isFuneral
+        ? 'In Honor of {{guest_name}}'
+        : (isBirthday ? 'Special Invitation for {{guest_name}}' : 'Cordially Inviting {{guest_name}}');
+    const amSalutation = isBirthday ? 'ውድ {{guest_name}}' : 'ክቡር/ት {{guest_name}}';
+
+    // 1. Check if any layer already has {{guest_name}}
+    let guestLayer = json.layers.find((l) =>
+        (l.text && l.text.includes('{{guest_name}}')) ||
+        (l.i18n && (l.i18n.en?.includes('{{guest_name}}') || l.i18n.am?.includes('{{guest_name}}')))
+    );
+
+    // 2. If no layer has {{guest_name}}, target the top opening or salutation layer
+    if (!guestLayer) {
+        guestLayer = json.layers.find((l) => l.id === 'text-opening' || l.id === 'text-salutation' || l.id === 'text-invitation');
+        if (guestLayer) {
+            guestLayer.text = currentLocale.value === 'am' ? amSalutation : enSalutation;
+            if (guestLayer.i18n) {
+                guestLayer.i18n.am = amSalutation;
+                guestLayer.i18n.en = enSalutation;
+            }
         }
     }
+
+    // 3. Ensure the invitee layer has sufficient height, AutoFit, and centered alignment so text never breaches boundaries
+    if (guestLayer) {
+        guestLayer.height = Math.max(guestLayer.height || 48, 64);
+        guestLayer.autoFit = {
+            enabled: true,
+            minSize: 14,
+            step: 1,
+        };
+        guestLayer.textAlign = 'center';
+        guestLayer.align = 'center';
+    }
+
     return json;
 });
 

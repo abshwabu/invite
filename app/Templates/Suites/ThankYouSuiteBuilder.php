@@ -250,6 +250,7 @@ class ThankYouSuiteBuilder
                     'fontWeight' => '500',
                     'fill' => '@ink',
                     'align' => 'center',
+                    'autoFit' => ['enabled' => true, 'minSize' => 16, 'step' => 1],
                 ],
                 // Message
                 [
@@ -266,6 +267,7 @@ class ThankYouSuiteBuilder
                     'fill' => '@ink',
                     'align' => 'center',
                     'lineHeight' => 1.55,
+                    'autoFit' => ['enabled' => true, 'minSize' => 14, 'step' => 1],
                 ],
                 // Divider
                 [
@@ -426,6 +428,7 @@ class ThankYouSuiteBuilder
                     'fontWeight' => '500',
                     'fill' => '@ink',
                     'align' => 'left',
+                    'autoFit' => ['enabled' => true, 'minSize' => 16, 'step' => 1],
                 ],
                 // Message (right side)
                 [
@@ -442,6 +445,7 @@ class ThankYouSuiteBuilder
                     'fill' => '@ink',
                     'align' => 'left',
                     'lineHeight' => 1.6,
+                    'autoFit' => ['enabled' => true, 'minSize' => 14, 'step' => 1],
                 ],
                 // Divider (right side)
                 [
@@ -603,6 +607,7 @@ class ThankYouSuiteBuilder
                     'fontWeight' => '500',
                     'fill' => '@ink',
                     'align' => 'center',
+                    'autoFit' => ['enabled' => true, 'minSize' => 16, 'step' => 1],
                 ],
                 // Message
                 [
@@ -619,6 +624,7 @@ class ThankYouSuiteBuilder
                     'fill' => '@ink',
                     'align' => 'center',
                     'lineHeight' => 1.55,
+                    'autoFit' => ['enabled' => true, 'minSize' => 14, 'step' => 1],
                 ],
                 // Divider
                 [
@@ -781,6 +787,7 @@ class ThankYouSuiteBuilder
                     'fontWeight' => '500',
                     'fill' => '@ink',
                     'align' => 'center',
+                    'autoFit' => ['enabled' => true, 'minSize' => 16, 'step' => 1],
                 ],
                 // Message
                 [
@@ -797,6 +804,7 @@ class ThankYouSuiteBuilder
                     'fill' => '@ink',
                     'align' => 'center',
                     'lineHeight' => 1.55,
+                    'autoFit' => ['enabled' => true, 'minSize' => 14, 'step' => 1],
                 ],
                 // Divider
                 [
@@ -956,6 +964,7 @@ class ThankYouSuiteBuilder
                     'fontWeight' => '500',
                     'fill' => '@ink',
                     'align' => 'left',
+                    'autoFit' => ['enabled' => true, 'minSize' => 16, 'step' => 1],
                 ],
                 // Message (left-aligned)
                 [
@@ -972,6 +981,7 @@ class ThankYouSuiteBuilder
                     'fill' => '@ink',
                     'align' => 'left',
                     'lineHeight' => 1.6,
+                    'autoFit' => ['enabled' => true, 'minSize' => 14, 'step' => 1],
                 ],
                 // Divider
                 [

@@ -12,7 +12,7 @@ export interface RenderOptions {
     imageLoader?: (src: string) => any;
 }
 
-const DEFAULT_REPLACEMENTS: Record<string, string> = {
+export const DEFAULT_REPLACEMENTS_EN: Record<string, string> = {
     '{{guest_name}}': 'Almaz & Dawit',
     '{{event_title}}': 'Celebration of Joy',
     '{{date}}': 'Sunday, January 10, 2027',
@@ -21,10 +21,21 @@ const DEFAULT_REPLACEMENTS: Record<string, string> = {
     '{{host_names}}': 'Abebe & Chaltu',
 };
 
+export const DEFAULT_REPLACEMENTS_AM: Record<string, string> = {
+    '{{guest_name}}': 'አልማዝ እና ዳዊት',
+    '{{event_title}}': 'የክብር እና የደስታ በዓል',
+    '{{date}}': 'ቅዳሜ ህዳር 20 ቀን 2019 ዓ.ም',
+    '{{time}}': 'ከቀኑ 8:00 ሰዓት',
+    '{{venue}}': 'ሸራተን አዲስ ሆቴል፣ ላሊበላ አዳራሽ',
+    '{{host_names}}': 'አቶ አበበ እና ወ/ሮ ጫልቱ',
+};
+
+export const DEFAULT_REPLACEMENTS = DEFAULT_REPLACEMENTS_EN;
+
 /**
  * Replace placeholders in text.
  */
-export function resolvePlaceholders(text: string, data?: Record<string, string>): string {
+export function resolvePlaceholders(text: string, data?: Record<string, string>, lang?: string): string {
     if (!text) return '';
     let result = String(text);
 
@@ -36,7 +47,10 @@ export function resolvePlaceholders(text: string, data?: Record<string, string>)
         }
     }
 
-    const replacements = { ...DEFAULT_REPLACEMENTS, ...normalizedData };
+    const baseDefaults = (lang === 'am' || /[\u1200-\u137F]/.test(result))
+        ? DEFAULT_REPLACEMENTS_AM
+        : DEFAULT_REPLACEMENTS_EN;
+    const replacements = { ...baseDefaults, ...normalizedData };
 
     for (const [token, val] of Object.entries(replacements)) {
         result = result.replaceAll(token, String(val ?? ''));
@@ -103,10 +117,10 @@ export function renderLayer(
         ctx.globalCompositeOperation = layer.blendMode as GlobalCompositeOperation;
     }
 
-    const lx = layer.x * scale;
-    const ly = layer.y * scale;
-    const lw = layer.width * scale;
-    const lh = layer.height * scale;
+    const lx = (layer.x ?? 0) * scale;
+    const ly = (layer.y ?? 0) * scale;
+    const lw = ((layer.width ?? (layer as any).w) ?? 0) * scale;
+    const lh = ((layer.height ?? (layer as any).h) ?? 0) * scale;
 
     // Translation & Rotation
     const cx = lx + lw / 2;
@@ -417,6 +431,72 @@ export function renderImageLayer(
     ctx.restore();
 }
 
+/**
+ * Wraps text so that every line strictly fits within maxWidth.
+ * Handles explicit newlines (\n), whitespace, Ethiopic word separators (፡, ፣, ፤),
+ * and gracefully breaks unbreakable tokens if they exceed maxWidth.
+ */
+export function wrapTextLines(
+    ctx: CanvasRenderingContext2D,
+    text: string,
+    maxWidth: number
+): string[] {
+    if (!text) return [];
+    if (maxWidth <= 0) return [text];
+
+    const paragraphs = text.split('\n');
+    const resultLines: string[] = [];
+
+    for (const paragraph of paragraphs) {
+        if (!paragraph.trim()) {
+            resultLines.push('');
+            continue;
+        }
+
+        // Tokenize into words, preserving trailing whitespace and Ethiopic separators
+        const tokens = paragraph.match(/[^\s፡]+[\s፡]*/g) || [paragraph];
+        let currentLine = '';
+
+        for (const token of tokens) {
+            const testLine = currentLine ? currentLine + token : token;
+            const testWidth = ctx.measureText(testLine.trim()).width;
+
+            if (testWidth <= maxWidth) {
+                currentLine = testLine;
+            } else {
+                if (currentLine) {
+                    resultLines.push(currentLine.trim());
+                    currentLine = '';
+                }
+
+                // If the single token itself fits on an empty line, start next line with it
+                if (ctx.measureText(token.trim()).width <= maxWidth) {
+                    currentLine = token;
+                } else {
+                    // Token is wider than maxWidth; break character-by-character
+                    let sub = '';
+                    for (const char of token) {
+                        const testSub = sub + char;
+                        if (ctx.measureText(testSub.trim()).width > maxWidth && sub) {
+                            resultLines.push(sub.trim());
+                            sub = char;
+                        } else {
+                            sub = testSub;
+                        }
+                    }
+                    currentLine = sub;
+                }
+            }
+        }
+
+        if (currentLine.trim()) {
+            resultLines.push(currentLine.trim());
+        }
+    }
+
+    return resultLines.length > 0 ? resultLines : [''];
+}
+
 export function renderTextLayer(
     ctx: CanvasRenderingContext2D,
     layer: TextLayer,
@@ -445,39 +525,78 @@ export function renderTextLayer(
         rawText = layer.text || '';
     }
 
-    const text = resolvePlaceholders(rawText, options.data);
+    const text = resolvePlaceholders(rawText, options.data, lang);
     if (!text.trim()) return;
 
     ctx.save();
 
     // 2. Resolve font & sizes
     let fontSize = Math.max(8, Math.round((layer.fontSize || 28) * scale));
-    const fontFamily = layer.fontFamily || 'Noto Serif Ethiopic';
-    const fontWeight = layer.fontWeight || 400;
-    const fontStyle = layer.fontStyle || 'normal';
-    const fill = resolveColor(layer.fill || '@ink', palette);
-
-    // AutoFit logic: adjust fontSize down to minSize if text overflows
-    if (layer.autoFit && layer.autoFit.minSize) {
-        const minSize = Math.max(8, Math.round(layer.autoFit.minSize * scale));
-        while (fontSize > minSize) {
-            ctx.font = `${fontStyle} ${fontWeight} ${fontSize}px "${fontFamily}", sans-serif`;
-            const lines = text.split('\n');
-            let maxLineWidth = 0;
-            for (const line of lines) {
-                const measure = ctx.measureText(line);
-                if (measure.width > maxLineWidth) maxLineWidth = measure.width;
-            }
-            if (maxLineWidth <= w) break;
-            fontSize -= 1;
+    let fontFamily = layer.fontFamily || 'Noto Serif Ethiopic';
+    
+    // Adapt Ethiopic font family when rendering Amharic or Ethiopic glyphs
+    const isEthiopicText = lang === 'am' || /[\u1200-\u137F]/.test(text);
+    if (isEthiopicText) {
+        if (layer.fontFamilyAm) {
+            fontFamily = layer.fontFamilyAm;
+        } else if (!fontFamily.includes('Ethiopic') && !fontFamily.includes('Abyssinica')) {
+            fontFamily = (layer.fontWeight && parseInt(String(layer.fontWeight)) >= 600) || (layer.id && layer.id.includes('title'))
+                ? 'Abyssinica SIL'
+                : 'Noto Serif Ethiopic';
         }
     }
 
-    ctx.font = `${fontStyle} ${fontWeight} ${fontSize}px "${fontFamily}", sans-serif`;
+    const fontWeight = layer.fontWeight || 400;
+    const fontStyle = layer.fontStyle || 'normal';
+    const fill = resolveColor(layer.fill || '@ink', palette);
+    const lineHeightMultiplier = layer.lineHeight || 1.3;
+
+    // Minimum font size floor:
+    // Respect layer.autoFit.minSize if defined; otherwise set a safe lower bound (at least 10px or 45% of base)
+    const configuredMin = layer.autoFit?.minSize ? Math.round(layer.autoFit.minSize * scale) : null;
+    const minFontSize = Math.max(8, configuredMin ?? Math.max(10, Math.round(Math.min(14 * scale, fontSize * 0.45))));
+
+    // 3. Curved Text Handling
+    if (layer.curve && layer.curve !== 0) {
+        while (fontSize > minFontSize) {
+            ctx.font = `${fontStyle} ${fontWeight} ${fontSize}px "${fontFamily}", "Noto Serif Ethiopic", sans-serif`;
+            if (ctx.measureText(text).width <= w) break;
+            fontSize -= 1;
+        }
+        ctx.font = `${fontStyle} ${fontWeight} ${fontSize}px "${fontFamily}", "Noto Serif Ethiopic", sans-serif`;
+        ctx.fillStyle = fill;
+        ctx.textBaseline = 'top';
+        renderCurvedText(ctx, text, x + w / 2, y + h / 2, layer.curve * scale, fontSize);
+        ctx.restore();
+        return;
+    }
+
+    // 4. Multiline Text AutoFit & Word-Wrapping Loop
+    // Iteratively adjust font size down so lines strictly stay within both w and h bounds
+    let lines: string[] = [];
+    while (fontSize >= minFontSize) {
+        ctx.font = `${fontStyle} ${fontWeight} ${fontSize}px "${fontFamily}", "Noto Serif Ethiopic", sans-serif`;
+        lines = wrapTextLines(ctx, text, w);
+        const currentLineHeight = lineHeightMultiplier * fontSize;
+        const totalHeight = lines.length * currentLineHeight;
+
+        if (totalHeight <= h) {
+            break;
+        }
+
+        if (fontSize <= minFontSize) {
+            break;
+        }
+
+        const step = fontSize > 40 ? 2 : 1;
+        fontSize = Math.max(minFontSize, fontSize - step);
+    }
+
+    ctx.font = `${fontStyle} ${fontWeight} ${fontSize}px "${fontFamily}", "Noto Serif Ethiopic", sans-serif`;
     ctx.fillStyle = fill;
     ctx.textBaseline = 'top';
 
-    // 3. Shadow
+    // 5. Shadow Configuration
     if (layer.shadow) {
         ctx.shadowColor = resolveColor(layer.shadow.color || '#000000', palette);
         ctx.shadowBlur = (layer.shadow.blur || 4) * scale;
@@ -485,15 +604,8 @@ export function renderTextLayer(
         ctx.shadowOffsetY = (layer.shadow.y || 2) * scale;
     }
 
-    // 4. Curved Text
-    if (layer.curve && layer.curve !== 0) {
-        renderCurvedText(ctx, text, x + w / 2, y + h / 2, layer.curve * scale, fontSize);
-        ctx.restore();
-        return;
-    }
-
-    // 5. Standard Multiline Text
-    const align = layer.align || 'center';
+    // 6. Horizontal & Vertical Alignment
+    const align = layer.align || (layer as any).textAlign || 'center';
     let startX = x;
     if (align === 'center') {
         ctx.textAlign = 'center';
@@ -503,19 +615,29 @@ export function renderTextLayer(
         startX = x + w;
     } else {
         ctx.textAlign = 'left';
+        startX = x;
     }
 
-    const lines = text.split('\n');
-    const lineHeight = (layer.lineHeight || 1.3) * fontSize;
+    const finalLineHeight = lineHeightMultiplier * fontSize;
+    const finalTotalH = lines.length * finalLineHeight;
     let currentY = y;
 
-    if (layer.verticalAlign === 'middle') {
-        const totalH = lines.length * lineHeight;
-        currentY = y + Math.max(0, (h - totalH) / 2);
+    if (layer.verticalAlign === 'top') {
+        currentY = y;
     } else if (layer.verticalAlign === 'bottom') {
-        const totalH = lines.length * lineHeight;
-        currentY = y + Math.max(0, h - totalH);
+        currentY = y + Math.max(0, h - finalTotalH);
+    } else {
+        // Default: optical vertical center within designated layer box
+        currentY = y + Math.max(0, (h - finalTotalH) / 2);
     }
+
+    // 7. Safety Bounding Box Clipping:
+    // Guarantees zero text overflow past the layer's designated boundaries
+    const shadowPad = layer.shadow ? Math.max(4, ((layer.shadow.blur || 4) + Math.abs(layer.shadow.y || 2)) * scale) : 4;
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(x - shadowPad, y - shadowPad, w + shadowPad * 2, h + shadowPad * 2);
+    ctx.clip();
 
     for (const line of lines) {
         ctx.fillText(line, startX, currentY);
@@ -524,10 +646,11 @@ export function renderTextLayer(
             ctx.lineWidth = Math.max(1, layer.strokeWidth * scale);
             ctx.strokeText(line, startX, currentY);
         }
-        currentY += lineHeight;
+        currentY += finalLineHeight;
     }
 
-    ctx.restore();
+    ctx.restore(); // restore clipping region
+    ctx.restore(); // restore outer layer state
 }
 
 /**
