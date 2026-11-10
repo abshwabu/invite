@@ -55,25 +55,24 @@
     "category": "anniversary",
     "name_en": "Blushing Rose Garland",
     "name_am": "የፅጌረዳ አበባ የፍቅር ማስታወሻ",
-    "recipe": "R4",
+    "recipe": "R9",
     "palette": "garden-rose",
     "fonts": "romantic-editorial",
     "ornaments": {
       "top": "floral-corner-garden",
-      "corner": "floral-corner-garden",
       "divider": "floral-divider"
     },
     "copy": { "variant": 3 },
-    "tags": ["rose", "garland", "romantic", "botanical"],
+    "tags": ["rose", "garland", "romantic", "botanical", "horizon"],
     "texture": "paper",
     "suite_key": "anniversary-rose-romance"
   },
   {
     "key": "anniversary-ruby-jubilee",
     "category": "anniversary",
-    "name_en": "Royal Ruby Ribbon Arch",
+    "name_en": "Royal Ruby Ribbon Ticket",
     "name_am": "የሩቢ ጌጥ የጋብቻ በዓል",
-    "recipe": "R2",
+    "recipe": "R7",
     "palette": "burgundy-velvet",
     "fonts": "classic-ceremonial",
     "ornaments": {
@@ -81,7 +80,7 @@
       "divider": "double-rule-ornament"
     },
     "copy": { "variant": 2 },
-    "tags": ["ruby", "ribbon", "arch", "burgundy", "40th"],
+    "tags": ["ruby", "ribbon", "ticket", "burgundy", "40th"],
     "texture": "paper",
     "suite_key": "anniversary-ruby-jubilee"
   },

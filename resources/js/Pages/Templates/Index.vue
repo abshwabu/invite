@@ -30,6 +30,19 @@ const props = defineProps({
 const currentKind = ref(props.filters.kind || 'invitation');
 const selectedCategory = ref(props.filters.category || 'all');
 const searchQuery = ref(props.filters.search || '');
+const previewLang = ref('en');
+const activePreviewTemplate = ref(null);
+
+const getPreviewSrc = (tmpl) => {
+    const raw = (previewLang.value === 'am' && tmpl.preview_path_am) ? tmpl.preview_path_am : (tmpl.preview_path || '');
+    if (!raw) return '/placeholder.png';
+    return raw.replace('.png', '_640.webp');
+};
+
+const getFullPreviewSrc = (tmpl) => {
+    if (!tmpl) return '';
+    return (previewLang.value === 'am' && tmpl.preview_path_am) ? tmpl.preview_path_am : (tmpl.preview_path || '');
+};
 
 const showUpgradeModal = ref(false);
 const showUploadModal = ref(false);
@@ -209,34 +222,60 @@ const onSearchInput = () => {
                     </button>
                 </div>
 
-                <!-- Search Input -->
-                <div class="relative w-full sm:w-72">
-                    <input
-                        type="text"
-                        v-model="searchQuery"
-                        @input="onSearchInput"
-                        :placeholder="$t('Search templates...')"
-                        class="w-full pl-9 pr-4 py-2 rounded-xl text-xs bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500"
-                    />
-                    <svg class="w-4 h-4 text-gray-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
+                <!-- Language Preview Switch & Search Input -->
+                <div class="flex items-center gap-3 w-full sm:w-auto">
+                    <!-- EN / AM Preview Language Switch -->
+                    <div class="inline-flex p-1 rounded-xl bg-gray-200 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-xs font-semibold shrink-0">
+                        <button
+                            type="button"
+                            @click="previewLang = 'en'"
+                            :class="previewLang === 'en' ? 'bg-white dark:bg-gray-900 shadow-sm text-gray-900 dark:text-white' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'"
+                            class="px-3 py-1 rounded-lg transition"
+                        >
+                            EN
+                        </button>
+                        <button
+                            type="button"
+                            @click="previewLang = 'am'"
+                            :class="previewLang === 'am' ? 'bg-white dark:bg-gray-900 shadow-sm text-gray-900 dark:text-white' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'"
+                            class="px-3 py-1 rounded-lg transition"
+                        >
+                            አማርኛ
+                        </button>
+                    </div>
+
+                    <!-- Search Input -->
+                    <div class="relative w-full sm:w-64">
+                        <input
+                            type="text"
+                            v-model="searchQuery"
+                            @input="onSearchInput"
+                            :placeholder="$t('Search templates or tags...')"
+                            class="w-full pl-9 pr-4 py-2 rounded-xl text-xs bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500"
+                        />
+                        <svg class="w-4 h-4 text-gray-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
                 </div>
             </div>
 
-            <!-- Category Filter Tabs -->
+            <!-- Category Filter Tabs with Counts -->
             <div class="mt-4 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
                 <button
                     type="button"
                     @click="switchCategory('all')"
                     :class="[
-                        'px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition',
+                        'px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition flex items-center gap-1.5',
                         selectedCategory === 'all'
                             ? 'bg-gray-900 text-white dark:bg-white dark:text-gray-900 shadow-sm'
                             : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-gray-400'
                     ]"
                 >
-                    {{ $t('All Categories') }}
+                    <span>{{ $t('All Categories') }}</span>
+                    <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
+                        {{ categories.reduce((sum, c) => sum + (c.templates_count || 0), 0) }}
+                    </span>
                 </button>
                 <button
                     v-for="cat in categories"
@@ -244,13 +283,16 @@ const onSearchInput = () => {
                     type="button"
                     @click="switchCategory(cat.slug)"
                     :class="[
-                        'px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition',
+                        'px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition flex items-center gap-1.5',
                         selectedCategory === cat.slug
                             ? 'bg-gray-900 text-white dark:bg-white dark:text-gray-900 shadow-sm'
                             : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-gray-400'
                     ]"
                 >
-                    {{ $page.props.locale === 'am' ? cat.name_am : cat.name_en }}
+                    <span>{{ $page.props.locale === 'am' ? cat.name_am : cat.name_en }}</span>
+                    <span v-if="cat.templates_count" class="px-1.5 py-0.2 rounded-full text-[10px] bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
+                        {{ cat.templates_count }}
+                    </span>
                 </button>
             </div>
 
@@ -284,22 +326,35 @@ const onSearchInput = () => {
                     :key="tmpl.id"
                     class="group relative rounded-2xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col"
                 >
-                    <!-- Card Thumbnail Image -->
+                    <!-- Card Thumbnail Image with WebP & Zero Layout Shift -->
                     <div class="aspect-[1080/1528] w-full bg-gray-100 dark:bg-gray-900 overflow-hidden relative">
                         <img
-                            :src="tmpl.preview_path"
+                            :src="getPreviewSrc(tmpl)"
                             :alt="tmpl.name"
+                            width="1080"
+                            height="1528"
                             loading="lazy"
                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                         />
 
                         <!-- Overlay on Hover -->
-                        <div class="absolute inset-0 bg-slate-950/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col items-center justify-center gap-3 p-4">
+                        <div class="absolute inset-0 bg-slate-950/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col items-center justify-center gap-2.5 p-4">
+                            <button
+                                type="button"
+                                @click="activePreviewTemplate = tmpl"
+                                class="w-full py-2 px-3 rounded-xl bg-white/95 hover:bg-white text-gray-900 font-bold text-xs shadow text-center transition flex items-center justify-center gap-1.5"
+                            >
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                </svg>
+                                <span>{{ $t('Preview Large') }}</span>
+                            </button>
                             <Link
                                 :href="route('editor.show', { template: tmpl.id })"
-                                class="w-full py-2.5 px-4 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs shadow-lg text-center transition"
+                                class="w-full py-2 px-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs shadow-lg text-center transition"
                             >
-                                {{ $t('Customize Template') }} &rarr;
+                                {{ $t('Customize') }} &rarr;
                             </Link>
                         </div>
 
@@ -432,6 +487,68 @@ const onSearchInput = () => {
                         </PrimaryButton>
                     </div>
                 </form>
+            </div>
+        </Modal>
+
+        <!-- Large Card Preview Modal -->
+        <Modal :show="!!activePreviewTemplate" @close="activePreviewTemplate = null" max-width="2xl">
+            <div v-if="activePreviewTemplate" class="p-6">
+                <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-gray-800">
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">
+                            {{ activePreviewTemplate.name }}
+                        </h3>
+                        <p class="text-xs text-gray-500 capitalize">
+                            {{ activePreviewTemplate.kind === 'thank_you' ? $t('Thank-You Card') : $t('Invitation Card') }}
+                            <span v-if="activePreviewTemplate.category">
+                                • {{ $page.props.locale === 'am' ? activePreviewTemplate.category.name_am : activePreviewTemplate.category.name_en }}
+                            </span>
+                            <span v-if="activePreviewTemplate.suite_key">
+                                • {{ activePreviewTemplate.suite_key }}
+                            </span>
+                        </p>
+                    </div>
+                    <button
+                        type="button"
+                        @click="activePreviewTemplate = null"
+                        class="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-lg"
+                    >
+                        ✕
+                    </button>
+                </div>
+
+                <!-- Preview Image in High Resolution -->
+                <div class="mt-4 flex justify-center bg-gray-100 dark:bg-gray-950 p-4 rounded-2xl border border-gray-200 dark:border-gray-800">
+                    <img
+                        :src="getFullPreviewSrc(activePreviewTemplate)"
+                        :alt="activePreviewTemplate.name"
+                        class="max-h-[65vh] w-auto rounded-xl shadow-2xl object-contain"
+                    />
+                </div>
+
+                <!-- Tags & Details -->
+                <div v-if="activePreviewTemplate.tags && activePreviewTemplate.tags.length" class="mt-4 flex flex-wrap gap-1.5">
+                    <span
+                        v-for="tag in activePreviewTemplate.tags"
+                        :key="tag"
+                        class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-gray-700"
+                    >
+                        #{{ tag }}
+                    </span>
+                </div>
+
+                <!-- Footer CTAs -->
+                <div class="mt-6 flex items-center justify-end gap-3 pt-4 border-t border-gray-100 dark:border-gray-800">
+                    <SecondaryButton @click="activePreviewTemplate = null">
+                        {{ $t('Close') }}
+                    </SecondaryButton>
+                    <Link
+                        :href="route('editor.show', { template: activePreviewTemplate.id })"
+                        class="rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs px-5 py-2.5 transition shadow"
+                    >
+                        {{ $t('Customize in Editor') }} &rarr;
+                    </Link>
+                </div>
             </div>
         </Modal>
     </div>

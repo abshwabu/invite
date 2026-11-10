@@ -17,6 +17,7 @@ class Template extends Model
         'kind',
         'name',
         'preview_path',
+        'preview_path_am',
         'design_json',
         'palette',
         'tags',

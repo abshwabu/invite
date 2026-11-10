@@ -16,10 +16,10 @@ class TemplateSeeder extends Seeder
      */
     public function run(): void
     {
-        $categories = Category::all()->keyBy('slug');
-
-        $this->call(InvitationTemplateSeeder::class);
-        $this->seedThankYous($categories);
+        $this->call([
+            InvitationTemplateSeeder::class,
+            ThankYouTemplateSeeder::class,
+        ]);
     }
 
     protected function seedInvitations($categories): void

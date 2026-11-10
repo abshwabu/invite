@@ -59,7 +59,7 @@ export const DEFAULT_PALETTE = {
     muted: '#6B7280'
 };
 
-const DEFAULT_REPLACEMENTS = {
+const DEFAULT_REPLACEMENTS_EN = {
     '{{guest_name}}': 'Almaz & Dawit',
     '{{event_title}}': 'Celebration of Joy',
     '{{date}}': 'Sunday, January 10, 2027',
@@ -67,6 +67,17 @@ const DEFAULT_REPLACEMENTS = {
     '{{venue}}': 'Sheraton Addis, Lalibela Ballroom',
     '{{host_names}}': 'Abebe & Chaltu'
 };
+
+const DEFAULT_REPLACEMENTS_AM = {
+    '{{guest_name}}': 'አልማዝ እና ዳዊት',
+    '{{event_title}}': 'የክብር እና የደስታ በዓል',
+    '{{date}}': 'ቅዳሜ ህዳር 20 ቀን 2019 ዓ.ም',
+    '{{time}}': 'ከቀኑ 8:00 ሰዓት',
+    '{{venue}}': 'ሸራተን አዲስ ሆቴል፣ ላሊበላ አዳራሽ',
+    '{{host_names}}': 'አቶ አበበ እና ወ/ሮ ጫልቱ'
+};
+
+const DEFAULT_REPLACEMENTS = DEFAULT_REPLACEMENTS_EN;
 
 export function resolveColor(color, palette) {
     const pal = { ...DEFAULT_PALETTE, ...(palette || {}) };
@@ -438,14 +449,26 @@ function renderLayer(ctx, layer, scale, lang, palette, options) {
             rawText = layer.text || '';
         }
 
-        const replacements = { ...DEFAULT_REPLACEMENTS, ...(options.data || {}) };
+        const baseDefaults = (lang === 'am') ? DEFAULT_REPLACEMENTS_AM : DEFAULT_REPLACEMENTS_EN;
+        const replacements = { ...baseDefaults, ...(options.data || {}) };
         for (const [key, val] of Object.entries(replacements)) {
             const token = key.startsWith('{{') ? key : `{{${key}}}`;
             rawText = rawText.replaceAll(token, String(val ?? ''));
         }
 
         let fontSize = Math.max(8, Math.round((layer.fontSize || 28) * scale));
-        const fontFamily = layer.fontFamily || 'Noto Serif Ethiopic';
+        let fontFamily = layer.fontFamily || 'Noto Serif Ethiopic';
+
+        // Auto-adapt Ethiopic font when rendering Amharic
+        if (lang === 'am' || /[\u1200-\u137F]/.test(rawText)) {
+            if (layer.fontFamilyAm) {
+                fontFamily = layer.fontFamilyAm;
+            } else if (!fontFamily.includes('Ethiopic') && !fontFamily.includes('Abyssinica')) {
+                fontFamily = (layer.fontWeight && parseInt(layer.fontWeight) >= 600) || (layer.id && layer.id.includes('title'))
+                    ? 'Abyssinica SIL'
+                    : 'Noto Serif Ethiopic';
+            }
+        }
         const fontWeight = layer.fontWeight || 400;
         const fontStyle = layer.fontStyle || 'normal';
         const fill = resolveColor(layer.fill || '@ink', palette);

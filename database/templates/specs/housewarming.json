@@ -72,12 +72,11 @@
     "category": "housewarming",
     "name_en": "Botanical Living Plant Trio",
     "name_am": "የአበባ ማስቀመጫዎች ሞቅታ",
-    "recipe": "R4",
+    "recipe": "R12",
     "palette": "forest-moss",
     "fonts": "warm-editorial",
     "ornaments": {
       "top": "plant-pot-trio",
-      "corner": "olive-branch-corner",
       "divider": "floral-divider"
     },
     "copy": { "variant": 2 },

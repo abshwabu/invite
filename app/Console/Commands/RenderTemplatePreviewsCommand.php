@@ -13,14 +13,14 @@ class RenderTemplatePreviewsCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'templates:render-previews {--all : Render all templates including user templates}';
+    protected $signature = 'templates:render-previews {--all : Render all templates including user templates} {--force : Force re-rendering all previews bypassing cache}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Render high-quality preview PNGs for system templates using Node.js canvas';
+    protected $description = 'Render high-quality preview PNGs and WebP thumbnails in English and Amharic using Node.js canvas';
 
     /**
      * Execute the console command.
@@ -32,7 +32,7 @@ class RenderTemplatePreviewsCommand extends Command
             $query->where('is_system', true);
         }
 
-        $templates = $query->get(['id', 'name', 'preview_path', 'design_json', 'width', 'height']);
+        $templates = $query->get(['id', 'name', 'kind', 'suite_key', 'preview_path', 'preview_path_am', 'spec', 'design_json', 'width', 'height']);
 
         if ($templates->isEmpty()) {
             $this->warn('No templates found to render.');
@@ -40,18 +40,45 @@ class RenderTemplatePreviewsCommand extends Command
             return self::SUCCESS;
         }
 
-        $this->info("Found {$templates->count()} templates. Preparing preview render...");
+        $this->info("Found {$templates->count()} templates. Preparing preview render (force=" . ($this->option('force') ? 'true' : 'false') . ')...');
 
         $tempFile = storage_path('app/temp_templates_render.json');
         file_put_contents($tempFile, $templates->toJson());
 
         $scriptPath = base_path('scripts/render_previews.js');
-        $process = new Process(['node', $scriptPath, $tempFile]);
-        $process->setTimeout(300);
+        $args = ['node', $scriptPath, $tempFile];
+        if ($this->option('force')) {
+            $args[] = '--force';
+        }
+
+        $process = new Process($args);
+        $process->setTimeout(null);
 
         $process->run(function ($type, $buffer) {
             $this->output->write($buffer);
         });
+
+        $outputFile = storage_path('app/temp_templates_render_output.json');
+        if (file_exists($outputFile)) {
+            $outputData = json_decode(file_get_contents($outputFile), true);
+            if (is_array($outputData)) {
+                foreach ($outputData as $tmplId => $paths) {
+                    $tmpl = Template::find($tmplId);
+                    if ($tmpl) {
+                        $spec = $tmpl->spec ?? [];
+                        $spec['preview_path'] = $paths['preview_path'] ?? $tmpl->preview_path;
+                        $spec['preview_path_am'] = $paths['preview_path_am'] ?? null;
+
+                        $tmpl->updateQuietly([
+                            'preview_path' => $paths['preview_path'] ?? $tmpl->preview_path,
+                            'preview_path_am' => $paths['preview_path_am'] ?? null,
+                            'spec' => $spec,
+                        ]);
+                    }
+                }
+            }
+            @unlink($outputFile);
+        }
 
         @unlink($tempFile);
 

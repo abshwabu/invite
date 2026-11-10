@@ -21,7 +21,7 @@
     "category": "birthday",
     "name_en": "Confetti Joy Explosion",
     "name_am": "የኮንፌቲ የደስታ ፍንጣቂ",
-    "recipe": "R10",
+    "recipe": "R7",
     "palette": "pop-citrus-berry",
     "fonts": "playful-celebration",
     "ornaments": {
@@ -29,7 +29,7 @@
       "divider": "sparkle-trio"
     },
     "copy": { "variant": 2 },
-    "tags": ["confetti", "vibrant", "energetic", "fun"],
+    "tags": ["confetti", "vibrant", "energetic", "fun", "ticket"],
     "texture": "paper",
     "suite_key": "birthday-confetti-joy"
   },
@@ -158,7 +158,7 @@
     "category": "birthday",
     "name_en": "Golden Cake & Candles",
     "name_am": "የኬክ እና ሻማ የደስታ ቀን",
-    "recipe": "R6",
+    "recipe": "R9",
     "palette": "burgundy-velvet",
     "fonts": "classic-ceremonial",
     "ornaments": {
@@ -166,7 +166,7 @@
       "divider": "floral-divider"
     },
     "copy": { "variant": 1 },
-    "tags": ["cake", "candles", "tradition", "milestone"],
+    "tags": ["cake", "candles", "tradition", "milestone", "horizon"],
     "texture": "paper",
     "suite_key": "birthday-milestone-candles"
   }

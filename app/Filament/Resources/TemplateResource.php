@@ -6,8 +6,13 @@ use App\Filament\Resources\TemplateResource\Pages;
 use App\Models\Category;
 use App\Models\Template;
 use App\Services\DesignValidator;
+use App\Templates\Palettes\PaletteLibrary;
+use App\Templates\Recipes\RecipeRegistry;
+use App\Templates\Recipes\RecipeSpec;
+use App\Templates\Suites\ThankYouSuiteBuilder;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -115,10 +120,12 @@ class TemplateResource extends Resource
             ->columns([
                 Tables\Columns\ImageColumn::make('preview_path')
                     ->label('Preview')
-                    ->square(),
+                    ->height(72)
+                    ->extraImgAttributes(['class' => 'rounded-md shadow-sm aspect-[1080/1528] object-cover']),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->description(fn (Template $record): string => $record->suite_key ? "Suite: {$record->suite_key}" : ''),
                 Tables\Columns\TextColumn::make('category.name_en')
                     ->label('Category')
                     ->badge(),
@@ -128,11 +135,13 @@ class TemplateResource extends Resource
                         'thank_you' => 'success',
                         default => 'info',
                     }),
+                Tables\Columns\TextColumn::make('recipe')
+                    ->badge()
+                    ->placeholder('-'),
+                Tables\Columns\ToggleColumn::make('is_active')
+                    ->label('Active'),
                 Tables\Columns\IconColumn::make('is_system')
                     ->label('System')
-                    ->boolean(),
-                Tables\Columns\IconColumn::make('is_active')
-                    ->label('Active')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('sort')
                     ->sortable(),
@@ -147,10 +156,69 @@ class TemplateResource extends Resource
                         'invitation' => 'Invitation',
                         'thank_you' => 'Thank-You',
                     ]),
+                Tables\Filters\SelectFilter::make('recipe')
+                    ->options(fn () => Template::whereNotNull('recipe')->distinct()->pluck('recipe', 'recipe')->all()),
+                Tables\Filters\SelectFilter::make('palette')
+                    ->options(fn () => array_combine(array_keys(PaletteLibrary::all()), array_keys(PaletteLibrary::all()))),
                 Tables\Filters\TernaryFilter::make('is_active'),
                 Tables\Filters\TernaryFilter::make('is_system'),
             ])
             ->actions([
+                Tables\Actions\Action::make('edit_spec')
+                    ->label('Edit Spec JSON')
+                    ->icon('heroicon-o-code-bracket')
+                    ->form([
+                        Forms\Components\Textarea::make('spec_json')
+                            ->label('Declarative Spec JSON')
+                            ->rows(16)
+                            ->default(fn (Template $record) => json_encode($record->spec ?? [], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES))
+                            ->required()
+                            ->helperText('Spec controls layout recipe, palette, fonts, ornaments, tags, and copy.'),
+                    ])
+                    ->action(function (Template $record, array $data): void {
+                        $specArray = json_decode($data['spec_json'], true);
+                        if (!is_array($specArray)) {
+                            Notification::make()->title('Invalid JSON spec provided')->danger()->send();
+                            return;
+                        }
+
+                        try {
+                            if ($record->kind === 'thank_you') {
+                                $thankYouData = ThankYouSuiteBuilder::buildForInvitation($specArray);
+                                $newDesign = $thankYouData['design'];
+                                $record->update([
+                                    'spec' => $specArray,
+                                    'design_json' => $newDesign,
+                                    'recipe' => $specArray['recipe'] ?? $record->recipe,
+                                    'palette' => $newDesign['palette'] ?? $record->palette,
+                                    'tags' => $specArray['tags'] ?? $record->tags,
+                                ]);
+                            } else {
+                                $specObj = new RecipeSpec($specArray);
+                                $newDesign = RecipeRegistry::build($specObj->recipeId, $specObj);
+                                $validated = DesignValidator::validate($newDesign, false, true);
+                                $record->update([
+                                    'spec' => $specArray,
+                                    'design_json' => $validated,
+                                    'recipe' => $specArray['recipe'] ?? $record->recipe,
+                                    'palette' => $validated['palette'] ?? $record->palette,
+                                    'tags' => $specArray['tags'] ?? $record->tags,
+                                ]);
+                            }
+
+                            Notification::make()
+                                ->title('Template Rebuilt Successfully')
+                                ->body("Template [{$record->name}] updated and validated.")
+                                ->success()
+                                ->send();
+                        } catch (\Throwable $e) {
+                            Notification::make()
+                                ->title('Rebuild Failed')
+                                ->body($e->getMessage())
+                                ->danger()
+                                ->send();
+                        }
+                    }),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])

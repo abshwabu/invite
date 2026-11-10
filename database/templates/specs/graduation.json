@@ -106,15 +106,15 @@
     "category": "graduation",
     "name_en": "Scholar's Library Milestone",
     "name_am": "የእውቀት ማማ የድል ምዕራፍ",
-    "recipe": "R3",
-    "palette": "burgundy-champagne",
+    "recipe": "R9",
+    "palette": "deep-navy-ivory",
     "fonts": "academic-honor",
     "ornaments": {
       "top": "book-stack",
       "divider": "double-rule-ornament"
     },
     "copy": { "variant": 3 },
-    "tags": ["books", "scholar", "library", "milestone"],
+    "tags": ["books", "scholar", "library", "milestone", "horizon"],
     "texture": "paper",
     "suite_key": "graduation-book-stack"
   },

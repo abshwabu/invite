@@ -5,5 +5,7 @@
 !ornament-sheets/**
 !recipe-sheets/
 !recipe-sheets/**
+!template-qa/
+!template-qa/**
 !copy-review.md
 !.gitignore

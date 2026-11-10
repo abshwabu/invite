@@ -124,7 +124,7 @@
     "category": "religious",
     "name_en": "Hajj & Umrah Pilgrimage Send-off",
     "name_am": "የሐጅ እና ዑምራ የስንብት ዱዓ",
-    "recipe": "R2",
+    "recipe": "R12",
     "palette": "eid-pearl-jade",
     "fonts": "sacred-tradition",
     "ornaments": {
@@ -132,7 +132,7 @@
       "divider": "geometric-divider"
     },
     "copy": { "variant": 2 },
-    "tags": ["hajj", "umrah", "pilgrimage", "mihrab", "mecca"],
+    "tags": ["hajj", "umrah", "pilgrimage", "mihrab", "mecca", "scroll"],
     "texture": "paper",
     "suite_key": "religious-hajj-umrah"
   },
@@ -141,7 +141,7 @@
     "category": "religious",
     "name_en": "Gondar Orthodox Ceremonial Blessing",
     "name_am": "የጎንደር መስቀል የክብር ቡራኬ",
-    "recipe": "R1",
+    "recipe": "R7",
     "palette": "habesha-royal-kemis",
     "fonts": "regal-heritage",
     "ornaments": {
@@ -149,7 +149,7 @@
       "divider": "tilet-divider-01"
     },
     "copy": { "variant": 1 },
-    "tags": ["gondar", "cross", "orthodox", "ceremony", "blessing"],
+    "tags": ["gondar", "cross", "orthodox", "ceremony", "blessing", "ticket"],
     "texture": "linen",
     "suite_key": "religious-orthodox-ceremonial"
   },

@@ -32,7 +32,17 @@ class TemplateController extends Controller
         $selectedCategory = $request->input('category');
         $search = $request->input('search');
 
-        $categories = Category::orderBy('sort')->get();
+        $categoryCounts = Template::query()
+            ->where('is_active', true)
+            ->where('kind', $kind)
+            ->selectRaw('category_id, count(*) as count')
+            ->groupBy('category_id')
+            ->pluck('count', 'category_id');
+
+        $categories = Category::orderBy('sort')->get()->map(function ($cat) use ($categoryCounts) {
+            $cat->templates_count = $categoryCounts[$cat->id] ?? 0;
+            return $cat;
+        });
 
         $templatesQuery = Template::query()
             ->where('is_active', true)
@@ -54,6 +64,7 @@ class TemplateController extends Controller
         if ($search) {
             $templatesQuery->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('tags', 'like', "%{$search}%")
                     ->orWhereHas('category', function ($cq) use ($search) {
                         $cq->where('name_en', 'like', "%{$search}%")
                             ->orWhere('name_am', 'like', "%{$search}%");

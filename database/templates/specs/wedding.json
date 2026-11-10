@@ -91,7 +91,7 @@
     "category": "wedding",
     "name_en": "Sage Botanical Sanctuary",
     "name_am": "የለምለም ቅጠላ ቅጠል",
-    "recipe": "R2",
+    "recipe": "R12",
     "palette": "garden-sage",
     "fonts": "romantic-editorial",
     "ornaments": {
@@ -99,7 +99,7 @@
       "divider": "olive-branch-corner"
     },
     "copy": { "variant": 3 },
-    "tags": ["sage", "greenery", "sanctuary", "natural"],
+    "tags": ["sage", "greenery", "sanctuary", "natural", "scroll"],
     "texture": "linen",
     "suite_key": "wedding-sage-sanctuary"
   },
@@ -108,7 +108,7 @@
     "category": "wedding",
     "name_en": "Dove Harmony",
     "name_am": "የእርግብ ጥንዶች ስምምነት",
-    "recipe": "R1",
+    "recipe": "R7",
     "palette": "deep-navy-ivory",
     "fonts": "regal-heritage",
     "ornaments": {
@@ -116,7 +116,7 @@
       "divider": "flourish-divider-ornate"
     },
     "copy": { "variant": 1 },
-    "tags": ["doves", "peace", "harmony", "traditional"],
+    "tags": ["doves", "peace", "harmony", "traditional", "ticket"],
     "texture": "paper",
     "suite_key": "wedding-dove-harmony"
   },
@@ -125,7 +125,7 @@
     "category": "wedding",
     "name_en": "Coastal Watercolor Wash",
     "name_am": "የባህር ዳርቻ የውሃ ቀለም",
-    "recipe": "R8",
+    "recipe": "R10",
     "palette": "dusty-blue-coastal",
     "fonts": "fine-art-botanical",
     "ornaments": {

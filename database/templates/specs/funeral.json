@@ -4,15 +4,16 @@
     "category": "funeral",
     "name_en": "Peaceful Ascension Dove",
     "name_am": "የሰላም እርግብ መታሰቢያ",
-    "recipe": "R8",
+    "recipe": "R4",
     "palette": "sober-charcoal",
     "fonts": "solemn-memorial",
     "ornaments": {
       "top": "dove-ascending",
+      "corner": "quiet-corner-flourish",
       "divider": "double-rule-ornament"
     },
     "copy": { "variant": 1 },
-    "tags": ["memorial", "peace", "dove", "reverence"],
+    "tags": ["memorial", "peace", "dove", "reverence", "corner-florals"],
     "texture": "paper",
     "suite_key": "funeral-peaceful-dove"
   },
@@ -22,14 +23,14 @@
     "name_en": "Olive Branch Repose",
     "name_am": "የወይራ ቅንጣት መታሰቢያ",
     "recipe": "R1",
-    "palette": "sober-ebony",
+    "palette": "forest-moss",
     "fonts": "solemn-memorial",
     "ornaments": {
       "top": "olive-branch-pair",
       "divider": "double-rule-ornament"
     },
     "copy": { "variant": 2 },
-    "tags": ["dignity", "repose", "olive", "memorial"],
+    "tags": ["dignity", "repose", "olive", "memorial", "forest"],
     "texture": "linen",
     "suite_key": "funeral-olive-repose"
   },
@@ -106,7 +107,7 @@
     "category": "funeral",
     "name_en": "Islamic Geometric Tribute",
     "name_am": "የእስላማዊ ጂኦሜትሪ የዱዓ ጥሪ",
-    "recipe": "R1",
+    "recipe": "R9",
     "palette": "sober-charcoal",
     "fonts": "classic-ceremonial",
     "ornaments": {
@@ -114,7 +115,7 @@
       "divider": "geometric-divider"
     },
     "copy": { "variant": 3 },
-    "tags": ["islamic", "geometric", "star", "dua", "respectful"],
+    "tags": ["islamic", "geometric", "star", "dua", "respectful", "horizon"],
     "texture": "linen",
     "suite_key": "funeral-islamic-geometric"
   },

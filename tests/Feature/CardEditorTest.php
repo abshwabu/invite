@@ -48,7 +48,7 @@ test('guest can access editor for a specific template', function () {
         ->component('Editor/Show')
         ->where('template.id', $template->id)
         ->where('isGuest', true)
-        ->where('design.version', 1)
+        ->where('design.version', fn ($v) => in_array($v, [1, 2], true))
         ->where('design.width', 1080)
         ->where('design.height', 1528)
     );

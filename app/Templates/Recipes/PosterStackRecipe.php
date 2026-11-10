@@ -31,6 +31,13 @@ class PosterStackRecipe extends AbstractRecipe
         $dividerOrnament = $spec->dividerOrnament ?: 'geometric-divider';
 
         $layers = [
+            // 0. Non-text: Outer architectural border
+            $this->makeBorderLayer('border-main', 'single-rule', 48, 48, 984, 1432, [
+                'stroke' => '@secondary',
+                'strokeWidth' => 2,
+                'opacity' => 0.6,
+            ]),
+
             // 1. Non-text: Left vertical accent stripe
             $this->makeShapeLayer('shape-left-accent', 'rect', 96, 96, 8, 1336, [
                 'fill' => '@primary',

@@ -79,23 +79,105 @@ class RecipeSpec
      * Map friendly palette prefix aliases.
      */
     public const PALETTE_ALIAS_MAP = [
+        // Aliases to canonical 40 palettes
         'garden' => 'garden-rose',
-        'burgundy' => 'burgundy-velvet',
+        'garden-sage' => 'garden-botanical',
+        'garden-rose' => 'garden-rose',
+        'garden-lavender' => 'garden-lavender',
+        'garden-peony' => 'garden-peony',
+        'garden-botanical' => 'garden-botanical',
+
+        'midnight-gold' => 'midnight-gold',
+        'midnight-gold-classic' => 'midnight-gold',
+        'midnight-royal-gold' => 'midnight-champagne',
+        'midnight-champagne' => 'midnight-champagne',
+        'midnight-emerald' => 'midnight-emerald',
+
+        'burgundy' => 'burgundy-classic',
+        'burgundy-velvet' => 'burgundy-classic',
+        'burgundy-champagne' => 'burgundy-warm',
+        'burgundy-classic' => 'burgundy-classic',
+        'burgundy-warm' => 'burgundy-warm',
+
         'dusty-blue' => 'dusty-blue-slate',
+        'dusty-blue-slate' => 'dusty-blue-slate',
+        'dusty-blue-serene' => 'dusty-blue-serene',
+        'dusty-blue-coastal' => 'dusty-blue-serene',
+
         'sober-charcoal' => 'sober-charcoal',
-        'midnight-gold' => 'midnight-gold-classic',
+        'sober-monochrome' => 'sober-monochrome',
+        'sober-ebony' => 'sober-monochrome',
+
         'deep-navy' => 'deep-navy-dove',
+        'deep-navy-dove' => 'deep-navy-dove',
+        'deep-navy-silver' => 'deep-navy-silver',
+        'deep-navy-ivory' => 'deep-navy-dove',
+
         'forest' => 'forest-hush',
+        'forest-hush' => 'forest-hush',
+        'forest-pine' => 'forest-pine',
+        'forest-moss' => 'forest-pine',
+
         'warm-stone' => 'warm-stone-taupe',
-        'pop' => 'pop-fiesta-sun',
-        'pastel' => 'pastel-candy-sweet',
-        'neon' => 'neon-cyber-cyan',
-        'jungle' => 'jungle-emerald',
-        'space' => 'space-aurora',
+        'warm-stone-taupe' => 'warm-stone-taupe',
+        'warm-stone-linen' => 'warm-stone-linen',
+        'warm-stone-sand' => 'warm-stone-linen',
+        'warm-terracotta' => 'warm-terracotta',
+
+        'pop' => 'pop-sunshine',
+        'pop-fiesta-sun' => 'pop-sunshine',
+        'pop-citrus-berry' => 'pop-coral',
+        'pop-neon-party' => 'pop-confetti',
+        'pop-confetti' => 'pop-confetti',
+        'pop-sunshine' => 'pop-sunshine',
+        'pop-coral' => 'pop-coral',
+
+        'pastel' => 'pastel-cotton-candy',
+        'pastel-candy-sweet' => 'pastel-cotton-candy',
+        'pastel-lavender-mist' => 'pastel-lilac-butter',
+        'pastel-cotton-candy' => 'pastel-cotton-candy',
+        'pastel-mint-blush' => 'pastel-mint-blush',
+        'pastel-lilac-butter' => 'pastel-lilac-butter',
+
+        'neon' => 'neon-night-cyber',
+        'neon-cyber-cyan' => 'neon-night-cyber',
+        'neon-night-cyber' => 'neon-night-cyber',
+        'neon-night-electric' => 'neon-night-electric',
+
+        'jungle' => 'jungle-monstera',
+        'jungle-emerald' => 'jungle-monstera',
+        'jungle-monstera' => 'jungle-monstera',
+        'jungle-tropical-bloom' => 'jungle-tropical-bloom',
+
+        'space' => 'space-celestial',
+        'space-aurora' => 'space-celestial',
+        'space-celestial' => 'space-celestial',
+        'space-starlight-navy' => 'space-starlight-navy',
+
         'habesha' => 'habesha-white-gold-green-red',
+        'habesha-white-gold-green-red' => 'habesha-white-gold-green-red',
+        'habesha-kemis-royal' => 'habesha-kemis-royal',
+        'habesha-royal-kemis' => 'habesha-kemis-royal',
+
         'eid' => 'eid-emerald-gold',
+        'eid-emerald-gold' => 'eid-emerald-gold',
+        'eid-crescent-ivory' => 'eid-crescent-ivory',
+        'eid-night-gold' => 'eid-crescent-ivory',
+        'eid-pearl-jade' => 'eid-emerald-gold',
+
         'meskel' => 'meskel-yellow-green',
-        'corporate' => 'corporate-slate',
+        'meskel-yellow-green' => 'meskel-yellow-green',
+        'meskel-golden-cross' => 'meskel-yellow-green',
+
+        'timkat' => 'timkat-sky-gold',
+        'timkat-sky-gold' => 'timkat-sky-gold',
+
+        'corporate' => 'corporate-slate-executive',
+        'corporate-slate' => 'corporate-slate-executive',
+        'corporate-slate-executive' => 'corporate-slate-executive',
+        'corporate-steel' => 'corporate-slate-executive',
+        'corporate-tech-navy' => 'corporate-tech-indigo',
+        'corporate-tech-indigo' => 'corporate-tech-indigo',
     ];
 
     public function __construct(array $attributes = [])

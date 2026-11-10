@@ -81,6 +81,7 @@ class InvitationTemplateSeeder extends Seeder
                         'category_id' => $category->id,
                         'name' => $spec['name_en'] ?? $spec['name'] ?? 'Invitation Template',
                         'preview_path' => "/storage/templates/{$suiteKey}.png",
+                        'preview_path_am' => "/storage/templates/{$suiteKey}_am.png",
                         'design_json' => $validatedDesign,
                         'palette' => $validatedDesign['palette'] ?? null,
                         'tags' => $spec['tags'] ?? [],
