@@ -76,6 +76,10 @@ class RegisteredUserController extends Controller
             EventDraftImporter::importForUser($user, $draft);
         }
 
+        if ($tier = $request->input('tier')) {
+            return redirect(route('plan.index', ['tier' => $tier]));
+        }
+
         return redirect(route('dashboard', absolute: false));
     }
 }

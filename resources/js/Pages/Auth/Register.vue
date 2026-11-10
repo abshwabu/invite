@@ -27,6 +27,7 @@ const form = useForm({
     password: '',
     password_confirmation: '',
     draft: null,
+    tier: typeof window !== 'undefined' ? (new URLSearchParams(window.location.search)).get('tier') || '' : '',
 });
 
 const submit = () => {

@@ -75,10 +75,32 @@ class SuperAdminDashboardService
                 $checkinsCount = Guest::whereNotNull('checked_in_at')->count();
             }
 
-            $revenueTotal = (float) Payment::where('status', 'paid')->sum('amount');
-            $revenuePeriod = (float) Payment::where('status', 'paid')
-                ->whereBetween('created_at', [$from, $to])
-                ->sum('amount');
+            // Step 14A: Count only approved/paid payments using verified amount, strictly excluding refunded/unapproved
+            $revenueTotal = (float) Payment::whereIn('status', ['approved', 'paid'])
+                ->selectRaw('COALESCE(SUM(COALESCE(amount_verified, amount_expected, amount)), 0) as total')
+                ->value('total');
+
+            $revenuePeriod = (float) Payment::whereIn('status', ['approved', 'paid'])
+                ->where(function ($q) use ($from, $to) {
+                    $q->whereBetween('reviewed_at', [$from, $to])
+                        ->orWhere(function ($sub) use ($from, $to) {
+                            $sub->whereNull('reviewed_at')
+                                ->whereBetween('paid_at', [$from, $to]);
+                        });
+                })
+                ->selectRaw('COALESCE(SUM(COALESCE(amount_verified, amount_expected, amount)), 0) as total')
+                ->value('total');
+
+            // Payments awaiting verification (submitted + needs_info)
+            $paymentsAwaitingVerification = Payment::whereIn('status', ['submitted', 'needs_info'])->count();
+
+            // Average verification time (hours) for approved payments
+            $avgVerificationSeconds = Payment::where('status', 'approved')
+                ->whereNotNull('submitted_at')
+                ->whereNotNull('reviewed_at')
+                ->selectRaw('AVG(strftime("%s", reviewed_at) - strftime("%s", submitted_at)) as avg_time')
+                ->value('avg_time');
+            $avgVerificationHours = $avgVerificationSeconds ? round($avgVerificationSeconds / 3600, 1) : 0.0;
 
             // Users near quota exhaustion (cards remaining <= 10% of total)
             $usersNearExhaustion = Subscription::where('status', 'active')
@@ -114,6 +136,8 @@ class SuperAdminDashboardService
                 'checkins_count' => $checkinsCount,
                 'revenue_total' => $revenueTotal,
                 'revenue_period' => $revenuePeriod,
+                'payments_awaiting_verification' => $paymentsAwaitingVerification,
+                'avg_verification_hours' => $avgVerificationHours,
                 'users_near_exhaustion' => $usersNearExhaustion,
                 'cost_per_sms' => $costPerSms,
                 'estimated_cost_total' => $estimatedCostTotal,
@@ -304,8 +328,8 @@ class SuperAdminDashboardService
                 $curr->addMonth();
             }
 
-            $payments = Payment::where('status', 'paid')
-                ->select(DB::raw("strftime('%Y-%m', created_at) as month"), DB::raw('sum(amount) as total'))
+            $payments = Payment::where('status', 'approved')
+                ->select(DB::raw("strftime('%Y-%m', COALESCE(reviewed_at, created_at)) as month"), DB::raw('sum(COALESCE(amount_verified, amount_expected, amount)) as total'))
                 ->where('created_at', '>=', $start)
                 ->groupBy('month')
                 ->get();

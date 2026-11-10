@@ -62,6 +62,16 @@ class SuperAdminKpisWidget extends BaseWidget
                 ->descriptionIcon('heroicon-m-banknotes')
                 ->color('success'),
 
+            Stat::make('Awaiting Verification', number_format($kpis['payments_awaiting_verification']))
+                ->description('Manual payments queue')
+                ->descriptionIcon('heroicon-m-clock')
+                ->color($kpis['payments_awaiting_verification'] > 0 ? 'warning' : 'gray'),
+
+            Stat::make('Avg Verification Time', "{$kpis['avg_verification_hours']}h")
+                ->description('Turnaround for approvals')
+                ->descriptionIcon('heroicon-m-bolt')
+                ->color($kpis['avg_verification_hours'] <= 12 ? 'success' : 'warning'),
+
             Stat::make('Low Quota Users', number_format($kpis['users_near_exhaustion']))
                 ->description('≤ 10% cards remaining')
                 ->descriptionIcon('heroicon-m-exclamation-triangle')

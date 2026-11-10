@@ -29,6 +29,15 @@ class AppServiceProvider extends ServiceProvider
             };
         });
 
+        $this->app->bind(\App\Contracts\PaymentProvider::class, function ($app) {
+            $driver = config('invite.payments.provider', env('PAYMENT_PROVIDER', 'manual'));
+
+            return match ($driver) {
+                'chapa' => $app->make(\App\Services\Payment\ChapaProvider::class),
+                default => $app->make(\App\Services\Payment\ManualPaymentProvider::class),
+            };
+        });
+
         Connection::resolverFor('sqlite', function ($connection, $database, $prefix, $config) {
             return new class($connection, $database, $prefix, $config) extends SQLiteConnection {
                 public function getSchemaBuilder()
@@ -69,5 +78,24 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Vite::prefetch(concurrency: 3);
+
+        if ($this->app->environment('production') && \Illuminate\Support\Facades\Schema::hasTable('payment_methods')) {
+            try {
+                $hasPlaceholders = \App\Models\PaymentMethod::where('is_active', true)
+                    ->where(function ($query) {
+                        $query->where('account_number', 'like', '%XXXX%')
+                            ->orWhere('phone_number', 'like', '%XXXX%');
+                    })
+                    ->exists();
+
+                if ($hasPlaceholders) {
+                    \Illuminate\Support\Facades\Log::warning(
+                        'SECURITY ALERT: Placeholder payment method receiving accounts (containing XXXX) are active in production!'
+                    );
+                }
+            } catch (\Throwable) {
+                // Table might not be ready during migrations
+            }
+        }
     }
 }

@@ -1,7 +1,8 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import PayModal from '@/Components/Payments/PayModal.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { computed, ref, onMounted } from 'vue';
 
 const props = defineProps({
     currentTier: Object,
@@ -12,9 +13,21 @@ const props = defineProps({
     features: Object,
 });
 
+const showPayModal = ref(false);
+const selectedTierForPayment = ref(null);
+
 const upgradeForm = useForm({
     tier_id: null,
 });
+
+const buyTier = (tier) => {
+    if (Number(tier.price_amount) > 0) {
+        selectedTierForPayment.value = tier;
+        showPayModal.value = true;
+    } else {
+        requestUpgrade(tier.id);
+    }
+};
 
 const requestUpgrade = (tierId) => {
     upgradeForm.tier_id = tierId;
@@ -22,6 +35,20 @@ const requestUpgrade = (tierId) => {
         preserveScroll: true,
     });
 };
+
+onMounted(() => {
+    const params = new URLSearchParams(window.location.search);
+    const tierSlug = params.get('tier');
+    const tierId = params.get('tier_id');
+    if (tierSlug || tierId) {
+        const target = props.allTiers?.find(
+            (t) => (tierSlug && t.slug === tierSlug) || (tierId && t.id === Number(tierId))
+        );
+        if (target && Number(target.price_amount) > 0) {
+            buyTier(target);
+        }
+    }
+});
 
 const formatDate = (isoString) => {
     if (!isoString) return 'Never expires';
@@ -64,9 +91,18 @@ const progressColor = computed(() => {
                         {{ $t('Monitor your invitation cards balance, usage history, and upgrade features.') }}
                     </p>
                 </div>
-                <div v-if="currentTier" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300">
-                    <span>{{ $t('Active Tier') }}:</span>
-                    <span>{{ $page.props.locale === 'am' ? currentTier.name_am : currentTier.name_en }}</span>
+                <div class="flex items-center gap-3">
+                    <Link
+                        :href="route('payments.index')"
+                        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-xs font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition shadow-sm"
+                    >
+                        <span>📄</span>
+                        <span>{{ $page.props.locale === 'am' ? 'የክፍያ ታሪክ' : 'Payment History' }}</span>
+                    </Link>
+                    <div v-if="currentTier" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300">
+                        <span>{{ $t('Active Tier') }}:</span>
+                        <span>{{ $page.props.locale === 'am' ? currentTier.name_am : currentTier.name_en }}</span>
+                    </div>
                 </div>
             </div>
         </template>
@@ -315,11 +351,11 @@ const progressColor = computed(() => {
                                 <button
                                     v-else
                                     type="button"
-                                    @click="requestUpgrade(tier.id)"
+                                    @click="buyTier(tier)"
                                     :disabled="upgradeForm.processing"
                                     class="w-full py-2 px-3 text-xs font-semibold rounded-xl bg-amber-600 hover:bg-amber-500 text-white shadow-sm transition disabled:opacity-50"
                                 >
-                                    {{ upgradeForm.processing && upgradeForm.tier_id === tier.id ? $t('Requesting...') : $t('Select & Upgrade') }}
+                                    {{ Number(tier.price_amount) > 0 ? ($page.props.locale === 'am' ? 'ይግዙ / ይክፈሉ' : 'Buy & Pay') : (upgradeForm.processing && upgradeForm.tier_id === tier.id ? $t('Requesting...') : $t('Select & Upgrade')) }}
                                 </button>
                             </div>
                         </div>
@@ -375,5 +411,12 @@ const progressColor = computed(() => {
                 </div>
             </div>
         </div>
+
+        <!-- Manual Payment Modal Flow -->
+        <PayModal
+            :show="showPayModal"
+            :tier="selectedTierForPayment"
+            @close="showPayModal = false"
+        />
     </AuthenticatedLayout>
 </template>

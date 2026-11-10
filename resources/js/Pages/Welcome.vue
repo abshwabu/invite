@@ -1224,7 +1224,7 @@ onUnmounted(() => {
                             </div>
 
                             <!-- Quota & Validity Specifications -->
-                            <ul class="space-y-2 text-xs text-ink/80 mb-6">
+                            <ul class="space-y-2 text-xs text-ink/80 mb-4">
                                 <li class="flex items-center gap-2 font-semibold text-ink">
                                     <span class="text-highland">✓</span>
                                     <span>{{ t('pricing.quota', { quota: tier.card_quota?.toLocaleString() }) }}</span>
@@ -1242,6 +1242,14 @@ onUnmounted(() => {
                                     <span>Single-use QR Scanner</span>
                                 </li>
                             </ul>
+
+                            <!-- Bank / Telebirr Manual Payment Activation Notice -->
+                            <p v-if="Number(tier.price_amount) > 0" class="text-[11px] text-ink/75 mb-4 bg-amber-50/70 p-2.5 rounded border border-amber-200/60 leading-relaxed">
+                                {{ currentLocale === 'am'
+                                    ? 'በባንክ ዝውውር ወይም በቴሌብር ይክፈሉ። ክፍያዎን አረጋግጠን በ24 ሰዓት ውስጥ ካርዶችዎን እናስጀምራለን።'
+                                    : 'Pay by bank transfer or Telebirr. We activate your cards within 24 hours after verifying your payment.'
+                                }}
+                            </p>
                         </div>
 
                         <!-- CTA Button -->
@@ -1256,7 +1264,7 @@ onUnmounted(() => {
                             </template>
                             <template v-else>
                                 <Link
-                                    :href="route('register')"
+                                    :href="$page.props.auth?.user ? route('plan.index', { tier: tier.slug }) : route('register', { tier: tier.slug })"
                                     :class="[
                                         'w-full inline-flex items-center justify-center py-2.5 px-3 text-xs font-semibold rounded-sm transition-colors text-center shadow-sm',
                                         tier.slug === 'gold'

@@ -89,4 +89,20 @@ return [
     */
     'supported_locales' => ['en', 'am'],
     'default_currency' => 'ETB',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Payment Configuration (Step 14A)
+    |--------------------------------------------------------------------------
+    */
+    'payments' => [
+        'provider' => env('PAYMENT_PROVIDER', 'manual'),
+        'admin_notification_emails' => env('PAYMENT_ADMIN_EMAILS', 'admin@invite.et'),
+        'receipt_retention_days' => (int) env('PAYMENT_RECEIPT_RETENTION_DAYS', 90),
+        'abandoned_after_days' => (int) env('PAYMENT_ABANDONED_AFTER_DAYS', 7),
+        'max_open_payments_per_user' => (int) env('PAYMENT_MAX_OPEN_PER_USER', 3),
+        'max_submissions_per_hour' => (int) env('PAYMENT_MAX_SUBMISSIONS_PER_HOUR', 5),
+        'notify_user_email' => (bool) env('PAYMENT_NOTIFY_USER_EMAIL', true),
+        'notify_user_sms' => (bool) env('PAYMENT_NOTIFY_USER_SMS', false),
+    ],
 ];

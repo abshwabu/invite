@@ -53,6 +53,13 @@ class ManageSettings extends Page implements HasForms
             'custom_link_review_age_days' => Setting::get('custom_link_review_age_days', 7),
             'guest_data_retention_days' => Setting::get('guest_data_retention_days', 365),
             'maintenance_mode' => (bool) Setting::get('maintenance_mode', false),
+            'payment_instructions_en' => Setting::get('payment_instructions_en', 'Transfer to our bank or Telebirr account and include your payment code in the note.'),
+            'payment_instructions_am' => Setting::get('payment_instructions_am', 'በባንክ ወይም በቴሌብር ይክፈሉ እና በምክንያት ቦታ ላይ የክፍያ ኮድዎን ያስገቡ።'),
+            'admin_notification_emails' => Setting::get('admin_notification_emails', config('invite.payments.admin_notification_emails', 'admin@invite.et')),
+            'payment_notify_user_email' => (bool) Setting::get('payment_notify_user_email', true),
+            'payment_notify_user_sms' => (bool) Setting::get('payment_notify_user_sms', false),
+            'payment_receipt_retention_days' => Setting::get('payment_receipt_retention_days', 90),
+            'payment_abandoned_after_days' => Setting::get('payment_abandoned_after_days', 7),
         ]);
     }
 
@@ -130,6 +137,46 @@ class ManageSettings extends Page implements HasForms
                             ->numeric()
                             ->helperText('Number of days to retain guest contact details after event ends')
                             ->required(),
+                    ])->columns(2),
+
+                Forms\Components\Section::make('Manual Payments & Verification')
+                    ->schema([
+                        Forms\Components\Textarea::make('payment_instructions_en')
+                            ->label('Payment Instructions (English)')
+                            ->rows(3)
+                            ->columnSpanFull(),
+
+                        Forms\Components\Textarea::make('payment_instructions_am')
+                            ->label('Payment Instructions (Amharic)')
+                            ->rows(3)
+                            ->columnSpanFull(),
+
+                        Forms\Components\TextInput::make('admin_notification_emails')
+                            ->label('Admin Notification Email(s)')
+                            ->helperText('Comma-separated email addresses alerted on new payment submissions')
+                            ->required(),
+
+                        Forms\Components\TextInput::make('payment_receipt_retention_days')
+                            ->label('Proof Retention Days')
+                            ->numeric()
+                            ->default(90)
+                            ->helperText('Days after approval to keep receipt images before automated purge')
+                            ->required(),
+
+                        Forms\Components\TextInput::make('payment_abandoned_after_days')
+                            ->label('Abandoned Expiry Days')
+                            ->numeric()
+                            ->default(7)
+                            ->helperText('Days before unsubmitted payments are marked abandoned')
+                            ->required(),
+
+                        Forms\Components\Toggle::make('payment_notify_user_email')
+                            ->label('Email User on Approval / Rejection')
+                            ->default(true),
+
+                        Forms\Components\Toggle::make('payment_notify_user_sms')
+                            ->label('SMS User on Approval')
+                            ->default(false),
                     ])->columns(2),
             ])
             ->statePath('data');

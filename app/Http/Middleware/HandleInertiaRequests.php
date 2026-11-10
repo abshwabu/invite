@@ -63,6 +63,29 @@ class HandleInertiaRequests extends Middleware
                 'admin_name' => session('impersonator_name', 'Super Admin'),
                 'expires_at' => session('impersonation_expires_at'),
             ] : null,
+            'pendingPayment' => fn () => $request->user() ? (function () use ($request) {
+                $payment = \App\Models\Payment::query()
+                    ->where('user_id', $request->user()->id)
+                    ->whereIn('status', ['submitted', 'needs_info'])
+                    ->with('tier:id,name_en,name_am')
+                    ->latest('submitted_at')
+                    ->first();
+
+                if (! $payment) {
+                    return null;
+                }
+
+                return [
+                    'id' => $payment->id,
+                    'payment_code' => $payment->payment_code,
+                    'status' => $payment->status,
+                    'tier_name_en' => $payment->tier?->name_en,
+                    'tier_name_am' => $payment->tier?->name_am,
+                    'submitted_at' => $payment->submitted_at?->toIso8601String(),
+                    'time_ago' => $payment->submitted_at ? $payment->submitted_at->diffForHumans() : 'recently',
+                    'admin_note' => $payment->admin_note,
+                ];
+            })() : null,
             'locale' => $locale,
             'supportedLocales' => config('invite.supported_locales', ['en', 'am']),
             'translations' => $translations ?? [],

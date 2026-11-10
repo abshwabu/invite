@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             TierSeeder::class,
             CategorySeeder::class,
             TemplateSeeder::class,
+            PaymentMethodSeeder::class,
         ]);
 
         if (User::where('email', 'test@example.com')->doesntExist()) {

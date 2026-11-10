@@ -12,6 +12,8 @@ use App\Http\Controllers\ExportController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\NotificationCenterController;
+use App\Http\Controllers\PaymentInvoiceController;
+use App\Http\Controllers\PaymentReceiptController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicInvitationController;
@@ -23,6 +25,7 @@ use App\Http\Controllers\ShortLinkController;
 use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\ThankYouController;
 use App\Http\Controllers\UsageController;
+use App\Http\Controllers\UserPaymentController;
 use App\Models\Category;
 use App\Models\Template;
 use App\Models\Tier;
@@ -114,6 +117,12 @@ Route::get('/templates', [TemplateController::class, 'index'])->name('templates.
 // Editor (accessible by guests and users)
 Route::get('/editor/{template?}', [EditorController::class, 'show'])->name('editor.show');
 
+// Signed Receipt Stream (accessible by payment owner or superadmin)
+Route::get('/payments/{payment}/receipt', [PaymentReceiptController::class, 'show'])->name('payments.receipt');
+
+// Printable Invoice / Receipt (accessible by payment owner or superadmin)
+Route::get('/payments/{payment}/invoice', [PaymentInvoiceController::class, 'show'])->name('payments.invoice');
+
 // Authenticated user routes
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -121,6 +130,12 @@ Route::middleware('auth')->group(function () {
     // Plan & Quota management
     Route::get('/plan', [PlanController::class, 'index'])->name('plan.index');
     Route::post('/plan/upgrade-request', [PlanController::class, 'upgradeRequest'])->name('plan.upgrade-request');
+
+    // Payments (Step 14A: Manual payments with admin verification)
+    Route::get('/payments', [UserPaymentController::class, 'index'])->name('payments.index');
+    Route::get('/payments/{payment}', [UserPaymentController::class, 'show'])->name('payments.show');
+    Route::post('/payments/initiate', [UserPaymentController::class, 'initiate'])->name('payments.initiate');
+    Route::post('/payments/{payment}/submit', [UserPaymentController::class, 'submitProof'])->name('payments.submit');
 
     // Event CRUD and Wizard
     Route::get('/events/create', [EventController::class, 'create'])->name('events.create');

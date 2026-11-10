@@ -102,6 +102,12 @@ onMounted(async () => {
                                     {{ $t('My Plan') }}
                                 </NavLink>
                                 <NavLink
+                                    :href="route('payments.index')"
+                                    :active="route().current('payments.*')"
+                                >
+                                    {{ $t('Payments') }}
+                                </NavLink>
+                                <NavLink
                                     :href="route('usage.index')"
                                     :active="route().current('usage.*')"
                                 >
@@ -178,6 +184,11 @@ onMounted(async () => {
                                             :href="route('plan.index')"
                                         >
                                             {{ $t('My Plan') }}
+                                        </DropdownLink>
+                                        <DropdownLink
+                                            :href="route('payments.index')"
+                                        >
+                                            {{ $t('Payments') }}
                                         </DropdownLink>
                                         <DropdownLink
                                             :href="route('usage.index')"
@@ -285,6 +296,12 @@ onMounted(async () => {
                             {{ $t('My Plan') }}
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
+                            :href="route('payments.index')"
+                            :active="route().current('payments.*')"
+                        >
+                            {{ $t('Payments') }}
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
                             :href="route('usage.index')"
                             :active="route().current('usage.*')"
                         >
@@ -343,6 +360,53 @@ onMounted(async () => {
                     </div>
                 </div>
             </nav>
+
+            <!-- Persistent Review Banner -->
+            <div v-if="$page.props.pendingPayment" class="mx-auto max-w-7xl px-4 pt-4 sm:px-6 lg:px-8">
+                <!-- Submitted (Under Review) -->
+                <div
+                    v-if="$page.props.pendingPayment.status === 'submitted'"
+                    class="rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-xs sm:text-sm text-amber-900 dark:border-amber-800 dark:bg-amber-950/60 dark:text-amber-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 shadow-sm"
+                >
+                    <div class="flex items-center gap-2">
+                        <span class="text-base animate-pulse">⏳</span>
+                        <span>
+                            {{ $page.props.locale === 'am'
+                                ? `የ${$page.props.pendingPayment.tier_name_am || $page.props.pendingPayment.tier_name_en} ክፍያ በግምገማ ላይ ነው። የቀረበው ${$page.props.pendingPayment.time_ago}`
+                                : `Payment under review for ${$page.props.pendingPayment.tier_name_en}. Submitted ${$page.props.pendingPayment.time_ago}`
+                            }}
+                        </span>
+                    </div>
+                    <Link
+                        :href="route('payments.show', $page.props.pendingPayment.id)"
+                        class="shrink-0 font-bold underline hover:text-amber-950 dark:hover:text-amber-100"
+                    >
+                        {{ $page.props.locale === 'am' ? 'የክፍያ ሁኔታን ይመልከቱ' : 'View payment status' }} →
+                    </Link>
+                </div>
+
+                <!-- Needs Info (Action Required) -->
+                <div
+                    v-else-if="$page.props.pendingPayment.status === 'needs_info'"
+                    class="rounded-xl border border-rose-300 bg-rose-50 px-4 py-3 text-xs sm:text-sm text-rose-900 dark:border-rose-900 dark:bg-rose-950/60 dark:text-rose-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 shadow-sm"
+                >
+                    <div class="flex items-center gap-2">
+                        <span class="text-base">⚠️</span>
+                        <span>
+                            {{ $page.props.locale === 'am'
+                                ? `እርምጃ ያስፈልጋል፡ አስተዳዳሪው ለ${$page.props.pendingPayment.tier_name_am || $page.props.pendingPayment.tier_name_en} ክፍያዎ ተጨማሪ መረጃ ጠይቋል።`
+                                : `Action required: Super admin requested more details for your ${$page.props.pendingPayment.tier_name_en} payment.`
+                            }}
+                        </span>
+                    </div>
+                    <Link
+                        :href="route('payments.show', $page.props.pendingPayment.id)"
+                        class="shrink-0 font-bold underline hover:text-rose-950 dark:hover:text-rose-100"
+                    >
+                        {{ $page.props.locale === 'am' ? 'መረጃ ያስገቡ' : 'Submit details' }} →
+                    </Link>
+                </div>
+            </div>
 
             <!-- Flash & System Notifications -->
             <div v-if="$page.props.flash?.success || $page.props.flash?.warning || $page.props.flash?.error" class="mx-auto max-w-7xl px-4 pt-4 sm:px-6 lg:px-8">

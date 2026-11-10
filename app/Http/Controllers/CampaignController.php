@@ -9,6 +9,8 @@ use App\Models\Campaign;
 use App\Models\Delivery;
 use App\Models\Event;
 use App\Models\Guest;
+use App\Models\Payment;
+use App\Models\User;
 use App\Services\AudienceService;
 use App\Services\ContentSafeguardService;
 use App\Services\EntitlementService;
@@ -48,6 +50,26 @@ class CampaignController extends Controller
         if (! $isOwner && ! $isMember) {
             abort(403, 'Unauthorized event action.');
         }
+    }
+
+    protected function quotaInsufficientError(User $user, int $needed): array
+    {
+        $hasPendingPayment = Payment::where('user_id', $user->id)
+            ->whereIn('status', ['submitted', 'needs_info'])
+            ->exists();
+
+        if ($hasPendingPayment) {
+            return [
+                'quota' => 'Your payment is being verified. You can send your cards after we verify it, usually within 24 hours.',
+                'payment_pending' => true,
+            ];
+        }
+
+        $available = $this->quotaService->available($user);
+        return [
+            'quota' => "Insufficient card quota. You need {$needed} cards, but only have {$available} available. Please upgrade your plan.",
+            'upgrade_required' => true,
+        ];
     }
 
     /**
@@ -492,11 +514,7 @@ class CampaignController extends Controller
         ]);
 
         if (! $reservation->isSuccessful()) {
-            $available = $this->quotaService->available($user);
-            return back()->withErrors([
-                'quota' => "Insufficient card quota. You need {$totalQuotaNeeded} cards, but only have {$available} available. Please upgrade your plan.",
-                'upgrade_required' => true,
-            ]);
+            return back()->withErrors($this->quotaInsufficientError($user, $totalQuotaNeeded));
         }
 
         // Create Campaign and dispatch jobs
@@ -645,9 +663,7 @@ class CampaignController extends Controller
             ]);
 
             if (! $reservation->isSuccessful()) {
-                return back()->withErrors([
-                    'quota' => 'Insufficient card quota to resend message. Please upgrade your plan.',
-                ]);
+                return back()->withErrors($this->quotaInsufficientError($user, $cost));
             }
 
             $delivery->update(['quota_charged' => $cost]);
@@ -704,9 +720,7 @@ class CampaignController extends Controller
             ]);
 
             if (! $reservation->isSuccessful()) {
-                return back()->withErrors([
-                    'quota' => "Insufficient card quota. Need {$totalQuotaNeeded} cards to resend failed deliveries. Please upgrade your plan.",
-                ]);
+                return back()->withErrors($this->quotaInsufficientError($user, $totalQuotaNeeded));
             }
         }
 
@@ -764,9 +778,7 @@ class CampaignController extends Controller
         ]);
 
         if (! $reservation->isSuccessful()) {
-            return back()->withErrors([
-                'quota' => "Insufficient card quota. Need {$totalQuotaNeeded} cards to resend to pending guests. Please upgrade your plan.",
-            ]);
+            return back()->withErrors($this->quotaInsufficientError($user, $totalQuotaNeeded));
         }
 
         foreach ($pendingDeliveries as $del) {
