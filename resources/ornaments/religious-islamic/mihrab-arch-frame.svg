@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Outer Rectangular Frame (Surrounding the Mihrab niche) -->
+    <rect x="25" y="20" width="250" height="360" rx="4" stroke="{{c1}}" stroke-width="2.5" />
+    <rect x="32" y="27" width="236" height="346" rx="2" stroke="{{c2}}" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.6" />
+    <rect x="38" y="33" width="224" height="334" rx="2" stroke="{{c1}}" stroke-width="1.4" />
+
+    <!-- Corner Rosette Medallions in Frame (Top-Left & Top-Right) -->
+    <circle cx="38" cy="33" r="5" fill="{{c1}}" stroke="{{c3}}" stroke-width="1" />
+    <circle cx="262" cy="33" r="5" fill="{{c1}}" stroke="{{c3}}" stroke-width="1" />
+    <circle cx="38" cy="367" r="5" fill="{{c1}}" stroke="{{c3}}" stroke-width="1" />
+    <circle cx="262" cy="367" r="5" fill="{{c1}}" stroke="{{c3}}" stroke-width="1" />
+
+    <!-- Spandrel Fill (Arabesque geometric lattice in upper corners outside the arch) -->
+    <path d="M40,35 L40,150 C65,130 95,100 130,65 L130,35 Z" fill="{{c3}}" opacity="0.3" stroke="{{c2}}" stroke-width="0.8" />
+    <path d="M260,35 L260,150 C235,130 205,100 170,65 L170,35 Z" fill="{{c3}}" opacity="0.3" stroke="{{c2}}" stroke-width="0.8" />
+
+    <!-- Mihrab Ogee / Horseshoe Pointed Arch (Keystone apex at 150, 48) -->
+    <!-- Outer Arch Moldings -->
+    <path d="M55,365 L55,160 C55,115 105,75 150,48 C195,75 245,115 245,160 L245,365" stroke="{{c1}}" stroke-width="2.8" />
+    <path d="M62,365 L62,162 C62,120 108,82 150,56 C192,82 238,120 238,162 L238,365" stroke="{{c2}}" stroke-width="1.4" />
+
+    <!-- Multifoil Cusped Inner Arch (7 cusps along the arch curve) -->
+    <!-- Cusps on Left: 3 lobes; Cusps on Right: 3 lobes; 1 apex lobe -->
+    <path d="M72,365 L72,165 
+             C72,150 82,142 90,140
+             C90,126 102,118 112,114
+             C114,100 128,90 138,82
+             C142,72 150,68 150,68
+             C150,68 158,72 162,82
+             C172,90 186,100 188,114
+             C198,118 210,126 210,140
+             C218,142 228,150 228,165
+             L228,365" stroke="{{c1}}" stroke-width="2" fill="{{c3}}" fill-opacity="0.2" />
+
+    <!-- Columns and Capitals Supporting the Arch (Left: x=55..72, Right: x=228..245) -->
+    <!-- Left Column Capital (Muqarnas tiered capital) -->
+    <g transform="translate(63, 160)">
+      <rect x="-12" y="0" width="24" height="8" rx="2" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+      <rect x="-8" y="8" width="16" height="6" fill="{{c2}}" stroke="{{c1}}" stroke-width="1" />
+      <rect x="-10" y="14" width="20" height="4" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" />
+    </g>
+    <!-- Right Column Capital -->
+    <g transform="translate(237, 160)">
+      <rect x="-12" y="0" width="24" height="8" rx="2" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+      <rect x="-8" y="8" width="16" height="6" fill="{{c2}}" stroke="{{c1}}" stroke-width="1" />
+      <rect x="-10" y="14" width="20" height="4" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" />
+    </g>
+
+    <!-- Column Shaft Fluting -->
+    <line x1="60" y1="180" x2="60" y2="350" stroke="{{c2}}" stroke-width="1.2" />
+    <line x1="66" y1="180" x2="66" y2="350" stroke="{{c1}}" stroke-width="1.2" />
+    <line x1="234" y1="180" x2="234" y2="350" stroke="{{c1}}" stroke-width="1.2" />
+    <line x1="240" y1="180" x2="240" y2="350" stroke="{{c2}}" stroke-width="1.2" />
+
+    <!-- Column Bases (Bottom: y=350 to 365) -->
+    <rect x="50" y="350" width="26" height="15" rx="2" fill="{{c1}}" stroke="{{c1}}" stroke-width="1.4" />
+    <rect x="224" y="350" width="26" height="15" rx="2" fill="{{c1}}" stroke="{{c1}}" stroke-width="1.4" />
+
+    <!-- Hanging Mosque Lantern from Mihrab Apex (Suspended from 150, 68) -->
+    <line x1="150" y1="68" x2="150" y2="120" stroke="{{c1}}" stroke-width="1.4" />
+    <!-- Small chain rings -->
+    <circle cx="150" cy="80" r="1.8" fill="{{c2}}" />
+    <circle cx="150" cy="95" r="1.8" fill="{{c2}}" />
+    <circle cx="150" cy="110" r="1.8" fill="{{c2}}" />
+
+    <!-- Lantern Body (150, 135) -->
+    <g transform="translate(150, 135)">
+      <!-- Cap dome -->
+      <path d="M-10,0 C-8,-8 0,-12 0,-12 C0,-12 8,-8 10,0 Z" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+      <circle cx="0" cy="-14" r="2.5" fill="{{c2}}" />
+      <!-- Glass chamber -->
+      <path d="M-12,0 L-8,22 L8,22 L12,0 Z" fill="{{c2}}" opacity="0.6" stroke="{{c1}}" stroke-width="1.2" />
+      <!-- Inner flame -->
+      <ellipse cx="0" cy="10" rx="3" ry="6" fill="{{c1}}" />
+      <circle cx="0" cy="11" r="1.5" fill="{{c3}}" />
+      <!-- Bottom finial tassel -->
+      <path d="M-6,22 L0,30 L6,22 Z" fill="{{c1}}" />
+      <circle cx="0" cy="33" r="2" fill="{{c2}}" />
+    </g>
+
+    <!-- Keystone Apex Finial on Outer Arch (150, 48) -->
+    <polygon points="150,38 155,48 150,54 145,48" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+    <circle cx="150" cy="34" r="3" fill="{{c2}}" stroke="{{c1}}" stroke-width="0.8" />
+  </g>
+</svg>

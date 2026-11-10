@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 300">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Center Shaft & Pedestal Base (110, 220 to 290) -->
+    <!-- Base mounting socket (classic Ethiopian processional cross staff fitting) -->
+    <path d="M96,240 L88,290 L132,290 L124,240 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.8" />
+    <path d="M100,244 L94,286 L126,286 L120,244 Z" fill="{{c2}}" opacity="0.4" stroke="{{c3}}" stroke-width="1" />
+    <circle cx="110" cy="265" r="4.5" fill="{{c3}}" stroke="{{c1}}" stroke-width="1.2" />
+    <!-- Flared decorative scrolls on base sides -->
+    <path d="M88,260 C72,255 68,272 78,285 C84,290 92,286 92,286" stroke="{{c1}}" stroke-width="2" />
+    <path d="M132,260 C148,255 152,272 142,285 C136,290 128,286 128,286" stroke="{{c1}}" stroke-width="2" />
+
+    <!-- Lower cross pedestal collar -->
+    <rect x="86" y="226" width="48" height="14" rx="3" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.8" />
+    <line x1="86" y1="233" x2="134" y2="233" stroke="{{c3}}" stroke-width="1.2" />
+
+    <!-- Main Cross Body: Pierced Lalibela Lattice -->
+    <!-- Soft shadow background halo (c3) -->
+    <rect x="45" y="35" width="130" height="185" rx="10" fill="{{c3}}" opacity="0.25" stroke="{{c2}}" stroke-width="1" stroke-dasharray="3,3" />
+
+    <!-- Outer Solid Frame Contour with trefoil lobed finials -->
+    <!-- Vertical Mast: x=90 to 130; Horizontal Beam: y=80 to 120 -->
+    <!-- Central lattice grid structure (9 pierced openwork windows) -->
+    <!-- Outer boundary of lattice core -->
+    <rect x="55" y="45" width="110" height="175" rx="6" stroke="{{c1}}" stroke-width="2.5" />
+
+    <!-- Internal Pierced Grid Openings (Iconic Lalibela rock-cut cross fenestrations) -->
+    <!-- Row 1 (Top arm) -->
+    <rect x="94" y="55" width="32" height="30" rx="3" fill="{{c2}}" opacity="0.5" stroke="{{c1}}" stroke-width="1.6" />
+    <path d="M94,55 L126,85 M126,55 L94,85" stroke="{{c1}}" stroke-width="1.2" />
+
+    <!-- Row 2 (Cross intersection and horizontal arms) -->
+    <!-- Left arm opening -->
+    <rect x="62" y="95" width="28" height="28" rx="3" fill="{{c2}}" opacity="0.5" stroke="{{c1}}" stroke-width="1.6" />
+    <circle cx="76" cy="109" r="6" fill="{{c3}}" stroke="{{c1}}" stroke-width="1.2" />
+
+    <!-- Center opening (The heart of the cross) -->
+    <rect x="96" y="95" width="28" height="28" rx="3" fill="{{c1}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.8" />
+    <polygon points="110,97 122,109 110,121 98,109" fill="{{c3}}" stroke="{{c2}}" stroke-width="1.2" />
+    <circle cx="110" cy="109" r="3" fill="{{c1}}" />
+
+    <!-- Right arm opening -->
+    <rect x="130" y="95" width="28" height="28" rx="3" fill="{{c2}}" opacity="0.5" stroke="{{c1}}" stroke-width="1.6" />
+    <circle cx="144" cy="109" r="6" fill="{{c3}}" stroke="{{c1}}" stroke-width="1.2" />
+
+    <!-- Row 3 (Lower arm openings) -->
+    <rect x="94" y="132" width="32" height="30" rx="3" fill="{{c2}}" opacity="0.5" stroke="{{c1}}" stroke-width="1.6" />
+    <path d="M94,132 L126,162 M126,132 L94,162" stroke="{{c1}}" stroke-width="1.2" />
+
+    <rect x="94" y="170" width="32" height="30" rx="3" fill="{{c2}}" opacity="0.4" stroke="{{c1}}" stroke-width="1.6" />
+    <circle cx="110" cy="185" r="5" fill="{{c3}}" stroke="{{c1}}" stroke-width="1.2" />
+
+    <!-- External Flared Finials and Lobes (Authentic Lalibela Cross Crowns) -->
+    <!-- Top Crown Finial -->
+    <g transform="translate(110, 45)">
+      <path d="M0,0 C-18,-15 -22,-32 0,-40 C22,-32 18,-15 0,0" fill="{{c1}}" stroke="{{c1}}" stroke-width="1.8" />
+      <circle cx="0" cy="-32" r="5" fill="{{c2}}" stroke="{{c1}}" stroke-width="1" />
+      <circle cx="-12" cy="-22" r="3.5" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" />
+      <circle cx="12" cy="-22" r="3.5" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" />
+    </g>
+
+    <!-- Left Arm Outer Finial -->
+    <g transform="translate(55, 109) rotate(-90)">
+      <path d="M0,0 C-16,-12 -20,-28 0,-34 C20,-28 16,-12 0,0" fill="{{c1}}" stroke="{{c1}}" stroke-width="1.8" />
+      <circle cx="0" cy="-26" r="4.5" fill="{{c2}}" stroke="{{c1}}" stroke-width="1" />
+      <circle cx="-10" cy="-18" r="3" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" />
+      <circle cx="10" cy="-18" r="3" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" />
+    </g>
+
+    <!-- Right Arm Outer Finial -->
+    <g transform="translate(165, 109) rotate(90)">
+      <path d="M0,0 C-16,-12 -20,-28 0,-34 C20,-28 16,-12 0,0" fill="{{c1}}" stroke="{{c1}}" stroke-width="1.8" />
+      <circle cx="0" cy="-26" r="4.5" fill="{{c2}}" stroke="{{c1}}" stroke-width="1" />
+      <circle cx="-10" cy="-18" r="3" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" />
+      <circle cx="10" cy="-18" r="3" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" />
+    </g>
+
+    <!-- Corner stepped filigree brackets connecting arms -->
+    <path d="M55,68 C70,68 76,55 76,45" stroke="{{c2}}" stroke-width="1.5" />
+    <path d="M165,68 C150,68 144,55 144,45" stroke="{{c2}}" stroke-width="1.5" />
+    <path d="M55,150 C70,150 76,165 76,175" stroke="{{c2}}" stroke-width="1.5" />
+    <path d="M165,150 C150,150 144,165 144,175" stroke="{{c2}}" stroke-width="1.5" />
+  </g>
+</svg>

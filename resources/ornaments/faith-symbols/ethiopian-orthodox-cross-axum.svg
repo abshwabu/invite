@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 300">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Base Mounting Socket (Classic Axumite base) -->
+    <path d="M96,242 L90,292 L130,292 L124,242 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="2" />
+    <path d="M100,246 L95,288 L125,288 L120,246 Z" fill="{{c2}}" opacity="0.4" stroke="{{c3}}" stroke-width="1" />
+    <!-- Pedestal rings -->
+    <ellipse cx="110" cy="242" rx="20" ry="6" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.8" />
+    <ellipse cx="110" cy="232" rx="16" ry="5" fill="{{c3}}" stroke="{{c1}}" stroke-width="1.5" />
+
+    <!-- Axumite Radiant Solar Halo behind cross intersection (110, 120) -->
+    <circle cx="110" cy="120" r="70" stroke="{{c3}}" stroke-width="1" stroke-dasharray="3,3" opacity="0.6" />
+    <circle cx="110" cy="120" r="54" stroke="{{c2}}" stroke-width="1.2" stroke-dasharray="2,3" opacity="0.7" />
+
+    <!-- Radiant Ray Points (12 points representing 12 apostles) -->
+    <g stroke="{{c1}}" stroke-width="1.2" opacity="0.6">
+      <line x1="110" y1="52" x2="110" y2="42" />
+      <line x1="144" y1="61" x2="151" y2="54" />
+      <line x1="169" y1="86" x2="178" y2="81" />
+      <line x1="178" y1="120" x2="188" y2="120" />
+      <line x1="169" y1="154" x2="178" y2="159" />
+      <line x1="144" y1="179" x2="151" y2="186" />
+      <line x1="110" y1="188" x2="110" y2="198" />
+      <line x1="76" y1="179" x2="69" y2="186" />
+      <line x1="51" y1="154" x2="42" y2="159" />
+      <line x1="42" y1="120" x2="32" y2="120" />
+      <line x1="51" y1="86" x2="42" y2="81" />
+      <line x1="76" y1="61" x2="69" y2="54" />
+    </g>
+
+    <!-- Stepped Cross Arms (Classic Axumite Architecture Motif) -->
+    <!-- Center disk -->
+    <circle cx="110" cy="120" r="32" fill="{{c1}}" stroke="{{c1}}" stroke-width="2.5" />
+    <circle cx="110" cy="120" r="24" fill="{{c2}}" opacity="0.8" stroke="{{c3}}" stroke-width="1.5" />
+    <!-- Pierced Central Cross Window -->
+    <circle cx="110" cy="120" r="14" fill="{{c3}}" opacity="0.5" stroke="{{c1}}" stroke-width="1.2" />
+    <circle cx="110" cy="120" r="5" fill="{{c1}}" />
+
+    <!-- Top Stepped Arm -->
+    <g>
+      <path d="M100,88 L94,56 L88,56 L88,38 L98,38 L98,24 L122,24 L122,38 L132,38 L132,56 L126,56 L120,88 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="2" />
+      <path d="M102,86 L98,58 L92,58 L92,42 L102,42 L102,28 L118,28 L118,42 L128,42 L128,58 L122,58 L118,86 Z" fill="{{c2}}" opacity="0.4" stroke="{{c3}}" stroke-width="1" />
+      <!-- Top Finial Stepped Pyramid -->
+      <polygon points="110,12 118,24 102,24" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5" />
+      <circle cx="110" cy="8" r="3" fill="{{c1}}" />
+    </g>
+
+    <!-- Bottom Stepped Arm -->
+    <g>
+      <path d="M100,152 L94,184 L88,184 L88,202 L98,202 L98,216 L122,216 L122,202 L132,202 L132,184 L126,184 L120,152 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="2" />
+      <path d="M102,154 L98,182 L92,182 L92,198 L102,198 L102,212 L118,212 L118,198 L128,198 L128,182 L122,182 L118,154 Z" fill="{{c2}}" opacity="0.4" stroke="{{c3}}" stroke-width="1" />
+      <!-- Lower collar link -->
+      <line x1="98" y1="216" x2="122" y2="216" stroke="{{c1}}" stroke-width="2.5" />
+    </g>
+
+    <!-- Left Stepped Arm -->
+    <g>
+      <path d="M78,110 L46,104 L46,98 L28,98 L28,108 L14,108 L14,132 L28,132 L28,142 L46,142 L46,136 L78,130 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="2" />
+      <path d="M76,112 L48,106 L48,102 L32,102 L32,112 L18,112 L18,128 L32,128 L32,138 L48,138 L48,134 L76,128 Z" fill="{{c2}}" opacity="0.4" stroke="{{c3}}" stroke-width="1" />
+      <!-- Left Finial Pyramid -->
+      <polygon points="2,120 14,112 14,128" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5" />
+      <circle cx="-1" cy="120" r="3" fill="{{c1}}" />
+    </g>
+
+    <!-- Right Stepped Arm -->
+    <g>
+      <path d="M142,110 L174,104 L174,98 L192,98 L192,108 L206,108 L206,132 L192,132 L192,142 L174,142 L174,136 L142,130 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="2" />
+      <path d="M144,112 L172,106 L172,102 L188,102 L188,112 L202,112 L202,128 L188,128 L188,138 L172,138 L172,134 L144,128 Z" fill="{{c2}}" opacity="0.4" stroke="{{c3}}" stroke-width="1" />
+      <!-- Right Finial Pyramid -->
+      <polygon points="218,120 206,112 206,128" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5" />
+      <circle cx="221" cy="120" r="3" fill="{{c1}}" />
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Stems gathering down to (100, 235) -->
+    <path d="M100,235 C98,185 102,130 100,75" stroke="{{c1}}" stroke-width="2.6" />
+    <path d="M101,235 C99,185 103,130 101,75" stroke="{{c2}}" stroke-width="1.2" opacity="0.6" stroke-dasharray="2,3" />
+
+    <!-- Side Bud Stem (branching right) -->
+    <path d="M101,155 C120,140 142,120 152,95" stroke="{{c1}}" stroke-width="1.8" />
+
+    <!-- Feathery / Pinnate Adey Abeba Leaves -->
+    <!-- Left Leaf Frond (at y=180) -->
+    <g transform="translate(98, 185) rotate(-35)">
+      <path d="M0,0 C-18,-8 -36,-10 -50,-8" stroke="{{c1}}" stroke-width="1.6" />
+      <!-- Leaflets -->
+      <path d="M-15,-4 C-20,-15 -28,-14 -25,-4" fill="{{c2}}" opacity="0.8" stroke="{{c1}}" stroke-width="1" />
+      <path d="M-28,-7 C-34,-18 -42,-16 -38,-6" fill="{{c2}}" opacity="0.8" stroke="{{c1}}" stroke-width="1" />
+      <path d="M-40,-8 C-46,-18 -55,-14 -50,-6" fill="{{c3}}" opacity="0.6" stroke="{{c1}}" stroke-width="1" />
+      <!-- Lower leaflets -->
+      <path d="M-22,-5 C-26,4 -34,4 -30,-4" fill="{{c3}}" opacity="0.6" stroke="{{c1}}" stroke-width="1" />
+      <path d="M-35,-7 C-40,2 -48,2 -44,-5" fill="{{c2}}" opacity="0.75" stroke="{{c1}}" stroke-width="1" />
+    </g>
+
+    <!-- Right Leaf Frond (at y=165) -->
+    <g transform="translate(102, 165) rotate(35)">
+      <path d="M0,0 C18,-8 36,-10 50,-8" stroke="{{c1}}" stroke-width="1.6" />
+      <!-- Leaflets -->
+      <path d="M15,-4 C20,-15 28,-14 25,-4" fill="{{c2}}" opacity="0.8" stroke="{{c1}}" stroke-width="1" />
+      <path d="M28,-7 C34,-18 42,-16 38,-6" fill="{{c2}}" opacity="0.8" stroke="{{c1}}" stroke-width="1" />
+      <path d="M40,-8 C46,-18 55,-14 50,-6" fill="{{c3}}" opacity="0.6" stroke="{{c1}}" stroke-width="1" />
+      <!-- Lower leaflets -->
+      <path d="M22,-5 C26,4 34,4 30,-4" fill="{{c3}}" opacity="0.6" stroke="{{c1}}" stroke-width="1" />
+      <path d="M35,-7 C40,2 48,2 44,-5" fill="{{c2}}" opacity="0.75" stroke="{{c1}}" stroke-width="1" />
+    </g>
+
+    <!-- Side Flower Bud (152, 95) -->
+    <g transform="translate(152, 95) rotate(25)">
+      <!-- Green Sepals / Calyx -->
+      <path d="M-6,12 C-10,0 -4,-8 0,-12 C4,-8 10,0 6,12 Z" fill="{{c2}}" opacity="0.8" stroke="{{c1}}" stroke-width="1.2" />
+      <!-- Emerging Golden Petal Tips -->
+      <path d="M-3,-8 C-5,-16 0,-24 0,-24 C0,-24 5,-16 3,-8 Z" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+      <circle cx="0" cy="-14" r="2.5" fill="{{c3}}" />
+    </g>
+
+    <!-- Calyx below main blossom -->
+    <path d="M90,75 C86,88 94,94 100,95 C106,94 114,88 110,75" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.4" />
+
+    <!-- MAIN BLOOMING ADEY ABEBA FLOWER (Center 100, 75) -->
+    <!-- 8 Golden Ray Petals (Bidens macroptera characteristic 8 yellow rays) -->
+    <!-- Soft shadow petals behind (c3) -->
+    <circle cx="100" cy="75" r="54" fill="{{c3}}" opacity="0.25" stroke="{{c2}}" stroke-width="0.8" stroke-dasharray="2,3" />
+
+    <!-- 8 Distinct Ray Florets with 3-toothed notched tips -->
+    <!-- Ray 0 deg (Top) -->
+    <g transform="translate(100, 75)">
+      <g transform="rotate(0)">
+        <path d="M-8,-20 C-12,-38 -10,-54 -6,-58 L0,-54 L6,-58 C10,-54 12,-38 8,-20 Z" fill="{{c1}}" opacity="0.95" stroke="{{c1}}" stroke-width="1.3" />
+        <path d="M0,-22 L0,-52" stroke="{{c3}}" stroke-width="0.8" />
+        <path d="M-4,-24 L-4,-48" stroke="{{c2}}" stroke-width="0.6" />
+        <path d="M4,-24 L4,-48" stroke="{{c2}}" stroke-width="0.6" />
+      </g>
+      <!-- Ray 45 deg -->
+      <g transform="rotate(45)">
+        <path d="M-8,-20 C-12,-38 -10,-54 -6,-58 L0,-54 L6,-58 C10,-54 12,-38 8,-20 Z" fill="{{c2}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.3" />
+        <path d="M0,-22 L0,-52" stroke="{{c3}}" stroke-width="0.8" />
+      </g>
+      <!-- Ray 90 deg (Right) -->
+      <g transform="rotate(90)">
+        <path d="M-8,-20 C-12,-38 -10,-54 -6,-58 L0,-54 L6,-58 C10,-54 12,-38 8,-20 Z" fill="{{c1}}" opacity="0.95" stroke="{{c1}}" stroke-width="1.3" />
+        <path d="M0,-22 L0,-52" stroke="{{c3}}" stroke-width="0.8" />
+        <path d="M-4,-24 L-4,-48" stroke="{{c2}}" stroke-width="0.6" />
+        <path d="M4,-24 L4,-48" stroke="{{c2}}" stroke-width="0.6" />
+      </g>
+      <!-- Ray 135 deg -->
+      <g transform="rotate(135)">
+        <path d="M-8,-20 C-12,-38 -10,-54 -6,-58 L0,-54 L6,-58 C10,-54 12,-38 8,-20 Z" fill="{{c2}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.3" />
+        <path d="M0,-22 L0,-52" stroke="{{c3}}" stroke-width="0.8" />
+      </g>
+      <!-- Ray 180 deg (Bottom) -->
+      <g transform="rotate(180)">
+        <path d="M-8,-20 C-12,-38 -10,-54 -6,-58 L0,-54 L6,-58 C10,-54 12,-38 8,-20 Z" fill="{{c1}}" opacity="0.95" stroke="{{c1}}" stroke-width="1.3" />
+        <path d="M0,-22 L0,-52" stroke="{{c3}}" stroke-width="0.8" />
+        <path d="M-4,-24 L-4,-48" stroke="{{c2}}" stroke-width="0.6" />
+        <path d="M4,-24 L4,-48" stroke="{{c2}}" stroke-width="0.6" />
+      </g>
+      <!-- Ray 225 deg -->
+      <g transform="rotate(225)">
+        <path d="M-8,-20 C-12,-38 -10,-54 -6,-58 L0,-54 L6,-58 C10,-54 12,-38 8,-20 Z" fill="{{c2}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.3" />
+        <path d="M0,-22 L0,-52" stroke="{{c3}}" stroke-width="0.8" />
+      </g>
+      <!-- Ray 270 deg (Left) -->
+      <g transform="rotate(270)">
+        <path d="M-8,-20 C-12,-38 -10,-54 -6,-58 L0,-54 L6,-58 C10,-54 12,-38 8,-20 Z" fill="{{c1}}" opacity="0.95" stroke="{{c1}}" stroke-width="1.3" />
+        <path d="M0,-22 L0,-52" stroke="{{c3}}" stroke-width="0.8" />
+        <path d="M-4,-24 L-4,-48" stroke="{{c2}}" stroke-width="0.6" />
+        <path d="M4,-24 L4,-48" stroke="{{c2}}" stroke-width="0.6" />
+      </g>
+      <!-- Ray 315 deg -->
+      <g transform="rotate(315)">
+        <path d="M-8,-20 C-12,-38 -10,-54 -6,-58 L0,-54 L6,-58 C10,-54 12,-38 8,-20 Z" fill="{{c2}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.3" />
+        <path d="M0,-22 L0,-52" stroke="{{c3}}" stroke-width="0.8" />
+      </g>
+
+      <!-- Center Disc Floret Texture (Rich circular stamen button) -->
+      <circle cx="0" cy="0" r="18" fill="{{c1}}" stroke="{{c1}}" stroke-width="2" />
+      <circle cx="0" cy="0" r="14" fill="{{c2}}" stroke="{{c3}}" stroke-width="1" />
+      <circle cx="0" cy="0" r="8" fill="{{c3}}" />
+      <circle cx="0" cy="0" r="3.5" fill="{{c1}}" />
+
+      <!-- Golden Pollen Seeds around disc -->
+      <circle cx="0" cy="-10" r="1.5" fill="{{c1}}" />
+      <circle cx="7" cy="-7" r="1.5" fill="{{c1}}" />
+      <circle cx="10" cy="0" r="1.5" fill="{{c1}}" />
+      <circle cx="7" cy="7" r="1.5" fill="{{c1}}" />
+      <circle cx="0" cy="10" r="1.5" fill="{{c1}}" />
+      <circle cx="-7" cy="7" r="1.5" fill="{{c1}}" />
+      <circle cx="-10" cy="0" r="1.5" fill="{{c1}}" />
+      <circle cx="-7" cy="-7" r="1.5" fill="{{c1}}" />
+    </g>
+
+    <!-- Floating golden stardust / celebration pollen -->
+    <circle cx="160" cy="40" r="1.8" fill="{{c1}}" />
+    <circle cx="45" cy="55" r="1.5" fill="{{c2}}" />
+    <circle cx="145" cy="140" r="1.6" fill="{{c1}}" />
+    <circle cx="55" cy="120" r="1.4" fill="{{c3}}" />
+  </g>
+</svg>

@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 180">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Symmetrical Sweeping Stems -->
+    <path d="M300,90 C220,110 120,95 30,50" stroke="{{c1}}" stroke-width="2.5" />
+    <path d="M300,90 C380,110 480,95 570,50" stroke="{{c1}}" stroke-width="2.5" />
+    <path d="M300,105 C210,125 110,115 50,75" stroke="{{c3}}" stroke-width="1.2" opacity="0.6" stroke-dasharray="3,3" />
+    <path d="M300,105 C390,125 490,115 550,75" stroke="{{c3}}" stroke-width="1.2" opacity="0.6" stroke-dasharray="3,3" />
+
+    <!-- Center Twin Roses Composition -->
+    <g transform="translate(300, 90)">
+      <!-- Left Rose -->
+      <g transform="translate(-24, -10)">
+        <path d="M-18,-6 C-22,-20 -6,-28 8,-24 C22,-28 34,-14 30,0 C36,14 24,28 8,30 C-6,32 -20,22 -22,8 Z" fill="{{c2}}" opacity="0.65" stroke="{{c1}}" stroke-width="1.3" />
+        <path d="M-10,-4 C-12,-14 0,-18 8,-16 C16,-18 24,-10 20,0 C24,10 16,18 8,20 C-2,22 -10,14 -12,4 Z" fill="{{c3}}" opacity="0.5" stroke="{{c1}}" stroke-width="1.2" />
+        <circle cx="7" cy="1" r="2.8" fill="{{c1}}" />
+      </g>
+      <!-- Right Rose -->
+      <g transform="translate(24, -5)">
+        <path d="M-18,-6 C-22,-20 -6,-28 8,-24 C22,-28 34,-14 30,0 C36,14 24,28 8,30 C-6,32 -20,22 -22,8 Z" fill="{{c3}}" opacity="0.5" stroke="{{c1}}" stroke-width="1.3" />
+        <path d="M-10,-4 C-12,-14 0,-18 8,-16 C16,-18 24,-10 20,0 C24,10 16,18 8,20 C-2,22 -10,14 -12,4 Z" fill="{{c2}}" opacity="0.65" stroke="{{c1}}" stroke-width="1.2" />
+        <circle cx="7" cy="1" r="2.8" fill="{{c1}}" />
+      </g>
+    </g>
+
+    <!-- Left Wing Leaves (Eucalyptus & Rose leaves) -->
+    <g transform="translate(210, 85) rotate(10)">
+      <path d="M0,0 C-18,-16 -40,-12 -46,4 C-32,18 -12,16 0,0 Z" fill="{{c2}}" opacity="0.65" stroke="{{c1}}" stroke-width="1.2" />
+    </g>
+    <g transform="translate(150, 78) rotate(18)">
+      <path d="M0,0 C-16,-16 -36,-10 -40,4 C-28,16 -10,14 0,0 Z" fill="{{c3}}" opacity="0.5" stroke="{{c1}}" stroke-width="1.2" />
+    </g>
+    <g transform="translate(90, 62) rotate(25)">
+      <path d="M0,0 C-14,-14 -32,-8 -36,4 C-24,14 -8,12 0,0 Z" fill="{{c2}}" opacity="0.65" stroke="{{c1}}" stroke-width="1.2" />
+    </g>
+
+    <!-- Right Wing Leaves -->
+    <g transform="translate(390, 85) rotate(-10)">
+      <path d="M0,0 C18,-16 40,-12 46,4 C32,18 12,16 0,0 Z" fill="{{c2}}" opacity="0.65" stroke="{{c1}}" stroke-width="1.2" />
+    </g>
+    <g transform="translate(450, 78) rotate(-18)">
+      <path d="M0,0 C16,-16 36,-10 40,4 C28,16 10,14 0,0 Z" fill="{{c3}}" opacity="0.5" stroke="{{c1}}" stroke-width="1.2" />
+    </g>
+    <g transform="translate(510, 62) rotate(-25)">
+      <path d="M0,0 C14,-14 32,-8 36,4 C24,14 8,12 0,0 Z" fill="{{c2}}" opacity="0.65" stroke="{{c1}}" stroke-width="1.2" />
+    </g>
+
+    <!-- Baby's breath sprigs and berry dots -->
+    <circle cx="230" cy="55" r="3" fill="{{c1}}" />
+    <circle cx="220" cy="45" r="2.2" fill="{{c2}}" stroke="{{c1}}" stroke-width="0.7" />
+    <circle cx="240" cy="42" r="2.5" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.7" />
+
+    <circle cx="370" cy="55" r="3" fill="{{c1}}" />
+    <circle cx="380" cy="45" r="2.2" fill="{{c2}}" stroke="{{c1}}" stroke-width="0.7" />
+    <circle cx="360" cy="42" r="2.5" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.7" />
+  </g>
+</svg>

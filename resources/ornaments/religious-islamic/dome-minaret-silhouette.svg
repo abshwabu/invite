@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 320">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Ground / Base Building Foundation (y=305) -->
+    <line x1="15" y1="305" x2="225" y2="305" stroke="{{c1}}" stroke-width="2.5" />
+    <rect x="25" y="275" width="190" height="30" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="2" />
+
+    <!-- Arched Portal Entrance at Base -->
+    <path d="M100,305 L100,285 C100,278 115,272 115,272 C115,272 130,278 130,285 L130,305 Z" fill="{{c3}}" opacity="0.6" stroke="{{c2}}" stroke-width="1.4" />
+
+    <!-- RIBBED DOME (Left side of composition, center x=90, y=140 to 275) -->
+    <!-- Dome Crescent Finial at Apex (90, 118) -->
+    <g transform="translate(90, 118)">
+      <path d="M0,-8 C-4,-6 -4,0 0,2 C-2,0 -2,-4 0,-8 Z" fill="{{c1}}" stroke="{{c1}}" stroke-width="0.8" />
+      <line x1="0" y1="2" x2="0" y2="12" stroke="{{c1}}" stroke-width="2" />
+      <circle cx="0" cy="6" r="2.5" fill="{{c2}}" />
+    </g>
+
+    <!-- Ribbed Dome Bulb (x=90, y=130 to 205) -->
+    <path d="M35,205 C35,152 65,134 90,130 C115,134 145,152 145,205 Z" fill="{{c2}}" opacity="0.8" stroke="{{c1}}" stroke-width="2.4" />
+
+    <!-- Classical Fluted Rib Profiles -->
+    <path d="M52,205 C52,168 70,142 90,130" stroke="{{c1}}" stroke-width="1.4" />
+    <path d="M128,205 C128,168 110,142 90,130" stroke="{{c1}}" stroke-width="1.4" />
+    <path d="M72,205 C72,174 82,146 90,130" stroke="{{c3}}" stroke-width="1.2" />
+    <path d="M108,205 C108,174 98,146 90,130" stroke="{{c3}}" stroke-width="1.2" />
+    <line x1="90" y1="130" x2="90" y2="205" stroke="{{c1}}" stroke-width="1.6" />
+
+    <!-- Dome Octagonal Drum with Arched Windows (y=205 to 240) -->
+    <rect x="30" y="205" width="120" height="35" fill="{{c1}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.8" />
+    <!-- Drum molding ledge -->
+    <line x1="28" y1="210" x2="152" y2="210" stroke="{{c2}}" stroke-width="1.2" />
+    <!-- Arched Drum Windows -->
+    <path d="M48,232 L48,220 C48,214 54,214 54,220 L54,232 Z" fill="{{c3}}" stroke="{{c2}}" stroke-width="0.9" />
+    <path d="M72,232 L72,220 C72,214 78,214 78,220 L78,232 Z" fill="{{c3}}" stroke="{{c2}}" stroke-width="0.9" />
+    <path d="M96,232 L96,220 C96,214 102,214 102,220 L102,232 Z" fill="{{c3}}" stroke="{{c2}}" stroke-width="0.9" />
+    <path d="M120,232 L120,220 C120,214 126,214 126,220 L126,232 Z" fill="{{c3}}" stroke="{{c2}}" stroke-width="0.9" />
+
+    <!-- Lower Transition Drum (y=240 to 275) -->
+    <rect x="25" y="240" width="130" height="35" fill="{{c2}}" opacity="0.5" stroke="{{c1}}" stroke-width="1.6" />
+    <!-- Cornice frieze decoration -->
+    <line x1="25" y1="244" x2="155" y2="244" stroke="{{c3}}" stroke-width="1" stroke-dasharray="2,2" />
+
+    <!-- SLENDER MINARET (Right side of composition, center x=185, height to y=20) -->
+    <g transform="translate(185, 0)">
+      <!-- Minaret Crescent Finial (185, 12) -->
+      <path d="M0,6 C-3,8 -3,14 0,16 C-1.5,14 -1.5,10 0,6 Z" fill="{{c1}}" stroke="{{c1}}" stroke-width="0.8" />
+      <polygon points="0,16 2.5,24 -2.5,24" fill="{{c1}}" />
+
+      <!-- Conical Spire (Külah: y=24 to 68) -->
+      <polygon points="0,24 6,68 -6,68" fill="{{c1}}" stroke="{{c1}}" stroke-width="1.4" />
+      <line x1="0" y1="24" x2="0" y2="68" stroke="{{c3}}" stroke-width="1" />
+
+      <!-- Upper Balcony (Şerefe 1: y=68 to 82) with Muqarnas corbeling -->
+      <rect x="-10" y="68" width="20" height="6" rx="1.5" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.2" />
+      <polygon points="-10,74 -6,82 6,82 10,74" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+
+      <!-- Upper Minaret Shaft (y=82 to 148) -->
+      <rect x="-6" y="82" width="12" height="66" fill="{{c1}}" opacity="0.95" stroke="{{c1}}" stroke-width="1.6" />
+      <line x1="0" y1="82" x2="0" y2="148" stroke="{{c2}}" stroke-width="1" />
+      <!-- Narrow slit window -->
+      <line x1="0" y1="108" x2="0" y2="120" stroke="{{c3}}" stroke-width="2" />
+
+      <!-- Lower Balcony (Şerefe 2: y=148 to 164) with Muqarnas stalactite corbels -->
+      <rect x="-12" y="148" width="24" height="7" rx="1.5" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.4" />
+      <polygon points="-12,155 -7,164 7,164 12,155" fill="{{c1}}" stroke="{{c1}}" stroke-width="1.2" />
+      <circle cx="-5" cy="158" r="1.2" fill="{{c3}}" />
+      <circle cx="5" cy="158" r="1.2" fill="{{c3}}" />
+
+      <!-- Lower Minaret Shaft (Fluted shaft: y=164 to 260) -->
+      <rect x="-8" y="164" width="16" height="96" fill="{{c1}}" opacity="0.95" stroke="{{c1}}" stroke-width="1.8" />
+      <!-- Fluting channels -->
+      <line x1="-4" y1="164" x2="-4" y2="260" stroke="{{c2}}" stroke-width="1" />
+      <line x1="0" y1="164" x2="0" y2="260" stroke="{{c3}}" stroke-width="1.2" />
+      <line x1="4" y1="164" x2="4" y2="260" stroke="{{c2}}" stroke-width="1" />
+
+      <!-- Arched niche in lower shaft -->
+      <path d="M-3,212 C-3,205 3,205 3,212 L3,228 L-3,228 Z" fill="{{c3}}" stroke="{{c2}}" stroke-width="0.8" />
+
+      <!-- Minaret Base Pedestal (y=260 to 305) -->
+      <polygon points="-8,260 -12,275 12,275 8,260" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.4" />
+      <rect x="-14" y="275" width="28" height="30" fill="{{c1}}" stroke="{{c1}}" stroke-width="1.8" />
+      <rect x="-10" y="280" width="20" height="22" fill="{{c2}}" opacity="0.4" stroke="{{c3}}" stroke-width="1" />
+    </g>
+
+    <!-- Distant Stars and Soft Radiance in Sky -->
+    <circle cx="45" cy="75" r="2" fill="{{c1}}" />
+    <circle cx="140" cy="55" r="1.5" fill="{{c2}}" />
+    <circle cx="160" cy="95" r="1.2" fill="{{c3}}" />
+  </g>
+</svg>

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Center Radiance / Heart of Wings (160, 110) -->
+    <ellipse cx="160" cy="110" rx="36" ry="24" fill="{{c3}}" opacity="0.3" stroke="{{c2}}" stroke-width="0.8" stroke-dasharray="2,3" />
+
+    <!-- Left Wing -->
+    <!-- Base Covert Feathers (c3 shadow) -->
+    <path d="M155,108 C135,100 110,85 85,75 C70,95 85,120 110,135 C130,145 150,135 155,120 Z" fill="{{c3}}" opacity="0.45" stroke="{{c1}}" stroke-width="1.2" />
+
+    <!-- Main Wing Contour and Primary Feathers (Sweep to top left tip at 18, 20) -->
+    <path d="M152,112 C135,80 95,45 18,20 C35,48 52,78 72,110 C86,132 108,150 135,160 C146,164 154,152 152,135 Z" fill="{{c2}}" opacity="0.75" stroke="{{c1}}" stroke-width="2" />
+
+    <!-- Left Wing Feather Tiers / Separation Curves -->
+    <!-- Primary outer feathers -->
+    <path d="M18,20 C36,36 55,60 62,88" stroke="{{c1}}" stroke-width="1.4" />
+    <path d="M30,46 C48,62 68,88 74,114" stroke="{{c1}}" stroke-width="1.3" />
+    <path d="M48,74 C64,90 82,114 88,136" stroke="{{c1}}" stroke-width="1.2" />
+    <path d="M68,102 C82,118 98,136 106,152" stroke="{{c1}}" stroke-width="1.1" />
+
+    <!-- Inner Secondary Covert Feathers (c1 overlay) -->
+    <path d="M152,110 C138,92 115,75 88,68 C76,82 86,104 105,118 C122,130 142,126 150,118 Z" fill="{{c1}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.3" />
+    <path d="M110,72 C100,85 106,102 118,112" stroke="{{c3}}" stroke-width="1" />
+    <path d="M128,82 C120,95 124,108 134,118" stroke="{{c3}}" stroke-width="1" />
+
+    <!-- Right Wing (Mirrored symmetrically) -->
+    <!-- Base Covert Feathers (c3 shadow) -->
+    <path d="M165,108 C185,100 210,85 235,75 C250,95 235,120 210,135 C190,145 170,135 165,120 Z" fill="{{c3}}" opacity="0.45" stroke="{{c1}}" stroke-width="1.2" />
+
+    <!-- Main Wing Contour and Primary Feathers (Sweep to top right tip at 302, 20) -->
+    <path d="M168,112 C185,80 225,45 302,20 C285,48 268,78 248,110 C234,132 212,150 185,160 C174,164 166,152 168,135 Z" fill="{{c2}}" opacity="0.75" stroke="{{c1}}" stroke-width="2" />
+
+    <!-- Right Wing Feather Tiers / Separation Curves -->
+    <path d="M302,20 C284,36 265,60 258,88" stroke="{{c1}}" stroke-width="1.4" />
+    <path d="M290,46 C272,62 252,88 246,114" stroke="{{c1}}" stroke-width="1.3" />
+    <path d="M272,74 C256,90 238,114 232,136" stroke="{{c1}}" stroke-width="1.2" />
+    <path d="M252,102 C238,118 222,136 214,152" stroke="{{c1}}" stroke-width="1.1" />
+
+    <!-- Inner Secondary Covert Feathers (c1 overlay) -->
+    <path d="M168,110 C182,92 205,75 232,68 C244,82 234,104 215,118 C198,130 178,126 170,118 Z" fill="{{c1}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.3" />
+    <path d="M210,72 C220,85 214,102 202,112" stroke="{{c3}}" stroke-width="1" />
+    <path d="M192,82 C200,95 196,108 186,118" stroke="{{c3}}" stroke-width="1" />
+
+    <!-- Center Bridge Medallion -->
+    <polygon points="160,95 166,108 160,122 154,108" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+    <circle cx="160" cy="108" r="2.5" fill="{{c2}}" />
+
+    <!-- Stardust sparkles of peace -->
+    <circle cx="160" cy="75" r="2" fill="{{c1}}" />
+    <circle cx="145" cy="85" r="1.4" fill="{{c2}}" />
+    <circle cx="175" cy="85" r="1.4" fill="{{c2}}" />
+    <circle cx="160" cy="55" r="1.6" fill="{{c3}}" />
+  </g>
+</svg>

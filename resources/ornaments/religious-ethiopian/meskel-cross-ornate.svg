@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 300">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Center Staff Socket Base (120, 240 to 295) -->
+    <path d="M104,248 L96,295 L144,295 L136,248 Z" fill="{{c1}}" opacity="0.95" stroke="{{c1}}" stroke-width="2" />
+    <path d="M108,252 L102,291 L138,291 L132,252 Z" fill="{{c2}}" opacity="0.4" stroke="{{c3}}" stroke-width="1" />
+    <circle cx="120" cy="272" r="4" fill="{{c3}}" stroke="{{c1}}" stroke-width="1.2" />
+
+    <!-- Flared Lower Base Scrolls / Wings -->
+    <path d="M96,268 C76,260 70,282 82,294 C90,298 98,294 98,294" stroke="{{c1}}" stroke-width="2" />
+    <path d="M144,268 C164,260 170,282 158,294 C150,298 142,294 142,294" stroke="{{c1}}" stroke-width="2" />
+
+    <!-- Base Pedestal Rings -->
+    <rect x="94" y="238" width="52" height="12" rx="3" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.8" />
+    <line x1="94" y1="244" x2="146" y2="244" stroke="{{c3}}" stroke-width="1.2" />
+
+    <!-- Meskel Diamond Knotwork Lattice (Center x=120, y=125) -->
+    <!-- Soft radiant halo (c3) -->
+    <circle cx="120" cy="125" r="88" stroke="{{c3}}" stroke-width="0.8" stroke-dasharray="2,3" opacity="0.4" />
+    <circle cx="120" cy="125" r="70" stroke="{{c2}}" stroke-width="1.2" stroke-dasharray="2,2" opacity="0.5" />
+
+    <!-- Central Diamond Core -->
+    <polygon points="120,75 170,125 120,175 70,125" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="2.5" />
+    <polygon points="120,84 161,125 120,166 79,125" fill="{{c2}}" opacity="0.8" stroke="{{c3}}" stroke-width="1.5" />
+    <polygon points="120,95 150,125 120,155 90,125" fill="{{c3}}" opacity="0.5" stroke="{{c1}}" stroke-width="1.2" />
+    <circle cx="120" cy="125" r="7" fill="{{c1}}" stroke="{{c3}}" stroke-width="1" />
+    <circle cx="120" cy="125" r="3" fill="{{c2}}" />
+
+    <!-- Top Arm with Trefoil Blossom Finial (x=120, y=20 to 80) -->
+    <!-- Arm Shaft -->
+    <path d="M106,85 L106,42 L134,42 L134,85 Z" fill="{{c1}}" stroke="{{c1}}" stroke-width="2" />
+    <path d="M110,82 L110,46 L130,46 L130,82 Z" fill="{{c2}}" opacity="0.5" stroke="{{c3}}" stroke-width="1" />
+    <!-- Pierced Window in top arm -->
+    <rect x="114" y="52" width="12" height="22" rx="2" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" />
+    <line x1="114" y1="63" x2="126" y2="63" stroke="{{c1}}" stroke-width="1" />
+
+    <!-- Top Crown Trefoil Finial -->
+    <g transform="translate(120, 42)">
+      <!-- Central Lobed Finial -->
+      <path d="M0,0 C-14,-10 -16,-26 0,-34 C16,-26 14,-10 0,0" fill="{{c2}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.8" />
+      <circle cx="0" cy="-26" r="4.5" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" />
+      <circle cx="0" cy="-38" r="3" fill="{{c1}}" />
+      <!-- Left Bud -->
+      <circle cx="-16" cy="-16" r="5" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+      <circle cx="-16" cy="-16" r="2.5" fill="{{c3}}" />
+      <!-- Right Bud -->
+      <circle cx="16" cy="-16" r="5" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+      <circle cx="16" cy="-16" r="2.5" fill="{{c3}}" />
+    </g>
+
+    <!-- Bottom Arm (x=120, y=170 to 238) -->
+    <path d="M106,168 L106,238 L134,238 L134,168 Z" fill="{{c1}}" stroke="{{c1}}" stroke-width="2" />
+    <path d="M110,172 L110,234 L130,234 L130,172 Z" fill="{{c2}}" opacity="0.5" stroke="{{c3}}" stroke-width="1" />
+    <!-- Pierced Window in bottom arm -->
+    <rect x="114" y="180" width="12" height="30" rx="2" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" />
+    <circle cx="120" cy="195" r="3.5" fill="{{c1}}" />
+
+    <!-- Left Arm with Trefoil Finial (x=24 to 75, y=125) -->
+    <!-- Arm Shaft -->
+    <path d="M80,111 L38,111 L38,139 L80,139 Z" fill="{{c1}}" stroke="{{c1}}" stroke-width="2" />
+    <path d="M78,115 L42,115 L42,135 L78,135 Z" fill="{{c2}}" opacity="0.5" stroke="{{c3}}" stroke-width="1" />
+    <rect x="48" y="119" width="22" height="12" rx="2" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" />
+
+    <!-- Left Trefoil Finial -->
+    <g transform="translate(38, 125) rotate(-90)">
+      <path d="M0,0 C-14,-10 -16,-26 0,-34 C16,-26 14,-10 0,0" fill="{{c2}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.8" />
+      <circle cx="0" cy="-26" r="4.5" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" />
+      <circle cx="0" cy="-38" r="3" fill="{{c1}}" />
+      <circle cx="-16" cy="-16" r="5" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+      <circle cx="16" cy="-16" r="5" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+    </g>
+
+    <!-- Right Arm with Trefoil Finial (x=165 to 216, y=125) -->
+    <!-- Arm Shaft -->
+    <path d="M160,111 L202,111 L202,139 L160,139 Z" fill="{{c1}}" stroke="{{c1}}" stroke-width="2" />
+    <path d="M162,115 L198,115 L198,135 L162,135 Z" fill="{{c2}}" opacity="0.5" stroke="{{c3}}" stroke-width="1" />
+    <rect x="170" y="119" width="22" height="12" rx="2" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" />
+
+    <!-- Right Trefoil Finial -->
+    <g transform="translate(202, 125) rotate(90)">
+      <path d="M0,0 C-14,-10 -16,-26 0,-34 C16,-26 14,-10 0,0" fill="{{c2}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.8" />
+      <circle cx="0" cy="-26" r="4.5" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" />
+      <circle cx="0" cy="-38" r="3" fill="{{c1}}" />
+      <circle cx="-16" cy="-16" r="5" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+      <circle cx="16" cy="-16" r="5" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+    </g>
+
+    <!-- 4 Diagonal Openwork Knot Rings (Interlocking corners between arms) -->
+    <!-- Top-Left Ring -->
+    <circle cx="78" cy="83" r="14" stroke="{{c1}}" stroke-width="1.8" />
+    <circle cx="78" cy="83" r="7" fill="{{c3}}" opacity="0.6" stroke="{{c2}}" stroke-width="1" />
+    <!-- Top-Right Ring -->
+    <circle cx="162" cy="83" r="14" stroke="{{c1}}" stroke-width="1.8" />
+    <circle cx="162" cy="83" r="7" fill="{{c3}}" opacity="0.6" stroke="{{c2}}" stroke-width="1" />
+    <!-- Bottom-Left Ring -->
+    <circle cx="78" cy="167" r="14" stroke="{{c1}}" stroke-width="1.8" />
+    <circle cx="78" cy="167" r="7" fill="{{c3}}" opacity="0.6" stroke="{{c2}}" stroke-width="1" />
+    <!-- Bottom-Right Ring -->
+    <circle cx="162" cy="167" r="14" stroke="{{c1}}" stroke-width="1.8" />
+    <circle cx="162" cy="167" r="7" fill="{{c3}}" opacity="0.6" stroke="{{c2}}" stroke-width="1" />
+  </g>
+</svg>

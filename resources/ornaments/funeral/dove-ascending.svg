@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Heavenly soft radiance halo behind ascending dove (c3) -->
+    <ellipse cx="110" cy="95" rx="65" ry="50" fill="{{c3}}" opacity="0.25" stroke="{{c2}}" stroke-width="0.8" stroke-dasharray="2,4" />
+
+    <!-- Distant Left Wing (c3/c2 shadow) -->
+    <g>
+      <!-- Background primary wing feathers -->
+      <path d="M95,115 C90,80 70,50 45,35 C52,55 58,78 68,98 C76,112 88,120 95,125" fill="{{c3}}" opacity="0.6" stroke="{{c1}}" stroke-width="1.2" />
+      <!-- Feather separations -->
+      <path d="M45,35 C55,42 62,55 60,65" stroke="{{c1}}" stroke-width="0.9" />
+      <path d="M52,55 C60,65 68,76 66,86" stroke="{{c1}}" stroke-width="0.9" />
+      <path d="M60,75 C68,85 76,96 74,106" stroke="{{c1}}" stroke-width="0.9" />
+    </g>
+
+    <!-- Dove Body and Head (Ascending upward at ~45 deg) -->
+    <path d="M88,145 C95,142 108,130 114,115 C118,102 120,85 125,72 C128,64 134,58 142,56 C148,55 152,58 152,62 C152,66 148,72 142,78 C136,85 130,96 128,110 C125,128 116,145 102,156 C94,162 86,164 82,160 C80,154 82,148 88,145 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.8" />
+
+    <!-- Dove Eye and Beak -->
+    <polygon points="152,60 162,58 154,64" fill="{{c2}}" stroke="{{c1}}" stroke-width="0.8" />
+    <circle cx="144" cy="62" r="1.6" fill="{{c3}}" />
+
+    <!-- Near Right Wing (Spreading triumphantly upward to upper right) -->
+    <g>
+      <!-- Wing main body (c2) -->
+      <path d="M115,110 C125,80 145,45 178,25 C168,52 155,80 138,105 C130,118 122,122 115,120 Z" fill="{{c2}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.5" />
+      <!-- Overlapping inner wing covert feathers (c1/c3) -->
+      <path d="M118,110 C125,92 136,70 155,54 C150,72 142,92 130,110 Z" fill="{{c1}}" opacity="0.3" stroke="{{c1}}" stroke-width="1.1" />
+
+      <!-- Flight feather ribs and tips -->
+      <path d="M178,25 C170,38 162,52 165,65" stroke="{{c1}}" stroke-width="1" />
+      <path d="M168,48 C160,60 152,74 155,85" stroke="{{c1}}" stroke-width="1" />
+      <path d="M158,68 C150,80 142,94 144,104" stroke="{{c1}}" stroke-width="1" />
+      <path d="M148,88 C142,98 136,108 136,115" stroke="{{c1}}" stroke-width="1" />
+    </g>
+
+    <!-- Tail Feathers (Fanning downward softly) -->
+    <g>
+      <path d="M85,155 C70,172 52,192 36,202 C48,190 62,176 74,164 Z" fill="{{c2}}" opacity="0.7" stroke="{{c1}}" stroke-width="1.2" />
+      <path d="M88,158 C78,176 65,198 52,210 C62,196 74,180 82,166 Z" fill="{{c1}}" opacity="0.8" stroke="{{c1}}" stroke-width="1.2" />
+      <path d="M92,160 C86,178 78,202 70,214 C78,198 86,182 92,168 Z" fill="{{c3}}" opacity="0.6" stroke="{{c1}}" stroke-width="1.2" />
+    </g>
+
+    <!-- Gentle upward rays / stardust -->
+    <circle cx="168" cy="40" r="1.5" fill="{{c2}}" />
+    <circle cx="178" cy="58" r="1.2" fill="{{c1}}" />
+    <circle cx="158" cy="18" r="1.8" fill="{{c2}}" />
+    <circle cx="140" cy="22" r="1.3" fill="{{c3}}" />
+  </g>
+</svg>

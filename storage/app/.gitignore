@@ -1,4 +1,6 @@
 *
 !private/
 !public/
+!ornament-sheets/
+!ornament-sheets/**
 !.gitignore

@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 160">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Ground line / baseline -->
+    <line x1="10" y1="152" x2="390" y2="152" stroke="{{c1}}" stroke-width="2.5" />
+    <line x1="10" y1="156" x2="390" y2="156" stroke="{{c2}}" stroke-width="1.2" />
+
+    <!-- Distant Background Domes / Minarets (c3 soft silhouette) -->
+    <path d="M120,152 L120,105 C120,75 140,55 160,52 C180,55 200,75 200,105 L200,152 Z" fill="{{c3}}" opacity="0.35" />
+    <path d="M200,152 L200,105 C200,75 220,55 240,52 C260,55 280,75 280,105 L280,152 Z" fill="{{c3}}" opacity="0.35" />
+
+    <!-- Left Minaret (Slender tower at x=45, height to y=20) -->
+    <g transform="translate(45, 0)">
+      <!-- Minaret Crescent Finial -->
+      <path d="M0,8 C-4,10 -4,15 0,16 C-2,14 -2,11 0,8 Z" fill="{{c1}}" stroke="{{c1}}" stroke-width="0.8" />
+      <polygon points="0,16 3,25 -3,25" fill="{{c1}}" />
+      <!-- Top Balcony & Spire (Muezzin gallery) -->
+      <path d="M-6,25 L6,25 L8,42 L-8,42 Z" fill="{{c2}}" opacity="0.8" stroke="{{c1}}" stroke-width="1.2" />
+      <rect x="-10" y="42" width="20" height="5" rx="1.5" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+      <!-- Upper Shaft -->
+      <path d="M-7,47 L7,47 L8,85 L-8,85 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.4" />
+      <!-- Mid Balcony -->
+      <rect x="-11" y="85" width="22" height="6" rx="1.5" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.2" />
+      <!-- Lower Shaft with arched windows -->
+      <path d="M-9,91 L9,91 L10,152 L-10,152 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.6" />
+      <!-- Arched windows in tower -->
+      <path d="M-3,62 C-3,56 3,56 3,62 L3,72 L-3,72 Z" fill="{{c3}}" stroke="{{c2}}" stroke-width="0.8" />
+      <path d="M-3,110 C-3,104 3,104 3,110 L3,124 L-3,124 Z" fill="{{c3}}" stroke="{{c2}}" stroke-width="0.8" />
+    </g>
+
+    <!-- Right Minaret (Slender tower at x=355, height to y=20) -->
+    <g transform="translate(355, 0)">
+      <!-- Minaret Crescent Finial -->
+      <path d="M0,8 C4,10 4,15 0,16 C2,14 2,11 0,8 Z" fill="{{c1}}" stroke="{{c1}}" stroke-width="0.8" />
+      <polygon points="0,16 3,25 -3,25" fill="{{c1}}" />
+      <!-- Top Balcony & Spire -->
+      <path d="M-6,25 L6,25 L8,42 L-8,42 Z" fill="{{c2}}" opacity="0.8" stroke="{{c1}}" stroke-width="1.2" />
+      <rect x="-10" y="42" width="20" height="5" rx="1.5" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+      <!-- Upper Shaft -->
+      <path d="M-7,47 L7,47 L8,85 L-8,85 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.4" />
+      <!-- Mid Balcony -->
+      <rect x="-11" y="85" width="22" height="6" rx="1.5" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.2" />
+      <!-- Lower Shaft with arched windows -->
+      <path d="M-9,91 L9,91 L10,152 L-10,152 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.6" />
+      <!-- Arched windows in tower -->
+      <path d="M-3,62 C-3,56 3,56 3,62 L3,72 L-3,72 Z" fill="{{c3}}" stroke="{{c2}}" stroke-width="0.8" />
+      <path d="M-3,110 C-3,104 3,104 3,110 L3,124 L-3,124 Z" fill="{{c3}}" stroke="{{c2}}" stroke-width="0.8" />
+    </g>
+
+    <!-- Left Semi-Dome (x=115, y=75 to 152) -->
+    <g transform="translate(115, 0)">
+      <!-- Spire -->
+      <line x1="0" y1="62" x2="0" y2="72" stroke="{{c1}}" stroke-width="1.5" />
+      <circle cx="0" cy="60" r="2.5" fill="{{c2}}" />
+      <!-- Dome Bulb -->
+      <path d="M-36,115 C-36,82 -18,72 0,70 C18,72 36,82 36,115 Z" fill="{{c2}}" opacity="0.75" stroke="{{c1}}" stroke-width="1.8" />
+      <!-- Drum & Arches -->
+      <rect x="-38" y="115" width="76" height="37" fill="{{c1}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.5" />
+    </g>
+
+    <!-- Right Semi-Dome (x=285, y=75 to 152) -->
+    <g transform="translate(285, 0)">
+      <!-- Spire -->
+      <line x1="0" y1="62" x2="0" y2="72" stroke="{{c1}}" stroke-width="1.5" />
+      <circle cx="0" cy="60" r="2.5" fill="{{c2}}" />
+      <!-- Dome Bulb -->
+      <path d="M-36,115 C-36,82 -18,72 0,70 C18,72 36,82 36,115 Z" fill="{{c2}}" opacity="0.75" stroke="{{c1}}" stroke-width="1.8" />
+      <!-- Drum & Arches -->
+      <rect x="-38" y="115" width="76" height="37" fill="{{c1}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.5" />
+    </g>
+
+    <!-- Central Grand Dome (Center x=200, Peak at y=32) -->
+    <!-- Grand Crescent Finial at Apex -->
+    <g transform="translate(200, 22)">
+      <path d="M0,0 C-5,3 -5,9 0,10 C-3,8 -3,4 0,0 Z" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+      <line x1="0" y1="10" x2="0" y2="20" stroke="{{c1}}" stroke-width="2" />
+      <circle cx="0" cy="15" r="3" fill="{{c2}}" />
+    </g>
+
+    <!-- Grand Dome Bulb (x=200, y=42 to 95) -->
+    <path d="M140,95 C140,55 170,42 200,40 C230,42 260,55 260,95 Z" fill="{{c1}}" opacity="0.95" stroke="{{c1}}" stroke-width="2.5" />
+    <!-- Fluted Rib Lines on Grand Dome -->
+    <path d="M170,95 C170,68 185,46 200,40" stroke="{{c3}}" stroke-width="1.2" opacity="0.8" />
+    <path d="M230,95 C230,68 215,46 200,40" stroke="{{c3}}" stroke-width="1.2" opacity="0.8" />
+    <line x1="200" y1="40" x2="200" y2="95" stroke="{{c2}}" stroke-width="1.5" />
+
+    <!-- Dome Drum & Cornice (y=95 to 110) -->
+    <rect x="136" y="95" width="128" height="15" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.8" />
+    <!-- Drum Windows -->
+    <circle cx="160" cy="102" r="3" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.8" />
+    <circle cx="180" cy="102" r="3" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.8" />
+    <circle cx="200" cy="102" r="3" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.8" />
+    <circle cx="220" cy="102" r="3" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.8" />
+    <circle cx="240" cy="102" r="3" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.8" />
+
+    <!-- Main Mosque Facade & Arched Colonnade (y=110 to 152) -->
+    <rect x="75" y="110" width="250" height="42" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="2" />
+
+    <!-- Grand Center Portal Arch (Iwan at x=200, y=110 to 152) -->
+    <path d="M182,152 L182,128 C182,118 200,112 200,112 C200,112 218,118 218,128 L218,152 Z" fill="{{c3}}" opacity="0.6" stroke="{{c2}}" stroke-width="1.6" />
+
+    <!-- Side Colonnade Arches -->
+    <path d="M92,152 L92,135 C92,126 104,126 104,135 L104,152" fill="{{c2}}" opacity="0.4" stroke="{{c3}}" stroke-width="1.2" />
+    <path d="M116,152 L116,135 C116,126 128,126 128,135 L128,152" fill="{{c2}}" opacity="0.4" stroke="{{c3}}" stroke-width="1.2" />
+    <path d="M140,152 L140,135 C140,126 152,126 152,135 L152,152" fill="{{c2}}" opacity="0.4" stroke="{{c3}}" stroke-width="1.2" />
+    <path d="M162,152 L162,135 C162,126 174,126 174,135 L174,152" fill="{{c2}}" opacity="0.4" stroke="{{c3}}" stroke-width="1.2" />
+
+    <path d="M226,152 L226,135 C226,126 238,126 238,135 L238,152" fill="{{c2}}" opacity="0.4" stroke="{{c3}}" stroke-width="1.2" />
+    <path d="M248,152 L248,135 C248,126 260,126 260,135 L260,152" fill="{{c2}}" opacity="0.4" stroke="{{c3}}" stroke-width="1.2" />
+    <path d="M272,152 L272,135 C272,126 284,126 284,135 L284,152" fill="{{c2}}" opacity="0.4" stroke="{{c3}}" stroke-width="1.2" />
+    <path d="M296,152 L296,135 C296,126 308,126 308,135 L308,152" fill="{{c2}}" opacity="0.4" stroke="{{c3}}" stroke-width="1.2" />
+
+    <!-- Evening Stardust Sparkles in the sky above -->
+    <circle cx="100" cy="35" r="1.8" fill="{{c1}}" />
+    <circle cx="140" cy="25" r="1.4" fill="{{c2}}" />
+    <circle cx="260" cy="25" r="1.4" fill="{{c2}}" />
+    <circle cx="300" cy="35" r="1.8" fill="{{c1}}" />
+  </g>
+</svg>

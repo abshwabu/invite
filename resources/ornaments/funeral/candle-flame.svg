@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 240">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Radiant flame aura rings (c3, c2) -->
+    <circle cx="70" cy="58" r="38" stroke="{{c3}}" stroke-width="0.8" stroke-dasharray="2,3" opacity="0.4" />
+    <circle cx="70" cy="58" r="26" stroke="{{c2}}" stroke-width="1" stroke-dasharray="2,2" opacity="0.5" />
+    <circle cx="70" cy="58" r="16" fill="{{c3}}" opacity="0.25" />
+
+    <!-- Outer flame glow teardrop (c2) -->
+    <path d="M70,22 C60,40 54,55 58,68 C62,80 78,80 82,68 C86,55 80,40 70,22 Z" fill="{{c2}}" opacity="0.75" stroke="{{c1}}" stroke-width="1.2" />
+
+    <!-- Inner hot flame core (c1 main) -->
+    <path d="M70,36 C64,48 62,58 65,66 C67,73 73,73 75,66 C78,58 76,48 70,36 Z" fill="{{c1}}" opacity="0.9" />
+    <!-- Brightest white/c3 center seed -->
+    <ellipse cx="70" cy="64" rx="3" ry="5" fill="{{c3}}" />
+
+    <!-- Candle Wick -->
+    <path d="M70,72 C71,76 68,80 70,86" stroke="{{c1}}" stroke-width="1.8" />
+
+    <!-- Candle Body (Pillar wax) -->
+    <!-- Top melted rim -->
+    <ellipse cx="70" cy="88" rx="24" ry="6" fill="{{c3}}" opacity="0.5" stroke="{{c1}}" stroke-width="1.6" />
+    <!-- Candle sides -->
+    <path d="M46,88 L46,180 C46,186 94,186 94,180 L94,88" stroke="{{c1}}" stroke-width="1.8" />
+    <path d="M48,90 L48,178 C52,183 88,183 92,178 L92,90 Z" fill="{{c2}}" opacity="0.18" />
+
+    <!-- Wax drip details -->
+    <!-- Drip 1 (left side) -->
+    <path d="M52,89 C52,105 48,118 52,122 C56,126 58,112 56,89" fill="{{c3}}" opacity="0.7" stroke="{{c1}}" stroke-width="1" />
+    <!-- Drip 2 (center) -->
+    <path d="M68,91 C68,102 65,110 68,114 C71,116 73,106 72,91" fill="{{c3}}" opacity="0.6" stroke="{{c1}}" stroke-width="0.9" />
+    <!-- Drip 3 (right side) -->
+    <path d="M84,89 C84,106 88,124 84,130 C80,134 80,115 82,89" fill="{{c3}}" opacity="0.7" stroke="{{c1}}" stroke-width="1" />
+
+    <!-- Base Holder / Candlestick Tray (180 to 225) -->
+    <!-- Upper holder collar -->
+    <ellipse cx="70" cy="180" rx="30" ry="7" fill="{{c2}}" opacity="0.6" stroke="{{c1}}" stroke-width="1.6" />
+    <path d="M44,182 C44,195 56,202 70,202 C84,202 96,195 96,182" stroke="{{c1}}" stroke-width="1.5" />
+
+    <!-- Candlestick Stem & Pedestal Base -->
+    <path d="M64,202 L62,216 L78,216 L76,202 Z" fill="{{c1}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.2" />
+    <!-- Wide rim pedestal foot -->
+    <ellipse cx="70" cy="220" rx="42" ry="9" fill="{{c3}}" opacity="0.4" stroke="{{c1}}" stroke-width="2" />
+    <ellipse cx="70" cy="220" rx="34" ry="6" stroke="{{c2}}" stroke-width="1" />
+    <path d="M28,220 C28,226 46,232 70,232 C94,232 112,226 112,220" stroke="{{c1}}" stroke-width="1.6" />
+  </g>
+</svg>

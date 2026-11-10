@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 280">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Top Hanging Loop (100, 15) -->
+    <circle cx="100" cy="18" r="6" stroke="{{c1}}" stroke-width="2" />
+    <circle cx="100" cy="18" r="2.5" fill="{{c2}}" />
+
+    <!-- Ornate Crescent Moon (Embracing the lantern suspension) -->
+    <!-- Arc sweeping from (100, 24) down around the left to (100, 160) -->
+    <path d="M100,24 C60,32 35,70 35,110 C35,148 58,178 95,188 C70,175 52,146 52,110 C52,74 72,42 100,24 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="2" />
+    <path d="M92,34 C64,44 46,75 46,110 C46,145 62,168 85,178 C68,168 56,142 56,110 C56,78 72,50 92,34 Z" fill="{{c2}}" opacity="0.6" stroke="{{c3}}" stroke-width="0.8" />
+
+    <!-- Crescent Tip Finials -->
+    <circle cx="100" cy="24" r="2.5" fill="{{c3}}" />
+    <circle cx="95" cy="188" r="2.5" fill="{{c3}}" />
+
+    <!-- Hanging Chain from top loop to lantern (x=100, y=24 to 85) -->
+    <line x1="100" y1="24" x2="100" y2="85" stroke="{{c1}}" stroke-width="1.8" />
+    <circle cx="100" cy="38" r="2.2" fill="{{c2}}" />
+    <circle cx="100" cy="52" r="2.2" fill="{{c2}}" />
+    <circle cx="100" cy="66" r="2.2" fill="{{c2}}" />
+    <circle cx="100" cy="80" r="2.2" fill="{{c2}}" />
+
+    <!-- Fanous Lantern (Center x=100, y=85 to 255) -->
+    <!-- Suspension Ring & Spire -->
+    <polygon points="100,75 106,85 94,85" fill="{{c1}}" stroke="{{c1}}" stroke-width="1.2" />
+    <circle cx="100" cy="74" r="3" fill="{{c2}}" stroke="{{c1}}" stroke-width="1" />
+
+    <!-- Lantern Dome / Canopy (Ogee cupola: y=85 to 125) -->
+    <path d="M72,125 C74,102 88,88 100,85 C112,88 126,102 128,125 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="2" />
+    <path d="M76,123 C78,105 89,94 100,90 C111,94 122,105 124,123 Z" fill="{{c2}}" opacity="0.5" stroke="{{c3}}" stroke-width="1" />
+    <!-- Pierced ventilation holes on canopy -->
+    <circle cx="100" cy="106" r="3.2" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.8" />
+    <circle cx="88" cy="115" r="2.2" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.8" />
+    <circle cx="112" cy="115" r="2.2" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.8" />
+
+    <!-- Canopy Eaves Rim -->
+    <rect x="68" y="125" width="64" height="8" rx="2" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.6" />
+    <line x1="68" y1="129" x2="132" y2="129" stroke="{{c3}}" stroke-width="1" />
+
+    <!-- Lantern Glass Chamber (Tapered hexagonal body: y=133 to 215) -->
+    <!-- Soft glowing interior fill (c3/c2) -->
+    <polygon points="72,133 60,195 72,215 128,215 140,195 128,133" fill="{{c3}}" opacity="0.3" stroke="{{c1}}" stroke-width="2" />
+
+    <!-- Glass Pane Divider Struts -->
+    <line x1="88" y1="133" x2="82" y2="215" stroke="{{c1}}" stroke-width="1.6" />
+    <line x1="112" y1="133" x2="118" y2="215" stroke="{{c1}}" stroke-width="1.6" />
+
+    <!-- Pierced Arabesque Lattice on Center Glass Pane -->
+    <g stroke="{{c2}}" stroke-width="1" opacity="0.8">
+      <path d="M88,155 C100,145 100,145 112,155" />
+      <path d="M88,185 C100,195 100,195 112,185" />
+      <circle cx="100" cy="170" r="10" stroke="{{c1}}" stroke-width="1.2" />
+    </g>
+
+    <!-- Glowing Flame Core Inside Glass (100, 172) -->
+    <ellipse cx="100" cy="172" rx="16" ry="24" fill="{{c2}}" opacity="0.4" />
+    <!-- Teardrop flame -->
+    <path d="M100,154 C95,166 94,175 97,180 C100,184 103,180 106,175 C106,166 102,154 100,154 Z" fill="{{c1}}" />
+    <circle cx="100" cy="176" r="2.5" fill="{{c3}}" />
+
+    <!-- Lantern Base / Bottom Tray (y=215 to 235) -->
+    <rect x="68" y="215" width="64" height="10" rx="2" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.6" />
+    <!-- Stepped base apron -->
+    <polygon points="74,225 82,238 118,238 126,225" fill="{{c1}}" stroke="{{c1}}" stroke-width="1.5" />
+
+    <!-- Bottom Tassel / Drop Finial -->
+    <path d="M96,238 L100,252 L104,238 Z" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+    <circle cx="100" cy="256" r="3.2" fill="{{c2}}" stroke="{{c1}}" stroke-width="1" />
+    <line x1="100" y1="260" x2="100" y2="268" stroke="{{c3}}" stroke-width="1.5" />
+
+    <!-- Sparkle Stars of Light -->
+    <path d="M142,88 L143.5,84 L145,88 L149,89.5 L145,91 L143.5,95 L142,91 L138,89.5 Z" fill="{{c1}}" />
+    <circle cx="148" cy="135" r="2" fill="{{c2}}" />
+    <circle cx="156" cy="175" r="1.6" fill="{{c1}}" />
+    <circle cx="58" cy="80" r="1.8" fill="{{c2}}" />
+  </g>
+</svg>

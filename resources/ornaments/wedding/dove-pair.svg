@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Center Drooping Garland Ribbon held in beaks -->
+    <path d="M125,75 C145,115 175,115 195,75" stroke="{{c1}}" stroke-width="2" />
+    <path d="M125,82 C145,122 175,122 195,82" stroke="{{c3}}" stroke-width="1.2" opacity="0.6" stroke-dasharray="2,2" />
+    <!-- Center Ribbon Bow -->
+    <circle cx="160" cy="115" r="4" fill="{{c2}}" stroke="{{c1}}" stroke-width="1" />
+    <path d="M160,118 C155,130 150,140 145,145" stroke="{{c1}}" stroke-width="1.5" />
+    <path d="M160,118 C165,130 170,140 175,145" stroke="{{c1}}" stroke-width="1.5" />
+
+    <!-- Left Dove (Facing Right) -->
+    <g transform="translate(85, 95)">
+      <!-- Wing Upraised -->
+      <path d="M-5,-10 C-15,-45 10,-60 25,-40 C15,-30 8,-20 6,-8 Z" fill="{{c2}}" opacity="0.65" stroke="{{c1}}" stroke-width="1.5" />
+      <path d="M5,-20 C2,-36 20,-48 30,-32" stroke="{{c3}}" stroke-width="1.2" />
+      <!-- Body & Tail -->
+      <path d="M35,-20 C42,-20 46,-15 40,-10 C34,-5 20,15 -10,18 C-30,20 -55,10 -65,0 C-50,-2 -30,-5 -15,-10 C-5,-14 15,-20 35,-20 Z" fill="{{c3}}" opacity="0.4" stroke="{{c1}}" stroke-width="1.6" />
+      <!-- Tail Feathers -->
+      <path d="M-65,0 C-75,15 -55,25 -45,18" stroke="{{c1}}" stroke-width="1.4" />
+      <path d="M-60,5 C-70,22 -50,30 -40,20" stroke="{{c2}}" stroke-width="1.2" />
+      <!-- Head & Beak -->
+      <circle cx="36" cy="-17" r="8" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5" />
+      <circle cx="38" cy="-18" r="1.5" fill="{{c1}}" />
+      <polygon points="43,-18 50,-15 43,-14" fill="{{c1}}" />
+    </g>
+
+    <!-- Right Dove (Facing Left - Mirrored) -->
+    <g transform="translate(235, 95)">
+      <!-- Wing Upraised -->
+      <path d="M5,-10 C15,-45 -10,-60 -25,-40 C-15,-30 -8,-20 -6,-8 Z" fill="{{c2}}" opacity="0.65" stroke="{{c1}}" stroke-width="1.5" />
+      <path d="M-5,-20 C-2,-36 -20,-48 -30,-32" stroke="{{c3}}" stroke-width="1.2" />
+      <!-- Body & Tail -->
+      <path d="M-35,-20 C-42,-20 -46,-15 -40,-10 C-34,-5 -20,15 10,18 C30,20 55,10 65,0 C50,-2 30,-5 15,-10 C5,-14 -15,-20 -35,-20 Z" fill="{{c3}}" opacity="0.4" stroke="{{c1}}" stroke-width="1.6" />
+      <!-- Tail Feathers -->
+      <path d="M65,0 C75,15 55,25 45,18" stroke="{{c1}}" stroke-width="1.4" />
+      <path d="M60,5 C70,22 50,30 40,20" stroke="{{c2}}" stroke-width="1.2" />
+      <!-- Head & Beak -->
+      <circle cx="-36" cy="-17" r="8" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5" />
+      <circle cx="-38" cy="-18" r="1.5" fill="{{c1}}" />
+      <polygon points="-43,-18 -50,-15 -43,-14" fill="{{c1}}" />
+    </g>
+  </g>
+</svg>

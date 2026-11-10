@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 240">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Center bottom ribbon bow and knot -->
+    <g transform="translate(150, 215)">
+      <!-- Ribbon streamers -->
+      <path d="M-6,8 C-16,18 -32,22 -44,20 C-36,14 -22,12 -12,4" fill="{{c2}}" opacity="0.7" stroke="{{c1}}" stroke-width="1.2" />
+      <path d="M6,8 C16,18 32,22 44,20 C36,14 22,12 12,4" fill="{{c2}}" opacity="0.7" stroke="{{c1}}" stroke-width="1.2" />
+      <!-- Ribbon loops -->
+      <path d="M0,0 C-12,-16 -30,-12 -32,0 C-32,10 -16,12 0,4 Z" fill="{{c1}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.3" />
+      <path d="M0,0 C12,-16 30,-12 32,0 C32,10 16,12 0,4 Z" fill="{{c1}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.3" />
+      <!-- Bow inner folds (c3) -->
+      <path d="M-4,-2 C-12,-10 -22,-6 -22,0 C-22,6 -12,6 -4,2 Z" fill="{{c3}}" opacity="0.5" />
+      <path d="M4,-2 C12,-10 22,-6 22,0 C22,6 12,6 4,2 Z" fill="{{c3}}" opacity="0.5" />
+      <!-- Center knot -->
+      <circle cx="0" cy="2" r="5" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+      <circle cx="-1" cy="1" r="2.5" fill="{{c2}}" />
+    </g>
+
+    <!-- Left laurel branch main stem -->
+    <path d="M142,212 C100,210 40,175 35,115 C30,65 75,25 125,18" stroke="{{c1}}" stroke-width="2.5" />
+    <path d="M140,215 C102,214 46,182 42,125 C38,80 80,36 120,24" stroke="{{c2}}" stroke-width="1" opacity="0.6" stroke-dasharray="2,3" />
+
+    <!-- Left branch leaves (curved pairs along the stem) -->
+    <!-- Pair 1: near bottom -->
+    <g transform="translate(118, 205) rotate(165)">
+      <path d="M0,0 C12,-10 28,-6 32,6 C22,12 10,10 0,0 Z" fill="{{c2}}" opacity="0.75" stroke="{{c1}}" stroke-width="1.1" />
+      <path d="M0,0 C12,-1 22,2 32,6" stroke="{{c1}}" stroke-width="0.7" />
+    </g>
+    <g transform="translate(105, 195) rotate(-160)">
+      <path d="M0,0 C14,-10 30,-6 34,6 C22,12 10,8 0,0 Z" fill="{{c3}}" opacity="0.55" stroke="{{c1}}" stroke-width="1.1" />
+    </g>
+
+    <!-- Pair 2: lower curve -->
+    <g transform="translate(75, 180) rotate(140)">
+      <path d="M0,0 C15,-12 32,-8 36,6 C24,14 10,10 0,0 Z" fill="{{c2}}" opacity="0.75" stroke="{{c1}}" stroke-width="1.1" />
+      <path d="M0,0 C14,-1 24,2 36,6" stroke="{{c1}}" stroke-width="0.7" />
+    </g>
+    <g transform="translate(62, 160) rotate(-145)">
+      <path d="M0,0 C15,-12 32,-8 36,6 C24,14 10,10 0,0 Z" fill="{{c1}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.1" />
+    </g>
+
+    <!-- Pair 3: mid curve -->
+    <g transform="translate(42, 130) rotate(115)">
+      <path d="M0,0 C15,-12 32,-8 36,6 C24,14 10,10 0,0 Z" fill="{{c2}}" opacity="0.75" stroke="{{c1}}" stroke-width="1.1" />
+      <path d="M0,0 C14,-1 24,2 36,6" stroke="{{c1}}" stroke-width="0.7" />
+    </g>
+    <g transform="translate(38, 105) rotate(-120)">
+      <path d="M0,0 C15,-12 32,-8 36,6 C24,14 10,10 0,0 Z" fill="{{c3}}" opacity="0.55" stroke="{{c1}}" stroke-width="1.1" />
+    </g>
+
+    <!-- Pair 4: upper curve -->
+    <g transform="translate(46, 75) rotate(70)">
+      <path d="M0,0 C15,-12 32,-8 36,6 C24,14 10,10 0,0 Z" fill="{{c1}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.1" />
+      <path d="M0,0 C14,-1 24,2 36,6" stroke="{{c3}}" stroke-width="0.7" />
+    </g>
+    <g transform="translate(60, 52) rotate(-75)">
+      <path d="M0,0 C15,-12 32,-8 36,6 C24,14 10,10 0,0 Z" fill="{{c2}}" opacity="0.75" stroke="{{c1}}" stroke-width="1.1" />
+    </g>
+
+    <!-- Pair 5: top curve -->
+    <g transform="translate(85, 34) rotate(40)">
+      <path d="M0,0 C14,-10 30,-6 34,6 C22,12 10,8 0,0 Z" fill="{{c2}}" opacity="0.75" stroke="{{c1}}" stroke-width="1.1" />
+    </g>
+    <g transform="translate(108, 22) rotate(-35)">
+      <path d="M0,0 C14,-10 30,-6 34,6 C22,12 10,8 0,0 Z" fill="{{c1}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.1" />
+    </g>
+    <!-- Left tip terminal leaf -->
+    <g transform="translate(125, 18) rotate(5)">
+      <path d="M0,0 C12,-8 25,-4 28,4 C18,10 8,6 0,0 Z" fill="{{c3}}" opacity="0.6" stroke="{{c1}}" stroke-width="1.1" />
+    </g>
+
+    <!-- Left berries -->
+    <circle cx="88" cy="188" r="3.2" fill="{{c1}}" />
+    <circle cx="82" cy="194" r="2.4" fill="{{c2}}" />
+    <circle cx="44" cy="142" r="3" fill="{{c1}}" />
+    <circle cx="50" cy="90" r="3.2" fill="{{c2}}" />
+    <circle cx="75" cy="46" r="3" fill="{{c1}}" />
+
+    <!-- Right laurel branch main stem -->
+    <path d="M158,212 C200,210 260,175 265,115 C270,65 225,25 175,18" stroke="{{c1}}" stroke-width="2.5" />
+    <path d="M160,215 C198,214 254,182 258,125 C262,80 220,36 180,24" stroke="{{c2}}" stroke-width="1" opacity="0.6" stroke-dasharray="2,3" />
+
+    <!-- Right branch leaves (symmetrical mirrored) -->
+    <!-- Pair 1 -->
+    <g transform="translate(182, 205) rotate(15)">
+      <path d="M0,0 C-12,-10 -28,-6 -32,6 C-22,12 -10,10 0,0 Z" fill="{{c2}}" opacity="0.75" stroke="{{c1}}" stroke-width="1.1" />
+      <path d="M0,0 C-12,-1 -22,2 -32,6" stroke="{{c1}}" stroke-width="0.7" />
+    </g>
+    <g transform="translate(195, 195) rotate(-20)">
+      <path d="M0,0 C-14,-10 -30,-6 -34,6 C-22,12 -10,8 0,0 Z" fill="{{c3}}" opacity="0.55" stroke="{{c1}}" stroke-width="1.1" />
+    </g>
+
+    <!-- Pair 2 -->
+    <g transform="translate(225, 180) rotate(40)">
+      <path d="M0,0 C-15,-12 -32,-8 -36,6 C-24,14 -10,10 0,0 Z" fill="{{c2}}" opacity="0.75" stroke="{{c1}}" stroke-width="1.1" />
+      <path d="M0,0 C-14,-1 -24,2 -36,6" stroke="{{c1}}" stroke-width="0.7" />
+    </g>
+    <g transform="translate(238, 160) rotate(-35)">
+      <path d="M0,0 C-15,-12 -32,-8 -36,6 C-24,14 -10,10 0,0 Z" fill="{{c1}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.1" />
+    </g>
+
+    <!-- Pair 3 -->
+    <g transform="translate(258, 130) rotate(65)">
+      <path d="M0,0 C-15,-12 -32,-8 -36,6 C-24,14 -10,10 0,0 Z" fill="{{c2}}" opacity="0.75" stroke="{{c1}}" stroke-width="1.1" />
+      <path d="M0,0 C-14,-1 -24,2 -36,6" stroke="{{c1}}" stroke-width="0.7" />
+    </g>
+    <g transform="translate(262, 105) rotate(-60)">
+      <path d="M0,0 C-15,-12 -32,-8 -36,6 C-24,14 -10,10 0,0 Z" fill="{{c3}}" opacity="0.55" stroke="{{c1}}" stroke-width="1.1" />
+    </g>
+
+    <!-- Pair 4 -->
+    <g transform="translate(254, 75) rotate(110)">
+      <path d="M0,0 C-15,-12 -32,-8 -36,6 C-24,14 -10,10 0,0 Z" fill="{{c1}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.1" />
+      <path d="M0,0 C-14,-1 -24,2 -36,6" stroke="{{c3}}" stroke-width="0.7" />
+    </g>
+    <g transform="translate(240, 52) rotate(-105)">
+      <path d="M0,0 C-15,-12 -32,-8 -36,6 C-24,14 -10,10 0,0 Z" fill="{{c2}}" opacity="0.75" stroke="{{c1}}" stroke-width="1.1" />
+    </g>
+
+    <!-- Pair 5 -->
+    <g transform="translate(215, 34) rotate(140)">
+      <path d="M0,0 C-14,-10 -30,-6 -34,6 C-22,12 -10,8 0,0 Z" fill="{{c2}}" opacity="0.75" stroke="{{c1}}" stroke-width="1.1" />
+    </g>
+    <g transform="translate(192, 22) rotate(-145)">
+      <path d="M0,0 C-14,-10 -30,-6 -34,6 C-22,12 -10,8 0,0 Z" fill="{{c1}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.1" />
+    </g>
+    <!-- Right tip terminal leaf -->
+    <g transform="translate(175, 18) rotate(175)">
+      <path d="M0,0 C-12,-8 -25,-4 -28,4 C-18,10 -8,6 0,0 Z" fill="{{c3}}" opacity="0.6" stroke="{{c1}}" stroke-width="1.1" />
+    </g>
+
+    <!-- Right berries -->
+    <circle cx="212" cy="188" r="3.2" fill="{{c1}}" />
+    <circle cx="218" cy="194" r="2.4" fill="{{c2}}" />
+    <circle cx="256" cy="142" r="3" fill="{{c1}}" />
+    <circle cx="250" cy="90" r="3.2" fill="{{c2}}" />
+    <circle cx="225" cy="46" r="3" fill="{{c1}}" />
+  </g>
+</svg>

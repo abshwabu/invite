@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Background tile fill (c3 soft tone) -->
+    <rect x="0" y="0" width="120" height="120" fill="{{c3}}" opacity="0.25" />
+
+    <!-- Continuous perimeter border lines to ensure clean edge framing -->
+    <rect x="0" y="0" width="120" height="120" stroke="{{c1}}" stroke-width="1.2" opacity="0.6" />
+
+    <!-- Corner 8-Point Star Quarters (at (0,0), (120,0), (0,120), (120,120)) -->
+    <!-- Top-Left Corner (0,0) -->
+    <path d="M0,26 L12,26 L18,18 L26,12 L26,0 L0,0 Z" fill="{{c1}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.4" />
+    <polygon points="0,0 20,0 14,14 0,20" fill="{{c2}}" opacity="0.75" />
+    <circle cx="0" cy="0" r="8" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" />
+
+    <!-- Top-Right Corner (120,0) -->
+    <path d="M120,26 L108,26 L102,18 L94,12 L94,0 L120,0 Z" fill="{{c1}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.4" />
+    <polygon points="120,0 100,0 106,14 120,20" fill="{{c2}}" opacity="0.75" />
+    <circle cx="120" cy="0" r="8" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" />
+
+    <!-- Bottom-Left Corner (0,120) -->
+    <path d="M0,94 L12,94 L18,102 L26,108 L26,120 L0,120 Z" fill="{{c1}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.4" />
+    <polygon points="0,120 20,120 14,106 0,100" fill="{{c2}}" opacity="0.75" />
+    <circle cx="0" cy="120" r="8" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" />
+
+    <!-- Bottom-Right Corner (120,120) -->
+    <path d="M120,94 L108,94 L102,102 L94,108 L94,120 L120,120 Z" fill="{{c1}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.4" />
+    <polygon points="120,120 100,120 106,106 120,100" fill="{{c2}}" opacity="0.75" />
+    <circle cx="120" cy="120" r="8" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" />
+
+    <!-- Edge Midpoint Hexagonal Strapwork (at (60,0), (60,120), (0,60), (120,60)) -->
+    <!-- Top Edge Midpoint (60, 0) -->
+    <polygon points="46,0 60,12 74,0" fill="{{c2}}" opacity="0.7" stroke="{{c1}}" stroke-width="1.2" />
+    <!-- Bottom Edge Midpoint (60, 120) -->
+    <polygon points="46,120 60,108 74,120" fill="{{c2}}" opacity="0.7" stroke="{{c1}}" stroke-width="1.2" />
+    <!-- Left Edge Midpoint (0, 60) -->
+    <polygon points="0,46 12,60 0,74" fill="{{c2}}" opacity="0.7" stroke="{{c1}}" stroke-width="1.2" />
+    <!-- Right Edge Midpoint (120, 60) -->
+    <polygon points="120,46 108,60 120,74" fill="{{c2}}" opacity="0.7" stroke="{{c1}}" stroke-width="1.2" />
+
+    <!-- Interlacing Girih Strapwork Lines connecting Center to Edges -->
+    <line x1="60" y1="12" x2="60" y2="35" stroke="{{c1}}" stroke-width="1.6" />
+    <line x1="60" y1="85" x2="60" y2="108" stroke="{{c1}}" stroke-width="1.6" />
+    <line x1="12" y1="60" x2="35" y2="60" stroke="{{c1}}" stroke-width="1.6" />
+    <line x1="85" y1="60" x2="108" y2="60" stroke="{{c1}}" stroke-width="1.6" />
+
+    <!-- Diagonal Strapwork Lines connecting Center to Corners -->
+    <line x1="18" y1="18" x2="42" y2="42" stroke="{{c1}}" stroke-width="1.4" />
+    <line x1="102" y1="18" x2="78" y2="42" stroke="{{c1}}" stroke-width="1.4" />
+    <line x1="18" y1="102" x2="42" y2="78" stroke="{{c1}}" stroke-width="1.4" />
+    <line x1="102" y1="102" x2="78" y2="78" stroke="{{c1}}" stroke-width="1.4" />
+
+    <!-- Center 8-Point Star (Rub el Hizb Khatam at (60, 60)) -->
+    <!-- Outer Orthogonal Square (42..78, 42..78) -->
+    <rect x="42" y="42" width="36" height="36" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.8" />
+    <!-- Rotated 45-degree Square -->
+    <g transform="translate(60, 60) rotate(45)">
+      <rect x="-18" y="-18" width="36" height="36" fill="{{c2}}" opacity="0.8" stroke="{{c1}}" stroke-width="1.8" />
+      <!-- Star Inner Facets (c3) -->
+      <polygon points="0,-18 18,0 0,18 -18,0" fill="{{c3}}" opacity="0.5" stroke="{{c1}}" stroke-width="1" />
+    </g>
+
+    <!-- Center Medallion Rosette -->
+    <circle cx="60" cy="60" r="12" fill="{{c1}}" stroke="{{c3}}" stroke-width="1.4" />
+    <circle cx="60" cy="60" r="6" fill="{{c2}}" />
+    <circle cx="60" cy="60" r="2.5" fill="{{c3}}" />
+
+    <!-- Interstitial Rhombus Diamonds (In the 4 quadrants between center and corners) -->
+    <!-- Top-Left Rhombus -->
+    <polygon points="36,24 44,36 36,48 28,36" fill="{{c3}}" opacity="0.6" stroke="{{c2}}" stroke-width="1" />
+    <!-- Top-Right Rhombus -->
+    <polygon points="84,24 92,36 84,48 76,36" fill="{{c3}}" opacity="0.6" stroke="{{c2}}" stroke-width="1" />
+    <!-- Bottom-Left Rhombus -->
+    <polygon points="36,72 44,84 36,96 28,84" fill="{{c3}}" opacity="0.6" stroke="{{c2}}" stroke-width="1" />
+    <!-- Bottom-Right Rhombus -->
+    <polygon points="84,72 92,84 84,96 76,84" fill="{{c3}}" opacity="0.6" stroke="{{c2}}" stroke-width="1" />
+  </g>
+</svg>

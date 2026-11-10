@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 260">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Center axis x=110 -->
+
+    <!-- MESOB TOP LID (Conical cover from 110, 15 to 110, 145) -->
+    <!-- Top Crown Handle / Finial Knob (110, 15 to 35) -->
+    <circle cx="110" cy="18" r="6" fill="{{c1}}" stroke="{{c1}}" stroke-width="1.6" />
+    <circle cx="110" cy="18" r="2.5" fill="{{c2}}" />
+    <path d="M106,24 L104,35 L116,35 L114,24 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.4" />
+
+    <!-- Conical Lid Silhouette (x=110, y=35 to 145, base width=150: x=35 to 185) -->
+    <path d="M104,35 L35,145 L185,145 L116,35 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="2.5" />
+    <path d="M105,38 L42,142 L178,142 L115,38 Z" fill="{{c2}}" opacity="0.4" stroke="{{c3}}" stroke-width="1" />
+
+    <!-- Woven Geometric Bands on Conical Lid -->
+    <!-- Tier 1 Band (Near top: y=50 to 65) -->
+    <path d="M96,50 L86,65 L134,65 L124,50 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.2" />
+    <line x1="91" y1="57" x2="129" y2="57" stroke="{{c3}}" stroke-width="1" stroke-dasharray="2,2" />
+
+    <!-- Tier 2 Band: Woven Chevron Diamonds (Mid lid: y=80 to 105) -->
+    <path d="M76,80 L62,105 L158,105 L144,80 Z" fill="{{c1}}" stroke="{{c1}}" stroke-width="1.4" />
+    <!-- Chevron Diamonds across Tier 2 -->
+    <polygon points="76,92 84,80 92,92 84,105" fill="{{c3}}" opacity="0.8" stroke="{{c2}}" stroke-width="0.8" />
+    <polygon points="94,92 102,80 110,92 102,105" fill="{{c2}}" opacity="0.9" stroke="{{c3}}" stroke-width="0.8" />
+    <polygon points="112,92 120,80 128,92 120,105" fill="{{c3}}" opacity="0.8" stroke="{{c2}}" stroke-width="0.8" />
+    <polygon points="130,92 138,80 146,92 138,105" fill="{{c2}}" opacity="0.9" stroke="{{c3}}" stroke-width="0.8" />
+
+    <!-- Tier 3 Band: Lower Lid Rim (y=122 to 145) -->
+    <path d="M52,122 L36,145 L184,145 L168,122 Z" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5" />
+    <!-- Triangular woven weave along lid rim -->
+    <polygon points="46,145 52,130 58,145" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.8" />
+    <polygon points="66,145 72,130 78,145" fill="{{c1}}" stroke="{{c1}}" stroke-width="0.8" />
+    <polygon points="86,145 92,130 98,145" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.8" />
+    <polygon points="106,145 112,130 118,145" fill="{{c1}}" stroke="{{c1}}" stroke-width="0.8" />
+    <polygon points="126,145 132,130 138,145" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.8" />
+    <polygon points="146,145 152,130 158,145" fill="{{c1}}" stroke="{{c1}}" stroke-width="0.8" />
+    <polygon points="166,145 172,130 178,145" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.8" />
+
+    <!-- Lid Rim Overhang Molding (y=145 to 154) -->
+    <rect x="30" y="145" width="160" height="9" rx="2" fill="{{c1}}" stroke="{{c1}}" stroke-width="2" />
+    <line x1="30" y1="149" x2="190" y2="149" stroke="{{c3}}" stroke-width="1" />
+
+    <!-- MESOB BASKET BOWL & WAIST (Hourglass shape: y=154 to 205) -->
+    <!-- Waist narrows from width 150 to width 110 at y=185, then flares to base -->
+    <path d="M35,154 C45,175 52,185 55,195 L165,195 C168,185 175,175 185,154 Z" fill="{{c2}}" opacity="0.8" stroke="{{c1}}" stroke-width="2.2" />
+
+    <!-- Woven diamonds on bowl waist -->
+    <polygon points="70,174 80,160 90,174 80,188" fill="{{c1}}" stroke="{{c3}}" stroke-width="0.9" />
+    <polygon points="100,174 110,160 120,174 110,188" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.9" />
+    <polygon points="130,174 140,160 150,174 140,188" fill="{{c1}}" stroke="{{c3}}" stroke-width="0.9" />
+
+    <!-- Mesob Side Carrying Handles (Loop handles at waist) -->
+    <path d="M35,160 C20,165 20,185 38,188" stroke="{{c1}}" stroke-width="2.5" />
+    <path d="M185,160 C200,165 200,185 182,188" stroke="{{c1}}" stroke-width="2.5" />
+
+    <!-- MESOB PEDESTAL FOOT BASE (y=195 to 248) -->
+    <!-- Flaring drum foot (width 110 at y=195 flaring to width 160 at y=240) -->
+    <path d="M55,195 L34,240 L186,240 L165,195 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="2.2" />
+    <path d="M60,198 L42,236 L178,236 L160,198 Z" fill="{{c2}}" opacity="0.4" stroke="{{c3}}" stroke-width="1" />
+
+    <!-- Stepped Woven Band on Base Foot -->
+    <rect x="30" y="240" width="160" height="10" rx="2" fill="{{c1}}" stroke="{{c1}}" stroke-width="2" />
+    <rect x="25" y="250" width="170" height="6" rx="1.5" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.6" />
+
+    <!-- Base triangular weave teeth -->
+    <polygon points="46,236 54,215 62,236" fill="{{c3}}" stroke="{{c2}}" stroke-width="0.8" />
+    <polygon points="74,236 82,215 90,236" fill="{{c2}}" stroke="{{c3}}" stroke-width="0.8" />
+    <polygon points="102,236 110,215 118,236" fill="{{c3}}" stroke="{{c2}}" stroke-width="0.8" />
+    <polygon points="130,236 138,215 146,236" fill="{{c2}}" stroke="{{c3}}" stroke-width="0.8" />
+    <polygon points="158,236 166,215 174,236" fill="{{c3}}" stroke="{{c2}}" stroke-width="0.8" />
+  </g>
+</svg>

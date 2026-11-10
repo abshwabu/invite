@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 300">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Pedestal Base and Lower Filigree Shaft (110, 230 to 295) -->
+    <path d="M96,245 L88,295 L132,295 L124,245 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="2" />
+    <path d="M100,248 L94,292 L126,292 L120,248 Z" fill="{{c2}}" opacity="0.4" stroke="{{c3}}" stroke-width="1" />
+    <!-- Gondar lower filigree wings -->
+    <path d="M88,265 C68,260 62,280 72,292 C80,296 88,292 88,292" stroke="{{c1}}" stroke-width="2" />
+    <path d="M132,265 C152,260 158,280 148,292 C140,296 132,292 132,292" stroke="{{c1}}" stroke-width="2" />
+    <!-- Pedestal collar beads -->
+    <ellipse cx="110" cy="242" rx="22" ry="6" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.8" />
+    <circle cx="110" cy="242" r="3" fill="{{c3}}" />
+
+    <!-- Gondar Lower Knots / Loop Flanges -->
+    <path d="M96,215 C80,205 78,225 90,234 C98,240 106,236 106,236" stroke="{{c2}}" stroke-width="1.5" />
+    <path d="M124,215 C140,205 142,225 130,234 C122,240 114,236 114,236" stroke="{{c2}}" stroke-width="1.5" />
+
+    <!-- Main Cross Body: Gondarine Circular Filigree & Looped Arms -->
+    <!-- Center Medallion (110, 120) -->
+    <circle cx="110" cy="120" r="30" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="2.5" />
+    <circle cx="110" cy="120" r="22" fill="{{c2}}" opacity="0.7" stroke="{{c3}}" stroke-width="1.5" />
+    <circle cx="110" cy="120" r="14" fill="{{c3}}" opacity="0.5" stroke="{{c1}}" stroke-width="1.2" />
+    <!-- Center flower/cross motif -->
+    <circle cx="110" cy="120" r="4.5" fill="{{c1}}" />
+    <circle cx="110" cy="108" r="2.5" fill="{{c2}}" />
+    <circle cx="110" cy="132" r="2.5" fill="{{c2}}" />
+    <circle cx="98" cy="120" r="2.5" fill="{{c2}}" />
+    <circle cx="122" cy="120" r="2.5" fill="{{c2}}" />
+
+    <!-- Top Arm with Gondar Bird Finial -->
+    <g>
+      <!-- Arm shaft -->
+      <path d="M100,90 L96,48 L124,48 L120,90 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="2" />
+      <path d="M102,88 L98,52 L122,52 L118,88 Z" fill="{{c2}}" opacity="0.3" stroke="{{c3}}" stroke-width="1" />
+      <!-- Gondar stylized dove / bird crown finial at top -->
+      <g transform="translate(110, 48)">
+        <!-- Bird wings spreading outward -->
+        <path d="M0,0 C-15,-8 -35,-20 -40,-4 C-35,12 -18,4 0,0" fill="{{c2}}" opacity="0.8" stroke="{{c1}}" stroke-width="1.5" />
+        <path d="M0,0 C15,-8 35,-20 40,-4 C35,12 18,4 0,0" fill="{{c2}}" opacity="0.8" stroke="{{c1}}" stroke-width="1.5" />
+        <!-- Bird head & body pointing up -->
+        <path d="M-6,0 C-8,-16 0,-28 0,-28 C0,-28 8,-16 6,0 Z" fill="{{c1}}" stroke="{{c1}}" stroke-width="1.6" />
+        <circle cx="0" cy="-22" r="2" fill="{{c3}}" />
+        <circle cx="0" cy="-34" r="3" fill="{{c2}}" stroke="{{c1}}" stroke-width="1" />
+      </g>
+    </g>
+
+    <!-- Bottom Arm -->
+    <g>
+      <path d="M100,150 L96,215 L124,215 L120,150 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="2" />
+      <path d="M102,152 L98,212 L122,212 L118,152 Z" fill="{{c2}}" opacity="0.3" stroke="{{c3}}" stroke-width="1" />
+      <circle cx="110" cy="182" r="5" fill="{{c3}}" stroke="{{c1}}" stroke-width="1.2" />
+    </g>
+
+    <!-- Left Arm with Gondar Finial -->
+    <g>
+      <!-- Arm shaft -->
+      <path d="M80,110 L38,106 L38,134 L80,130 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="2" />
+      <path d="M78,112 L42,108 L42,132 L78,128 Z" fill="{{c2}}" opacity="0.3" stroke="{{c3}}" stroke-width="1" />
+      <!-- Left side finial loops -->
+      <g transform="translate(38, 120)">
+        <path d="M0,-14 C-12,-20 -26,-15 -28,-4 C-30,8 -16,14 0,0" fill="{{c2}}" opacity="0.8" stroke="{{c1}}" stroke-width="1.5" />
+        <path d="M0,14 C-12,20 -26,15 -28,4 C-30,-8 -16,-14 0,0" fill="{{c2}}" opacity="0.8" stroke="{{c1}}" stroke-width="1.5" />
+        <circle cx="-26" cy="0" r="3.5" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" />
+      </g>
+    </g>
+
+    <!-- Right Arm with Gondar Finial -->
+    <g>
+      <!-- Arm shaft -->
+      <path d="M140,110 L182,106 L182,134 L140,130 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="2" />
+      <path d="M142,112 L178,108 L178,132 L142,128 Z" fill="{{c2}}" opacity="0.3" stroke="{{c3}}" stroke-width="1" />
+      <!-- Right side finial loops -->
+      <g transform="translate(182, 120)">
+        <path d="M0,-14 C12,-20 26,-15 28,-4 C30,8 16,14 0,0" fill="{{c2}}" opacity="0.8" stroke="{{c1}}" stroke-width="1.5" />
+        <path d="M0,14 C12,20 26,15 28,4 C30,-8 16,-14 0,0" fill="{{c2}}" opacity="0.8" stroke="{{c1}}" stroke-width="1.5" />
+        <circle cx="26" cy="0" r="3.5" fill="{{c3}}" stroke="{{c1}}" stroke-width="1" />
+      </g>
+    </g>
+
+    <!-- Openwork Interconnecting Scroll Filigree (Four quadrants) -->
+    <!-- Top-Left scroll ring -->
+    <circle cx="75" cy="75" r="16" stroke="{{c1}}" stroke-width="1.8" />
+    <circle cx="75" cy="75" r="9" fill="{{c3}}" opacity="0.5" stroke="{{c2}}" stroke-width="1" />
+    <circle cx="75" cy="75" r="3" fill="{{c1}}" />
+
+    <!-- Top-Right scroll ring -->
+    <circle cx="145" cy="75" r="16" stroke="{{c1}}" stroke-width="1.8" />
+    <circle cx="145" cy="75" r="9" fill="{{c3}}" opacity="0.5" stroke="{{c2}}" stroke-width="1" />
+    <circle cx="145" cy="75" r="3" fill="{{c1}}" />
+
+    <!-- Bottom-Left scroll ring -->
+    <circle cx="75" cy="165" r="16" stroke="{{c1}}" stroke-width="1.8" />
+    <circle cx="75" cy="165" r="9" fill="{{c3}}" opacity="0.5" stroke="{{c2}}" stroke-width="1" />
+    <circle cx="75" cy="165" r="3" fill="{{c1}}" />
+
+    <!-- Bottom-Right scroll ring -->
+    <circle cx="145" cy="165" r="16" stroke="{{c1}}" stroke-width="1.8" />
+    <circle cx="145" cy="165" r="9" fill="{{c3}}" opacity="0.5" stroke="{{c2}}" stroke-width="1" />
+    <circle cx="145" cy="165" r="3" fill="{{c1}}" />
+  </g>
+</svg>

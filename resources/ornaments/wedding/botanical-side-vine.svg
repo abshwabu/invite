@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 400">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Main undulating vine stem -->
+    <path d="M40,0 C32,45 52,90 38,140 C26,185 50,225 36,275 C24,320 46,365 38,400" stroke="{{c1}}" stroke-width="2.5" />
+    <path d="M40,20 C48,65 30,110 44,160 C56,205 32,245 46,295 C58,340 36,380 40,400" stroke="{{c2}}" stroke-width="1.2" stroke-dasharray="2,3" opacity="0.6" />
+
+    <!-- Tendril swirls -->
+    <path d="M38,70 C55,62 62,48 58,38 C54,28 42,32 46,42" stroke="{{c1}}" stroke-width="1.2" />
+    <path d="M36,200 C18,192 12,178 16,168 C20,158 32,162 28,172" stroke="{{c1}}" stroke-width="1.2" />
+    <path d="M38,330 C56,322 64,308 60,298 C56,288 44,292 48,302" stroke="{{c1}}" stroke-width="1.2" />
+
+    <!-- Leaf cluster 1 (Upper) -->
+    <g transform="translate(42, 45)">
+      <path d="M0,0 C18,-15 38,-10 42,8 C30,18 12,14 0,0 Z" fill="{{c2}}" opacity="0.65" stroke="{{c1}}" stroke-width="1.2" />
+      <path d="M0,0 C15,-3 28,0 42,8" stroke="{{c1}}" stroke-width="0.8" />
+    </g>
+    <g transform="translate(36, 65)">
+      <path d="M0,0 C-16,-12 -34,-8 -36,8 C-26,16 -10,12 0,0 Z" fill="{{c3}}" opacity="0.5" stroke="{{c1}}" stroke-width="1.2" />
+      <path d="M0,0 C-14,-2 -25,1 -36,8" stroke="{{c1}}" stroke-width="0.8" />
+    </g>
+
+    <!-- Leaf cluster 2 (Mid-upper) -->
+    <g transform="translate(44, 115)">
+      <path d="M0,0 C16,-10 32,-4 36,10 C24,18 10,12 0,0 Z" fill="{{c3}}" opacity="0.5" stroke="{{c1}}" stroke-width="1.2" />
+      <path d="M0,0 C14,-1 24,3 36,10" stroke="{{c1}}" stroke-width="0.8" />
+    </g>
+    <g transform="translate(32, 135)">
+      <path d="M0,0 C-18,-14 -36,-8 -38,10 C-26,18 -12,14 0,0 Z" fill="{{c2}}" opacity="0.7" stroke="{{c1}}" stroke-width="1.2" />
+      <path d="M0,0 C-16,-2 -28,2 -38,10" stroke="{{c1}}" stroke-width="0.8" />
+    </g>
+
+    <!-- Flower Bud 1 -->
+    <g transform="translate(50, 165)">
+      <path d="M0,0 C8,-8 18,-6 20,4 C14,12 6,10 0,0 Z" fill="{{c2}}" opacity="0.6" stroke="{{c1}}" stroke-width="1" />
+      <path d="M3,1 C8,-4 14,-2 15,4 C10,9 5,7 3,1 Z" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.8" />
+      <circle cx="9" cy="4" r="1.5" fill="{{c1}}" />
+    </g>
+
+    <!-- Leaf cluster 3 (Mid-lower) -->
+    <g transform="translate(42, 220)">
+      <path d="M0,0 C18,-12 36,-6 40,10 C28,18 12,14 0,0 Z" fill="{{c2}}" opacity="0.65" stroke="{{c1}}" stroke-width="1.2" />
+      <path d="M0,0 C15,-2 27,2 40,10" stroke="{{c1}}" stroke-width="0.8" />
+    </g>
+    <g transform="translate(30, 245)">
+      <path d="M0,0 C-16,-10 -32,-4 -34,10 C-24,16 -10,12 0,0 Z" fill="{{c3}}" opacity="0.5" stroke="{{c1}}" stroke-width="1.2" />
+      <path d="M0,0 C-14,-1 -24,3 -34,10" stroke="{{c1}}" stroke-width="0.8" />
+    </g>
+
+    <!-- Leaf cluster 4 (Lower) -->
+    <g transform="translate(40, 310)">
+      <path d="M0,0 C16,-12 34,-6 38,8 C26,16 12,12 0,0 Z" fill="{{c3}}" opacity="0.5" stroke="{{c1}}" stroke-width="1.2" />
+      <path d="M0,0 C14,-2 26,1 38,8" stroke="{{c1}}" stroke-width="0.8" />
+    </g>
+    <g transform="translate(32, 340)">
+      <path d="M0,0 C-18,-14 -36,-8 -38,10 C-26,18 -12,14 0,0 Z" fill="{{c2}}" opacity="0.7" stroke="{{c1}}" stroke-width="1.2" />
+      <path d="M0,0 C-16,-2 -28,2 -38,10" stroke="{{c1}}" stroke-width="0.8" />
+    </g>
+
+    <!-- Flower Bud 2 -->
+    <g transform="translate(20, 370)">
+      <path d="M0,0 C-8,-8 -18,-6 -20,4 C-14,12 -6,10 0,0 Z" fill="{{c2}}" opacity="0.6" stroke="{{c1}}" stroke-width="1" />
+      <path d="M-3,1 C-8,-4 -14,-2 -15,4 C-10,9 -5,7 -3,1 Z" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.8" />
+      <circle cx="-9" cy="4" r="1.5" fill="{{c1}}" />
+    </g>
+
+    <!-- Delicate berries along the stem -->
+    <circle cx="48" cy="88" r="3.2" fill="{{c2}}" stroke="{{c1}}" stroke-width="0.9" />
+    <circle cx="53" cy="94" r="2.4" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.8" />
+    <circle cx="28" cy="180" r="3" fill="{{c2}}" stroke="{{c1}}" stroke-width="0.9" />
+    <circle cx="22" cy="186" r="2.2" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.8" />
+    <circle cx="50" cy="270" r="3.2" fill="{{c2}}" stroke="{{c1}}" stroke-width="0.9" />
+    <circle cx="56" cy="276" r="2.4" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.8" />
+  </g>
+</svg>

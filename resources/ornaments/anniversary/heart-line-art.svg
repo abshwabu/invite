@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 180">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Soft shadow glow background heart (c3) -->
+    <path d="M78,42 C56,12 18,24 16,62 C14,92 52,122 84,152 C92,159 96,162 100,165 C104,162 108,159 116,152 C148,122 186,92 184,62 C182,24 144,12 122,42 C112,56 106,68 100,75 C94,68 88,56 78,42 Z" fill="{{c3}}" opacity="0.3" stroke="{{c2}}" stroke-width="1" />
+
+    <!-- Left Heart - Primary ribbon curve -->
+    <path d="M85,148 C55,122 25,95 24,66 C23,38 50,22 75,38 C88,46 96,62 100,74 C104,62 112,46 125,38 C150,22 177,38 176,66 C175,95 145,122 115,148" stroke="{{c1}}" stroke-width="2.5" />
+
+    <!-- Intertwined secondary heart offset (smaller, nested, overlapping) -->
+    <path d="M96,126 C72,104 46,82 46,58 C46,38 68,26 86,40 C95,48 98,58 100,68 C102,58 105,48 114,40 C132,26 154,38 154,58 C154,82 128,104 104,126 L100,130 Z" stroke="{{c2}}" stroke-width="1.6" opacity="0.8" />
+
+    <!-- Flowing Calligraphic Swirl Flourishes -->
+    <path d="M100,165 C96,172 82,178 70,172 C58,166 62,150 74,152 C84,154 88,168 76,175" stroke="{{c1}}" stroke-width="1.5" />
+    <path d="M100,165 C104,172 118,178 130,172 C142,166 138,150 126,152 C116,154 112,168 124,175" stroke="{{c1}}" stroke-width="1.5" />
+
+    <!-- Top Left Arching Flourish -->
+    <path d="M52,30 C38,16 22,22 24,36 C26,48 42,46 44,34 C46,24 34,18 26,24" stroke="{{c2}}" stroke-width="1.2" />
+    <!-- Top Right Arching Flourish -->
+    <path d="M148,30 C162,16 178,22 176,36 C174,48 158,46 156,34 C154,24 166,18 174,24" stroke="{{c2}}" stroke-width="1.2" />
+
+    <!-- Delicate climbing floral leaves on the left shoulder -->
+    <g transform="translate(38, 50) rotate(-30)">
+      <path d="M0,0 C10,-8 20,-4 22,4 C14,10 6,8 0,0 Z" fill="{{c2}}" opacity="0.75" stroke="{{c1}}" stroke-width="0.9" />
+    </g>
+    <g transform="translate(26, 75) rotate(20)">
+      <path d="M0,0 C10,-8 20,-4 22,4 C14,10 6,8 0,0 Z" fill="{{c3}}" opacity="0.6" stroke="{{c1}}" stroke-width="0.9" />
+    </g>
+
+    <!-- Delicate climbing floral leaves on the right shoulder -->
+    <g transform="translate(162, 50) rotate(30)">
+      <path d="M0,0 C-10,-8 -20,-4 -22,4 C-14,10 -6,8 0,0 Z" fill="{{c2}}" opacity="0.75" stroke="{{c1}}" stroke-width="0.9" />
+    </g>
+    <g transform="translate(174, 75) rotate(-20)">
+      <path d="M0,0 C-10,-8 -20,-4 -22,4 C-14,10 -6,8 0,0 Z" fill="{{c3}}" opacity="0.6" stroke="{{c1}}" stroke-width="0.9" />
+    </g>
+
+    <!-- Sparkle Stars -->
+    <path d="M100,12 L101.5,8 L103,12 L107,13.5 L103,15 L101.5,19 L100,15 L96,13.5 Z" fill="{{c1}}" />
+    <path d="M28,105 L29,101 L30,105 L34,106 L30,107 L29,111 L28,107 L24,106 Z" fill="{{c2}}" />
+    <path d="M172,105 L173,101 L174,105 L178,106 L174,107 L173,111 L172,107 L168,106 Z" fill="{{c2}}" />
+
+    <!-- Shimmering Dots -->
+    <circle cx="100" cy="95" r="2.5" fill="{{c1}}" />
+    <circle cx="92" cy="105" r="1.8" fill="{{c2}}" />
+    <circle cx="108" cy="105" r="1.8" fill="{{c2}}" />
+    <circle cx="100" cy="115" r="1.5" fill="{{c3}}" />
+    <circle cx="68" cy="22" r="1.8" fill="{{c1}}" />
+    <circle cx="132" cy="22" r="1.8" fill="{{c1}}" />
+  </g>
+</svg>

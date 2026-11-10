@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Center background soft disk (c3) -->
+    <circle cx="120" cy="120" r="72" fill="{{c3}}" opacity="0.25" />
+
+    <!-- Outermost ornate sunburst fluting/scallop rim -->
+    <circle cx="120" cy="120" r="102" stroke="{{c2}}" stroke-width="1" stroke-dasharray="3,3" opacity="0.6" />
+    <circle cx="120" cy="120" r="96" stroke="{{c1}}" stroke-width="2" />
+    <circle cx="120" cy="120" r="90" stroke="{{c2}}" stroke-width="1.2" />
+
+    <!-- Beaded border ring (24 beads around circumference r=84) -->
+    <!-- Beads drawn along circle r=84 -->
+    <g fill="{{c1}}">
+      <circle cx="204" cy="120" r="2.2" />
+      <circle cx="201.5" cy="141.7" r="2" />
+      <circle cx="194.2" cy="162" r="2" />
+      <circle cx="182.6" cy="179.4" r="2" />
+      <circle cx="167.3" cy="192.6" r="2" />
+      <circle cx="149" cy="200.7" r="2" />
+      <circle cx="120" cy="204" r="2.2" />
+      <circle cx="91" cy="200.7" r="2" />
+      <circle cx="72.7" cy="192.6" r="2" />
+      <circle cx="57.4" cy="179.4" r="2" />
+      <circle cx="45.8" cy="162" r="2" />
+      <circle cx="38.5" cy="141.7" r="2" />
+      <circle cx="36" cy="120" r="2.2" />
+      <circle cx="38.5" cy="98.3" r="2" />
+      <circle cx="45.8" cy="78" r="2" />
+      <circle cx="57.4" cy="60.6" r="2" />
+      <circle cx="72.7" cy="47.4" r="2" />
+      <circle cx="91" cy="39.3" r="2" />
+      <circle cx="120" cy="36" r="2.2" />
+      <circle cx="149" cy="39.3" r="2" />
+      <circle cx="167.3" cy="47.4" r="2" />
+      <circle cx="182.6" cy="60.6" r="2" />
+      <circle cx="194.2" cy="78" r="2" />
+      <circle cx="201.5" cy="98.3" r="2" />
+    </g>
+
+    <!-- Inner fine concentric frames -->
+    <circle cx="120" cy="120" r="78" stroke="{{c1}}" stroke-width="1.4" />
+    <circle cx="120" cy="120" r="73" stroke="{{c2}}" stroke-width="0.9" stroke-dasharray="1.5,2.5" />
+    <circle cx="120" cy="120" r="68" stroke="{{c1}}" stroke-width="1.8" />
+
+    <!-- Cardinal direction finials (Top, Bottom, Left, Right) -->
+    <!-- Top Finial -->
+    <g transform="translate(120, 20)">
+      <path d="M0,16 L0,2 M-10,12 C-10,4 0,0 0,0 C0,0 10,4 10,12" stroke="{{c1}}" stroke-width="1.5" />
+      <circle cx="0" cy="0" r="3" fill="{{c2}}" stroke="{{c1}}" stroke-width="1" />
+      <path d="M-6,14 C-14,10 -16,0 -8,4" stroke="{{c2}}" stroke-width="1" />
+      <path d="M6,14 C14,10 16,0 8,4" stroke="{{c2}}" stroke-width="1" />
+    </g>
+    <!-- Bottom Finial -->
+    <g transform="translate(120, 220) rotate(180)">
+      <path d="M0,16 L0,2 M-10,12 C-10,4 0,0 0,0 C0,0 10,4 10,12" stroke="{{c1}}" stroke-width="1.5" />
+      <circle cx="0" cy="0" r="3" fill="{{c2}}" stroke="{{c1}}" stroke-width="1" />
+      <path d="M-6,14 C-14,10 -16,0 -8,4" stroke="{{c2}}" stroke-width="1" />
+      <path d="M6,14 C14,10 16,0 8,4" stroke="{{c2}}" stroke-width="1" />
+    </g>
+    <!-- Left Finial -->
+    <g transform="translate(20, 120) rotate(-90)">
+      <path d="M0,16 L0,2 M-10,12 C-10,4 0,0 0,0 C0,0 10,4 10,12" stroke="{{c1}}" stroke-width="1.5" />
+      <circle cx="0" cy="0" r="3" fill="{{c2}}" stroke="{{c1}}" stroke-width="1" />
+      <path d="M-6,14 C-14,10 -16,0 -8,4" stroke="{{c2}}" stroke-width="1" />
+      <path d="M6,14 C14,10 16,0 8,4" stroke="{{c2}}" stroke-width="1" />
+    </g>
+    <!-- Right Finial -->
+    <g transform="translate(220, 120) rotate(90)">
+      <path d="M0,16 L0,2 M-10,12 C-10,4 0,0 0,0 C0,0 10,4 10,12" stroke="{{c1}}" stroke-width="1.5" />
+      <circle cx="0" cy="0" r="3" fill="{{c2}}" stroke="{{c1}}" stroke-width="1" />
+      <path d="M-6,14 C-14,10 -16,0 -8,4" stroke="{{c2}}" stroke-width="1" />
+      <path d="M6,14 C14,10 16,0 8,4" stroke="{{c2}}" stroke-width="1" />
+    </g>
+
+    <!-- Corner Diagonal Accents (45, 135, 225, 315 deg) -->
+    <circle cx="48" cy="48" r="2.5" fill="{{c1}}" />
+    <circle cx="192" cy="48" r="2.5" fill="{{c1}}" />
+    <circle cx="48" cy="192" r="2.5" fill="{{c1}}" />
+    <circle cx="192" cy="192" r="2.5" fill="{{c1}}" />
+  </g>
+</svg>

@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Outer Guard Bands (Top horizontal and Left vertical) -->
+    <path d="M120,3 L20,3 C11,3 3,11 3,20 L3,120" stroke="{{c1}}" stroke-width="1.8" />
+    <path d="M120,6 L22,6 C13,6 6,13 6,22 L6,120" stroke="{{c2}}" stroke-width="1" stroke-dasharray="2,2" />
+    <path d="M120,8 L24,8 C15,8 8,15 8,24 L8,120" stroke="{{c1}}" stroke-width="1" />
+
+    <!-- Inner Guard Bands -->
+    <path d="M120,32 L40,32 C36,32 32,36 32,40 L32,120" stroke="{{c1}}" stroke-width="1" />
+    <path d="M120,34 L42,34 C37,34 34,37 34,42 L34,120" stroke="{{c2}}" stroke-width="1" stroke-dasharray="2,2" />
+    <path d="M120,37 L45,37 C39,37 37,39 37,45 L37,120" stroke="{{c1}}" stroke-width="1.8" />
+
+    <!-- Corner Grand Tibeb Medallion (Center x=20, y=20) -->
+    <polygon points="20,6 34,20 20,34 6,20" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.8" />
+    <polygon points="20,9 31,20 20,31 9,20" fill="{{c2}}" opacity="0.8" stroke="{{c3}}" stroke-width="1.2" />
+    <polygon points="20,13 27,20 20,27 13,20" fill="{{c3}}" opacity="0.6" stroke="{{c1}}" stroke-width="1" />
+    <circle cx="20" cy="20" r="3" fill="{{c1}}" />
+
+    <!-- Top Arm Chevron Units (Matching tilet-band-straight) -->
+    <!-- Unit 1 (Center x=50, y=20) -->
+    <polygon points="50,8 65,20 50,32 35,20" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.4" />
+    <polygon points="50,11 61,20 50,29 39,20" fill="{{c2}}" opacity="0.75" stroke="{{c3}}" stroke-width="1" />
+    <polygon points="50,14 57,20 50,26 43,20" fill="{{c3}}" opacity="0.6" stroke="{{c1}}" stroke-width="0.8" />
+    <circle cx="50" cy="20" r="2" fill="{{c1}}" />
+
+    <!-- Unit 2 (Center x=80, y=20) -->
+    <polygon points="80,8 95,20 80,32 65,20" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.4" />
+    <polygon points="80,11 91,20 80,29 69,20" fill="{{c2}}" opacity="0.75" stroke="{{c3}}" stroke-width="1" />
+    <polygon points="80,14 87,20 80,26 73,20" fill="{{c3}}" opacity="0.6" stroke="{{c1}}" stroke-width="0.8" />
+    <circle cx="80" cy="20" r="2" fill="{{c1}}" />
+
+    <!-- Unit 3 (Center x=110, y=20) -->
+    <polygon points="110,8 125,20 110,32 95,20" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.4" />
+    <polygon points="110,11 121,20 110,29 99,20" fill="{{c2}}" opacity="0.75" stroke="{{c3}}" stroke-width="1" />
+    <circle cx="110" cy="20" r="2" fill="{{c1}}" />
+
+    <!-- Left Arm Chevron Units -->
+    <!-- Unit 1 (Center x=20, y=50) -->
+    <polygon points="20,35 32,50 20,65 8,50" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.4" />
+    <polygon points="20,39 29,50 20,61 11,50" fill="{{c2}}" opacity="0.75" stroke="{{c3}}" stroke-width="1" />
+    <polygon points="20,43 26,50 20,57 14,50" fill="{{c3}}" opacity="0.6" stroke="{{c1}}" stroke-width="0.8" />
+    <circle cx="20" cy="50" r="2" fill="{{c1}}" />
+
+    <!-- Unit 2 (Center x=20, y=80) -->
+    <polygon points="20,65 32,80 20,95 8,80" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.4" />
+    <polygon points="20,69 29,80 20,91 11,80" fill="{{c2}}" opacity="0.75" stroke="{{c3}}" stroke-width="1" />
+    <polygon points="20,73 26,80 20,87 14,80" fill="{{c3}}" opacity="0.6" stroke="{{c1}}" stroke-width="0.8" />
+    <circle cx="20" cy="80" r="2" fill="{{c1}}" />
+
+    <!-- Unit 3 (Center x=20, y=110) -->
+    <polygon points="20,95 32,110 20,125 8,110" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.4" />
+    <polygon points="20,99 29,110 20,121 11,110" fill="{{c2}}" opacity="0.75" stroke="{{c3}}" stroke-width="1" />
+    <circle cx="20" cy="110" r="2" fill="{{c1}}" />
+
+    <!-- Intermediate triangular teeth along edges -->
+    <polygon points="59,8 65,13 71,8" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.8" />
+    <polygon points="89,8 95,13 101,8" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.8" />
+    <polygon points="59,32 65,27 71,32" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.8" />
+    <polygon points="89,32 95,27 101,32" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.8" />
+
+    <polygon points="8,59 13,65 8,71" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.8" />
+    <polygon points="8,89 13,95 8,101" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.8" />
+    <polygon points="32,59 27,65 32,71" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.8" />
+    <polygon points="32,89 27,95 32,101" fill="{{c3}}" stroke="{{c1}}" stroke-width="0.8" />
+  </g>
+</svg>

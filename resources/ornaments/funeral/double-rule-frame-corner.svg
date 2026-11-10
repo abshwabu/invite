@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Outer Heavy Rule (running along top and left) -->
+    <path d="M160,18 L32,18 C24,18 18,24 18,32 L18,160" stroke="{{c1}}" stroke-width="2.5" />
+
+    <!-- Inner Fine Accent Rule -->
+    <path d="M160,26 L36,26 C30,26 26,30 26,36 L26,160" stroke="{{c2}}" stroke-width="1.2" />
+
+    <!-- Third Soft Guide Line -->
+    <path d="M160,34 L44,34 C38,34 34,38 34,44 L34,160" stroke="{{c3}}" stroke-width="0.8" stroke-dasharray="2,3" opacity="0.6" />
+
+    <!-- Corner Inset Bracket (Classical solemn mitered corner) -->
+    <path d="M48,18 L48,48 L18,48" stroke="{{c1}}" stroke-width="1.2" />
+    <path d="M54,26 L54,54 L26,54" stroke="{{c2}}" stroke-width="0.9" />
+
+    <!-- Corner Floret Medallion at (33, 33) -->
+    <rect x="27" y="27" width="12" height="12" rx="2" fill="{{c1}}" opacity="0.85" stroke="{{c1}}" stroke-width="1" />
+    <polygon points="33,28 37,33 33,38 29,33" fill="{{c3}}" />
+    <circle cx="33" cy="33" r="1.5" fill="{{c2}}" />
+
+    <!-- Top Rule Terminal Finial (at x=155) -->
+    <polygon points="155,15 158,18 155,21 152,18" fill="{{c1}}" />
+    <circle cx="140" cy="18" r="1.8" fill="{{c2}}" />
+
+    <!-- Left Rule Terminal Finial (at y=155) -->
+    <polygon points="15,155 18,158 21,155 18,152" fill="{{c1}}" />
+    <circle cx="18" cy="140" r="1.8" fill="{{c2}}" />
+
+    <!-- Subtle diagonal corner brace flourish -->
+    <path d="M18,65 C32,58 58,32 65,18" stroke="{{c2}}" stroke-width="1" opacity="0.5" />
+    <circle cx="58" cy="58" r="2.2" fill="{{c1}}" />
+    <circle cx="70" cy="70" r="1.5" fill="{{c3}}" />
+  </g>
+</svg>

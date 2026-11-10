@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 160">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Crossed stems at bottom center (130, 145) -->
+    <path d="M110,152 C125,142 145,115 175,70 C195,40 215,22 240,16" stroke="{{c1}}" stroke-width="2" />
+    <path d="M150,152 C135,142 115,115 85,70 C65,40 45,22 20,16" stroke="{{c1}}" stroke-width="2" />
+
+    <!-- Stem tie/cross knot -->
+    <ellipse cx="130" cy="138" rx="8" ry="4" fill="{{c3}}" stroke="{{c1}}" stroke-width="1.2" />
+
+    <!-- Left Branch Leaves -->
+    <!-- Leaf 1 (Near crossing) -->
+    <g transform="translate(120, 125) rotate(-140)">
+      <path d="M0,0 C12,-8 28,-4 32,6 C22,12 8,8 0,0 Z" fill="{{c2}}" opacity="0.7" stroke="{{c1}}" stroke-width="1" />
+      <path d="M0,0 C10,0 20,2 32,6" stroke="{{c1}}" stroke-width="0.6" />
+    </g>
+    <!-- Leaf 2 (Mid lower) -->
+    <g transform="translate(102, 100) rotate(-110)">
+      <path d="M0,0 C14,-10 32,-6 36,6 C24,14 10,10 0,0 Z" fill="{{c3}}" opacity="0.6" stroke="{{c1}}" stroke-width="1.1" />
+      <path d="M0,0 C12,0 24,2 36,6" stroke="{{c1}}" stroke-width="0.6" />
+    </g>
+    <g transform="translate(108, 92) rotate(45)">
+      <path d="M0,0 C12,-8 28,-4 32,6 C22,12 8,8 0,0 Z" fill="{{c2}}" opacity="0.75" stroke="{{c1}}" stroke-width="1" />
+    </g>
+    <!-- Leaf 3 (Mid) -->
+    <g transform="translate(78, 68) rotate(-75)">
+      <path d="M0,0 C15,-10 35,-6 40,6 C26,14 10,10 0,0 Z" fill="{{c1}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.1" />
+      <path d="M0,0 C14,0 26,2 40,6" stroke="{{c3}}" stroke-width="0.7" />
+    </g>
+    <g transform="translate(85, 60) rotate(70)">
+      <path d="M0,0 C14,-9 30,-5 35,6 C24,13 10,9 0,0 Z" fill="{{c2}}" opacity="0.75" stroke="{{c1}}" stroke-width="1" />
+    </g>
+    <!-- Leaf 4 (Upper) -->
+    <g transform="translate(54, 42) rotate(-45)">
+      <path d="M0,0 C14,-10 32,-6 36,6 C24,14 10,10 0,0 Z" fill="{{c3}}" opacity="0.6" stroke="{{c1}}" stroke-width="1" />
+    </g>
+    <g transform="translate(58, 35) rotate(95)">
+      <path d="M0,0 C12,-8 28,-4 32,6 C22,12 8,8 0,0 Z" fill="{{c2}}" opacity="0.7" stroke="{{c1}}" stroke-width="1" />
+    </g>
+    <!-- Leaf 5 (Tip) -->
+    <g transform="translate(26, 18) rotate(-15)">
+      <path d="M0,0 C12,-7 26,-3 30,5 C20,10 8,6 0,0 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1" />
+    </g>
+
+    <!-- Left Olives / Berries -->
+    <circle cx="114" cy="112" r="3" fill="{{c2}}" stroke="{{c1}}" stroke-width="0.9" />
+    <circle cx="88" cy="80" r="3.2" fill="{{c1}}" />
+    <circle cx="92" cy="86" r="2.4" fill="{{c3}}" />
+    <circle cx="62" cy="50" r="3" fill="{{c2}}" stroke="{{c1}}" stroke-width="0.9" />
+
+    <!-- Right Branch Leaves (Symmetrical) -->
+    <!-- Leaf 1 -->
+    <g transform="translate(140, 125) rotate(-40)">
+      <path d="M0,0 C-12,-8 -28,-4 -32,6 C-22,12 -8,8 0,0 Z" fill="{{c2}}" opacity="0.7" stroke="{{c1}}" stroke-width="1" />
+      <path d="M0,0 C-10,0 -20,2 -32,6" stroke="{{c1}}" stroke-width="0.6" />
+    </g>
+    <!-- Leaf 2 -->
+    <g transform="translate(158, 100) rotate(-70)">
+      <path d="M0,0 C-14,-10 -32,-6 -36,6 C-24,14 -10,10 0,0 Z" fill="{{c3}}" opacity="0.6" stroke="{{c1}}" stroke-width="1.1" />
+      <path d="M0,0 C-12,0 -24,2 -36,6" stroke="{{c1}}" stroke-width="0.6" />
+    </g>
+    <g transform="translate(152, 92) rotate(135)">
+      <path d="M0,0 C-12,-8 -28,-4 -32,6 C-22,12 -8,8 0,0 Z" fill="{{c2}}" opacity="0.75" stroke="{{c1}}" stroke-width="1" />
+    </g>
+    <!-- Leaf 3 -->
+    <g transform="translate(182, 68) rotate(-105)">
+      <path d="M0,0 C-15,-10 -35,-6 -40,6 C-26,14 -10,10 0,0 Z" fill="{{c1}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.1" />
+      <path d="M0,0 C-14,0 -26,2 -40,6" stroke="{{c3}}" stroke-width="0.7" />
+    </g>
+    <g transform="translate(175, 60) rotate(110)">
+      <path d="M0,0 C-14,-9 -30,-5 -35,6 C-24,13 -10,9 0,0 Z" fill="{{c2}}" opacity="0.75" stroke="{{c1}}" stroke-width="1" />
+    </g>
+    <!-- Leaf 4 -->
+    <g transform="translate(206, 42) rotate(-135)">
+      <path d="M0,0 C-14,-10 -32,-6 -36,6 C-24,14 -10,10 0,0 Z" fill="{{c3}}" opacity="0.6" stroke="{{c1}}" stroke-width="1" />
+    </g>
+    <g transform="translate(202, 35) rotate(85)">
+      <path d="M0,0 C-12,-8 -28,-4 -32,6 C-22,12 -8,8 0,0 Z" fill="{{c2}}" opacity="0.7" stroke="{{c1}}" stroke-width="1" />
+    </g>
+    <!-- Leaf 5 (Tip) -->
+    <g transform="translate(234, 18) rotate(-165)">
+      <path d="M0,0 C-12,-7 -26,-3 -30,5 C-20,10 -8,6 0,0 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1" />
+    </g>
+
+    <!-- Right Olives / Berries -->
+    <circle cx="146" cy="112" r="3" fill="{{c2}}" stroke="{{c1}}" stroke-width="0.9" />
+    <circle cx="172" cy="80" r="3.2" fill="{{c1}}" />
+    <circle cx="168" cy="86" r="2.4" fill="{{c3}}" />
+    <circle cx="198" cy="50" r="3" fill="{{c2}}" stroke="{{c1}}" stroke-width="0.9" />
+  </g>
+</svg>

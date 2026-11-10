@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 260">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Center background soft disk (130, 130) -->
+    <circle cx="130" cy="130" r="115" fill="{{c3}}" opacity="0.22" />
+
+    <!-- Outermost Beaded Medallion Ring (radius 120) -->
+    <circle cx="130" cy="130" r="122" stroke="{{c2}}" stroke-width="1" stroke-dasharray="3,3" opacity="0.6" />
+    <circle cx="130" cy="130" r="116" stroke="{{c1}}" stroke-width="2" />
+    <circle cx="130" cy="130" r="110" stroke="{{c2}}" stroke-width="1.2" />
+
+    <!-- 12 Cardinal and Intercardinal Medallion Beads around rim (r=113) -->
+    <!-- 12 angles: 0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330 deg -->
+    <g fill="{{c1}}">
+      <circle cx="243" cy="130" r="2.8" />
+      <circle cx="227.9" cy="186.5" r="2.8" />
+      <circle cx="186.5" cy="227.9" r="2.8" />
+      <circle cx="130" cy="243" r="2.8" />
+      <circle cx="73.5" cy="227.9" r="2.8" />
+      <circle cx="32.1" cy="186.5" r="2.8" />
+      <circle cx="17" cy="130" r="2.8" />
+      <circle cx="32.1" cy="73.5" r="2.8" />
+      <circle cx="73.5" cy="32.1" r="2.8" />
+      <circle cx="130" cy="17" r="2.8" />
+      <circle cx="186.5" cy="32.1" r="2.8" />
+      <circle cx="227.9" cy="73.5" r="2.8" />
+    </g>
+
+    <!-- Outer 12-Star Petals (Girih Ray Points) (r=104 to r=72) -->
+    <!-- 12 Petals drawn around (130, 130) with 30-deg rotation steps -->
+    <g transform="translate(130, 130)">
+      <!-- Petal 0 deg (top) -->
+      <path d="M0,-104 L18,-78 L0,-58 L-18,-78 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.4" />
+      <polygon points="0,-104 18,-78 0,-72" fill="{{c2}}" opacity="0.75" />
+      <polygon points="0,-104 -18,-78 0,-72" fill="{{c3}}" opacity="0.5" />
+
+      <!-- Petal 30 deg -->
+      <g transform="rotate(30)">
+        <path d="M0,-104 L18,-78 L0,-58 L-18,-78 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.4" />
+        <polygon points="0,-104 18,-78 0,-72" fill="{{c2}}" opacity="0.75" />
+        <polygon points="0,-104 -18,-78 0,-72" fill="{{c3}}" opacity="0.5" />
+      </g>
+      <!-- Petal 60 deg -->
+      <g transform="rotate(60)">
+        <path d="M0,-104 L18,-78 L0,-58 L-18,-78 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.4" />
+        <polygon points="0,-104 18,-78 0,-72" fill="{{c2}}" opacity="0.75" />
+        <polygon points="0,-104 -18,-78 0,-72" fill="{{c3}}" opacity="0.5" />
+      </g>
+      <!-- Petal 90 deg -->
+      <g transform="rotate(90)">
+        <path d="M0,-104 L18,-78 L0,-58 L-18,-78 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.4" />
+        <polygon points="0,-104 18,-78 0,-72" fill="{{c2}}" opacity="0.75" />
+        <polygon points="0,-104 -18,-78 0,-72" fill="{{c3}}" opacity="0.5" />
+      </g>
+      <!-- Petal 120 deg -->
+      <g transform="rotate(120)">
+        <path d="M0,-104 L18,-78 L0,-58 L-18,-78 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.4" />
+        <polygon points="0,-104 18,-78 0,-72" fill="{{c2}}" opacity="0.75" />
+        <polygon points="0,-104 -18,-78 0,-72" fill="{{c3}}" opacity="0.5" />
+      </g>
+      <!-- Petal 150 deg -->
+      <g transform="rotate(150)">
+        <path d="M0,-104 L18,-78 L0,-58 L-18,-78 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.4" />
+        <polygon points="0,-104 18,-78 0,-72" fill="{{c2}}" opacity="0.75" />
+        <polygon points="0,-104 -18,-78 0,-72" fill="{{c3}}" opacity="0.5" />
+      </g>
+      <!-- Petal 180 deg -->
+      <g transform="rotate(180)">
+        <path d="M0,-104 L18,-78 L0,-58 L-18,-78 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.4" />
+        <polygon points="0,-104 18,-78 0,-72" fill="{{c2}}" opacity="0.75" />
+        <polygon points="0,-104 -18,-78 0,-72" fill="{{c3}}" opacity="0.5" />
+      </g>
+      <!-- Petal 210 deg -->
+      <g transform="rotate(210)">
+        <path d="M0,-104 L18,-78 L0,-58 L-18,-78 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.4" />
+        <polygon points="0,-104 18,-78 0,-72" fill="{{c2}}" opacity="0.75" />
+        <polygon points="0,-104 -18,-78 0,-72" fill="{{c3}}" opacity="0.5" />
+      </g>
+      <!-- Petal 240 deg -->
+      <g transform="rotate(240)">
+        <path d="M0,-104 L18,-78 L0,-58 L-18,-78 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.4" />
+        <polygon points="0,-104 18,-78 0,-72" fill="{{c2}}" opacity="0.75" />
+        <polygon points="0,-104 -18,-78 0,-72" fill="{{c3}}" opacity="0.5" />
+      </g>
+      <!-- Petal 270 deg -->
+      <g transform="rotate(270)">
+        <path d="M0,-104 L18,-78 L0,-58 L-18,-78 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.4" />
+        <polygon points="0,-104 18,-78 0,-72" fill="{{c2}}" opacity="0.75" />
+        <polygon points="0,-104 -18,-78 0,-72" fill="{{c3}}" opacity="0.5" />
+      </g>
+      <!-- Petal 300 deg -->
+      <g transform="rotate(300)">
+        <path d="M0,-104 L18,-78 L0,-58 L-18,-78 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.4" />
+        <polygon points="0,-104 18,-78 0,-72" fill="{{c2}}" opacity="0.75" />
+        <polygon points="0,-104 -18,-78 0,-72" fill="{{c3}}" opacity="0.5" />
+      </g>
+      <!-- Petal 330 deg -->
+      <g transform="rotate(330)">
+        <path d="M0,-104 L18,-78 L0,-58 L-18,-78 Z" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="1.4" />
+        <polygon points="0,-104 18,-78 0,-72" fill="{{c2}}" opacity="0.75" />
+        <polygon points="0,-104 -18,-78 0,-72" fill="{{c3}}" opacity="0.5" />
+      </g>
+
+      <!-- Intermediate Concentric Girih Ring (r=58) -->
+      <circle cx="0" cy="0" r="58" stroke="{{c1}}" stroke-width="1.8" />
+      <circle cx="0" cy="0" r="52" stroke="{{c2}}" stroke-width="1" stroke-dasharray="2,3" />
+
+      <!-- Inner 12-Point Star Core (r=48 to r=24) -->
+      <path d="M0,-48 L10,-32 L24,-41.5 L24,-24 L41.5,-24 L32,-10 L48,0 L32,10 L41.5,24 L24,24 L24,41.5 L10,32 L0,48 L-10,32 L-24,41.5 L-24,24 L-41.5,24 L-32,10 L-48,0 L-32,-10 L-41.5,-24 L-24,-24 L-24,-41.5 L-10,-32 Z" fill="{{c2}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.8" />
+
+      <!-- Central Rosette Core (r=20) -->
+      <circle cx="0" cy="0" r="22" fill="{{c1}}" stroke="{{c3}}" stroke-width="1.4" />
+      <circle cx="0" cy="0" r="14" fill="{{c3}}" opacity="0.7" stroke="{{c2}}" stroke-width="1" />
+      <circle cx="0" cy="0" r="6" fill="{{c1}}" />
+    </g>
+  </g>
+</svg>

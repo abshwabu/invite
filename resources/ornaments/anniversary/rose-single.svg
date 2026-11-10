@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 300">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Stem (gently curving) -->
+    <path d="M80,95 C78,140 84,200 80,295" stroke="{{c1}}" stroke-width="3" />
+    <path d="M81,95 C79,140 85,200 81,295" stroke="{{c2}}" stroke-width="1.2" opacity="0.6" stroke-dasharray="2,3" />
+
+    <!-- Stem Thorns -->
+    <path d="M79,150 C72,154 66,160 64,166 C68,164 75,162 79,160" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+    <path d="M82,210 C89,214 95,220 97,226 C93,224 86,222 82,220" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+    <path d="M79,250 C73,254 68,260 66,265 C70,263 76,261 79,259" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+
+    <!-- Left Leaf Branch -->
+    <g transform="translate(79, 175) rotate(-35)">
+      <path d="M0,0 C-15,5 -30,5 -42,2" stroke="{{c1}}" stroke-width="1.8" />
+      <!-- Terminal Leaf -->
+      <path d="M-42,2 C-55,-12 -70,-6 -75,8 C-60,18 -45,14 -42,2 Z" fill="{{c2}}" opacity="0.75" stroke="{{c1}}" stroke-width="1.2" />
+      <path d="M-42,2 C-54,4 -66,6 -75,8" stroke="{{c1}}" stroke-width="0.8" />
+      <!-- Side Leaf 1 -->
+      <path d="M-20,3 C-26,-8 -40,-6 -44,4 C-35,12 -24,8 -20,3 Z" fill="{{c3}}" opacity="0.6" stroke="{{c1}}" stroke-width="1.1" />
+      <!-- Side Leaf 2 -->
+      <path d="M-22,3 C-26,14 -38,18 -44,10 C-36,2 -26,1 -22,3 Z" fill="{{c2}}" opacity="0.7" stroke="{{c1}}" stroke-width="1.1" />
+    </g>
+
+    <!-- Right Leaf Branch -->
+    <g transform="translate(82, 230) rotate(35)">
+      <path d="M0,0 C15,5 30,5 42,2" stroke="{{c1}}" stroke-width="1.8" />
+      <!-- Terminal Leaf -->
+      <path d="M42,2 C55,-12 70,-6 75,8 C60,18 45,14 42,2 Z" fill="{{c2}}" opacity="0.75" stroke="{{c1}}" stroke-width="1.2" />
+      <path d="M42,2 C54,4 66,6 75,8" stroke="{{c1}}" stroke-width="0.8" />
+      <!-- Side Leaf 1 -->
+      <path d="M20,3 C26,-8 40,-6 44,4 C35,12 24,8 20,3 Z" fill="{{c1}}" opacity="0.85" stroke="{{c1}}" stroke-width="1.1" />
+      <!-- Side Leaf 2 -->
+      <path d="M22,3 C26,14 38,18 44,10 C36,2 26,1 22,3 Z" fill="{{c3}}" opacity="0.6" stroke="{{c1}}" stroke-width="1.1" />
+    </g>
+
+    <!-- Calyx & Sepals (Green base below flower head) -->
+    <path d="M72,95 C68,110 52,118 44,115 C54,105 66,102 74,96" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.2" />
+    <path d="M88,95 C92,110 108,118 116,115 C106,105 94,102 86,96" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.2" />
+    <path d="M80,95 C80,112 78,122 76,126 C82,118 84,108 80,95" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+    <ellipse cx="80" cy="94" rx="14" ry="7" fill="{{c2}}" stroke="{{c1}}" stroke-width="1.5" />
+
+    <!-- Blooming Rose Blossom Head (at center x=80, y=55) -->
+    <!-- Outermost Guard Petals (c3 shadow tone) -->
+    <path d="M46,72 C32,56 40,32 58,22 C70,16 90,16 102,22 C120,32 128,56 114,72 C102,86 58,86 46,72 Z" fill="{{c3}}" opacity="0.45" stroke="{{c1}}" stroke-width="1.4" />
+
+    <!-- Outer Petal Layer (c2 accent tone) -->
+    <path d="M52,65 C42,46 52,28 72,25 C78,24 88,25 96,28 C112,36 118,52 108,68 C96,80 62,80 52,65 Z" fill="{{c2}}" opacity="0.7" stroke="{{c1}}" stroke-width="1.3" />
+    <path d="M45,45 C48,28 68,18 84,20 C100,22 114,35 110,50 C106,66 90,75 75,74 C58,72 42,62 45,45 Z" fill="{{c1}}" opacity="0.25" />
+
+    <!-- Mid Cupped Petals -->
+    <path d="M56,58 C52,42 62,32 76,32 C92,32 104,42 102,56 C100,68 88,72 76,70 C66,68 58,66 56,58 Z" fill="{{c2}}" opacity="0.8" stroke="{{c1}}" stroke-width="1.3" />
+    <path d="M62,48 C60,38 70,30 80,30 C90,30 98,36 96,46 C94,56 86,60 78,58 C70,56 64,54 62,48 Z" fill="{{c3}}" opacity="0.5" stroke="{{c1}}" stroke-width="1.2" />
+
+    <!-- Rose Center Heart Spiral (Tight velvety core) -->
+    <path d="M70,44 C68,36 76,32 82,34 C88,36 90,42 86,46 C82,50 74,48 72,42 C70,38 74,34 78,35 C82,36 84,40 82,42" stroke="{{c1}}" stroke-width="2" />
+    <circle cx="80" cy="40" r="2.5" fill="{{c1}}" />
+
+    <!-- Delicate Petal Rim Highlights -->
+    <path d="M58,26 C68,22 88,22 98,28" stroke="{{c1}}" stroke-width="1.2" />
+    <path d="M44,52 C46,65 56,76 70,80" stroke="{{c1}}" stroke-width="1.1" />
+    <path d="M116,52 C114,65 104,76 90,80" stroke="{{c1}}" stroke-width="1.1" />
+  </g>
+</svg>

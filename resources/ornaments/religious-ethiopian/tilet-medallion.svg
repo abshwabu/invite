@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Radiant Soft Aura Diamond behind medallion (Center 120, 120) -->
+    <polygon points="120,8 232,120 120,232 8,120" fill="{{c3}}" opacity="0.25" stroke="{{c2}}" stroke-width="1" stroke-dasharray="3,3" />
+
+    <!-- Outermost Stepped Sawtooth Teeth Rim (Radiating diamond teeth) -->
+    <!-- 4 Cardinal Finial Points -->
+    <polygon points="120,4 126,16 114,16" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+    <circle cx="120" cy="2" r="2.5" fill="{{c2}}" />
+    <polygon points="236,120 224,126 224,114" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+    <circle cx="238" cy="120" r="2.5" fill="{{c2}}" />
+    <polygon points="120,236 126,224 114,224" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+    <circle cx="120" cy="238" r="2.5" fill="{{c2}}" />
+    <polygon points="4,120 16,126 16,114" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+    <circle cx="2" cy="120" r="2.5" fill="{{c2}}" />
+
+    <!-- Tier 1 Grand Diamond (Outer border: 120, 20 to 220) -->
+    <polygon points="120,18 222,120 120,222 18,120" fill="{{c1}}" opacity="0.9" stroke="{{c1}}" stroke-width="2.5" />
+    <polygon points="120,26 214,120 120,214 26,120" fill="{{c2}}" opacity="0.8" stroke="{{c3}}" stroke-width="1.5" />
+
+    <!-- Sawtooth Teeth Inlay inside outer ring -->
+    <!-- Top-Right Edge Teeth -->
+    <polygon points="140,40 148,40 148,48" fill="{{c3}}" />
+    <polygon points="160,60 168,60 168,68" fill="{{c3}}" />
+    <polygon points="180,80 188,80 188,88" fill="{{c3}}" />
+    <polygon points="200,100 208,100 208,108" fill="{{c3}}" />
+    <!-- Bottom-Right Edge Teeth -->
+    <polygon points="200,140 208,140 200,148" fill="{{c3}}" />
+    <polygon points="180,160 188,160 180,168" fill="{{c3}}" />
+    <polygon points="160,180 168,180 160,188" fill="{{c3}}" />
+    <polygon points="140,200 148,200 140,208" fill="{{c3}}" />
+    <!-- Bottom-Left Edge Teeth -->
+    <polygon points="100,200 92,200 100,208" fill="{{c3}}" />
+    <polygon points="80,180 72,180 80,188" fill="{{c3}}" />
+    <polygon points="60,160 52,160 60,168" fill="{{c3}}" />
+    <polygon points="40,140 32,140 40,148" fill="{{c3}}" />
+    <!-- Top-Left Edge Teeth -->
+    <polygon points="40,100 32,100 32,108" fill="{{c3}}" />
+    <polygon points="60,80 52,80 52,88" fill="{{c3}}" />
+    <polygon points="80,60 72,60 72,68" fill="{{c3}}" />
+    <polygon points="100,40 92,40 92,48" fill="{{c3}}" />
+
+    <!-- Tier 2 Concentric Embroidered Diamond (120, 50 to 190) -->
+    <polygon points="120,52 188,120 120,188 52,120" fill="{{c1}}" opacity="0.95" stroke="{{c1}}" stroke-width="2" />
+    <polygon points="120,60 180,120 120,180 60,120" fill="{{c3}}" opacity="0.75" stroke="{{c2}}" stroke-width="1.2" />
+    <polygon points="120,68 172,120 120,172 68,120" fill="{{c2}}" opacity="0.8" stroke="{{c1}}" stroke-width="1.2" />
+
+    <!-- Tier 3 Central Diamond Knot with Ethiopian Cross (120, 85 to 155) -->
+    <polygon points="120,84 156,120 120,156 84,120" fill="{{c1}}" stroke="{{c3}}" stroke-width="1.5" />
+
+    <!-- Cross Motif Inside Center Diamond -->
+    <!-- Vertical bar -->
+    <rect x="114" y="94" width="12" height="52" rx="2" fill="{{c3}}" stroke="{{c2}}" stroke-width="1" />
+    <!-- Horizontal bar -->
+    <rect x="94" y="114" width="52" height="12" rx="2" fill="{{c3}}" stroke="{{c2}}" stroke-width="1" />
+
+    <!-- Center Cross Heart Jewel -->
+    <polygon points="120,110 130,120 120,130 110,120" fill="{{c1}}" stroke="{{c1}}" stroke-width="1" />
+    <circle cx="120" cy="120" r="3.5" fill="{{c2}}" />
+    <circle cx="120" cy="120" r="1.5" fill="{{c3}}" />
+
+    <!-- 4 Cardinal Eyelet Beads inside Tier 2 -->
+    <circle cx="120" cy="76" r="3" fill="{{c1}}" />
+    <circle cx="164" cy="120" r="3" fill="{{c1}}" />
+    <circle cx="120" cy="164" r="3" fill="{{c1}}" />
+    <circle cx="76" cy="120" r="3" fill="{{c1}}" />
+  </g>
+</svg>
